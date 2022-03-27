@@ -1,0 +1,26 @@
+import React from 'react'
+import { BoxPropsI } from '../../../interfaces/common/box/box.interface'
+
+const Box = ({ children, title, rightSection }: BoxPropsI) => {
+    return (
+        <>
+            <div className="col-md-12">
+                <div className="card mb-4">
+                    <div className="card-header pb-0 d-flex justify-content-between">
+                        <h6>{title}</h6>
+                        <div>
+                            {rightSection}
+                        </div>
+                    </div>
+                    <div className="card-body px-0 pt-0 pb-2">
+                        <div className="table-responsive p-0">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default Box

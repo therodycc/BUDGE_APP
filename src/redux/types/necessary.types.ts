@@ -1,0 +1,4 @@
+export const necessaryTypes = {
+    GET_ALL_NECESSARY: "GET_ALL_NECESSARY",
+    REMOVE_ITEM_NECESSARY: "REMOVE_ITEM_NECESSARY"
+}

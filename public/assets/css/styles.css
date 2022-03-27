@@ -1,0 +1,21 @@
+.sign-in-bg {
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #18284874, #18284874), url('../images/bg-signin.svg');
+    background: linear-gradient(to right, #18284888, #18284874), url('../images/bg-signin.svg');
+    background-size: contain;
+
+}
+
+.back-modal{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.199);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}

@@ -1,0 +1,4 @@
+export const profitsTypes = {
+    GET_ALL_PROFITS: "GET_ALL_PROFITS",
+    DISABLE_ITEM_PROFITS: "DISABLE_ITEM_PROFITS"
+}
