@@ -5,10 +5,10 @@ import { FormBudgetI } from '../../../interfaces/app/form-budget/form-budget.int
 import { OptionsDropdownI } from '../../../interfaces/common/dropdown/dropdown.interface'
 import { UtilityI } from '../../../interfaces/utility/utility.interface'
 import httpProvider from '../../../providers'
-import Button from '../../common/button/Index'
-import Dropdown from '../../common/dropdown/Index'
-import InputText from '../../common/input-text/Index'
-import Modal from '../../common/modal/Index'
+import Button from '../../common/button'
+import Dropdown from '../../common/dropdown'
+import InputText from '../../common/input-text'
+import Modal from '../../common/modal'
 
 const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
 
@@ -136,11 +136,6 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
             <Modal
 
                 setToggle={setToggle}
-                head={
-                    <>
-
-                    </>
-                }
                 footer={
                     <>
 

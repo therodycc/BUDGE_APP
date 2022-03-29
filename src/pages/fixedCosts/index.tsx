@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Box from "../../components/common/box/Index";
-import Button from "../../components/common/button/Index";
+import Box from "../../components/common/box";
+import Button from "../../components/common/button";
 import CardMini from "../../components/common/card/CardMini";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
+import ModalFixedCosts from "../../components/pages/fixed-costs/modals";
 import FormBudget from "../../components/pages/form-budget/Index";
 import { currencyFormat } from "../../helpers/currency.helper";
 import sweetAlert from "../../helpers/sweetAlert.helper";
@@ -17,11 +18,13 @@ const FixedCosts = () => {
     const [total, setTotal] = useState(0);
     const [totalActive, setTotalActive] = useState(0);
     const [totalDisabled, setTotalDisabled] = useState(0);
-    const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
 
+    // shows
+    const [showModal, setShowModal] = useState(false);
+    const [showModalHome, setShowModalHome] = useState(false);
     // loadings
     const [showLoadingAddToMoth, setShowLoadingAddToMoth] = useState(false);
 
@@ -39,7 +42,7 @@ const FixedCosts = () => {
                             />
                         </div>
                         <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">{item.necessary}</h6>
+                            <h6 className="mb-0 text-sm">{item.name}</h6>
                             <p className="text-sm font-weight-normal text-secondary mb-0">
                                 {item.category}
                             </p>
@@ -191,8 +194,8 @@ const FixedCosts = () => {
 
     const addToThisMonth = (item: UtilityI) => {
         fixedCostsProvider
-            .update(item.id, {
-                status: "In progress",
+            .update(item?.uuid, {
+                status: "IN_PROGRESS",
             })
             .then((data) => {
                 console.log({ data });
@@ -262,7 +265,18 @@ const FixedCosts = () => {
                     </div>
                     <Box
                         title="Fixed costs"
-                        rightSection={<>
+                        rightSection={<div className="d-flex align-center-center">
+                            <Button
+                                action={() => {
+                                    setShowModalHome(true)
+                                }}
+                                bgClass={"primary"}
+                                type={"button"}
+                                loading={false}
+                                size="sm"
+                            >
+                                Add new
+                            </Button>
                             <Button
                                 action={addAllActiveToMonth}
                                 bgClass={"danger"}
@@ -272,12 +286,20 @@ const FixedCosts = () => {
                             >
                                 Add to month
                             </Button>
-                        </>}
+                        </div>}
                     >
                         <Table headItems={headItems} bodyItems={fixedCosts} />
                     </Box>
                 </div>
             </Layout>
+
+
+            {/* modals */}
+            {showModalHome &&
+                <ModalFixedCosts active={showModalHome} toggle={() => {
+                    setShowModalHome(false)
+                }} />
+            }
 
         </>
     );

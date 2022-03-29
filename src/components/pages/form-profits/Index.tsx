@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import sweetAlert from '../../../helpers/sweetAlert.helper';
 import { FormProfitsI } from '../../../interfaces/app/form-profits/form-profits.interface';
 import httpProvider from '../../../providers';
-import Button from '../../common/button/Index';
-import Dropdown from '../../common/dropdown/Index';
-import InputText from '../../common/input-text/Index';
-import Modal from '../../common/modal/Index';
+import Button from '../../common/button';
+import Dropdown from '../../common/dropdown';
+import InputText from '../../common/input-text';
+import Modal from '../../common/modal';
 import { v4 as uuidv4 } from 'uuid';
 import config from '../../../config';
 
@@ -67,11 +67,6 @@ const FormProfits = ({ setToggle, refreshData, dataToEdit }: FormProfitsI) => {
         <Modal
 
             setToggle={setToggle}
-            head={
-                <>
-
-                </>
-            }
             footer={
                 <>
 

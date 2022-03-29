@@ -1,4 +1,5 @@
 import config from "../../config"
+import { FixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface"
 import Provider from "../provider"
 
 class FixedCostsProvider extends Provider {
@@ -9,8 +10,12 @@ class FixedCostsProvider extends Provider {
         return await this.get('/')
     }
 
-    async update(id: string, data: any) {
+    async update(id: string, data: FixedCostsI | any) {
         return await this.patch(`/${id}`, data)
+    }
+
+    async create(data: FixedCostsI) {
+        return await this.post('/', data)
     }
 
     async remove(id: string) {

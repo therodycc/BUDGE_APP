@@ -1,20 +1,38 @@
-import React from 'react'
-import { ModalI } from '../../../interfaces/common/modal/modal.interface'
+import React, { useState } from "react";
+import { ModalI } from "../../../interfaces/common/modal/modal.interface";
 
-const Modal = ({ head, children, footer, setToggle }: ModalI) => {
+const Modal = ({ title, children, footer, setToggle, active }: ModalI) => {
+    const [animation, setAnimation] = useState<boolean>(false);
+    const closeModal = () => {
+        setAnimation(true);
+        setTimeout(() => {
+            setToggle();
+        }, 700);
+    };
     return (
         <>
-            <div className='back-modal'>
-
-                <div className="show fade">
-                    <div className="modal-content">
-                        <div className="modal-header py-0 mt-3">
-                            {head}
-                            <button className='btn btn-danger btn-sm ' onClick={() => setToggle()}>X</button>
+            <div className="modal-base ">
+                <div className="back-modal" onClick={closeModal} />
+                <div className="show fade mx-3 position-fixed">
+                    <div
+                        className={`bg-white rounded shadow-lg modal-layout animate__animated  ${!animation ? "animate__bounceInUp" : "animate__bounceOutDown"
+                            }`}
+                    >
+                        <div className="p-3 pb-0 d-flex justify-content-between align-items-center">
+                            <span className="fw-bolder rounded-pill bg-light py-1 px-5">
+                                {title}
+                            </span>
+                            <div>
+                                <button
+                                    className="btn btn-danger btn-sm m-auto"
+                                    onClick={closeModal}
+                                >
+                                    X
+                                </button>
+                            </div>
                         </div>
-                        <div className="modal-body">
-                            {children}
-                        </div>
+                        <hr />
+                        <div className="px-4">{children}</div>
                         {/* <div className="modal-footer">
                             {footer}
                         </div> */}
@@ -22,7 +40,7 @@ const Modal = ({ head, children, footer, setToggle }: ModalI) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Modal
+export default Modal;

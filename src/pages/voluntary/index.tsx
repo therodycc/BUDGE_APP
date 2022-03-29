@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Box from '../../components/common/box/Index'
+import Box from '../../components/common/box'
 import CardMini from '../../components/common/card/CardMini'
 import Table from '../../components/common/table/Index'
 import Layout from '../../components/layout'

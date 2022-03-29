@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import Button from "../../components/common/button/Index";
-import Dropdown from "../../components/common/dropdown/Index";
-import InputText from "../../components/common/input-text/Index";
+import Button from "../../components/common/button";
+import Dropdown from "../../components/common/dropdown";
+import InputText from "../../components/common/input-text";
 import Layout from "../../components/layout";
 import config from "../../config";
 import sweetAlert from "../../helpers/sweetAlert.helper";

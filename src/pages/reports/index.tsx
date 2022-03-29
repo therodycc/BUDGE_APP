@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Box from "../../components/common/box/Index";
+import Box from "../../components/common/box";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
 import { currencyFormat } from "../../helpers/currency.helper";

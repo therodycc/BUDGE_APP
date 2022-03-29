@@ -2,6 +2,7 @@ import { CategoryType, StatusType, UrgencyType } from "./utilily.type";
 
 export interface UtilityI {
     id:string
+    uuid:string
     necessary: string,
     expense: number,
     paidOut: number,

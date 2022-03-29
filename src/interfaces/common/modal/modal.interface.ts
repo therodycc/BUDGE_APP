@@ -1,8 +1,9 @@
 import { ReactNode } from "react"
 
 export interface ModalI{
-    head:ReactNode
+    active?:boolean
+    title?:ReactNode
     children:ReactNode
-    footer:ReactNode
+    footer?:ReactNode
     setToggle:Function
 }

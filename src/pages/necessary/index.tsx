@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Box from '../../components/common/box/Index'
+import Box from '../../components/common/box'
 import CardMini from '../../components/common/card/CardMini'
 import Table from '../../components/common/table/Index'
 import Layout from '../../components/layout'
@@ -29,7 +29,7 @@ const Necessary = () => {
                             <img src={item.img || "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg "} className="avatar me-3" alt="image" />
                         </div>
                         <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">{item.necessary}</h6>
+                            <h6 className="mb-0 text-sm">{item.name}</h6>
                             <p className="text-sm font-weight-normal text-secondary mb-0">
                                 <span className={`text-${item.expense - item.paidOut === 0 ? 'success' : 'danger'} font-weight-bold mx-1`}>
                                     {currencyFormat(item.expense - item.paidOut)}
