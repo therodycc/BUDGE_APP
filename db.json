@@ -28,9 +28,9 @@
       "necessary": "Diezmo ",
       "expense": 1600,
       "urgency": "immediate",
-      "paidOut": 1100,
+      "paidOut": 1600,
       "category": "fixedCosts",
-      "status": "In progress",
+      "status": "Completed",
       "id": "02e5b39b-ba81-4733-999b-73227f8c569a",
       "img": null,
       "active": true
@@ -39,9 +39,9 @@
       "necessary": "barbería  ",
       "expense": 500,
       "urgency": "early",
-      "paidOut": 250,
+      "paidOut": "500",
       "category": "fixedCosts",
-      "status": "In progress",
+      "status": "Completed",
       "id": "892e896c-6a90-4f3e-b917-1baa1b931360",
       "img": null,
       "active": true
@@ -58,21 +58,10 @@
       "active": true
     },
     {
-      "necessary": "Salón mother | Rosy",
-      "expense": 1000,
-      "urgency": "early",
-      "paidOut": 0,
-      "category": "fixedCosts",
-      "status": "In progress",
-      "id": "1fe6dc62-4e19-4d23-a3c7-b3b22ea08851",
-      "img": null,
-      "active": true
-    },
-    {
       "necessary": "GYM",
       "expense": 800,
       "urgency": "early",
-      "paidOut": 400,
+      "paidOut": 440,
       "category": "personal",
       "status": "Pending",
       "id": "e0f1a500-faf2-4c7e-b3be-599ab918507a",
@@ -141,10 +130,10 @@
     },
     {
       "necessary": "diligencias",
-      "expense": 1000,
+      "expense": 1200,
       "missingToComplete": 0,
       "urgency": "whenever",
-      "paidOut": "1000",
+      "paidOut": 1200,
       "category": "necessary",
       "status": "Completed",
       "id": "943134c6-fc07-4b1f-bf2f-b99b670f4a6d",
@@ -1008,13 +997,25 @@
     },
     {
       "necessary": "diligencias",
-      "expense": 1000,
+      "expense": 1200,
       "missingToComplete": 0,
       "urgency": "whenever",
-      "paidOut": 1000,
+      "paidOut": 1200,
+      "category": "necessary",
+      "status": "Completed",
+      "id": "943134c6-fc07-4b1f-bf2f-b99b670f4a6d",
+      "description": "",
+      "links": []
+    },
+    {
+      "necessary": "Brackets",
+      "expense": 12000,
+      "missingToComplete": 0,
+      "urgency": "whenever",
+      "paidOut": 4000,
       "category": "necessary",
       "status": "In progress",
-      "id": "943134c6-fc07-4b1f-bf2f-b99b670f4a6d",
+      "id": "3bedc971-e895-4d78-a4ee-4ece58f6279c",
       "description": "",
       "links": []
     }
