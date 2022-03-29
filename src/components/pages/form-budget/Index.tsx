@@ -107,7 +107,6 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                 expense: +form.expense
             })
                 .then(res => {
-                    console.log('Me enviaste', res);
                     setToggle()
                     sweetAlert.alert('Done!', `Moved to ${urlTo}!`, 'success')
                     httpProvider.delete(`${config.app.url}/${data.category}`, data.id)

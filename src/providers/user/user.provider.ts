@@ -1,10 +1,11 @@
 import config from "../../config"
-import BaseProvider from "../base.provider"
+import Provider from "../provider"
 
-class UserProvider extends BaseProvider {
+class UserProvider extends Provider {
     constructor() {
-        super(`user`)
+        super({ baseURL: `${config.app.url}/user`})
     }
+
     async getAll() {
         return await this.get('/')
     }
