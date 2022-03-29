@@ -1,9 +1,9 @@
 import config from "../../config";
 import Provider from "../provider";
 
-class ManageProvider extends Provider {
+class ReportsProvider extends Provider {
     constructor() {
-        super({ baseURL: `${config.app.url}/ReportsWaitings` })
+        super({ baseURL: `${config.app.url}/reports` })
     }
 
     async exportPDF(data: any) {
@@ -11,4 +11,4 @@ class ManageProvider extends Provider {
     }
 }
 
-export default new ManageProvider()
+export default new ReportsProvider()

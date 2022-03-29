@@ -3,7 +3,7 @@ import Provider from "../provider"
 
 class DebtProvider extends Provider {
     constructor() {
-        super({ baseURL: `${config.app.url}/debt` })
+        super({ baseURL: `${config.app.url}/debts` })
     }
     async getAll() {
         return await this.get('')

@@ -38,6 +38,7 @@ const Wishes = () => {
             .then(res => {
                 if (res?.error) return sweetAlert.alert('Error', res.error, 'error')
                 console.log({ res });
+                
                 setWishes(res?.data)
             })
             .catch(error => error)
@@ -123,30 +124,30 @@ const Wishes = () => {
                                 key={item.necessary + i}
                             >
                                 <CardImg
-                                    title={item.necessary}
+                                    title={item.name}
                                     description={item.expense}
-                                    image={item.img}
-                                    completed={item.status === 'Completed' ? true : false}
+                                    image={item.image}
+                                    completed={item.status === 'COMPLETED' ? true : false}
                                 >
                                     <div className='mx-4'>
                                         <div className='row'>
                                             <div className="btn-group col-md-4">
                                                 <span
-                                                    className={` text-${item.status === "Pending" ? "danger" : "light"
+                                                    className={` text-${item.status === "PENDING" ? "danger" : "light"
                                                         } display-8`}
                                                 >
                                                     {" "}
                                                     <i className="fas fa-circle"></i>
                                                 </span>
                                                 <span
-                                                    className={` text-${item.status === "In progress" ? "warning" : "light"
+                                                    className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
                                                         } display-8 mx-2`}
                                                 >
                                                     {" "}
                                                     <i className="fas fa-circle"></i>
                                                 </span>
                                                 <span
-                                                    className={` text-${item.status === "Completed" ? "success" : "light"} display-8 `}
+                                                    className={` text-${item.status === "COMPLETED" ? "success" : "light"} display-8 `}
                                                 >
                                                     <i className="fas fa-circle"></i>
                                                 </span>

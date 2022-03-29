@@ -11,7 +11,7 @@ class Provider {
     protected async get(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
         try {
             const res = await this.axios.get(endpoint, config);
-            return { data: res.data };
+            return res.data;
         } catch (error) {
             return { error };
         }
@@ -20,7 +20,7 @@ class Provider {
     protected async post(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
         try {
             const res = await this.axios.post(endpoint, data, config);
-            return { data: res.data };
+            return res.data;
         } catch (error) {
             return { error };
         }
@@ -29,7 +29,7 @@ class Provider {
     protected async update(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
         try {
             const res = await this.axios.patch(endpoint, data, config);
-            return { data: res.data };
+            return res.data;
         } catch (error) {
             return { error };
         }
@@ -38,7 +38,7 @@ class Provider {
     protected async delete(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
         try {
             const res = await this.axios.delete(endpoint, config);
-            return { data: res.data };
+            return res.data;
         } catch (error) {
             return { error };
         }
@@ -46,7 +46,7 @@ class Provider {
     protected async patch(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
         try {
             const res = await this.axios.patch(endpoint, data, config);
-            return { data: res.data };
+            return res.data;
         } catch (error) {
             return { error };
         }

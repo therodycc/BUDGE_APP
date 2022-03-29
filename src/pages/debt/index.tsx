@@ -36,13 +36,13 @@ const Debt = () => {
                             />
                         </div>
                         <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">{item.necessary}</h6>
+                            <h6 className="mb-0 text-sm">{item.name}</h6>
                             <p className="text-sm font-weight-normal text-secondary mb-0">
                                 <span
-                                    className={`text-${item.expense - item.paidOut === 0 ? "success" : "danger"
+                                    className={`text-${item.amount - item.paidOut === 0 ? "success" : "danger"
                                         } font-weight-bold mx-1`}
                                 >
-                                    {currencyFormat(item.expense - item.paidOut)}
+                                    {currencyFormat(item.amount - item.paidOut)}
                                 </span>
                                 {item.category}
                             </p>
@@ -56,7 +56,7 @@ const Debt = () => {
             render: ({ item }: any) => {
                 return (
                     <>
-                        <span>{currencyFormat(item.expense)}</span>
+                        <span>{currencyFormat(item.amount)}</span>
                     </>
                 );
             },

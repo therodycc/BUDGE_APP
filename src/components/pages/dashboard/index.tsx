@@ -47,12 +47,12 @@ const Dashboard = () => {
         debtProvider.getAll()
             .then(({data}) => {
                 const totalMissing = data?.reduce((acc: number, item: any) => {
-                    if (item.status === 'Pending') acc += item.expense
-                    if (item.status === 'In progress') acc += (item.expense - item.paidOut)
+                    if (item.status === 'PENDING') acc += item.amount
+                    if (item.status === 'IN_PROGRESS') acc += (item.amount - item.paidOut)
                     return acc
                 }, 0);
                 const total = data.reduce((acc: number, item: any) => {
-                    acc += item.expense
+                    acc += item.amount
                     return acc
                 }, 0);
                 setDebt({

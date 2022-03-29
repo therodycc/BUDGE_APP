@@ -10,7 +10,7 @@ import FormBudget from '../../components/pages/form-budget/Index'
 import { currencyFormat } from '../../helpers/currency.helper'
 import sweetAlert from '../../helpers/sweetAlert.helper'
 import { UtilityI } from '../../interfaces/utility/utility.interface'
-import manageProvider from '../../providers/manage/manage.provider'
+import manageProvider from '../../providers/reports/reports.provider'
 import profitsProvider from '../../providers/profits/profits.provider'
 import utilitiesProvider from '../../providers/utilities/utilities.provider'
 import { getProfitsAction } from '../../redux/actions/profits.action'
@@ -143,7 +143,7 @@ const Manage = () => {
                             <img src={item?.img || "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg"} className="avatar me-3" alt="image" />
                         </div>
                         <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">{item?.necessary}</h6>
+                            <h6 className="mb-0 text-sm">{item?.name}</h6>
                             <p className="text-sm font-weight-normal text-secondary mb-0">
                                 <span className={`text-${item?.expense - item?.paidOut === 0 ? 'success' : 'danger'} font-weight-bold mx-1`}>
                                     {currencyFormat(item?.expense - item?.paidOut)}
