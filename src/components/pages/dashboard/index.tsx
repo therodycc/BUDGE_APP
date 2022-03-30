@@ -31,7 +31,7 @@ const Dashboard = () => {
         total: 0,
         totalMissing: 0
     })
-    
+
     useEffect(() => {
 
     }, [])
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     const getDebt = () => {
         debtProvider.getAll()
-            .then(({data}) => {
+            .then(({ data }) => {
                 const totalMissing = data?.reduce((acc: number, item: any) => {
                     if (item.status === 'PENDING') acc += item.amount
                     if (item.status === 'IN_PROGRESS') acc += (item.amount - item.paidOut)
@@ -65,7 +65,7 @@ const Dashboard = () => {
 
     const getFixedCosts = () => {
         fixedCostsProvider.getAll()
-            .then(({data}) => {
+            .then(({ data }) => {
                 const active = data.reduce((acc: number, item: any) => {
                     if (item.active) acc += item.expense
                     return acc
@@ -85,7 +85,7 @@ const Dashboard = () => {
 
     const getWishes = () => {
         wishesProvider.getAll()
-            .then(({data}) => {
+            .then(({ data }) => {
                 const total = data.reduce((acc: number, item: any) => {
                     acc += item.expense
                     return acc
@@ -103,7 +103,7 @@ const Dashboard = () => {
     }
     const getVoluntary = () => {
         voluntaryProvider.getAll()
-            .then(({data}) => {
+            .then(({ data }) => {
                 const totalMissing = data.reduce((acc: number, item: any) => {
                     if (item.status === 'Pending') acc += item.expense
                     if (item.status === 'In progress') acc += (item.expense - item.paidOut)
@@ -122,7 +122,7 @@ const Dashboard = () => {
     }
     const getNecessary = () => {
         necessaryProvider.getAll()
-            .then(({data}) => {
+            .then(({ data }) => {
                 const totalMissing = data.reduce((acc: number, item: any) => {
                     if (item.status === 'Pending') acc += item.expense
                     if (item.status === 'In progress') acc += (item.expense - item.paidOut)

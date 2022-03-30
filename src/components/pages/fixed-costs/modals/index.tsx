@@ -2,6 +2,8 @@ import React, { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FixedCostsI } from "../../../../interfaces/fixed-costs/fixed-costs.interface";
 import { addFixedCostAction } from "../../../../redux/actions/fixed-costs.action";
+import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
+import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import Button from "../../../common/button";
 import Dropdown from "../../../common/dropdown";
 import InputText from "../../../common/input-text";
@@ -13,12 +15,8 @@ interface ModalFixedCostsPropsI {
 }
 
 const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
-    const elements = [
-        {
-            title: "",
-            col: "",
-        },
-    ];
+    
+    const dispatch = useDispatch()
 
     const [form, setForm] = useState<FixedCostsI>({
         name: "TEST ",
@@ -26,12 +24,19 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
         expense: 0,
     });
 
-
-    const dispatch = useDispatch()
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value,
+        });
+    }
 
     const handleSubmit = (e: FormEvent) => {
-        dispatch(addFixedCostAction(form))
-        toggle()
+        e.preventDefault()
+        // dispatch(addFixedCostAction(form))
+        console.log(form);
+        // toggle()
     }
     return (
         <>
@@ -45,13 +50,18 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <InputText
                                 type={"text"}
                                 name={"name"}
+                                onChange={handleChange}
+                                value={form?.name}
                                 placeholder={"Your name"}
+                                errors={['Name is required']}
                             />
                         </div>
                         <div className="col-lg-6">
                             <InputText
                                 type={"number"}
                                 name={"expense"}
+                                value={form?.expense}
+                                onChange={handleChange}
                                 placeholder={"The amount here"}
                             />
                         </div>
@@ -61,6 +71,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <InputText
                                 type={"number"}
                                 name={"category"}
+                                value={form?.category}
+                                onChange={handleChange}
                                 placeholder={"Your category"}
                             />
                         </div>
@@ -68,6 +80,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <InputText
                                 type={"number"}
                                 name={"paidOut"}
+                                value={form?.paidOut}
+                                onChange={handleChange}
                                 placeholder={"Amount to pay"}
                             />
                         </div>
@@ -76,20 +90,18 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         <div className="col-lg-6">
                             <Dropdown
                                 name={"status"}
-                                placeholder={"Your status"}
-                                value={""}
-                                onChange={() => { }}
-                                options={[]}
+                                value={form?.status || ''}
+                                onChange={handleChange}
+                                options={statusOptions}
                             />
                         </div>
 
                         <div className="col-lg-6">
                             <Dropdown
                                 name={"urgency"}
-                                placeholder={"Urgency"}
-                                value={""}
-                                onChange={() => { }}
-                                options={[]}
+                                value={form?.urgency || ''}
+                                onChange={handleChange}
+                                options={urgencyOptions}
                             />
                         </div>
 
@@ -97,6 +109,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <InputText
                                 type={"text"}
                                 name={"image"}
+                                value={form?.image}
+                                onChange={handleChange}
                                 placeholder={"The image goes here"}
                             />
                         </div>
@@ -105,9 +119,20 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         <div className="col-lg-6">
                             <Button
                                 action={() => {
-                                    
                                 }}
-                                bgClass={"danger"}
+                                bgClass={"secondary"}
+                                type={"button"}
+                                loading={false}
+                                size="sm"
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                        <div className="col-lg-6">
+                            <Button
+                                action={() => {
+                                }}
+                                bgClass={"success"}
                                 type={"submit"}
                                 loading={false}
                                 size="sm"

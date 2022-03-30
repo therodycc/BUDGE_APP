@@ -5,7 +5,8 @@ export interface InputTextPropsI {
     name: string
     placeholder: string
     onChange?: Function
-    onKeyUp?:Function
-    maxLength?:number
-    value?:string | number
+    onKeyUp?: Function
+    maxLength?: number
+    value?: string | number
+    errors?: string[]
 }

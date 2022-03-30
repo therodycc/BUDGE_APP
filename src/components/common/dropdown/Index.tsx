@@ -1,12 +1,11 @@
 import React from "react";
 import { DropDownPropsI } from "../../../interfaces/common/dropdown/dropdown.interface";
 
-const Dropdown = ({ options, name, placeholder, value, onChange }: DropDownPropsI) => {
+const Dropdown = ({ options, name, value, onChange }: DropDownPropsI) => {
     return (
         <>
             <select
                 name={name}
-                placeholder="hello"
                 className="form-select"
                 style={{ borderBottom: '2px solid #d5d5d5', padding: '10px 20px' }}
                 value={value}
