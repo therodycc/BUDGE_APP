@@ -1,12 +1,13 @@
 import React, { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { isRequired } from "../../../../helpers/validations";
 import { FixedCostsI } from "../../../../interfaces/fixed-costs/fixed-costs.interface";
 import { addFixedCostAction } from "../../../../redux/actions/fixed-costs.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import Button from "../../../common/button";
 import Dropdown from "../../../common/dropdown";
-import InputText from "../../../common/input-text";
+import Input from "../../../common/input";
 import Modal from "../../../common/modal";
 
 interface ModalFixedCostsPropsI {
@@ -15,14 +16,18 @@ interface ModalFixedCostsPropsI {
 }
 
 const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
-    
+
     const dispatch = useDispatch()
 
     const [form, setForm] = useState<FixedCostsI>({
         name: "TEST ",
+        expense: "",
         category: "",
-        expense: 0,
     });
+
+    // errors
+    const [errName, setErrName] = useState("");
+    const [errExpense, setErrExpense] = useState("");
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -33,6 +38,12 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
     }
 
     const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const errorName = isRequired(form.name, "Name is required", setErrName);
+        const errorExpense = isRequired(form.expense as string, "Expense is required", setErrExpense);
+        if (errorName) {
+            return;
+        }
         e.preventDefault()
         // dispatch(addFixedCostAction(form))
         console.log(form);
@@ -44,20 +55,25 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                 title="Fixed costs"
                 active={active}
                 setToggle={toggle}>
+                <code>
+                    {JSON.stringify(form)}
+                </code>
                 <form onSubmit={handleSubmit}>
                     <div className="row mt-3">
                         <div className="col-lg-6">
-                            <InputText
+                            <Input
+                                title="Name"
                                 type={"text"}
                                 name={"name"}
                                 onChange={handleChange}
                                 value={form?.name}
                                 placeholder={"Your name"}
-                                errors={['Name is required']}
+                                errorMessage={errName}
                             />
                         </div>
                         <div className="col-lg-6">
-                            <InputText
+                            <Input
+                                title="Amount"
                                 type={"number"}
                                 name={"expense"}
                                 value={form?.expense}
@@ -68,7 +84,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                     </div>
                     <div className="row mt-3">
                         <div className="col-lg-6">
-                            <InputText
+                            <Input
+                                title="Category"
                                 type={"number"}
                                 name={"category"}
                                 value={form?.category}
@@ -77,7 +94,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             />
                         </div>
                         <div className="col-lg-6">
-                            <InputText
+                            <Input
+                                title="Paid Out"
                                 type={"number"}
                                 name={"paidOut"}
                                 value={form?.paidOut}
@@ -89,6 +107,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                     <div className="row mt-3">
                         <div className="col-lg-6">
                             <Dropdown
+                                title="Status"
                                 name={"status"}
                                 value={form?.status || ''}
                                 onChange={handleChange}
@@ -98,6 +117,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
 
                         <div className="col-lg-6">
                             <Dropdown
+                                title="Urgency"
                                 name={"urgency"}
                                 value={form?.urgency || ''}
                                 onChange={handleChange}
@@ -106,7 +126,8 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         </div>
 
                         <div className="col-lg-12 mt-3">
-                            <InputText
+                            <Input
+                                title="Image"
                                 type={"text"}
                                 name={"image"}
                                 value={form?.image}
@@ -119,6 +140,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         <div className="col-lg-6">
                             <Button
                                 action={() => {
+                                    toggle()
                                 }}
                                 bgClass={"secondary"}
                                 type={"button"}

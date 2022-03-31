@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import Button from "../../../components/common/button";
-import InputText from "../../../components/common/input-text";
+import InputText from "../../../components/common/input";
 import { login } from "../../../redux/actions/auth.action";
 
 const SignIn = () => {

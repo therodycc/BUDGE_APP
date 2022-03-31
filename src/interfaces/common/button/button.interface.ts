@@ -3,7 +3,7 @@ import { bgClassType, sizeType, typeButtonType } from "./button.type"
 
 export interface ButtonPropsI {
     children: ReactNode
-    action: Function
+    action?: Function
     bgClass: bgClassType
     size?:sizeType
     type:typeButtonType

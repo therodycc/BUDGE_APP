@@ -1,4 +1,4 @@
-import { SweetAlertIconType } from "../interfaces/helper/sweetAlert/sweetAlert.type"
+import { SweetAlertIconType } from "../../interfaces/helper/sweetAlert/sweetAlert.type"
 import Swal, { SweetAlertIcon } from 'sweetalert2'
 
 class SweetAlert {

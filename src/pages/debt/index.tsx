@@ -6,7 +6,7 @@ import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
 import FormBudget from "../../components/pages/form-budget/Index";
 import { currencyFormat } from "../../helpers/currency.helper";
-import sweetAlert from "../../helpers/sweetAlert.helper";
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import debtProvider from "../../providers/debt/debt.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";

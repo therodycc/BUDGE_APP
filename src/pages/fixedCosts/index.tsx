@@ -8,7 +8,7 @@ import Layout from "../../components/layout";
 import ModalFixedCosts from "../../components/pages/fixed-costs/modals";
 import FormBudget from "../../components/pages/form-budget/Index";
 import { currencyFormat } from "../../helpers/currency.helper";
-import sweetAlert from "../../helpers/sweetAlert.helper";
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import fixedCostsProvider from "../../providers/fixed-costs/fixed-costs.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";

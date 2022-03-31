@@ -1,4 +1,4 @@
-import sweetAlert from "../../helpers/sweetAlert.helper"
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper"
 import { FixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface"
 import fixedCostsProvider from "../../providers/fixed-costs/fixed-costs.provider"
 import { fixedCostsTypes } from "../types/fixed-costs.types"

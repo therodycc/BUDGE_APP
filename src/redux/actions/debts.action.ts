@@ -1,4 +1,4 @@
-import sweetAlert from "../../helpers/sweetAlert.helper";
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import debtProvider from "../../providers/debt/debt.provider";
 import profitsProvider from "../../providers/profits/profits.provider";
 import { debtsTypes } from "../types/debts.types";

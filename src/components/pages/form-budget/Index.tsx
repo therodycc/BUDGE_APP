@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import config from '../../../config'
-import sweetAlert from '../../../helpers/sweetAlert.helper'
+import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
 import { FormBudgetI } from '../../../interfaces/app/form-budget/form-budget.interface'
 import { OptionsDropdownI } from '../../../interfaces/common/dropdown/dropdown.interface'
 import { UtilityI } from '../../../interfaces/utility/utility.interface'
 import httpProvider from '../../../providers'
 import Button from '../../common/button'
 import Dropdown from '../../common/dropdown'
-import InputText from '../../common/input-text'
+import Input from '../../common/input'
 import Modal from '../../common/modal'
 
 const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
@@ -100,6 +100,7 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        
 
         if (data.category !== form.category) {
             return httpProvider.post(`${config.app.url}/${form?.category}`, {
@@ -148,7 +149,7 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                         <div>
                             <div className="row mt-3">
                                 <div className="col-lg-6">
-                                    <InputText
+                                    <Input
                                         name="necessary"
                                         onChange={handleChange}
                                         type="text"
@@ -157,7 +158,7 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                                     />
                                 </div>
                                 <div className="col-lg-6">
-                                    <InputText
+                                    <Input
                                         name="expense"
                                         onChange={handleChange}
                                         type="number"
@@ -173,11 +174,10 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                                         value={form?.urgency}
                                         onChange={handleChange}
                                         options={urgencyOptions}
-                                        placeholder="Urgency"
                                     />
                                 </div>
                                 <div className="col-lg-6">
-                                    <InputText
+                                    <Input
                                         name="paidOut"
                                         onChange={handleChange}
                                         value={form?.paidOut}
@@ -193,7 +193,6 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                                         value={form?.category}
                                         options={categoryOptions}
                                         onChange={handleChange}
-                                        placeholder="Category"
                                     />
                                 </div>
                                 <div className="col-lg-6">
@@ -202,13 +201,12 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                                         value={form?.status}
                                         onChange={handleChange}
                                         options={statusOptions}
-                                        placeholder="Status"
                                     />
                                 </div>
                             </div>
                             <div className="row mt-3">
                                 <div className="col-lg-12">
-                                    <InputText
+                                    <Input
                                         name="img"
                                         onChange={handleChange}
                                         type="text"

@@ -1,4 +1,4 @@
-import sweetAlert from "../../helpers/sweetAlert.helper";
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import necessaryProvider from "../../providers/necessary/necessary.provider";
 import { necessaryTypes } from "../types/necessary.types";
 

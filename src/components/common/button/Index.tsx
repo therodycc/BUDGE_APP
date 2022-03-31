@@ -5,7 +5,7 @@ const Button = ({ children, action, bgClass, size, type, loading, customClass }:
     return (
         <>
             <button
-                onClick={() => action()}
+                onClick={() => action && action()}
                 type={type}
                 className={`btn btn-${bgClass} btn-${size && (size || '')} mx-1 ${customClass}`}
                 style={{ width: '100%' }}
@@ -15,7 +15,7 @@ const Button = ({ children, action, bgClass, size, type, loading, customClass }:
                     loading ? <>
                         <div className='d-flex align-items-center justify-content-center text-white'>
                             <span className="spinner-border spinner-border-sm mx-1" ></span>
-                            <span  className="">Please wait...</span>
+                            <span className="">Please wait...</span>
                         </div>
                     </>
                         : children

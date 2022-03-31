@@ -1,33 +1,39 @@
 .sign-in-bg {
-    background: #4b6cb7;
-    background: -webkit-linear-gradient(to right, #18284874, #18284874), url('../images/bg-signin.svg');
-    background: linear-gradient(to right, #18284888, #18284874), url('../images/bg-signin.svg');
-    background-size: contain;
-
+  background: #4b6cb7;
+  background: -webkit-linear-gradient(to right, #18284874, #18284874),
+    url("../images/bg-signin.svg");
+  background: linear-gradient(to right, #18284888, #18284874),
+    url("../images/bg-signin.svg");
+  background-size: contain;
 }
 
-.back-modal{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.199);
+.back-modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.199);
 }
 
-.modal-base{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
+.modal-base {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
 }
 
-.modal-layout{
-    z-index: 1000;
+.modal-layout {
+  z-index: 1000;
 }
+
+.text-normal {
+  font-size: 12px;
+}
+
