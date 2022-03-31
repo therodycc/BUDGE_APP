@@ -211,7 +211,7 @@ const FixedCosts = () => {
     };
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeItemAction(item?.id))
+        dispatch(removeItemAction(item?.uuid))
     };
 
     const disabledItem = (item: UtilityI) => {

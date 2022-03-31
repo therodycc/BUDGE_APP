@@ -22,24 +22,29 @@ export const addFixedCostAction = (data: FixedCostsI) => {
     return (dispatch: Function) => {
         fixedCostsProvider.create(data)
             .then(res => {
-                sweetAlert.alert('Success', 'Done!', 'success')
+                console.log({res}, "post");
                 console.log(res.data);
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Done!', 'success')
+                dispatch()
             })
             .catch(err => err)
     }
 }
 
 
-export const removeItemAction = (id: string) => {
+export const removeItemAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
         fixedCostsProvider
-            .remove(id)
-            .then((data) => {
+            .remove(uuid)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Deleted!', 'success')
                 dispatch({
                     type: fixedCostsTypes.REMOVE_ITEM,
-                    payload: getStore().fixedCosts.fixedCosts.filter((item: any) => item.id !== id)
+                    payload: getStore().fixedCosts.fixedCosts.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);

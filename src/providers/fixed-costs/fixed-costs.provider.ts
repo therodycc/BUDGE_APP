@@ -18,8 +18,8 @@ class FixedCostsProvider extends Provider {
         return await this.post('/', data)
     }
 
-    async remove(id: string) {
-        return await this.delete(`/${id}`)
+    async remove(uuid: string) {
+        return await this.delete(`/${uuid}`)
     }
 }
 const fixedCostsProvider = new FixedCostsProvider()

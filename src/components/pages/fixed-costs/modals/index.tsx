@@ -45,7 +45,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
             return;
         }
         e.preventDefault()
-        // dispatch(addFixedCostAction(form))
+        dispatch(addFixedCostAction(form))
         console.log(form);
         // toggle()
     }
