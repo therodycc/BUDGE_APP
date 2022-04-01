@@ -4,6 +4,7 @@ export interface UtilityI {
     id:string
     uuid:string
     necessary: string,
+    name: string,
     expense: number,
     paidOut: number,
     img: null

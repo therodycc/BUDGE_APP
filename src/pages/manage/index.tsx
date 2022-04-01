@@ -129,7 +129,7 @@ const Manage = () => {
 
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeItemAction(item?.id))
+        dispatch(removeItemAction(item?.uuid))
     }
 
 
@@ -285,7 +285,7 @@ const Manage = () => {
 
             {
                 (dataModalUtility && showModal) && (<FormBudget
-                    urlTo='utilities'
+                    urlTo='manage'
                     refreshData={() => {
                     }}
                     data={dataModalUtility}

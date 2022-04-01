@@ -1,4 +1,5 @@
 import config from "../../config"
+import { NecessaryI } from "../../interfaces/necessary/necessary.interface"
 import Provider from "../provider"
 
 class NecessaryProvider extends Provider {
@@ -13,8 +14,12 @@ class NecessaryProvider extends Provider {
         return await this.patch(`/${id}`, data)
     }
 
-    async remove(id: string) {
-        return await this.delete(`/${id}`)
+    async create(data: NecessaryI) {
+        return await this.post('/', data)
+    }
+
+    async remove(uuid: string) {
+        return await this.delete(`/${uuid}`)
     }
 }
 const necessaryProvider = new NecessaryProvider()

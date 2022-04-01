@@ -10,6 +10,11 @@ export const necessaryReducer = (state: any = initialState, action: any) => {
                 ...state,
                 necessary: action.payload
             }
+        case necessaryTypes.ADD_ITEM:
+            return {
+                ...state,
+                necessary: action.payload
+            }
         case necessaryTypes.REMOVE_ITEM_NECESSARY:
             return {
                 ...state,

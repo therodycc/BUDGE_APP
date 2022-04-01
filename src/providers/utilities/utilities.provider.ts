@@ -1,4 +1,5 @@
 import config from "../../config"
+import { ManageI } from "../../interfaces/manage/manage.interface"
 import Provider from "../provider"
 
 class UtilitiesProvider extends Provider {
@@ -17,8 +18,12 @@ class UtilitiesProvider extends Provider {
         return await this.patch(`/${id}`, data)
     }
 
-    async remove(id: string) {
-        return await this.delete(`/${id}`)
+    async create(data: ManageI) {
+        return await this.post('/', data)
+    }
+
+    async remove(uuid: string) {
+        return await this.delete(`/${uuid}`)
     }
 }
 const utilitiesProvider = new UtilitiesProvider()

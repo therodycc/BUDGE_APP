@@ -15,16 +15,18 @@ export const getUtilitiesAction = () => {
     }
 }
 
-export const removeItemAction = (id: string) => {
+export const removeItemAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
         utilitiesProvider
-            .remove(id)
-            .then((data) => {
+            .remove(uuid)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Deleted!', 'success')
                 dispatch({
                     type: UtilitiesTypes.REMOVE_ITEM,
-                    payload: getStore().utilities.utilities.filter((item: any) => item.id !== id)
+                    payload: getStore().utilities.utilities.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);

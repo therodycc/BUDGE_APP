@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import config from '../../../config';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { FormProfitsI } from '../../../interfaces/app/form-profits/form-profits.interface';
 import httpProvider from '../../../providers';
 import Button from '../../common/button';
-import Dropdown from '../../common/dropdown';
 import InputText from '../../common/input';
 import Modal from '../../common/modal';
-import { v4 as uuidv4 } from 'uuid';
-import config from '../../../config';
 
 const FormProfits = ({ setToggle, refreshData, dataToEdit }: FormProfitsI) => {
 

@@ -9,6 +9,7 @@ import Button from '../../common/button'
 import Dropdown from '../../common/dropdown'
 import Input from '../../common/input'
 import Modal from '../../common/modal'
+import Router from 'next/router'
 
 const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
 
@@ -22,8 +23,8 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
         []
     );
     const [form, setForm] = useState<any | UtilityI>({
-        id: data.id,
-        necessary: data.necessary,
+        uuid: data.uuid,
+        name: data.name,
         expense: data.expense,
         paidOut: data.paidOut,
         img: data.img,
@@ -38,21 +39,21 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
         setStatusOptions([
             {
                 title: "Pending",
-                value: "Pending",
+                value: "PENDING",
             },
             {
                 title: "In progress",
-                value: "In progress",
+                value: "IN_PROGRESS",
             },
             {
                 title: "Completed",
-                value: "Completed",
+                value: "COMPLETED",
             },
         ]);
         setCategoryOptions([
             {
                 title: "Fixed costs",
-                value: "fixedCosts",
+                value: "FIXED_COSTS",
             },
             {
                 title: "Voluntary",
@@ -78,15 +79,15 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
         setUrgencyOptions([
             {
                 title: "Immediate",
-                value: "immediate",
+                value: "IMMEDIATE",
             },
             {
                 title: "Early",
-                value: "early",
+                value: "EARLY",
             },
             {
                 title: "Whenever",
-                value: "whenever",
+                value: "WHENEVER",
             },
         ]);
     }, []);
@@ -100,17 +101,17 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        
+
 
         if (data.category !== form.category) {
-            return httpProvider.post(`${config.app.url}/${form?.category}`, {
+            return httpProvider.post(`${config.app.url}/${Router.pathname as string}`, {
                 ...form,
                 expense: +form.expense
             })
                 .then(res => {
                     setToggle()
                     sweetAlert.alert('Done!', `Moved to ${urlTo}!`, 'success')
-                    httpProvider.delete(`${config.app.url}/${data.category}`, data.id)
+                    httpProvider.delete(`${config.app.url}/${data}`, data.id)
                         .then(res => {
                             refreshData()
                         })
@@ -119,7 +120,8 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                 .catch(error => error)
         }
 
-        httpProvider.patch(`${config.app.url}/${urlTo}`, form.id, {
+
+        httpProvider.patch(`${config.app.url}/${urlTo}`, form.uuid, {
             ...form,
             expense: +form.expense
         })
@@ -150,11 +152,11 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
                             <div className="row mt-3">
                                 <div className="col-lg-6">
                                     <Input
-                                        name="necessary"
+                                        name="name"
                                         onChange={handleChange}
                                         type="text"
                                         placeholder="Necessary"
-                                        value={form?.necessary}
+                                        value={form?.name}
                                     />
                                 </div>
                                 <div className="col-lg-6">
