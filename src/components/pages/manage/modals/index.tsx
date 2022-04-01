@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
-import { NecessaryI } from "../../../../interfaces/necessary/necessary.interface";
-import { addNecessaryAction } from "../../../../redux/actions/necessary.action";
+import { ManageI } from "../../../../interfaces/manage/manage.interface";
+import { updateManageAction } from "../../../../redux/actions/manage.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import Button from "../../../common/button";
@@ -10,19 +10,23 @@ import Dropdown from "../../../common/dropdown";
 import Input from "../../../common/input";
 import Modal from "../../../common/modal";
 
-interface ModalNecessaryPropsI {
+interface ModalManagePropsI {
     active: boolean;
     toggle: Function;
+    data: ManageI;
 }
 
-const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
+const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
+    const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
-
-    const [form, setForm] = useState<NecessaryI>({
-        name: "",
-        expense: "",
-        category: "",
+    const [form, setForm] = useState<ManageI>({
+        name: data?.name || "",
+        expense: data?.expense || 0,
+        paidOut: data?.paidOut || 0,
+        image: data?.image || "",
+        urgency: data?.urgency || "",
+        category: data?.category || "",
+        status: data?.status || ""
     });
 
     // errors
@@ -35,28 +39,28 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
             ...form,
             [name]: value,
         });
-    }
+    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const errorName = isRequired(form.name, "Name is required", setErrName);
-        const errorExpense = isRequired(form.expense as string, "Expense is required", setErrExpense);
+        const errorName = isRequired(form?.name, "Name is required", setErrName);
+        const errorExpense = isRequired(
+            form.expense,
+            "Expense is required",
+            setErrExpense
+        );
         if (errorName || errorExpense) {
             return;
         }
-        dispatch(addNecessaryAction(form))
-        console.log(form);
-        toggle()
-    }
+
+        if (data.uuid) dispatch(updateManageAction(data.uuid, form))
+
+        toggle();
+    };
+
     return (
         <>
-            <Modal
-                title="Necessary"
-                active={active}
-                setToggle={toggle}>
-                <code>
-                    {JSON.stringify(form)}
-                </code>
+            <Modal title="Manage" active={active} setToggle={toggle}>
                 <form onSubmit={handleSubmit}>
                     <div className="row mt-3">
                         <div className="col-lg-6">
@@ -109,7 +113,7 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
                             <Dropdown
                                 title="Status"
                                 name={"status"}
-                                value={form?.status || ''}
+                                value={form?.status || ""}
                                 onChange={handleChange}
                                 options={statusOptions}
                             />
@@ -119,7 +123,7 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
                             <Dropdown
                                 title="Urgency"
                                 name={"urgency"}
-                                value={form?.urgency || ''}
+                                value={form?.urgency || ""}
                                 onChange={handleChange}
                                 options={urgencyOptions}
                             />
@@ -140,7 +144,7 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
                         <div className="col-lg-6">
                             <Button
                                 action={() => {
-                                    toggle()
+                                    toggle();
                                 }}
                                 bgClass={"secondary"}
                                 type={"button"}
@@ -152,8 +156,7 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
                         </div>
                         <div className="col-lg-6">
                             <Button
-                                action={() => {
-                                }}
+                                action={() => { }}
                                 bgClass={"success"}
                                 type={"submit"}
                                 loading={false}
@@ -169,4 +172,4 @@ const ModalNecessary = ({ active, toggle }: ModalNecessaryPropsI) => {
     );
 };
 
-export default ModalNecessary;
+export default ModalManage;

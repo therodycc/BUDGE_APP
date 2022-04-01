@@ -6,16 +6,18 @@ import { debtsReducer } from '../reducers/debts'
 import { fixedCostsReducer } from '../reducers/fixed-costs'
 import { profitsReducer } from '../reducers/profits'
 import { userReducer } from '../reducers/user'
-import { utilitiesReducer } from '../reducers/utilities'
+import { ManageReducer } from '../reducers/manage'
+import { wishesReducer } from '../reducers/wishes'
 
 
 const reducers = combineReducers({
     auth: authReducer,
     fixedCosts: fixedCostsReducer,
-    utilities: utilitiesReducer,
+    manage: ManageReducer,
     profits: profitsReducer,
     user: userReducer,
-    debts:debtsReducer
+    debts: debtsReducer,
+    wishes: wishesReducer,
 })
 
 export const store = createStore(

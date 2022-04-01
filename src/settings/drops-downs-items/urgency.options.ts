@@ -1,14 +1,14 @@
 export const urgencyOptions = [
     {
         title: "Immediate",
-        value: "immediate",
+        value: "IMMEDIATE",
     },
     {
         title: "Early",
-        value: "early",
+        value: "EARLY",
     },
     {
         title: "Whenever",
-        value: "whenever",
+        value: "WHENEVER",
     },
 ]

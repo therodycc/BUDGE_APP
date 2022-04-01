@@ -1,13 +1,14 @@
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
+import { ManageI } from "../../interfaces/manage/manage.interface";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
-import { UtilitiesTypes } from "../types/utilities.type";
+import { ManageTypes } from "../types/manage.type";
 
-export const getUtilitiesAction = () => {
+export const getManageAction = () => {
     return (dispatch: Function) => {
         utilitiesProvider.getAll()
             .then(res => {
                 dispatch({
-                    type: UtilitiesTypes.GET_ALL,
+                    type: ManageTypes.GET_ALL,
                     payload: res?.data
                 })
             })
@@ -15,7 +16,7 @@ export const getUtilitiesAction = () => {
     }
 }
 
-export const removeItemAction = (uuid: string) => {
+export const removeManageAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
@@ -25,7 +26,7 @@ export const removeItemAction = (uuid: string) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Deleted!', 'success')
                 dispatch({
-                    type: UtilitiesTypes.REMOVE_ITEM,
+                    type: ManageTypes.REMOVE_ITEM,
                     payload: getStore().utilities.utilities.filter((item: any) => item.uuid !== uuid)
                 })
             })
@@ -33,22 +34,17 @@ export const removeItemAction = (uuid: string) => {
     }
 }
 
-export const addToThisMonth = (item: any) => {
-    return async (dispatch: Function) => {
-        // fixedCostsProvider
-        //     .update(item.id, {
-        //         status: "In progress",
-        //     })
-        //     .then((data) => {
-        //         console.log({ data });
-        //     })
-        //     .catch((error) => error);
+export const updateManageAction = (uuid: string, data: ManageI) => {
+    return async (dispatch: Function, getStore: Function) => {
         utilitiesProvider
-            .postItem(item)
-            .then((data) => {
-                console.log(data, "post");
-                sweetAlert
-                    .alert("Done!", "Added to this month", "success");
+            .update(uuid, data)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Updated!', 'success')
+                dispatch({
+                    type: ManageTypes.UPDATE_ITEM,
+                    payload: getStore().utilities.utilities.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
+                })
             })
             .catch((error) => error);
     }

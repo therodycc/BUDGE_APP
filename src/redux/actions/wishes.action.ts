@@ -1,0 +1,47 @@
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper"
+import { WishesI } from "../../interfaces/wishes/wishes.interface"
+import wishesProvider from "../../providers/wishes/wishes.provider"
+import { WishesTypes } from "../types/wishes.types"
+
+
+export const getWishesAction = () => {
+    return (dispatch: Function) => {
+        wishesProvider.getAll()
+            .then(res => {
+                dispatch({
+                    type: WishesTypes.GET_ALL,
+                    payload: res?.data
+                })
+            })
+            .catch(err => err)
+    }
+}
+
+export const addWishesAction = (data: WishesI) => {
+    return (dispatch: Function) => {
+        wishesProvider.create(data)
+            .then(res => {
+                console.log({ res }, "post");
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Done!', 'success')
+                dispatch()
+            })
+            .catch(err => err)
+    }
+}
+
+export const removeItemAction = (uuid: string) => {
+    return async (dispatch: Function, getStore: Function) => {
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        wishesProvider
+            .remove(uuid)
+            .then((data) => {
+                dispatch({
+                    type: WishesTypes.REMOVE_ITEM,
+                    payload: getStore().Wishes.Wishes.filter((item: any) => item.uuid !== uuid)
+                })
+            })
+            .catch((error) => error);
+    }
+}

@@ -1,4 +1,5 @@
 import config from "../../config"
+import { WishesI } from "../../interfaces/wishes/wishes.interface"
 import Provider from "../provider"
 
 class WishesProvider extends Provider {
@@ -13,8 +14,12 @@ class WishesProvider extends Provider {
         return await this.patch(`/${id}`, data)
     }
 
-    async remove(id: string) {
-        return await this.delete(`/${id}`)
+    async create(data: WishesI) {
+        return await this.post('/', data)
+    }
+
+    async remove(uuid: string) {
+        return await this.delete(`/${uuid}`)
     }
 }
 const voluntaryProvider = new WishesProvider()

@@ -2,7 +2,10 @@ import React, { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
 import { FixedCostsI } from "../../../../interfaces/fixed-costs/fixed-costs.interface";
-import { addFixedCostAction } from "../../../../redux/actions/fixed-costs.action";
+import {
+    addFixedCostAction,
+    updateFixedCostsAction,
+} from "../../../../redux/actions/fixed-costs.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import Button from "../../../common/button";
@@ -13,16 +16,21 @@ import Modal from "../../../common/modal";
 interface ModalFixedCostsPropsI {
     active: boolean;
     toggle: Function;
+    data?: any;
 }
 
-const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
-
-    const dispatch = useDispatch()
+const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
+    const dispatch = useDispatch();
 
     const [form, setForm] = useState<FixedCostsI>({
-        name: "TEST ",
-        expense: "",
-        category: "",
+        name: data?.name || "",
+        expense: data?.expense || 0,
+        paidOut: data?.paidOut || 0,
+        image: data?.image || "",
+        urgency: data?.urgency || "",
+        category: data?.category || "",
+        status: data?.status || "",
+        active: data?.active || "",
     });
 
     // errors
@@ -35,29 +43,30 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
             ...form,
             [name]: value,
         });
-    }
+    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const errorName = isRequired(form.name, "Name is required", setErrName);
-        const errorExpense = isRequired(form.expense as string, "Expense is required", setErrExpense);
-        if (errorName) {
+        const errorExpense = isRequired(
+            form.expense,
+            "Expense is required",
+            setErrExpense
+        );
+        if (errorName || errorExpense) {
             return;
         }
-        e.preventDefault()
-        dispatch(addFixedCostAction(form))
-        console.log(form);
-        // toggle()
-    }
+        data?.uuid
+            ? dispatch(
+                updateFixedCostsAction(data.uuid, form)
+            )
+            : dispatch(addFixedCostAction(form));
+        toggle();
+    };
+
     return (
         <>
-            <Modal
-                title="Fixed costs"
-                active={active}
-                setToggle={toggle}>
-                <code>
-                    {JSON.stringify(form)}
-                </code>
+            <Modal title="Fixed costs" active={active} setToggle={toggle}>
                 <form onSubmit={handleSubmit}>
                     <div className="row mt-3">
                         <div className="col-lg-6">
@@ -79,6 +88,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                                 value={form?.expense}
                                 onChange={handleChange}
                                 placeholder={"The amount here"}
+                                errorMessage={errExpense}
                             />
                         </div>
                     </div>
@@ -86,7 +96,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         <div className="col-lg-6">
                             <Input
                                 title="Category"
-                                type={"number"}
+                                type={"text"}
                                 name={"category"}
                                 value={form?.category}
                                 onChange={handleChange}
@@ -109,7 +119,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <Dropdown
                                 title="Status"
                                 name={"status"}
-                                value={form?.status || ''}
+                                value={form?.status || ""}
                                 onChange={handleChange}
                                 options={statusOptions}
                             />
@@ -119,7 +129,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                             <Dropdown
                                 title="Urgency"
                                 name={"urgency"}
-                                value={form?.urgency || ''}
+                                value={form?.urgency || ""}
                                 onChange={handleChange}
                                 options={urgencyOptions}
                             />
@@ -140,7 +150,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         <div className="col-lg-6">
                             <Button
                                 action={() => {
-                                    toggle()
+                                    toggle();
                                 }}
                                 bgClass={"secondary"}
                                 type={"button"}
@@ -152,8 +162,7 @@ const ModalFixedCosts = ({ active, toggle }: ModalFixedCostsPropsI) => {
                         </div>
                         <div className="col-lg-6">
                             <Button
-                                action={() => {
-                                }}
+                                action={() => { }}
                                 bgClass={"success"}
                                 type={"submit"}
                                 loading={false}

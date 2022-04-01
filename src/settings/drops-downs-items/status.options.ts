@@ -1,14 +1,14 @@
 export const statusOptions = [
     {
         title: "Pending",
-        value: "Pending",
+        value: "PENDING",
     },
     {
         title: "In progress",
-        value: "In progress",
+        value: "IN_PROGRESS",
     },
     {
         title: "Completed",
-        value: "Completed",
+        value: "COMPLETED",
     },
 ]

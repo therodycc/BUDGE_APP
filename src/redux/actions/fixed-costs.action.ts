@@ -22,7 +22,7 @@ export const addFixedCostAction = (data: FixedCostsI) => {
     return (dispatch: Function) => {
         fixedCostsProvider.create(data)
             .then(res => {
-                console.log({res}, "post");
+                console.log({ res }, "post");
                 console.log(res.data);
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
@@ -50,19 +50,37 @@ export const removeItemAction = (uuid: string) => {
             .catch((error) => error);
     }
 }
-
-
-export const disabledItemAction = (item: any) => {
+export const updateFixedCostsAction = (uuid: string, data: FixedCostsI) => {
     return async (dispatch: Function, getStore: Function) => {
+        fixedCostsProvider
+            .update(uuid, data)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Updated!', 'success')
+                dispatch({
+                    type: fixedCostsTypes.UPDATE_ITEM,
+                    payload: getStore().fixedCosts.fixedCosts.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
+                })
+            })
+            .catch((error) => error);
+    }
+}
+
+
+export const disabledItemAction = (item: FixedCostsI) => {
+    return async (dispatch: Function, getStore: Function) => {
+        if (!item.uuid) return;
         fixedCostsProvider
             .update(item?.uuid, {
                 active: !item?.active,
             })
             .then((res) => {
+                if (res.error) return sweetAlert.toast("Error", res?.error?.message, 'error')
+                // sweetAlert.toast('Success', 'Changed!', 'success')
                 dispatch({
                     type: fixedCostsTypes.DISABLE_ITEM,
                     payload: getStore().fixedCosts.fixedCosts.map((fc: any) => {
-                        if (fc.id === item.id) fc.active = !item.active
+                        if (fc.uuid === item.uuid) fc.active = !item.active
                         return fc
                     })
                 })

@@ -13,6 +13,7 @@ import { UtilityI } from "../../interfaces/utility/utility.interface";
 import fixedCostsProvider from "../../providers/fixed-costs/fixed-costs.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import { disabledItemAction, getFixedCostsAction, removeItemAction } from "../../redux/actions/fixed-costs.action";
+import { FixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
 
 const FixedCosts = () => {
     const [total, setTotal] = useState(0);
@@ -223,25 +224,8 @@ const FixedCosts = () => {
         setShowModal(!showModal);
     };
 
-    const addAllActiveToMonth = () => {
-        fixedCosts?.forEach((item) => {
-
-        });
-    };
-
     return (
         <>
-            {dataModalUtility && showModal && (
-                <FormBudget
-                    urlTo="fixedCosts"
-                    refreshData={() => {
-                    }}
-                    data={dataModalUtility}
-                    setToggle={() => {
-                        setShowModal(false);
-                    }}
-                />
-            )}
             <Layout>
                 <div className="container">
 
@@ -268,7 +252,8 @@ const FixedCosts = () => {
                         rightSection={<div className="d-flex align-center-center">
                             <Button
                                 action={() => {
-                                    setShowModalHome(true)
+                                    setShowModal(true)
+                                    setDataModalUtility(null)
                                 }}
                                 bgClass={"primary"}
                                 type={"button"}
@@ -278,7 +263,7 @@ const FixedCosts = () => {
                                 Add new
                             </Button>
                             <Button
-                                action={addAllActiveToMonth}
+                                action={() => { }}
                                 bgClass={"danger"}
                                 type={"button"}
                                 loading={showLoadingAddToMoth}
@@ -295,12 +280,14 @@ const FixedCosts = () => {
 
 
             {/* modals */}
-            {showModalHome &&
-                <ModalFixedCosts active={showModalHome} toggle={() => {
-                    setShowModalHome(false)
-                }} />
+            {showModal &&
+                <ModalFixedCosts
+                    active={showModal}
+                    data={dataModalUtility}
+                    toggle={() => {
+                        setShowModal(false)
+                    }} />
             }
-
         </>
     );
 };
