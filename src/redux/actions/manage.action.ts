@@ -27,7 +27,7 @@ export const removeManageAction = (uuid: string) => {
                 sweetAlert.alert('Success', 'Deleted!', 'success')
                 dispatch({
                     type: ManageTypes.REMOVE_ITEM,
-                    payload: getStore().utilities.utilities.filter((item: any) => item.uuid !== uuid)
+                    payload: getStore().manage.manage.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);
@@ -43,7 +43,7 @@ export const updateManageAction = (uuid: string, data: ManageI) => {
                 sweetAlert.alert('Success', 'Updated!', 'success')
                 dispatch({
                     type: ManageTypes.UPDATE_ITEM,
-                    payload: getStore().utilities.utilities.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
+                    payload: getStore().manage.manage.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

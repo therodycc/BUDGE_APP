@@ -8,6 +8,7 @@ import { profitsReducer } from '../reducers/profits'
 import { userReducer } from '../reducers/user'
 import { ManageReducer } from '../reducers/manage'
 import { wishesReducer } from '../reducers/wishes'
+import { volunteerThingsReducer } from '../reducers/volunteer-things'
 
 
 const reducers = combineReducers({
@@ -18,6 +19,7 @@ const reducers = combineReducers({
     user: userReducer,
     debts: debtsReducer,
     wishes: wishesReducer,
+    volunteerThings: volunteerThingsReducer
 })
 
 export const store = createStore(

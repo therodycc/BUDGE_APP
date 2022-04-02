@@ -1,11 +1,12 @@
-export interface WishesI {
+export interface VolunteerThingsI {
     uuid?:string
-    name: string;
+    name?: string;
     urgency?: string;
     paidOut?: number;
-    expense: number;
+    expense?: number;
     status?: string;
-    category: string;
+    category?: string;
     image?: string;
     active?: boolean;
+    to?:string
 }

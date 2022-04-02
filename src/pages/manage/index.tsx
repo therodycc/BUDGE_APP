@@ -10,6 +10,7 @@ import FormBudget from "../../components/pages/form-budget/Index";
 import ModalManage from "../../components/pages/manage/modals";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { currencyFormat } from "../../helpers/currency.helper";
+import { ManageI } from "../../interfaces/manage/manage.interface";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import manageProvider from "../../providers/reports/reports.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
@@ -23,6 +24,9 @@ const Manage = () => {
     // store
     const state = useSelector((state: any) => state);
     const dispatch = useDispatch();
+
+    const [utilities, setUtilities] = useState<Array<any>>([]);
+    const [profits, setProfits] = useState<Array<any>>([]);
 
     const [entry, setEntry] = useState(0);
     const [pending, setPending] = useState(0);
@@ -38,8 +42,12 @@ const Manage = () => {
         null
     );
 
-    let utilities: UtilityI[] = state?.manage.manage || [];
-    let profits: any = state?.profits?.profits || [];
+
+    useEffect(() => {
+        setUtilities(state.manage.manage);
+        setProfits(state.profits.profits);
+    }, [state.manage, state.profits]);
+
 
     useEffect(() => {
         dispatch(getProfitsAction());
@@ -56,7 +64,7 @@ const Manage = () => {
         setRemaining(getRemaining());
         setWishes(getWishes());
         setEntry(getProfits());
-    }, [state?.utilities, state?.profits]);
+    }, [utilities, profits]);
 
     const getProfits = () => {
         return profits?.reduce((acc: number, item: any) => {
@@ -230,21 +238,21 @@ const Manage = () => {
                     <>
                         <div className="btn-group">
                             <span
-                                className={` text-${item?.status === "Pending" ? "danger" : "light"
+                                className={` text-${item?.status === "PENDING" ? "danger" : "light"
                                     } display-8`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item?.status === "In progress" ? "warning" : "light"
+                                className={` text-${item?.status === "IN_PROGRESS" ? "warning" : "light"
                                     } display-8 mx-2`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item?.status === "Completed" ? "success" : "light"
+                                className={` text-${item?.status === "COMPLETED" ? "success" : "light"
                                     } display-8 `}
                             >
                                 <i className="fas fa-circle"></i>
@@ -303,20 +311,28 @@ const Manage = () => {
 
 
     const alreadyDone = [
-        "updated",
-        "delete"
+        {
+            name: "update",
+            bg: "success",
+        },
+        {
+            name: "delete",
+            bg: "success",
+        },
+
     ]
 
     return (
         <>
             <Layout>
                 <div className="container">
-                    <div className="d-flex">
+                    <p>Redux implementation</p>
+                    <div className="d-flex mb-5">
                         {
                             alreadyDone.map((item, index) => (
                                 <div>
-                                    <span className="bg-success p-3 rounded-pill fw-bolder text-white mx-1">
-                                        {item} <i className="fas fa-check"></i>
+                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                        {item.name} <i className="fas fa-check"></i>
                                     </span>
                                 </div>
                             ))

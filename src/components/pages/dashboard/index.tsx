@@ -5,7 +5,7 @@ import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
-import voluntaryProvider from '../../../providers/voluntary/voluntary.provider';
+import voluntaryProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import wishesProvider from '../../../providers/wishes/wishes.provider';
 
 const Dashboard = () => {

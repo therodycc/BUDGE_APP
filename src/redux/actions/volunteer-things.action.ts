@@ -1,16 +1,15 @@
-
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper"
-import { WishesI } from "../../interfaces/wishes/wishes.interface"
-import wishesProvider from "../../providers/wishes/wishes.provider"
-import { WishesTypes } from "../types/wishes.types"
+import { VolunteerThingsI } from "../../interfaces/volunteer-things/volunteer-things.interface"
+import volunteerThingsProvider from "../../providers/volunteer-things/volunteer-things.provider"
+import { VolunteerThingsTypes } from "../types/volunteer-things.types"
 
 
-export const getWishesAction = () => {
+export const getVolunteerThingsAction = () => {
     return (dispatch: Function) => {
-        wishesProvider.getAll()
+        volunteerThingsProvider.getAll()
             .then(res => {
                 dispatch({
-                    type: WishesTypes.GET_ALL,
+                    type: VolunteerThingsTypes.GET_ALL,
                     payload: res?.data
                 })
             })
@@ -18,9 +17,9 @@ export const getWishesAction = () => {
     }
 }
 
-export const addWishesAction = (data: WishesI) => {
+export const addVolunteerThingsAction = (data: VolunteerThingsI) => {
     return (dispatch: Function) => {
-        wishesProvider.create(data)
+        volunteerThingsProvider.create(data)
             .then(res => {
                 console.log({ res }, "post");
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
@@ -31,34 +30,34 @@ export const addWishesAction = (data: WishesI) => {
     }
 }
 
-export const removeWishesAction = (uuid: string) => {
+export const removeVolunteerThingsAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
-        wishesProvider
+        volunteerThingsProvider
             .remove(uuid)
             .then((res) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
-                    type: WishesTypes.REMOVE_ITEM,
-                    payload: getStore().Wishes.Wishes.filter((item: any) => item.uuid !== uuid)
+                    type: VolunteerThingsTypes.REMOVE_ITEM,
+                    payload: getStore().volunteerThings.volunteerThings.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);
     }
 }
 
-export const updateWishesAction = (uuid: string, data: WishesI) => {
+export const updateVolunteerThingsAction = (uuid: string, data: VolunteerThingsI) => {
     return async (dispatch: Function, getStore: Function) => {
-        wishesProvider
+        volunteerThingsProvider
             .update(uuid, data)
             .then((res) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Updated!', 'success')
                 dispatch({
-                    type: WishesTypes.UPDATE_ITEM,
-                    payload: getStore().wishes.wishes.map((item: WishesI) => item.uuid == uuid ? { ...item, ...data } : item)
+                    type: VolunteerThingsTypes.UPDATE_ITEM,
+                    payload: getStore().volunteerThings.volunteerThings.map((item: VolunteerThingsI) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

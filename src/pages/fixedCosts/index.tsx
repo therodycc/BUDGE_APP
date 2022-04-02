@@ -25,7 +25,6 @@ const FixedCosts = () => {
 
     // shows
     const [showModal, setShowModal] = useState(false);
-    const [showModalHome, setShowModalHome] = useState(false);
     // loadings
     const [showLoadingAddToMoth, setShowLoadingAddToMoth] = useState(false);
 
@@ -167,7 +166,6 @@ const FixedCosts = () => {
 
 
     useEffect(() => {
-        console.log(state.fixedCosts);
         dispatch(getFixedCostsAction())
     }, []);
 
@@ -223,11 +221,26 @@ const FixedCosts = () => {
         setShowModal(!showModal);
     };
     const alreadyDone = [
-        "updated",
-        "delete",
-        "add to month one to one",
-        "disabled",
-        "add"
+        {
+            name: "update",
+            bg: "success",
+        },
+        {
+            name: "delete",
+            bg: "success",
+        },
+        {
+            name: "disabled",
+            bg: "success",
+        },
+        {
+            name: "add",
+            bg: "success",
+        },
+        {
+            name: "add to month one to one",
+            bg: "danger",
+        },
     ]
     return (
         <>
@@ -235,12 +248,13 @@ const FixedCosts = () => {
                 <div className="container">
 
                     {/* <FormBudget></FormBudget> */}
+                    <p>Redux implementation</p>
                     <div className="d-flex mb-5">
                         {
                             alreadyDone.map((item, index) => (
                                 <div>
-                                    <span className="bg-success p-3 rounded-pill fw-bolder text-white mx-1">
-                                        {item} <i className="fas fa-check"></i>
+                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                        {item.name} <i className="fas fa-check"></i>
                                     </span>
                                 </div>
                             ))

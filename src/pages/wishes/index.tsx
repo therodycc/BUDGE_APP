@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import FormBudget from '../../components/pages/form-budget/Index'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Button from '../../components/common/button'
 import CardImg from '../../components/common/card/CardImg'
 import CardMini from '../../components/common/card/CardMini'
-import config from '../../config'
-import { currencyFormat } from '../../helpers/currency.helper'
-import sweetAlert from '../../helpers/alerts/sweetAlert.helper'
-import { UtilityI } from '../../interfaces/utility/utility.interface'
-import httpProvider from '../../providers'
-import wishesProvider from '../../providers/wishes/wishes.provider'
-import utilitiesProvider from '../../providers/utilities/utilities.provider'
 import Layout from '../../components/layout'
+import ModalWishes from '../../components/pages/wishes/modals'
+import sweetAlert from '../../helpers/alerts/sweetAlert.helper'
+import { currencyFormat } from '../../helpers/currency.helper'
+import { WishesI } from '../../interfaces/wishes/wishes.interface'
+import utilitiesProvider from '../../providers/utilities/utilities.provider'
+import wishesProvider from '../../providers/wishes/wishes.provider'
+import { getWishesAction, removeWishesAction } from '../../redux/actions/wishes.action'
 
 const Wishes = () => {
-    const [wishes, setWishes] = useState<Array<any>>([])
+
+    const state = useSelector((state: any) => state.wishes)
+    const [wishes, setWishes] = useState<WishesI[]>([])
     const [totalWishes, setTotalWishes] = useState(0)
     const [totalCompleted, setTotalCompleted] = useState(0)
     const [totalMissing, setTotalMissing] = useState(0)
     const [showModal, setShowModal] = useState(false)
-    const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
+    const [dataModalUtility, setDataModalUtility] = useState<WishesI | null>(null);
+    const dispatch = useDispatch()
+
 
     useEffect(() => {
-        getWishes()
+        dispatch(getWishesAction())
     }, [])
+
+    useEffect(() => {
+        setWishes(state?.wishes || [])
+    }, [state.wishes]);
 
     useEffect(() => {
         setTotalWishes(getTotalWishes())
@@ -30,28 +39,17 @@ const Wishes = () => {
 
     useEffect(() => {
         setTotalMissing(getTotalMissing())
-    }, [totalCompleted, totalMissing])
+    }, [totalCompleted, totalWishes])
 
-
-    const getWishes = () => {
-        wishesProvider.getAll()
-            .then(res => {
-                if (res?.error) return sweetAlert.alert('Error', res.error, 'error')
-                console.log({ res });
-                
-                setWishes(res?.data)
-            })
-            .catch(error => error)
-    }
     const getTotalWishes = () => {
         return wishes?.reduce((acc, item) => {
-            acc += item.expense
+            acc += item?.expense
             return acc
         }, 0);
     }
     const getTotalCompleted = () => {
         return wishes?.reduce((acc, item) => {
-            if (item.status === 'Completed') acc += item.expense
+            if (item.status === 'COMPLETED') acc += item.expense
             return acc
         }, 0);
     }
@@ -59,8 +57,8 @@ const Wishes = () => {
         return totalWishes - totalCompleted;
     }
 
-    const addToThisMonth = (item: UtilityI) => {
-        wishesProvider.update(item.id, {
+    const addToThisMonth = (item: WishesI) => {
+        wishesProvider.update(item?.uuid || '', {
             status: 'In progress'
         })
             .then(data => {
@@ -74,35 +72,48 @@ const Wishes = () => {
             .catch((error) => error);
     };
 
-    const removeItem = async (item: UtilityI) => {
-        const confirm = await sweetAlert.question("Are you sure?", "warning");
-        if (!confirm) return;
-        wishesProvider.remove(item.id)
-            .then((data) => {
-                getWishes()
-                sweetAlert.alert("Done!", "Deleted", "success");
-            })
-            .catch((error) => error);
+    const removeItem = async (item: WishesI) => {
+        dispatch(removeWishesAction(item.uuid || ''))
     };
-    const showModalEdit = (item: UtilityI) => {
+    const showModalEdit = (item: WishesI) => {
         setDataModalUtility(item)
         setShowModal(!showModal)
     }
 
-
+    const alreadyDone = [
+        {
+            name: "update",
+            bg: "success",
+        },
+        {
+            name: "delete",
+            bg: "success",
+        },
+        {
+            name: "add",
+            bg: "success",
+        },
+        {
+            name: "add to month one to one",
+            bg: "danger",
+        },
+    ]
     return (
         <>
-            {
-                (dataModalUtility && showModal) && (<FormBudget
-                    urlTo='wishes'
-                    refreshData={() => {
-                        getWishes()
-                    }}
-                    data={dataModalUtility}
-                    setToggle={() => { setShowModal(false) }} />)
-            }
 
             <Layout>
+                <p>Redux implementation</p>
+                <div className="d-flex mb-5">
+                    {
+                        alreadyDone.map((item, index) => (
+                            <div>
+                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                    {item.name} <i className="fas fa-check"></i>
+                                </span>
+                            </div>
+                        ))
+                    }
+                </div>
 
                 <div className="row">
                     <div className="col-sm-4">
@@ -116,17 +127,30 @@ const Wishes = () => {
                     </div >
                 </div >
 
+                <div className="row mt-5">
+                    <div className="offset-sm-9 col-sm-3">
+                        <Button
+                            bgClass={'success'}
+                            type={'button'}
+                            loading={false}
+                            action={() => { setShowModal(true); setDataModalUtility(null) }}
+                        >
+                            Add new
+                        </Button>
+                    </div>
+                </div>
+
                 <div className="flex-wrap mb-5 d-flex justify-content-between">
                     {
                         wishes?.map((item, i) => (
                             <div
                                 className="col-xl-4 col-sm-6 mb-xl-0"
-                                key={item.necessary + i}
+                                key={item.name + i}
                             >
                                 <CardImg
                                     title={item.name}
-                                    description={item.expense}
-                                    image={item.image}
+                                    description={item.expense.toString()}
+                                    image={item.image || ''}
                                     completed={item.status === 'COMPLETED' ? true : false}
                                 >
                                     <div className='mx-4'>
@@ -193,6 +217,14 @@ const Wishes = () => {
                         ))
                     }
                 </div >
+                {showModal &&
+                    <ModalWishes
+                        active={showModal}
+                        data={dataModalUtility}
+                        toggle={() => {
+                            setShowModal(false)
+                        }} />
+                }
             </Layout>
 
         </>
