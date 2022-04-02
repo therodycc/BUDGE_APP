@@ -69,14 +69,13 @@ export const updateFixedCostsAction = (uuid: string, data: FixedCostsI) => {
 
 export const disabledItemAction = (item: FixedCostsI) => {
     return async (dispatch: Function, getStore: Function) => {
-        if (!item.uuid) return;
         fixedCostsProvider
-            .update(item?.uuid, {
+            .update(item?.uuid || '', {
                 active: !item?.active,
             })
             .then((res) => {
                 if (res.error) return sweetAlert.toast("Error", res?.error?.message, 'error')
-                // sweetAlert.toast('Success', 'Changed!', 'success')
+                sweetAlert.toast('Success', 'Changed!', 'success')
                 dispatch({
                     type: fixedCostsTypes.DISABLE_ITEM,
                     payload: getStore().fixedCosts.fixedCosts.map((fc: any) => {

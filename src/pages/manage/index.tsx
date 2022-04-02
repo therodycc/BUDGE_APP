@@ -52,7 +52,7 @@ const Manage = () => {
         setFamily(getFamily());
         setFixedCosts(getFixedCosts());
         setPersonal(getPersonal());
-        setVoluntary(getVoluntary);
+        setVoluntary(getVoluntary());
         setRemaining(getRemaining());
         setWishes(getWishes());
         setEntry(getProfits());
@@ -301,14 +301,26 @@ const Manage = () => {
             .catch((err) => err);
     };
 
+
+    const alreadyDone = [
+        "updated",
+        "delete"
+    ]
+
     return (
         <>
             <Layout>
                 <div className="container">
-                    <div>
-                        <span className="bg-success p-3 rounded-pill fw-bolder text-white">
-                            Done! <i className="fas fa-check"></i>
-                        </span>
+                    <div className="d-flex">
+                        {
+                            alreadyDone.map((item, index) => (
+                                <div>
+                                    <span className="bg-success p-3 rounded-pill fw-bolder text-white mx-1">
+                                        {item} <i className="fas fa-check"></i>
+                                    </span>
+                                </div>
+                            ))
+                        }
                     </div>
                     <div className="row mt-5">
                         <Card

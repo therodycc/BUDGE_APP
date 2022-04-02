@@ -143,7 +143,6 @@ const FixedCosts = () => {
                                 }}
                                 className="form-check-input"
                                 type="checkbox"
-                                id="flexSwitchCheckDefault23"
                                 defaultChecked={item.active}
                             />
                         </div>
@@ -223,13 +222,30 @@ const FixedCosts = () => {
         setDataModalUtility(item);
         setShowModal(!showModal);
     };
-
+    const alreadyDone = [
+        "updated",
+        "delete",
+        "add to month one to one",
+        "disabled",
+        "add"
+    ]
     return (
         <>
             <Layout>
                 <div className="container">
 
                     {/* <FormBudget></FormBudget> */}
+                    <div className="d-flex mb-5">
+                        {
+                            alreadyDone.map((item, index) => (
+                                <div>
+                                    <span className="bg-success p-3 rounded-pill fw-bolder text-white mx-1">
+                                        {item} <i className="fas fa-check"></i>
+                                    </span>
+                                </div>
+                            ))
+                        }
+                    </div>
                     <div className="row mb-5">
                         <div className="col-sm-4">
                             <CardMini amount={currencyFormat(total)} title="Fixed costs" />
