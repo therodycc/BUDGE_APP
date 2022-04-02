@@ -1,4 +1,5 @@
 import config from "../../config"
+import { DebtsI } from "../../interfaces/debts/debts.interface"
 import Provider from "../provider"
 
 class DebtProvider extends Provider {
@@ -6,15 +7,19 @@ class DebtProvider extends Provider {
         super({ baseURL: `${config.app.url}/debts` })
     }
     async getAll() {
-        return await this.get('')
+        return await this.get('/')
     }
 
-    async update(id: string, data: any) {
-        return await this.patch(`/${id}`, data)
+    async update(uuid: string, data: any) {
+        return await this.patch(`/${uuid}`, data)
     }
 
-    async remove(id: string) {
-        return await this.delete(`/${id}`)
+    async create(data: DebtsI) {
+        return await this.post('/', data)
+    }
+
+    async remove(uuid: string) {
+        return await this.delete(`/${uuid}`)
     }
 }
 const debtProvider = new DebtProvider()

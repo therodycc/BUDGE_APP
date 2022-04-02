@@ -10,8 +10,8 @@ class NecessaryProvider extends Provider {
         return await this.get('/')
     }
 
-    async update(id: string, data: any) {
-        return await this.patch(`/${id}`, data)
+    async update(uuid: string, data: any) {
+        return await this.patch(`/${uuid}`, data)
     }
 
     async create(data: NecessaryI) {

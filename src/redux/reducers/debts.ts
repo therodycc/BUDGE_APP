@@ -5,15 +5,25 @@ const initialState = {}
 export const debtsReducer = (state: any = initialState, action: any) => {
 
     switch (action.type) {
-        case debtsTypes.GET_ALL_DEBTS:
+        case debtsTypes.GET_ALL:
             return {
                 ...state,
-                debts: action.payload
+                necessary: action.payload
             }
-        case debtsTypes.REMOVE_DEBT:
+        case debtsTypes.ADD_ITEM:
             return {
                 ...state,
-                debts: action.payload
+                necessary: action.payload
+            }
+        case debtsTypes.REMOVE_ITEM:
+            return {
+                ...state,
+                necessary: action.payload
+            }
+        case debtsTypes.UPDATE_ITEM:
+            return {
+                ...state,
+                necessary: action.payload
             }
         default:
             return state

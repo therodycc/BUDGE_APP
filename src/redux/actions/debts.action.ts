@@ -1,15 +1,14 @@
-import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
-import debtProvider from "../../providers/debt/debt.provider";
-import profitsProvider from "../../providers/profits/profits.provider";
-import { debtsTypes } from "../types/debts.types";
-import { profitsTypes } from "../types/profits.types";
+import sweetAlert from "../../helpers/alerts/sweetAlert.helper"
+import { DebtsI } from "../../interfaces/debts/debts.interface"
+import debtProvider from "../../providers/debt/debt.provider"
+import { debtsTypes } from "../types/debts.types"
 
 export const getDebtsAction = () => {
     return (dispatch: Function) => {
         debtProvider.getAll()
             .then(res => {
                 dispatch({
-                    type: debtsTypes.GET_ALL_DEBTS,
+                    type: debtsTypes.GET_ALL,
                     payload: res?.data
                 })
             })
@@ -17,17 +16,47 @@ export const getDebtsAction = () => {
     }
 }
 
+export const addDebtsAction = (data: DebtsI) => {
+    return (dispatch: Function) => {
+        debtProvider.create(data)
+            .then(res => {
+                console.log({ res }, "post");
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Done!', 'success')
+                dispatch()
+            })
+            .catch(err => err)
+    }
+}
 
-export const removeDebtAction = (id: string) => {
+export const removeDebtsAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
         debtProvider
-            .remove(id)
-            .then((data) => {
+            .remove(uuid)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
-                    type: debtsTypes.REMOVE_DEBT,
-                    payload: getStore().debts.debts.filter((item: any) => item.id !== id)
+                    type: debtsTypes.REMOVE_ITEM,
+                    payload: getStore().Debts.Debts.filter((item: any) => item.uuid !== uuid)
+                })
+            })
+            .catch((error) => error);
+    }
+}
+
+export const updateDebtsAction = (uuid: string, data: DebtsI) => {
+    return async (dispatch: Function, getStore: Function) => {
+        debtProvider
+            .update(uuid, data)
+            .then((res) => {
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+                sweetAlert.alert('Success', 'Updated!', 'success')
+                dispatch({
+                    type: debtsTypes.UPDATE_ITEM,
+                    payload: getStore().Debts.Debts.map((item: DebtsI) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

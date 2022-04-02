@@ -37,12 +37,12 @@ export const asideOptions: AsideOptionsI[] = [
         active: false,
         link: "/debt",
     },
-    {
-        icon: "fas fa-hand-sparkles",
-        title: "Savings",
-        active: false,
-        link: "/savings",
-    },
+    // {
+    //     icon: "fas fa-hand-sparkles",
+    //     title: "Savings",
+    //     active: false,
+    //     link: "/savings",
+    // },
     {
         icon: "fas fa-hand-sparkles",
         title: "Necessary",

@@ -1,4 +1,7 @@
 export const debtsTypes = {
-    GET_ALL_DEBTS: "GET_ALL_DEBTS",
-    REMOVE_DEBT: "REMOVE_DEBT",
+    GET_ALL: "GET_ALL",
+    REMOVE_ITEM: "REMOVE_ITEM",
+    DISABLE_ITEM: "DISABLE_ITEM",
+    ADD_ITEM: "ADD_ITEM",
+    UPDATE_ITEM: "UPDATE_ITEM",
 }

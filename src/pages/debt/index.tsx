@@ -10,7 +10,9 @@ import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import debtProvider from "../../providers/debt/debt.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
-import { getDebtsAction, removeDebtAction } from "../../redux/actions/debts.action";
+import { getDebtsAction, removeDebtsAction } from "../../redux/actions/debts.action";
+import ModalDebts from "../../components/pages/debts/modals";
+import Button from "../../components/common/button";
 
 const Debt = () => {
     const [totalDebts, setTotalDebts] = useState(0);
@@ -185,7 +187,7 @@ const Debt = () => {
     };
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeDebtAction(item?.id))
+        dispatch(removeDebtsAction(item?.uuid))
     };
 
 
@@ -197,16 +199,6 @@ const Debt = () => {
 
     return (
         <>
-
-            {
-                (dataModalUtility && showModal) && (<FormBudget
-                    urlTo="debt"
-                    refreshData={() => {
-                    }}
-                    data={dataModalUtility}
-                    setToggle={() => { setShowModal(false) }} />)
-            }
-
             <Layout>
 
                 <div className="container">
@@ -227,10 +219,37 @@ const Debt = () => {
                             />
                         </div>
                     </div>
-                    <Box title="Debt">
+                    <Box
+                        title="Debt"
+                        rightSection={
+                            <>
+                                <div className="">
+                                    <Button
+                                        bgClass={"success"}
+                                        type={"button"}
+                                        loading={false}
+                                        action={() => {
+                                            setShowModal(true);
+                                            setDataModalUtility(null);
+                                        }}
+                                    >
+                                        Add new
+                                    </Button>
+                                </div>
+                            </>
+                        }
+                    >
                         <Table headItems={headItems} bodyItems={debt} />
                     </Box>
                 </div>
+                {showModal && (
+                    <ModalDebts
+                        active={showModal}
+                        toggle={() => {
+                            setShowModal(false)
+                        }}
+                        data={dataModalUtility} />
+                )}
             </Layout>
 
         </>
