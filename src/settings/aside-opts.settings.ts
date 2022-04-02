@@ -27,9 +27,9 @@ export const asideOptions: AsideOptionsI[] = [
     },
     {
         icon: "fas fa-hand-sparkles",
-        title: "Voluntary",
+        title: "Volunteer things",
         active: false,
-        link: "/voluntary",
+        link: "/volunteer-things",
     },
     {
         icon: "fas fa-hand-sparkles",

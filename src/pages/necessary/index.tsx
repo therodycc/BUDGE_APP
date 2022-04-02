@@ -11,19 +11,21 @@ import necessaryProvider from "../../providers/necessary/necessary.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import Button from "../../components/common/button";
 import ModalNecessary from "../../components/pages/necessary/modals";
+import { useDispatch, useSelector } from "react-redux";
+import { getNecessaryAction, removeNecessaryAction } from "../../redux/actions/necessary.action";
+import { NecessaryI } from "../../interfaces/necessary/necessary.interface";
 
 const Necessary = () => {
+    const dispatch = useDispatch()
+    const state = useSelector((state: any) => state)
     const [necessary, setNecessary] = useState<Array<any>>([]);
     const [totalNecessary, setTotalNecessary] = useState(0);
     const [totalCompleted, setTotalCompleted] = useState(0);
     const [totalMissing, setTotalMissing] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
+    const [dataModalUtility, setDataModalUtility] = useState<NecessaryI | null>(
         null
     );
-
-    // shows
-    const [showModalNecessary, setShowModalNecessary] = useState(false);
 
     const [headItems, setHeadItems] = useState([
         {
@@ -74,21 +76,21 @@ const Necessary = () => {
                     <>
                         <div className="btn-group">
                             <span
-                                className={` text-${item.status === "Pending" ? "danger" : "light"
+                                className={` text-${item.status === "PENDING" ? "danger" : "light"
                                     } display-8`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "In progress" ? "warning" : "light"
+                                className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
                                     } display-8 mx-2`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "Completed" ? "success" : "light"
+                                className={` text-${item.status === "COMPLETED" ? "success" : "light"
                                     } display-8 `}
                             >
                                 <i className="fas fa-circle"></i>
@@ -139,6 +141,13 @@ const Necessary = () => {
     ]);
 
     useEffect(() => {
+        dispatch(getNecessaryAction());
+    }, []);
+    useEffect(() => {
+        setNecessary(state.necessary.necessary);
+    }, [state.necessary.necessary]);
+
+    useEffect(() => {
         setTotalNecessary(getTotalNecessary());
         setTotalCompleted(getTotalCompleted());
     }, [necessary]);
@@ -147,22 +156,6 @@ const Necessary = () => {
         setTotalMissing(getTotalMissing());
     }, [totalCompleted, totalMissing]);
 
-    useEffect(() => {
-        getNecessary();
-    }, []);
-
-    useEffect(() => {
-        console.log(dataModalUtility);
-    }, [dataModalUtility]);
-
-    const getNecessary = () => {
-        necessaryProvider
-            .getAll()
-            .then((res) => {
-                setNecessary(res?.data);
-            })
-            .catch((error) => error);
-    };
 
     const addToThisMonth = (item: UtilityI) => {
         necessaryProvider
@@ -183,29 +176,21 @@ const Necessary = () => {
             .catch((error) => error);
     };
 
-    const removeItem = async (item: UtilityI) => {
-        const confirm = await sweetAlert.question("Are you sure?", "warning");
-        if (!confirm) return;
-        necessaryProvider
-            .remove(item.id)
-            .then((data) => {
-                getNecessary();
-                sweetAlert.alert("Done!", "Deleted", "success");
-            })
-            .catch((error) => error);
+    const removeItem = async (item: NecessaryI) => {
+        dispatch(removeNecessaryAction(item.uuid || ""))
     };
 
     const getTotalNecessary = () => {
         return necessary?.reduce((acc, item) => {
-            acc += item.expense;
+            acc += +item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalCompleted = () => {
         return necessary?.reduce((acc, item) => {
-            if (item.status === "Completed") acc += item.expense;
-            if (item.status === "In progress") acc += item.paidOut;
+            if (item.status === "COMPLETED") acc += item.expense;
+            if (item.status === "IN_PROGRESS") acc += item.paidOut;
 
             return acc;
         }, 0);
@@ -219,23 +204,40 @@ const Necessary = () => {
         setDataModalUtility(item);
         setShowModal(!showModal);
     };
-
+    const alreadyDone = [
+        {
+            name: "update",
+            bg: "success",
+        },
+        {
+            name: "delete",
+            bg: "success",
+        },
+        {
+            name: "add",
+            bg: "success",
+        },
+        {
+            name: "add to month one to one",
+            bg: "danger",
+        },
+    ]
     return (
         <>
-            {dataModalUtility && showModal && (
-                <FormBudget
-                    urlTo="necessary"
-                    refreshData={() => {
-                        getNecessary();
-                    }}
-                    data={dataModalUtility}
-                    setToggle={() => {
-                        setShowModal(false);
-                    }}
-                />
-            )}
             <Layout>
                 <div className="container">
+                    <p>Redux implementation</p>
+                    <div className="d-flex mb-5">
+                        {
+                            alreadyDone.map((item, index) => (
+                                <div>
+                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                        {item.name} <i className="fas fa-check"></i>
+                                    </span>
+                                </div>
+                            ))
+                        }
+                    </div>
                     <div className="row mb-5">
                         <div className="col-sm-4">
                             <CardMini
@@ -259,30 +261,34 @@ const Necessary = () => {
                     <Box
                         title="Necessary"
                         rightSection={
-                            <div className="d-flex align-center-center">
-                                <Button
-                                    action={() => {
-                                        setShowModalNecessary(true);
-                                    }}
-                                    bgClass={"primary"}
-                                    type={"button"}
-                                    loading={false}
-                                    size="sm"
-                                >
-                                    Add new
-                                </Button>
-                            </div>
+                            <>
+                                <div className="">
+                                    <Button
+                                        bgClass={"success"}
+                                        type={"button"}
+                                        loading={false}
+                                        action={() => {
+                                            setShowModal(true);
+                                            setDataModalUtility(null);
+                                        }}
+                                    >
+                                        Add new
+                                    </Button>
+                                </div>
+                            </>
                         }
                     >
                         <Table headItems={headItems} bodyItems={necessary} />
                     </Box>
                 </div>
 
-                {showModalNecessary && (
+                {showModal && (
                     <ModalNecessary
-                        active={showModalNecessary}
-                        toggle={setShowModalNecessary}
-                    />
+                        active={showModal}
+                        toggle={() => {
+                            setShowModal(false)
+                        }}
+                        data={dataModalUtility} />
                 )}
             </Layout>
         </>

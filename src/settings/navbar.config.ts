@@ -5,4 +5,7 @@ export const navOptions = [
     {
         icon: "fa fa-bell"
     },
+    {
+        icon: "fa fa-language"
+    },
 ]

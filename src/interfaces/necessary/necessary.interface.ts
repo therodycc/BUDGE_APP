@@ -1,10 +1,11 @@
 export interface NecessaryI {
-    name: string;
+    uuid?: string
+    name?: string;
     urgency?: string;
     paidOut?: number;
-    expense: number | string;
+    expense: number;
     status?: string;
-    category: string;
+    category?: string;
     image?: string;
     active?: boolean;
 }

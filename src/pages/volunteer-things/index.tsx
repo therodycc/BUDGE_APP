@@ -22,9 +22,9 @@ const VolunteerThings = () => {
     const state = useSelector((state: any) => state.volunteerThings);
 
     const [volunteerThings, setVolunteerThings] = useState<Array<any>>([]);
-    const [totalVolunteerThings, setTotalVolunteerThings] = useState(0);
-    const [totalCompleted, setTotalCompleted] = useState(0);
-    const [totalMissing, setTotalMissing] = useState(0);
+    const [totalVolunteerThings, setTotalVolunteerThings] = useState<number>(0);
+    const [totalCompleted, setTotalCompleted] = useState<number>(0);
+    const [totalMissing, setTotalMissing] = useState<number>(0);
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
