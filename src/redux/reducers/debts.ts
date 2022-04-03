@@ -8,22 +8,22 @@ export const debtsReducer = (state: any = initialState, action: any) => {
         case debtsTypes.GET_ALL:
             return {
                 ...state,
-                necessary: action.payload
+                debts: action.payload
             }
         case debtsTypes.ADD_ITEM:
             return {
                 ...state,
-                necessary: action.payload
+                debts: action.payload
             }
         case debtsTypes.REMOVE_ITEM:
             return {
                 ...state,
-                necessary: action.payload
+                debts: action.payload
             }
         case debtsTypes.UPDATE_ITEM:
             return {
                 ...state,
-                necessary: action.payload
+                debts: action.payload
             }
         default:
             return state

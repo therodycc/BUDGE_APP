@@ -9,7 +9,7 @@ import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { OptionsDropdownI } from "../../interfaces/common/dropdown/dropdown.interface";
 import httpProvider from "../../providers";
 
-const AddOther = () => {
+const Recommendations = () => {
     const [statusOptions, setStatusOptions] = useState<Array<OptionsDropdownI>>(
         []
     );
@@ -159,7 +159,6 @@ const AddOther = () => {
                                                                 value={form?.urgency}
                                                                 onChange={handleChange}
                                                                 options={urgencyOptions}
-                                                                placeholder="Urgency"
                                                             />
                                                         </div>
                                                         <div className="col-lg-6">
@@ -178,7 +177,6 @@ const AddOther = () => {
                                                                 value={form?.category}
                                                                 options={categoryOptions}
                                                                 onChange={handleChange}
-                                                                placeholder="Category"
                                                             />
                                                         </div>
                                                         <div className="col-lg-6">
@@ -187,7 +185,6 @@ const AddOther = () => {
                                                                 value={form?.status}
                                                                 onChange={handleChange}
                                                                 options={statusOptions}
-                                                                placeholder="Status"
                                                             />
                                                         </div>
                                                     </div>
@@ -279,4 +276,4 @@ const AddOther = () => {
     );
 };
 
-export default AddOther;
+export default Recommendations;

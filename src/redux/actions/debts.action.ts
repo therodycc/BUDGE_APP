@@ -40,7 +40,7 @@ export const removeDebtsAction = (uuid: string) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: debtsTypes.REMOVE_ITEM,
-                    payload: getStore().Debts.Debts.filter((item: any) => item.uuid !== uuid)
+                    payload: getStore().debts.debts.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);
@@ -56,7 +56,7 @@ export const updateDebtsAction = (uuid: string, data: DebtsI) => {
                 sweetAlert.alert('Success', 'Updated!', 'success')
                 dispatch({
                     type: debtsTypes.UPDATE_ITEM,
-                    payload: getStore().Debts.Debts.map((item: DebtsI) => item.uuid == uuid ? { ...item, ...data } : item)
+                    payload: getStore().debts.debts.map((item: DebtsI) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

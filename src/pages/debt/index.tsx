@@ -8,13 +8,14 @@ import FormBudget from "../../components/pages/form-budget/Index";
 import { currencyFormat } from "../../helpers/currency.helper";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
-import debtProvider from "../../providers/debt/debt.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import { getDebtsAction, removeDebtsAction } from "../../redux/actions/debts.action";
 import ModalDebts from "../../components/pages/debts/modals";
 import Button from "../../components/common/button";
+import debtProvider from "../../providers/debt/debt.provider";
 
 const Debt = () => {
+    const [debts, setDebts] = useState<Array<any>>([]);
     const [totalDebts, setTotalDebts] = useState(0);
     const [totalCompleted, setTotalCompleted] = useState(0);
     const [totalMissing, setTotalMissing] = useState(0);
@@ -41,10 +42,10 @@ const Debt = () => {
                             <h6 className="mb-0 text-sm">{item.name}</h6>
                             <p className="text-sm font-weight-normal text-secondary mb-0">
                                 <span
-                                    className={`text-${item.amount - item.paidOut === 0 ? "success" : "danger"
+                                    className={`text-${item.expense - item.paidOut === 0 ? "success" : "danger"
                                         } font-weight-bold mx-1`}
                                 >
-                                    {currencyFormat(item.amount - item.paidOut)}
+                                    {currencyFormat(item.expense - item.paidOut)}
                                 </span>
                                 {item.category}
                             </p>
@@ -58,7 +59,7 @@ const Debt = () => {
             render: ({ item }: any) => {
                 return (
                     <>
-                        <span>{currencyFormat(item.amount)}</span>
+                        <span>{currencyFormat(item.expense)}</span>
                     </>
                 );
             },
@@ -70,21 +71,21 @@ const Debt = () => {
                     <>
                         <div className="btn-group">
                             <span
-                                className={` text-${item.status === "Pending" ? "danger" : "light"
+                                className={` text-${item.status === "PENDING" ? "danger" : "light"
                                     } display-8`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "In progress" ? "warning" : "light"
+                                className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
                                     } display-8 mx-2`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "Completed" ? "success" : "light"
+                                className={` text-${item.status === "COMPLETED" ? "success" : "light"
                                     } display-8 `}
                             >
                                 <i className="fas fa-circle"></i>
@@ -134,16 +135,18 @@ const Debt = () => {
         },
     ]);
 
-    let debt: any[] = state.debts.debts || []
-
     useEffect(() => {
         dispatch(getDebtsAction())
     }, []);
 
     useEffect(() => {
+        setDebts(state.debts.debts)
+    }, [state.debts.debts]);
+
+    useEffect(() => {
         setTotalDebts(getTotalDebts());
         setTotalCompleted(getTotalCompleted());
-    }, [debt]);
+    }, [debts]);
 
     useEffect(() => {
         setTotalMissing(getTotalMissing());
@@ -152,16 +155,16 @@ const Debt = () => {
 
 
     const getTotalDebts = () => {
-        return debt?.reduce((acc, item) => {
+        return debts?.reduce((acc, item) => {
             acc += item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalCompleted = () => {
-        return debt?.reduce((acc, item) => {
-            if (item.status === "Completed") acc += item.expense;
-            if (item.status === "In progress") acc += item.paidOut;
+        return debts?.reduce((acc, item) => {
+            if (item.status === "COMPLETED") acc += item.expense;
+            if (item.status === "IN_PROGRESS") acc += item.paidOut;
             return acc;
         }, 0);
     };
@@ -172,15 +175,14 @@ const Debt = () => {
 
     const addToThisMonth = (item: UtilityI) => {
         debtProvider.update(item.id, {
-            status: 'In progress'
+            status: 'IN_PROGRESS'
         })
-            .then(data => {
-                console.log({ data });
+            .then(res => {
             })
             .catch(error => error)
         utilitiesProvider
             .postItem(item)
-            .then((data) => {
+            .then((res) => {
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
             .catch((error) => error);
@@ -195,13 +197,42 @@ const Debt = () => {
         setDataModalUtility(item)
         setShowModal(!showModal)
     }
-
+    const alreadyDone = [
+        {
+            name: "update",
+            bg: "success",
+        },
+        {
+            name: "delete",
+            bg: "success",
+        },
+        {
+            name: "add",
+            bg: "success",
+        },
+        {
+            name: "add to month one to one",
+            bg: "danger",
+        },
+    ]
 
     return (
         <>
             <Layout>
 
                 <div className="container">
+                    <p>Redux implementation</p>
+                    <div className="d-flex mb-5">
+                        {
+                            alreadyDone.map((item, index) => (
+                                <div>
+                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                        {item.name} <i className="fas fa-check"></i>
+                                    </span>
+                                </div>
+                            ))
+                        }
+                    </div>
                     <div className="row mb-5">
                         <div className="col-sm-4">
                             <CardMini amount={currencyFormat(totalDebts)} title="Total" />
@@ -239,7 +270,7 @@ const Debt = () => {
                             </>
                         }
                     >
-                        <Table headItems={headItems} bodyItems={debt} />
+                        <Table headItems={headItems} bodyItems={debts} />
                     </Box>
                 </div>
                 {showModal && (
