@@ -6,7 +6,7 @@ export const getProfitsAction = () => {
         profitsProvider.getAll()
             .then(res => {
                 dispatch({
-                    type: profitsTypes.GET_ALL_PROFITS,
+                    type: profitsTypes.GET_ALL,
                     payload: res?.data
                 })
             })
@@ -23,7 +23,7 @@ export const disabledItemAction = (item: any) => {
             })
             .then((res) => {
                 dispatch({
-                    type: profitsTypes.DISABLE_ITEM_PROFITS,
+                    type: profitsTypes.DISABLE_ITEM,
                     payload: getStore()?.profits?.profits?.map((fc: any) => {
                         if (fc.id === item.id) fc.active = !item.active
                         return fc

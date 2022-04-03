@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardWidget from "../../components/common/card/CardWidget";
 import Layout from "../../components/layout";
-import FormProfits from "../../components/pages/form-profits/Index";
+import FormProfits from "../../components/pages/profits";
 import { currencyFormat } from "../../helpers/currency.helper";
 import { ProfitI } from "../../interfaces/app/profit/profit.interface";
-import { UserI } from "../../interfaces/user/user.interface";
-import userProvider from "../../providers/user/user.provider";
 import { disabledItemAction, getProfitsAction } from "../../redux/actions/profits.action";
 import { getUserAction } from "../../redux/actions/user.action";
 
