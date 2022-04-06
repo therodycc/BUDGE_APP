@@ -41,7 +41,7 @@ export const removeWishesAction = (uuid: string) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: WishesTypes.REMOVE_ITEM,
-                    payload: getStore().Wishes.Wishes.filter((item: any) => item.uuid !== uuid)
+                    payload: getStore().wishes.wishes.filter((item: any) => item.uuid !== uuid)
                 })
             })
             .catch((error) => error);
