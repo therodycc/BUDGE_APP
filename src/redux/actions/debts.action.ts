@@ -17,12 +17,15 @@ export const getDebtsAction = () => {
 }
 
 export const addDebtsAction = (data: DebtsI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         debtProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                dispatch()
+                dispatch({
+                    type: debtsTypes.ADD_ITEM,
+                    payload: [data].concat(getStore().debts.debts)
+                })
             })
             .catch(err => err)
     }

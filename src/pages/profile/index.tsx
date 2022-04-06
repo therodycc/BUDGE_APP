@@ -45,13 +45,7 @@ const Profile = () => {
 
     return (
         <>
-            {
-                showModal && <ModalProfits
-                    data={dataProfitsSelected}
-                    active={showModal}
-                    toggle={() => { setShowModal(false) }}
-                />
-            }
+
             <Layout>
 
                 <div className="container-fluid px-2 px-md-4">
@@ -130,7 +124,13 @@ const Profile = () => {
                     </div>
                 </div>
             </Layout>
-
+            {
+                showModal && <ModalProfits
+                    data={dataProfitsSelected}
+                    active={showModal}
+                    toggle={() => { setShowModal(false) }}
+                />
+            }
         </>
     );
 };

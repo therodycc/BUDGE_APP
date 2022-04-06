@@ -19,12 +19,15 @@ export const getWishesAction = () => {
 }
 
 export const addWishesAction = (data: WishesI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         wishesProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                dispatch()
+                dispatch({
+                    type: WishesTypes.ADD_ITEM,
+                    payload: [data].concat(getStore().wishes.wishes)
+                })
             })
             .catch(err => err)
     }

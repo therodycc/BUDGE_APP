@@ -18,12 +18,15 @@ export const getVolunteerThingsAction = () => {
 }
 
 export const addVolunteerThingsAction = (data: VolunteerThingsI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         volunteerThingsProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                dispatch()
+                dispatch({
+                    type: VolunteerThingsTypes.ADD_ITEM,
+                    payload: [data].concat(getStore().volunteerThings.volunteerThings)
+                })
             })
             .catch(err => err)
     }

@@ -24,9 +24,9 @@ const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsProp
         expense: data?.expense || 0,
         paidOut: data?.paidOut || 0,
         image: data?.image || "",
-        urgency: data?.urgency || "",
+        urgency: data?.urgency || "WHENEVER",
         category: data?.category || "",
-        status: data?.status || "",
+        status: data?.status || "PENDING",
         to: data?.to || ""
     });
 

@@ -17,12 +17,15 @@ export const getNecessaryAction = () => {
 }
 
 export const addNecessaryAction = (data: NecessaryI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         necessaryProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                dispatch()
+                dispatch({
+                    type: necessaryTypes.ADD_ITEM_NECESSARY,
+                    payload: [data].concat(getStore().necessary.necessary)
+                })
             })
             .catch(err => err)
     }

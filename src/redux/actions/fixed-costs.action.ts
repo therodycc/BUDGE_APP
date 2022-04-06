@@ -18,12 +18,15 @@ export const getFixedCostsAction = () => {
 }
 
 export const addFixedCostAction = (data: FixedCostsI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         fixedCostsProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                dispatch()
+                dispatch({
+                    type: fixedCostsTypes.ADD_ITEM,
+                    payload: [data].concat(getStore().fixedCosts.fixedCosts)
+                })
             })
             .catch(err => err)
     }
@@ -56,7 +59,7 @@ export const updateFixedCostsAction = (uuid: string, data: FixedCostsI) => {
                 sweetAlert.alert('Success', 'Updated!', 'success')
                 dispatch({
                     type: fixedCostsTypes.UPDATE_ITEM,
-                    payload: getStore().fixedCosts.fixedCosts.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
+                    payload: getStore().fixedCosts.fixedCosts.map((item: FixedCostsI) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

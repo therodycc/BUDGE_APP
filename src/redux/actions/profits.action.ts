@@ -17,12 +17,15 @@ export const getProfitsAction = () => {
 }
 
 export const addProfitsAction = (data: ProfitsI) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function, getStore: Function) => {
         profitsProvider.create(data)
             .then(res => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
-                // dispatch()
+                dispatch({
+                    type: profitsTypes.ADD_ITEM_PROFITS,
+                    payload: [data].concat(getStore().profits.profits)
+                })
             })
             .catch(err => err)
     }

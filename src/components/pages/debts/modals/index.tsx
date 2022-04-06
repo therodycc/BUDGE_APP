@@ -24,9 +24,9 @@ const ModalDebts = ({ active, toggle, data }: ModalDebtsPropsI) => {
         name: data?.name || "",
         expense: data?.expense || 0,
         paidOut: data?.paidOut || 0,
-        urgency: data?.urgency || "",
+        urgency: data?.urgency || "WHENEVER",
         category: data?.category || "",
-        status: data?.status || "",
+        status: data?.status || "PENDING",
         description: data?.description || "",
         to: data?.to || ""
     });

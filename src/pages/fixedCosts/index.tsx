@@ -66,21 +66,21 @@ const FixedCosts = () => {
                     <>
                         <div className="btn-group">
                             <span
-                                className={` text-${item.status === "Pending" ? "danger" : "light"
+                                className={` text-${item.status === "PENDING" ? "danger" : "light"
                                     } display-8`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "In progress" ? "warning" : "light"
+                                className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
                                     } display-8 mx-2`}
                             >
                                 {" "}
                                 <i className="fas fa-circle"></i>
                             </span>
                             <span
-                                className={` text-${item.status === "Completed" ? "success" : "light"
+                                className={` text-${item.status === "COMPLETED" ? "success" : "light"
                                     } display-8 `}
                             >
                                 <i className="fas fa-circle"></i>

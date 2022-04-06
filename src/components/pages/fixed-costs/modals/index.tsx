@@ -1,3 +1,4 @@
+import { parse } from "node:path/win32";
 import React, { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
@@ -24,13 +25,13 @@ const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
 
     const [form, setForm] = useState<FixedCostsI>({
         name: data?.name || "",
-        expense: data?.expense || 0,
+        expense: Number(data?.expense) || 0,
         paidOut: data?.paidOut || 0,
         image: data?.image || "",
-        urgency: data?.urgency || "",
+        urgency: data?.urgency || "WHENEVER",
         category: data?.category || "",
-        status: data?.status || "",
-        active: data?.active || "",
+        status: data?.status || "PENDING",
+        active: data?.active || true,
     });
 
     // errors
@@ -82,12 +83,12 @@ const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
                         </div>
                         <div className="col-lg-6">
                             <Input
-                                title="Amount"
+                                title="Expense"
                                 type={"number"}
                                 name={"expense"}
                                 value={form?.expense}
                                 onChange={handleChange}
-                                placeholder={"The amount here"}
+                                placeholder={"The expense here"}
                                 errorMessage={errExpense}
                             />
                         </div>
@@ -119,7 +120,7 @@ const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
                             <Dropdown
                                 title="Status"
                                 name={"status"}
-                                value={form?.status || ""}
+                                value={form!.status || ""}
                                 onChange={handleChange}
                                 options={statusOptions}
                             />
