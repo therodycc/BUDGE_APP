@@ -1,10 +1,9 @@
-import React, { FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isRequired } from '../../../../helpers/validations';
 import { ProfitsI } from '../../../../interfaces/profits/profits.interface';
 import { addProfitsAction, updateProfitsAction } from '../../../../redux/actions/profits.action';
 import Button from '../../../common/button';
-import Dropdown from '../../../common/dropdown';
 import Input from '../../../common/input';
 import Modal from '../../../common/modal';
 

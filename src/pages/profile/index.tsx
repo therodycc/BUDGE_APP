@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardWidget from "../../components/common/card/CardWidget";
 import Layout from "../../components/layout";
-import FormProfits from "../../components/pages/profits";
 import ModalProfits from "../../components/pages/profits/modals";
 import { currencyFormat } from "../../helpers/currency.helper";
 import { ProfitI } from "../../interfaces/app/profit/profit.interface";
 import { ProfitsI } from "../../interfaces/profits/profits.interface";
-import { disabledItemAction, getProfitsAction, removeProfitsAction, updateProfitsAction } from "../../redux/actions/profits.action";
+import { disabledItemAction, getProfitsAction, removeProfitsAction } from "../../redux/actions/profits.action";
 import { getUserAction } from "../../redux/actions/user.action";
 
 const Profile = () => {
@@ -60,7 +59,7 @@ const Profile = () => {
                         className="page-header min-height-300 border-radius-xl mt-4"
                         style={{
                             backgroundImage:
-                                "url(https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80)",
+                                "url(/assets/images/bg-profile.jfif)",
                         }}
                     >
                         <span className="mask  bg-gradient-info  opacity-4"></span>
@@ -93,9 +92,9 @@ const Profile = () => {
 
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-lg-4 col-sm-6 col-md-6">
-                                <div className="row mt-3 mx-1">
+                        <div className="row  my-3">
+                            <div className="col-sm-6">
+                                <div className="row">
                                     <div className="col-lg-12">
                                         <button
                                             type="button"
@@ -124,7 +123,7 @@ const Profile = () => {
                                         />
                                     ))}
                             </div>
-                            <div className="card card-body col-7 my-3 bg-secondary mx-3">
+                            <div className="card card-body col-sm-6">
 
                             </div>
                         </div>

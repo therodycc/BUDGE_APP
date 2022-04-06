@@ -29,7 +29,7 @@ const Wishes = () => {
     }, [])
 
     useEffect(() => {
-        setWishes(state?.wishes || [])
+        setWishes(state?.wishes)
     }, [state.wishes]);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const Wishes = () => {
 
     const addToThisMonth = (item: WishesI) => {
         wishesProvider.update(item?.uuid || '', {
-            status: 'In progress'
+            status: 'IN_PROGRESS'
         })
             .then(data => {
             })
