@@ -62,7 +62,6 @@ const Wishes = () => {
             status: 'In progress'
         })
             .then(data => {
-                console.log({ data });
             })
             .catch(error => error)
         utilitiesProvider.postItem(item)

@@ -3,19 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import CardWidget from "../../components/common/card/CardWidget";
 import Layout from "../../components/layout";
 import FormProfits from "../../components/pages/profits";
+import ModalProfits from "../../components/pages/profits/modals";
 import { currencyFormat } from "../../helpers/currency.helper";
 import { ProfitI } from "../../interfaces/app/profit/profit.interface";
-import { disabledItemAction, getProfitsAction } from "../../redux/actions/profits.action";
+import { ProfitsI } from "../../interfaces/profits/profits.interface";
+import { disabledItemAction, getProfitsAction, removeProfitsAction, updateProfitsAction } from "../../redux/actions/profits.action";
 import { getUserAction } from "../../redux/actions/user.action";
 
 const Profile = () => {
     const [showModal, setShowModal] = useState(false);
+    const [profits, setProfits] = useState([]);
+    const [user, setUser] = useState<any>();
+    const [dataProfitsSelected, setDataProfitsSelected] = useState(null);
 
     const state = useSelector((state: any) => state)
     const dispatch = useDispatch()
 
-    let profits: any[] = state?.profits?.profits || []
-    let user: any = state?.user?.user?.user || []
+    // let user: any = state?.user?.user?.user || []
+
+
+    useEffect(() => {
+        setProfits(state?.profits?.profits)
+    }, [state?.profits?.profits]);
+
+    useEffect(() => {
+        setUser(state?.user?.user)
+    }, [state?.user?.user]);
 
     useEffect(() => {
         dispatch(getProfitsAction())
@@ -27,12 +40,17 @@ const Profile = () => {
         dispatch(disabledItemAction(item))
     }
 
+    const removeProfit = (item: ProfitsI) => {
+        dispatch(removeProfitsAction(item?.uuid || ''))
+    }
+
     return (
         <>
             {
-                showModal && <FormProfits
-                    refreshData={() => { }}
-                    setToggle={() => { setShowModal(false) }}
+                showModal && <ModalProfits
+                    data={dataProfitsSelected}
+                    active={showModal}
+                    toggle={() => { setShowModal(false) }}
                 />
             }
             <Layout>
@@ -84,6 +102,7 @@ const Profile = () => {
                                             className="btn btn-success btn-rounded"
                                             onClick={() => {
                                                 setShowModal(true)
+                                                setDataProfitsSelected(null)
                                             }} >
                                             <i className="fas fa-plus-circle "></i>
                                         </button>
@@ -92,8 +111,14 @@ const Profile = () => {
                                 {profits &&
                                     profits?.map((item: any) => (
                                         <CardWidget
-                                            title={item.type}
-                                            description={currencyFormat(item.amount)}
+                                            handleDelete={removeProfit}
+                                            handleUpdate={() => {
+                                                setShowModal(true)
+                                                setDataProfitsSelected(item)
+                                            }}
+                                            key={`card-widget-${item.id}`}
+                                            title={item?.type}
+                                            description={currencyFormat(item?.amount)}
                                             toggleEnabled={() => disabledItem(item)}
                                             item={item}
                                         />

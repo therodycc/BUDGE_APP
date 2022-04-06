@@ -38,7 +38,6 @@ const FormProfits = ({ setToggle, refreshData, dataToEdit }: FormProfitsI) => {
             amount: +form.amount
         })
             .then(res => {
-                console.log({ res });
                 refreshData()
                 setToggle()
                 return sweetAlert.toast('Done!', '', 'success')
@@ -46,13 +45,11 @@ const FormProfits = ({ setToggle, refreshData, dataToEdit }: FormProfitsI) => {
             .catch((error) => {
                 return sweetAlert.toast('Error', '', 'error')
             })
-        console.log({ result });
     }
 
     const update = () => {
         httpProvider.patch(`${config.app.url}/profits`, dataToEdit?.id, form)
             .then(res => {
-                console.log({ res });
                 refreshData()
                 setToggle()
                 return sweetAlert.toast('Updated!', '', 'success')

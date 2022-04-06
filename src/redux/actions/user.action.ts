@@ -5,7 +5,6 @@ export const getUserAction = () => {
     return (dispatch: Function) => {
         userProvider.getAll()
             .then((res) => {
-                console.log(res)
                 dispatch({
                     type: userTypes.GET_USER,
                     payload: { user: res?.data }

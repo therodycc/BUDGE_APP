@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { isRequired } from '../../../../helpers/validations';
 import { ProfitsI } from '../../../../interfaces/profits/profits.interface';
+import { addProfitsAction, updateProfitsAction } from '../../../../redux/actions/profits.action';
 import Button from '../../../common/button';
 import Dropdown from '../../../common/dropdown';
 import Input from '../../../common/input';
@@ -18,7 +19,7 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
     const dispatch = useDispatch();
 
     const [form, setForm] = useState<ProfitsI>({
-        name: data?.name || "",
+        type: data?.type || "",
         amount: data?.amount || 0,
         active: data?.active || true,
     });
@@ -26,7 +27,7 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
     // errors
     const [errName, setErrName] = useState("");
     const [errAmount, setErrAmount] = useState("");
-    
+
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setForm({
@@ -37,17 +38,17 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const errorName = isRequired(form.name, "Name is required", setErrName);
+        const errorName = isRequired(form.type, "Name is required", setErrName);
         const errorExpense = isRequired(form.amount, "Expense is required", setErrAmount);
         if (errorName || errorExpense) {
             return;
         }
-        // data?.uuid
-        //     ? dispatch(
-        //         updateFixedCostsAction(data.uuid, form)
-        //     )
-        //     : dispatch(addFixedCostAction(form));
-        // toggle();
+        data?.uuid
+            ? dispatch(
+                updateProfitsAction(data.uuid, form)
+            )
+            : dispatch(addProfitsAction(form));
+        toggle();
     };
 
     return (
@@ -57,12 +58,12 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
                     <div className="row mt-3">
                         <div className="col-lg-6">
                             <Input
-                                title="Name"
+                                title="Type"
                                 type={"text"}
-                                name={"name"}
+                                name={"type"}
                                 onChange={handleChange}
-                                value={form?.name}
-                                placeholder={"Your name"}
+                                value={form?.type}
+                                placeholder={"Type"}
                                 errorMessage={errName}
                             />
                         </div>

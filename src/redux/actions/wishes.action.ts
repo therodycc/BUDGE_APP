@@ -22,7 +22,6 @@ export const addWishesAction = (data: WishesI) => {
     return (dispatch: Function) => {
         wishesProvider.create(data)
             .then(res => {
-                console.log({ res }, "post");
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch()

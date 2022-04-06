@@ -108,7 +108,6 @@ const Recommendations = () => {
                     links: []
                 }
             );
-            // console.log({ result });
             if (result?.ok) return sweetAlert.alert("Done!", "", "success");
         } catch (error) {
             sweetAlert.alert("Error!", "", "error");

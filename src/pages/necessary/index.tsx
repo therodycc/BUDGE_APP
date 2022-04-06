@@ -163,7 +163,6 @@ const Necessary = () => {
                 status: "In progress",
             })
             .then((data) => {
-                console.log({ data });
             })
             .catch((error) => error);
 

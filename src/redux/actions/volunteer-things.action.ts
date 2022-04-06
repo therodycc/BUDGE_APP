@@ -21,7 +21,6 @@ export const addVolunteerThingsAction = (data: VolunteerThingsI) => {
     return (dispatch: Function) => {
         volunteerThingsProvider.create(data)
             .then(res => {
-                console.log({ res }, "post");
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch()

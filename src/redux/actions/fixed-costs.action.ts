@@ -7,7 +7,6 @@ export const getFixedCostsAction = () => {
     return (dispatch: Function) => {
         fixedCostsProvider.getAll()
             .then(res => {
-                console.log({ res }, 'action - fixed costs');
                 dispatch({
                     type: fixedCostsTypes.GET_ALL,
                     payload: res?.data
@@ -22,8 +21,6 @@ export const addFixedCostAction = (data: FixedCostsI) => {
     return (dispatch: Function) => {
         fixedCostsProvider.create(data)
             .then(res => {
-                console.log({ res }, "post");
-                console.log(res.data);
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch()

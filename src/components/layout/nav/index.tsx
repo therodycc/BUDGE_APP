@@ -9,7 +9,9 @@ const Nav = () => {
 
             {settings.navOptions.map((option, index) => (
               <>
-                <div className="col-sm-auto col-4" key={`opt-${index}-id`}>
+                <div
+                  key={`nav-option-${index}`}
+                  className="col-sm-auto col-4" >
                   <div className='bg-dark rounded-circle shadow-sm border border-light text-center  cursor-pointer' style={{ width: "50px", height: "50px", lineHeight: "50px" }}>
                     <i className={`${option.icon}`}></i>
                   </div>

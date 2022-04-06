@@ -128,11 +128,6 @@ const Lending = () => {
         getLeading()
     }, [])
 
-    useEffect(() => {
-        console.log(dataModalUtility);
-    }, [dataModalUtility]);
-
-
     const getLeading = () => {
         leadingProvider.getAll()
             .then(res => {

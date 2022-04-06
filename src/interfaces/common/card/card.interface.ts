@@ -29,6 +29,8 @@ export interface CardImgPropsI extends CardBaseI {
 export interface CardWidgetI extends CardBaseI {
     toggleEnabled: Function
     item?: ProfitI
+    handleDelete:Function
+    handleUpdate:Function
 }
 
 

@@ -6,14 +6,12 @@ import CardMini from "../../components/common/card/CardMini";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
 import ModalFixedCosts from "../../components/pages/fixed-costs/modals";
-import FormBudget from "../../components/pages/form-budget/Index";
-import { currencyFormat } from "../../helpers/currency.helper";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
+import { currencyFormat } from "../../helpers/currency.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import fixedCostsProvider from "../../providers/fixed-costs/fixed-costs.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import { disabledItemAction, getFixedCostsAction, removeItemAction } from "../../redux/actions/fixed-costs.action";
-import { FixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
 
 const FixedCosts = () => {
     const [total, setTotal] = useState(0);
@@ -196,13 +194,11 @@ const FixedCosts = () => {
                 status: "IN_PROGRESS",
             })
             .then((data) => {
-                console.log({ data });
             })
             .catch((error) => error);
         utilitiesProvider
             .postItem(item)
             .then((data) => {
-                console.log(data, "post");
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
             .catch((error) => error);
@@ -242,6 +238,7 @@ const FixedCosts = () => {
             bg: "danger",
         },
     ]
+    
     return (
         <>
             <Layout>

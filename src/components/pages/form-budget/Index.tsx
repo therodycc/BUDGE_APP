@@ -128,7 +128,6 @@ const FormBudget = ({ setToggle, data, refreshData, urlTo }: FormBudgetI) => {
             .then(res => {
                 setToggle()
                 refreshData()
-                console.log(res);
                 sweetAlert.alert('Done!', 'updated successfully!', 'success')
             })
             .catch(error => console.log(error))

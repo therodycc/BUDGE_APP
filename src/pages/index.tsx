@@ -24,7 +24,6 @@ const Home = () => {
       Promise.all(result.data).then((item) => {
         item.map(async e => {
           const res = await axios.post('http://localhost:5000/fixed-costs', { ...e, name: e.necessary, amount: e.expense, urgency: 'EARLY', status: 'PENDING' })
-          console.log({ res }, 'adsfasdfasd');
         })
       })
     } catch (error) {

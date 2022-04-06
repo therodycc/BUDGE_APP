@@ -3,23 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
 import Button from "../../components/common/button";
 import Card from "../../components/common/card/Index";
-import InputText from "../../components/common/input";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
-import FormBudget from "../../components/pages/form-budget/Index";
 import ModalManage from "../../components/pages/manage/modals";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { currencyFormat } from "../../helpers/currency.helper";
-import { ManageI } from "../../interfaces/manage/manage.interface";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import manageProvider from "../../providers/reports/reports.provider";
-import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import {
     getManageAction,
-    removeManageAction,
+    removeManageAction
 } from "../../redux/actions/manage.action";
 import { getProfitsAction } from "../../redux/actions/profits.action";
-
 const Manage = () => {
     // store
     const state = useSelector((state: any) => state);
@@ -42,17 +37,19 @@ const Manage = () => {
         null
     );
 
-
-    useEffect(() => {
-        setUtilities(state.manage.manage);
-        setProfits(state.profits.profits);
-    }, [state.manage, state.profits]);
-
-
     useEffect(() => {
         dispatch(getProfitsAction());
         dispatch(getManageAction());
     }, []);
+
+    useEffect(() => {
+        if (!state.profits.profits) return
+        setProfits(state.profits.profits);
+    }, [state.profits.profits]);
+    useEffect(() => {
+        if (!state.manage.manage) return
+        setUtilities(state.manage.manage);
+    }, [state.manage.manage]);
 
     useEffect(() => {
         setPending(getPending());

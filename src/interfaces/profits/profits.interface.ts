@@ -1,6 +1,6 @@
 export interface ProfitsI {
     uuid?:string
-    name?: string,
+    type?: string,
     amount?: number,
     active?:boolean
 }

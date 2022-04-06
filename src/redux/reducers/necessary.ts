@@ -5,22 +5,22 @@ const initialState = {}
 export const necessaryReducer = (state: any = initialState, action: any) => {
 
     switch (action.type) {
-        case necessaryTypes.GET_ALL:
+        case necessaryTypes.GET_ALL_NECESSARY:
             return {
                 ...state,
                 necessary: action.payload
             }
-        case necessaryTypes.ADD_ITEM:
+        case necessaryTypes.ADD_ITEM_NECESSARY:
             return {
                 ...state,
                 necessary: action.payload
             }
-        case necessaryTypes.REMOVE_ITEM:
+        case necessaryTypes.REMOVE_ITEM_NECESSARY:
             return {
                 ...state,
                 necessary: action.payload
             }
-        case necessaryTypes.UPDATE_ITEM:
+        case necessaryTypes.UPDATE_ITEM_NECESSARY:
             return {
                 ...state,
                 necessary: action.payload

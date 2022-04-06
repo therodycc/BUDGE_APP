@@ -8,7 +8,7 @@ export const getNecessaryAction = () => {
         necessaryProvider.getAll()
             .then(res => {
                 dispatch({
-                    type: necessaryTypes.GET_ALL,
+                    type: necessaryTypes.GET_ALL_NECESSARY,
                     payload: res?.data
                 })
             })
@@ -20,7 +20,6 @@ export const addNecessaryAction = (data: NecessaryI) => {
     return (dispatch: Function) => {
         necessaryProvider.create(data)
             .then(res => {
-                console.log({ res }, "post");
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch()
@@ -39,7 +38,7 @@ export const removeNecessaryAction = (uuid: string) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
-                    type: necessaryTypes.REMOVE_ITEM,
+                    type: necessaryTypes.REMOVE_ITEM_NECESSARY,
                     payload: getStore().necessary.necessary.filter((item: any) => item.uuid !== uuid)
                 })
             })
@@ -55,7 +54,7 @@ export const updateNecessaryAction = (uuid: string, data: NecessaryI) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Updated!', 'success')
                 dispatch({
-                    type: necessaryTypes.UPDATE_ITEM,
+                    type: necessaryTypes.UPDATE_ITEM_NECESSARY,
                     payload: getStore().necessary.necessary.map((item: NecessaryI) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })

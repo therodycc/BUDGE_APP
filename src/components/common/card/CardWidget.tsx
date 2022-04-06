@@ -1,9 +1,10 @@
 import React from 'react';
 import { CardWidgetI } from '../../../interfaces/common/card/card.interface';
+import Button from '../button';
 
-const CardWidget = ({ title, description, toggleEnabled, item }: CardWidgetI) => {
+const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, handleUpdate }: CardWidgetI) => {
   return <>
-    <div className="card mb-3">
+    <div className="card">
       <div className="card-body p-3">
         <div className="row">
           <div className="col-4">
@@ -29,6 +30,18 @@ const CardWidget = ({ title, description, toggleEnabled, item }: CardWidgetI) =>
           </div>
         </div>
       </div>
+    </div>
+    <div className="px-3 bg-light d-flex py-3 ">
+      <Button
+        action={() => { handleDelete(item) }}
+        bgClass={'danger'} type={'button'} loading={false}>
+        <i className="fas fa-trash-alt"></i>
+      </Button>
+      <Button
+        action={() => { handleUpdate() }}
+        bgClass={'warning'} type={'button'} loading={false}>
+        <i className="fas fa-pencil-alt"></i>
+      </Button>
     </div>
   </>;
 };
