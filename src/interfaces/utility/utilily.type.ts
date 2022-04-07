@@ -9,6 +9,6 @@ export type CategoryType =
     | "debt"
     | "wishes";
 
-export type StatusType = "In progress" | "Completed" | "Pending";
+export type StatusType = "IN_PROGRESS" | "COMPLETED" | "PENDING";
 
-export type UrgencyType = "immediate" | "early" | "whenever";
+export type UrgencyType = "IMMEDIATE" | "EARLY" | "WHENEVER";

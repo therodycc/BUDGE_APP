@@ -11,7 +11,7 @@ import { currencyFormat } from "../../helpers/currency.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
 import fixedCostsProvider from "../../providers/fixed-costs/fixed-costs.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
-import { disabledItemAction, getFixedCostsAction, removeItemAction } from "../../redux/actions/fixed-costs.action";
+import { disabledItemAction, getFixedCostsAction, removeFixedCostsAction } from "../../redux/actions/fixed-costs.action";
 
 const FixedCosts = () => {
     const [total, setTotal] = useState(0);
@@ -150,17 +150,17 @@ const FixedCosts = () => {
     ]);
 
     // stores
-    const state = useSelector((state: any) => state.fixedCosts)
+    const state = useSelector((state: any) => state)
 
     const dispatch = useDispatch()
 
-    let fixedCosts: UtilityI[] = state?.fixedCosts || []
+    let fixedCosts: UtilityI[] = state?.fixedCosts.fixedCosts || []
 
     useEffect(() => {
         setTotal(getTotalFixedCosts());
         setTotalActive(getTotalActive());
         setTotalDisabled(getTotalDisabled());
-    }, [state.fixedCosts]);
+    }, [state.fixedCosts.fixedCosts]);
 
 
     useEffect(() => {
@@ -205,7 +205,7 @@ const FixedCosts = () => {
     };
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeItemAction(item?.uuid))
+        dispatch(removeFixedCostsAction(item?.uuid))
     };
 
     const disabledItem = (item: UtilityI) => {
@@ -238,7 +238,7 @@ const FixedCosts = () => {
             bg: "danger",
         },
     ]
-    
+
     return (
         <>
             <Layout>

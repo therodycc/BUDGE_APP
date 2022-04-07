@@ -24,7 +24,7 @@ export const addNecessaryAction = (data: NecessaryI) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: necessaryTypes.ADD_ITEM_NECESSARY,
-                    payload: [data].concat(getStore().necessary.necessary)
+                    payload: [res?.data?.response].concat(getStore().necessary.necessary)
                 })
             })
             .catch(err => err)

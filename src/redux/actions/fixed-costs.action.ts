@@ -25,7 +25,7 @@ export const addFixedCostAction = (data: FixedCostsI) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: fixedCostsTypes.ADD_ITEM,
-                    payload: [data].concat(getStore().fixedCosts.fixedCosts)
+                    payload: [res?.data?.response].concat(getStore().fixedCosts.fixedCosts)
                 })
             })
             .catch(err => err)
@@ -33,7 +33,7 @@ export const addFixedCostAction = (data: FixedCostsI) => {
 }
 
 
-export const removeItemAction = (uuid: string) => {
+export const removeFixedCostsAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
@@ -57,9 +57,10 @@ export const updateFixedCostsAction = (uuid: string, data: FixedCostsI) => {
             .then((res) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Updated!', 'success')
+                console.log(data, uuid, getStore().fixedCosts.fixedCosts);
                 dispatch({
-                    type: fixedCostsTypes.UPDATE_ITEM,
-                    payload: getStore().fixedCosts.fixedCosts.map((item: FixedCostsI) => item.uuid == uuid ? { ...item, ...data } : item)
+                    type: fixedCostsTypes.UPDATE_FIXED_COSTS,
+                    payload: getStore().fixedCosts.fixedCosts.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
             })
             .catch((error) => error);

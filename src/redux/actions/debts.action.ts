@@ -24,7 +24,7 @@ export const addDebtsAction = (data: DebtsI) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: debtsTypes.ADD_ITEM,
-                    payload: [data].concat(getStore().debts.debts)
+                    payload: [res?.data?.response].concat(getStore().debts.debts)
                 })
             })
             .catch(err => err)

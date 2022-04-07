@@ -25,7 +25,7 @@ export const addVolunteerThingsAction = (data: VolunteerThingsI) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: VolunteerThingsTypes.ADD_ITEM,
-                    payload: [data].concat(getStore().volunteerThings.volunteerThings)
+                    payload: [res?.data?.response].concat(getStore().volunteerThings.volunteerThings)
                 })
             })
             .catch(err => err)
