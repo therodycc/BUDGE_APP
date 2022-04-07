@@ -26,7 +26,7 @@ export const addWishesAction = (data: WishesI) => {
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
                     type: WishesTypes.ADD_ITEM,
-                    payload: [data].concat(getStore().wishes.wishes)
+                    payload: [res?.data?.response].concat(getStore().wishes.wishes)
                 })
             })
             .catch(err => err)

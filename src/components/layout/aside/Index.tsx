@@ -24,7 +24,7 @@ const Aside = () => {
 
     return (
         <>
-            <div className="sidenav-header">
+            <div className="">
                 <a className="navbar-brand m-0" target="_blank">
                     <i className="icon" aria-hidden="false"></i>
                     <span className="ms-1 font-weight-bold text-dark">{title}</span>
