@@ -21,6 +21,7 @@ export const addFixedCostAction = (data: FixedCostsI) => {
     return (dispatch: Function, getStore: Function) => {
         fixedCostsProvider.create(data)
             .then(res => {
+                console.log(res, data, 'fixed costs provider')
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Done!', 'success')
                 dispatch({
@@ -51,17 +52,19 @@ export const removeFixedCostsAction = (uuid: string) => {
     }
 }
 export const updateFixedCostsAction = (uuid: string, data: FixedCostsI) => {
+    console.log(data, uuid, 'first updated step')
     return async (dispatch: Function, getStore: Function) => {
         fixedCostsProvider
             .update(uuid, data)
             .then((res) => {
                 if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
                 sweetAlert.alert('Success', 'Updated!', 'success')
-                console.log(data, uuid, getStore().fixedCosts.fixedCosts);
+                console.log(data, uuid, getStore().fixedCosts.fixedCosts, 'step after updated');
                 dispatch({
-                    type: fixedCostsTypes.UPDATE_FIXED_COSTS,
+                    type: fixedCostsTypes.UPDATE_ITEM_FIXED_COSTS,
                     payload: getStore().fixedCosts.fixedCosts.map((item: any) => item.uuid == uuid ? { ...item, ...data } : item)
                 })
+                console.log(data, uuid, res, 'step after dispatch of data');
             })
             .catch((error) => error);
     }

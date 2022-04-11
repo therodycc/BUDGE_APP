@@ -15,6 +15,11 @@ export const fixedCostsReducer = (state: any = initialState, action: any) => {
                 ...state,
                 fixedCosts: action.payload
             }
+        case fixedCostsTypes.UPDATE_ITEM_FIXED_COSTS:
+            return {
+                ...state,
+                fixedCosts: action.payload
+            }
         case fixedCostsTypes.REMOVE_ITEM:
             return {
                 ...state,

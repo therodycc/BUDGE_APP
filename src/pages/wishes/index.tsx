@@ -126,17 +126,15 @@ const Wishes = () => {
                     </div >
                 </div >
 
-                <div className="row mt-5">
-                    <div className="offset-sm-9 col-sm-3">
-                        <Button
-                            bgClass={'success'}
-                            type={'button'}
-                            loading={false}
-                            action={() => { setShowModal(true); setDataModalUtility(null) }}
-                        >
-                            Add new
-                        </Button>
-                    </div>
+                <div className="mt-5 bg-white mx-2 p-2 border-radius-lg shadow">
+                    <Button
+                        bgClass={'success'}
+                        type={'button'}
+                        loading={false}
+                        action={() => { setShowModal(true); setDataModalUtility(null) }}
+                    >
+                        Add new
+                    </Button>
                 </div>
 
                 <div className="flex-wrap mb-5 d-flex justify-content-between">

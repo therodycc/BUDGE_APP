@@ -8,7 +8,6 @@ const Button = ({ children, action, bgClass, size, type, loading, customClass }:
                 onClick={() => action && action()}
                 type={type}
                 className={`btn btn-${bgClass} btn-${size && (size || '')} mx-1 ${customClass}`}
-                style={{ width: '100%' }}
                 disabled={loading}
             >
                 {
