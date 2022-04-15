@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../components/common/button'
 import CardImg from '../../components/common/card/CardImg'
@@ -99,132 +99,135 @@ const Wishes = () => {
     ]
     return (
         <>
+            <p>Redux implementation</p>
+            <div className="d-flex mb-5">
+                {
+                    alreadyDone.map((item, index) => (
+                        <div>
+                            <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                {item.name} <i className="fas fa-check"></i>
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
 
-            <Layout>
-                <p>Redux implementation</p>
-                <div className="d-flex mb-5">
-                    {
-                        alreadyDone.map((item, index) => (
-                            <div>
-                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                    {item.name} <i className="fas fa-check"></i>
-                                </span>
-                            </div>
-                        ))
-                    }
+            <div className="row">
+                <div className="col-sm-4">
+                    <CardMini amount={currencyFormat(totalWishes)} title="Wishes" />
                 </div>
-
-                <div className="row">
-                    <div className="col-sm-4">
-                        <CardMini amount={currencyFormat(totalWishes)} title="Wishes" />
-                    </div>
-                    <div className="col-sm-4 mt-sm-0 mt-4">
-                        <CardMini amount={currencyFormat(totalMissing)} title="Total missing" />
-                    </div>
-                    <div className="col-sm-4 mt-sm-0 mt-4">
-                        <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
-                    </div >
+                <div className="col-sm-4 mt-sm-0 mt-4">
+                    <CardMini amount={currencyFormat(totalMissing)} title="Total missing" />
+                </div>
+                <div className="col-sm-4 mt-sm-0 mt-4">
+                    <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
                 </div >
+            </div >
 
-                <div className="mt-5 bg-white mx-2 p-2 border-radius-lg shadow">
-                    <Button
-                        bgClass={'success'}
-                        type={'button'}
-                        loading={false}
-                        action={() => { setShowModal(true); setDataModalUtility(null) }}
-                    >
-                        Add new
-                    </Button>
-                </div>
+            <div className="mt-5 bg-white mx-2 p-2 border-radius-lg shadow">
+                <Button
+                    bgClass={'success'}
+                    type={'button'}
+                    loading={false}
+                    action={() => { setShowModal(true); setDataModalUtility(null) }}
+                >
+                    Add new
+                </Button>
+            </div>
 
-                <div className="flex-wrap mb-5 d-flex justify-content-between">
-                    {
-                        wishes?.map((item, i) => (
-                            <div
-                                className="col-xl-4 col-sm-6 mb-xl-0"
-                                key={item.name + i}
+            <div className="flex-wrap mb-5 d-flex justify-content-between">
+                {
+                    wishes?.map((item, i) => (
+                        <div
+                            className="col-xl-4 col-sm-6 mb-xl-0"
+                            key={item.name + i}
+                        >
+                            <CardImg
+                                title={item.name}
+                                description={item.expense.toString()}
+                                image={item.image || ''}
+                                completed={item.status === 'COMPLETED' ? true : false}
                             >
-                                <CardImg
-                                    title={item.name}
-                                    description={item.expense.toString()}
-                                    image={item.image || ''}
-                                    completed={item.status === 'COMPLETED' ? true : false}
-                                >
-                                    <div className='mx-4'>
-                                        <div className='row'>
-                                            <div className="btn-group col-md-4">
-                                                <span
-                                                    className={` text-${item.status === "PENDING" ? "danger" : "light"
-                                                        } display-8`}
-                                                >
-                                                    {" "}
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                                <span
-                                                    className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
-                                                        } display-8 mx-2`}
-                                                >
-                                                    {" "}
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                                <span
-                                                    className={` text-${item.status === "COMPLETED" ? "success" : "light"} display-8 `}
-                                                >
-                                                    <i className="fas fa-circle"></i>
-                                                </span>
-                                            </div>
-                                            <div className="btn-group col-md-8">
-                                                <button
-                                                    type="button"
-                                                    className={`btn btn-success btn-sm`}
-                                                    onClick={() => {
-                                                        addToThisMonth(item);
-                                                    }}
-                                                >
-                                                    <i className="fas fa-plus-circle"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className={`btn btn-secondary btn-sm`}
-                                                    onClick={() => {
-                                                        showModalEdit(item)
-                                                    }}
-                                                >
-                                                    <i className="fas fa-spinner"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className={`btn btn-light btn-sm`}
-                                                    onClick={() => {
-                                                        removeItem(item);
-                                                    }}
-                                                >
-                                                    <i className="far fa-trash-alt"></i>
-                                                </button>
-                                            </div>
+                                <div className='mx-4'>
+                                    <div className='row'>
+                                        <div className="btn-group col-md-4">
+                                            <span
+                                                className={` text-${item.status === "PENDING" ? "danger" : "light"
+                                                    } display-8`}
+                                            >
+                                                {" "}
+                                                <i className="fas fa-circle"></i>
+                                            </span>
+                                            <span
+                                                className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
+                                                    } display-8 mx-2`}
+                                            >
+                                                {" "}
+                                                <i className="fas fa-circle"></i>
+                                            </span>
+                                            <span
+                                                className={` text-${item.status === "COMPLETED" ? "success" : "light"} display-8 `}
+                                            >
+                                                <i className="fas fa-circle"></i>
+                                            </span>
                                         </div>
-                                        <div className='row'>
-                                            <div className='col-lg-4'>
-                                                <button className='btn btn-info btn-sm'>Link</button>
-                                            </div>
+                                        <div className="btn-group col-md-8">
+                                            <button
+                                                type="button"
+                                                className={`btn btn-success btn-sm`}
+                                                onClick={() => {
+                                                    addToThisMonth(item);
+                                                }}
+                                            >
+                                                <i className="fas fa-plus-circle"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`btn btn-secondary btn-sm`}
+                                                onClick={() => {
+                                                    showModalEdit(item)
+                                                }}
+                                            >
+                                                <i className="fas fa-spinner"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`btn btn-light btn-sm`}
+                                                onClick={() => {
+                                                    removeItem(item);
+                                                }}
+                                            >
+                                                <i className="far fa-trash-alt"></i>
+                                            </button>
                                         </div>
                                     </div>
-                                </CardImg>
-                            </div >
-                        ))
-                    }
-                </div >
-                {showModal &&
-                    <ModalWishes
-                        active={showModal}
-                        data={dataModalUtility}
-                        toggle={() => {
-                            setShowModal(false)
-                        }} />
+                                    <div className='row'>
+                                        <div className='col-lg-4'>
+                                            <button className='btn btn-info btn-sm'>Link</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardImg>
+                        </div >
+                    ))
                 }
-            </Layout>
-
+            </div >
+            {showModal &&
+                <ModalWishes
+                    active={showModal}
+                    data={dataModalUtility}
+                    toggle={() => {
+                        setShowModal(false)
+                    }} />
+            }
         </>
+    )
+}
+Wishes.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
     )
 }
 

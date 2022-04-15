@@ -7,6 +7,12 @@ export const authReducer = (state: any = initialState, action: any) => {
         case AuthTypeAction.SIGN_IN:
             return action.payload
 
+        case AuthTypeAction.ME:
+            return {
+                ...state,
+                ...action.payload
+            }
+
         case AuthTypeAction.SIGN_UP:
             return {}
 

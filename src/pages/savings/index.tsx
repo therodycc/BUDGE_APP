@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Layout from '../../components/layout'
 
 const Savings = () => {
     return (
         <>
-            <Layout>
-                <h2>Savings</h2>
-            </Layout >
+            <h2>Savings</h2>
         </>
+    )
+}
+Savings.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
     )
 }
 

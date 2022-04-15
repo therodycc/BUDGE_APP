@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import { settings } from '../../../settings';
 
 const Nav = () => {
+  const { user } = useSelector((state: any) => state.auth);
   return <>
     <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
       <ul className="navbar-nav ms-md-auto">
@@ -23,10 +25,10 @@ const Nav = () => {
             <div className="ml-0 col-sm-auto col-8">
               <div className="">
                 <h6 className="mb-0 font-weight-bolder text-secondary">
-                  Richard Davis
+                  {user?.firstName} {user?.lastName}
                 </h6>
                 <p className="m-0 font-weight-normal text-sm text-secondary">
-                  CEO / Co-Founder
+                  {user?.email}
                 </p>
               </div>
             </div>

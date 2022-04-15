@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
 import Button from "../../components/common/button";
@@ -241,7 +241,6 @@ const FixedCosts = () => {
 
     return (
         <>
-            <Layout>
                 <div className="container">
 
                     {/* <FormBudget></FormBudget> */}
@@ -303,7 +302,6 @@ const FixedCosts = () => {
                         <Table headItems={headItems} bodyItems={fixedCosts} />
                     </Box>
                 </div>
-            </Layout>
 
 
             {/* modals */}
@@ -318,5 +316,12 @@ const FixedCosts = () => {
         </>
     );
 };
+FixedCosts.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default FixedCosts;

@@ -1,3 +1,5 @@
+import { ReactElement } from "react"
+import AuthLayout from "../../../components/layout/auth-layout"
 
 const SignUp = () => {
     return (
@@ -6,5 +8,11 @@ const SignUp = () => {
         </>
     )
 }
-
+SignUp.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <AuthLayout>
+            {page}
+        </AuthLayout >
+    )
+}
 export default SignUp

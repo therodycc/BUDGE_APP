@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import Box from "../../components/common/box";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
@@ -47,14 +47,18 @@ const Reports = () => {
 
     return (
         <>
-            <Layout>
-                <Box title="Reports">
-                    <Table headItems={headItems} bodyItems={data} />
-                </Box>
-            </Layout>
-
+            <Box title="Reports">
+                <Table headItems={headItems} bodyItems={data} />
+            </Box>
         </>
     );
 };
+Reports.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default Reports;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Box from "../../components/common/box";
 import CardMini from "../../components/common/card/CardMini";
 import Table from "../../components/common/table/Index";
@@ -233,80 +233,83 @@ const VolunteerThings = () => {
     ]
     return (
         <>
-            <Layout>
-
-
-                <div className="container">
-                    <p>Redux implementation</p>
-                    <div className="d-flex mb-5">
-                        {
-                            alreadyDone.map((item, index) => (
-                                <div>
-                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                        {item.name} <i className="fas fa-check"></i>
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="row mb-5">
-                        <div className="col-sm-4">
-                            <CardMini
-                                amount={currencyFormat(totalVolunteerThings)}
-                                title="Total Volunteer Things"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalMissing)}
-                                title="Total missing"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalCompleted)}
-                                title="Total completed"
-                            />
-                        </div>
-                    </div>
-                    <Box
-                        title="VolunteerThings"
-                        rightSection={
-                            <>
-                                <div className="">
-                                    <Button
-                                        bgClass={"success"}
-                                        type={"button"}
-                                        loading={false}
-                                        action={() => {
-                                            setShowModal(true);
-                                            setDataModalUtility(null);
-                                        }}
-                                    >
-                                        Add new
-                                    </Button>
-                                </div>
-                            </>
-                        }
-                    >
-                        <Table headItems={headItems} bodyItems={volunteerThings} />
-                    </Box>
+            <div className="container">
+                <p>Redux implementation</p>
+                <div className="d-flex mb-5">
+                    {
+                        alreadyDone.map((item, index) => (
+                            <div>
+                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                    {item.name} <i className="fas fa-check"></i>
+                                </span>
+                            </div>
+                        ))
+                    }
                 </div>
-
-                {
-                    showModal && (
-                        <ModalVolunteerThings
-                            active={showModal}
-                            data={dataModalUtility}
-                            toggle={() => {
-                                setShowModal(false);
-                            }}
+                <div className="row mb-5">
+                    <div className="col-sm-4">
+                        <CardMini
+                            amount={currencyFormat(totalVolunteerThings)}
+                            title="Total Volunteer Things"
                         />
-                    )
-                }
-            </Layout >
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalMissing)}
+                            title="Total missing"
+                        />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalCompleted)}
+                            title="Total completed"
+                        />
+                    </div>
+                </div>
+                <Box
+                    title="VolunteerThings"
+                    rightSection={
+                        <>
+                            <div className="">
+                                <Button
+                                    bgClass={"success"}
+                                    type={"button"}
+                                    loading={false}
+                                    action={() => {
+                                        setShowModal(true);
+                                        setDataModalUtility(null);
+                                    }}
+                                >
+                                    Add new
+                                </Button>
+                            </div>
+                        </>
+                    }
+                >
+                    <Table headItems={headItems} bodyItems={volunteerThings} />
+                </Box>
+            </div>
+
+            {
+                showModal && (
+                    <ModalVolunteerThings
+                        active={showModal}
+                        data={dataModalUtility}
+                        toggle={() => {
+                            setShowModal(false);
+                        }}
+                    />
+                )
+            }
         </>
     );
 };
+VolunteerThings.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default VolunteerThings;

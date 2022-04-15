@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import Box from '../../components/common/box'
 import CardMini from '../../components/common/card/CardMini'
 import Table from '../../components/common/table/Index'
@@ -184,32 +184,35 @@ const Lending = () => {
                     data={dataModalUtility}
                     setToggle={() => { setShowModal(false) }} />)
             }
-            <Layout>
-
-                <div className="container">
-                    <div className="row mb-5">
-                        <div className="col-sm-4">
-                            <CardMini
-                                amount={currencyFormat(totalLeading)}
-                                title="Leading"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini amount={currencyFormat(totalMissing)} title="Total missing" />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
-                        </div >
+            <div className="container">
+                <div className="row mb-5">
+                    <div className="col-sm-4">
+                        <CardMini
+                            amount={currencyFormat(totalLeading)}
+                            title="Leading"
+                        />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini amount={currencyFormat(totalMissing)} title="Total missing" />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
                     </div >
-                    <Box title="Leading">
-                        <Table
-                            headItems={headItems}
-                            bodyItems={leading} />
-                    </Box>
-                </div>
-                
-            </Layout>
+                </div >
+                <Box title="Leading">
+                    <Table
+                        headItems={headItems}
+                        bodyItems={leading} />
+                </Box>
+            </div>
         </>
+    )
+}
+Lending.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
     )
 }
 

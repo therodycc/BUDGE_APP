@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
 import Button from "../../components/common/button";
@@ -321,112 +321,117 @@ const Manage = () => {
 
     return (
         <>
-            <Layout>
-                <div className="container">
-                    <p>Redux implementation</p>
-                    <div className="d-flex mb-5">
-                        {
-                            alreadyDone.map((item, index) => (
-                                <div>
-                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                        {item.name} <i className="fas fa-check"></i>
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="row mt-5">
-                        <Card
-                            title="Entry"
-                            description=""
-                            icon={<i className="fas fa-dollar-sign"></i>}
-                            amount={currencyFormat(entry)}
-                            bgIcon="success"
-                        />
-                        <Card
-                            title="Pending"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(pending)}
-                            bgIcon="warning"
-                        />
-                        <Card
-                            title="Debt"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(debt)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Fixed costs"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(fixedCosts)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Personal"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(personal)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Family"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(family)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Voluntary"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(voluntary)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Remaining"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(remaining)}
-                            bgIcon="dark"
-                        />
-                        <Card
-                            title="Wishes"
-                            description=""
-                            icon={<i className="fa fa-check"></i>}
-                            amount={currencyFormat(wishes)}
-                            bgIcon="dark"
-                        />
-                    </div>
-                    <Box
-                        title="Utilities"
-                        rightSection={
-                            <>
-                                <Button
-                                    action={handleExportData}
-                                    bgClass={"danger"}
-                                    type={"button"}
-                                    loading={false}
-                                >
-                                    Export
-                                </Button>
-                            </>
-                        }
-                    >
-                        <Table headItems={headItems} bodyItems={utilities} />
-                    </Box>
+            <div className="container">
+                <p>Redux implementation</p>
+                <div className="d-flex mb-5">
+                    {
+                        alreadyDone.map((item, index) => (
+                            <div>
+                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                    {item.name} <i className="fas fa-check"></i>
+                                </span>
+                            </div>
+                        ))
+                    }
                 </div>
-                {dataModalUtility && showModal && (
-                    <ModalManage
-                        active={false}
-                        toggle={() => setShowModal(false)}
-                        data={dataModalUtility} />
-                )}
-            </Layout>
+                <div className="row mt-5">
+                    <Card
+                        title="Entry"
+                        description=""
+                        icon={<i className="fas fa-dollar-sign"></i>}
+                        amount={currencyFormat(entry)}
+                        bgIcon="success"
+                    />
+                    <Card
+                        title="Pending"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(pending)}
+                        bgIcon="warning"
+                    />
+                    <Card
+                        title="Debt"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(debt)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Fixed costs"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(fixedCosts)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Personal"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(personal)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Family"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(family)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Voluntary"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(voluntary)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Remaining"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(remaining)}
+                        bgIcon="dark"
+                    />
+                    <Card
+                        title="Wishes"
+                        description=""
+                        icon={<i className="fa fa-check"></i>}
+                        amount={currencyFormat(wishes)}
+                        bgIcon="dark"
+                    />
+                </div>
+                <Box
+                    title="Utilities"
+                    rightSection={
+                        <>
+                            <Button
+                                action={handleExportData}
+                                bgClass={"danger"}
+                                type={"button"}
+                                loading={false}
+                            >
+                                Export
+                            </Button>
+                        </>
+                    }
+                >
+                    <Table headItems={headItems} bodyItems={utilities} />
+                </Box>
+            </div>
+            {dataModalUtility && showModal && (
+                <ModalManage
+                    active={false}
+                    toggle={() => setShowModal(false)}
+                    data={dataModalUtility} />
+            )}
         </>
     );
 };
+Manage.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default Manage;

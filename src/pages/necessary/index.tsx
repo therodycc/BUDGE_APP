@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Box from "../../components/common/box";
 import CardMini from "../../components/common/card/CardMini";
 import Table from "../../components/common/table/Index";
@@ -223,75 +223,80 @@ const Necessary = () => {
     ]
     return (
         <>
-            <Layout>
-                <div className="container">
-                    <p>Redux implementation</p>
-                    <div className="d-flex mb-5">
-                        {
-                            alreadyDone.map((item, index) => (
-                                <div>
-                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                        {item.name} <i className="fas fa-check"></i>
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="row mb-5">
-                        <div className="col-sm-4">
-                            <CardMini
-                                amount={currencyFormat(totalNecessary)}
-                                title="Necessary"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalMissing)}
-                                title="Total missing"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalCompleted)}
-                                title="Total completed"
-                            />
-                        </div>
-                    </div>
-                    <Box
-                        title="Necessary"
-                        rightSection={
-                            <>
-                                <div className="">
-                                    <Button
-                                        bgClass={"success"}
-                                        type={"button"}
-                                        loading={false}
-                                        action={() => {
-                                            setShowModal(true);
-                                            setDataModalUtility(null);
-                                        }}
-                                    >
-                                        Add new
-                                    </Button>
-                                </div>
-                            </>
-                        }
-                    >
-                        <Table headItems={headItems} bodyItems={necessary} />
-                    </Box>
+            <div className="container">
+                <p>Redux implementation</p>
+                <div className="d-flex mb-5">
+                    {
+                        alreadyDone.map((item, index) => (
+                            <div>
+                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                    {item.name} <i className="fas fa-check"></i>
+                                </span>
+                            </div>
+                        ))
+                    }
                 </div>
+                <div className="row mb-5">
+                    <div className="col-sm-4">
+                        <CardMini
+                            amount={currencyFormat(totalNecessary)}
+                            title="Necessary"
+                        />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalMissing)}
+                            title="Total missing"
+                        />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalCompleted)}
+                            title="Total completed"
+                        />
+                    </div>
+                </div>
+                <Box
+                    title="Necessary"
+                    rightSection={
+                        <>
+                            <div className="">
+                                <Button
+                                    bgClass={"success"}
+                                    type={"button"}
+                                    loading={false}
+                                    action={() => {
+                                        setShowModal(true);
+                                        setDataModalUtility(null);
+                                    }}
+                                >
+                                    Add new
+                                </Button>
+                            </div>
+                        </>
+                    }
+                >
+                    <Table headItems={headItems} bodyItems={necessary} />
+                </Box>
+            </div>
 
-                {showModal && (
-                    <ModalNecessary
-                        active={showModal}
-                        toggle={() => {
-                            setShowModal(false)
-                        }}
-                        data={dataModalUtility} />
-                )}
-            </Layout>
+            {showModal && (
+                <ModalNecessary
+                    active={showModal}
+                    toggle={() => {
+                        setShowModal(false)
+                    }}
+                    data={dataModalUtility} />
+            )}
         </>
     );
 };
+Necessary.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default Necessary;

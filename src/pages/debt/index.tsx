@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
 import CardMini from "../../components/common/card/CardMini";
@@ -60,6 +60,26 @@ const Debt = () => {
                 return (
                     <>
                         <span>{currencyFormat(item.expense)}</span>
+                    </>
+                );
+            },
+        },
+        {
+            title: "Description",
+            render: ({ item }: any) => {
+                return (
+                    <>
+                        <span>{item.description}</span>
+                    </>
+                );
+            },
+        },
+        {
+            title: "To Whom",
+            render: ({ item }: any) => {
+                return (
+                    <>
+                        <span>{item.to}</span>
                     </>
                 );
             },
@@ -218,73 +238,76 @@ const Debt = () => {
 
     return (
         <>
-            <Layout>
-
-                <div className="container">
-                    <p>Redux implementation</p>
-                    <div className="d-flex mb-5">
-                        {
-                            alreadyDone.map((item, index) => (
-                                <div>
-                                    <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                        {item.name} <i className="fas fa-check"></i>
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="row mb-5">
-                        <div className="col-sm-4">
-                            <CardMini amount={currencyFormat(totalDebts)} title="Total" />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalMissing)}
-                                title="Total missing"
-                            />
-                        </div>
-                        <div className="col-sm-4 mt-sm-0 mt-4">
-                            <CardMini
-                                amount={currencyFormat(totalCompleted)}
-                                title="Total completed"
-                            />
-                        </div>
-                    </div>
-                    <Box
-                        title="Debt"
-                        rightSection={
-                            <>
-                                <div className="">
-                                    <Button
-                                        bgClass={"success"}
-                                        type={"button"}
-                                        loading={false}
-                                        action={() => {
-                                            setShowModal(true);
-                                            setDataModalUtility(null);
-                                        }}
-                                    >
-                                        Add new
-                                    </Button>
-                                </div>
-                            </>
-                        }
-                    >
-                        <Table headItems={headItems} bodyItems={debts} />
-                    </Box>
+            <div className="container">
+                <p>Redux implementation</p>
+                <div className="d-flex mb-5">
+                    {
+                        alreadyDone.map((item, index) => (
+                            <div>
+                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
+                                    {item.name} <i className="fas fa-check"></i>
+                                </span>
+                            </div>
+                        ))
+                    }
                 </div>
-                {showModal && (
-                    <ModalDebts
-                        active={showModal}
-                        toggle={() => {
-                            setShowModal(false)
-                        }}
-                        data={dataModalUtility} />
-                )}
-            </Layout>
-
+                <div className="row mb-5">
+                    <div className="col-sm-4">
+                        <CardMini amount={currencyFormat(totalDebts)} title="Total" />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalMissing)}
+                            title="Total missing"
+                        />
+                    </div>
+                    <div className="col-sm-4 mt-sm-0 mt-4">
+                        <CardMini
+                            amount={currencyFormat(totalCompleted)}
+                            title="Total completed"
+                        />
+                    </div>
+                </div>
+                <Box
+                    title="Debt"
+                    rightSection={
+                        <>
+                            <div className="">
+                                <Button
+                                    bgClass={"success"}
+                                    type={"button"}
+                                    loading={false}
+                                    action={() => {
+                                        setShowModal(true);
+                                        setDataModalUtility(null);
+                                    }}
+                                >
+                                    Add new
+                                </Button>
+                            </div>
+                        </>
+                    }
+                >
+                    <Table headItems={headItems} bodyItems={debts} />
+                </Box>
+            </div>
+            {showModal && (
+                <ModalDebts
+                    active={showModal}
+                    toggle={() => {
+                        setShowModal(false)
+                    }}
+                    data={dataModalUtility} />
+            )}
         </>
     );
 };
+Debt.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout >
+    )
+}
 
 export default Debt;

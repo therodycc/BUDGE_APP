@@ -5,6 +5,7 @@
   background: linear-gradient(to right, #18284888, #18284874),
     url("../images/bg-signin.svg");
   background-size: contain;
+  margin: 0;
 }
 
 .back-modal {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import Layout from '../components/layout'
 import Dashboard from '../components/pages/dashboard'
 
@@ -32,10 +32,17 @@ const Home = () => {
   }
   return (
     <>
-      <Layout>
-        <Dashboard />
-      </Layout>
+      <Dashboard />
     </>
+  )
+}
+
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout >
   )
 }
 

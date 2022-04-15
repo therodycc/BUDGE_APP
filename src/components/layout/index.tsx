@@ -1,8 +1,15 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
 import Aside from './aside/Index'
 import Header from './header/Index'
+import { meAction } from '../../redux/actions/auth.action';
 
 const Layout = ({ children }: LayoutPropsI) => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(meAction())
+    }, []);
     return (
         <>
             <div className="g-sidenav-show bg-light ">
