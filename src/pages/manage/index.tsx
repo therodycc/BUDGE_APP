@@ -26,6 +26,7 @@ const Manage = () => {
     const [entry, setEntry] = useState(0);
     const [pending, setPending] = useState(0);
     const [debt, setDebt] = useState(0);
+    const [paidOut, setPaidOut] = useState(0);
     const [fixedCosts, setFixedCosts] = useState(0);
     const [personal, setPersonal] = useState(0);
     const [family, setFamily] = useState(0);
@@ -61,6 +62,7 @@ const Manage = () => {
         setRemaining(getRemaining());
         setWishes(getWishes());
         setEntry(getProfits());
+        setPaidOut(getPaidOut());
     }, [utilities, profits]);
 
     const getProfits = () => {
@@ -124,6 +126,12 @@ const Manage = () => {
             acc -= item.expense;
             return acc;
         }, entry);
+    };
+    const getPaidOut = () => {
+        return utilities?.reduce((acc, item) => {
+            acc += item.paidOut;
+            return acc;
+        }, 0);
     };
     const getWishes = () => {
         return utilities?.reduce((acc, item) => {
@@ -350,11 +358,11 @@ const Manage = () => {
                         bgIcon="warning"
                     />
                     <Card
-                        title="Debt"
+                        title="Paid Out"
                         description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(debt)}
-                        bgIcon="dark"
+                        icon={<i className="fa fa-money"></i>}
+                        amount={currencyFormat(paidOut)}
+                        bgIcon="info"
                     />
                     <Card
                         title="Fixed costs"

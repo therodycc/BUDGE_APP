@@ -1,2 +1,2 @@
-export type BgColorIconTypeCard = "primary" | "success" | "warning" | "danger" | "dark";
+export type BgColorIconTypeCard = "primary" | "success" | "warning" | "danger" | "dark" | "info";
 
