@@ -79,39 +79,8 @@ const Wishes = () => {
         setShowModal(!showModal)
     }
 
-    const alreadyDone = [
-        {
-            name: "update",
-            bg: "success",
-        },
-        {
-            name: "delete",
-            bg: "success",
-        },
-        {
-            name: "add",
-            bg: "success",
-        },
-        {
-            name: "add to month one to one",
-            bg: "danger",
-        },
-    ]
     return (
         <>
-            <p>Redux implementation</p>
-            <div className="d-flex mb-5">
-                {
-                    alreadyDone.map((item, index) => (
-                        <div>
-                            <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                {item.name} <i className="fas fa-check"></i>
-                            </span>
-                        </div>
-                    ))
-                }
-            </div>
-
             <div className="row">
                 <div className="col-sm-4">
                     <CardMini amount={currencyFormat(totalWishes)} title="Wishes" />

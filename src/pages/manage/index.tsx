@@ -313,35 +313,10 @@ const Manage = () => {
             })
             .catch((err) => err);
     };
-
-
-    const alreadyDone = [
-        {
-            name: "update",
-            bg: "success",
-        },
-        {
-            name: "delete",
-            bg: "success",
-        },
-
-    ]
-
+    
     return (
         <>
             <div className="container">
-                <p>Redux implementation</p>
-                <div className="d-flex mb-5">
-                    {
-                        alreadyDone.map((item, index) => (
-                            <div>
-                                <span className={`bg-${item.bg} p-3 rounded-pill fw-bolder text-white mx-1`}>
-                                    {item.name} <i className="fas fa-check"></i>
-                                </span>
-                            </div>
-                        ))
-                    }
-                </div>
                 <div className="row mt-5">
                     <Card
                         title="Entry"
