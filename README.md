@@ -1,7 +1,3 @@
-# page profile
-
-[] informacion de la persona nombre email ganancias
-
 # Page ahorros
 
 [] Cantidad de dinero ahorrado

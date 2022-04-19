@@ -15,6 +15,9 @@ class MyDocument extends Document {
                     {/* <link rel="stylesheet" href="/assets/css/loading-circle.css" /> */}
                     {/* <link rel="stylesheet" href="/assets/css/loading-line.css" /> */}
                     {/* <link rel="stylesheet" href="/assets/css/aside-bar.css" /> */}
+
+                    {/* jsPDF */}
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
                 </Head>
                 <body>
                     <Main />

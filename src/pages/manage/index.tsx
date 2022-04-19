@@ -15,6 +15,8 @@ import {
     removeManageAction
 } from "../../redux/actions/manage.action";
 import { getProfitsAction } from "../../redux/actions/profits.action";
+import { jsPDF } from "jspdf";
+
 const Manage = () => {
     // store
     const state = useSelector((state: any) => state);
@@ -303,17 +305,16 @@ const Manage = () => {
         setShowModal(!showModal);
     };
 
+    // [new Date().toLocaleDateString()]: utilities,
     const handleExportData = async () => {
-        manageProvider
-            .exportPDF({
-                [new Date().toLocaleDateString()]: utilities,
-            })
-            .then((res) => {
-                sweetAlert.toast("Success", "Successfully exported", "success");
-            })
-            .catch((err) => err);
+        const test = document.getElementById("test");
+        var doc = new jsPDF();
+        // doc.text("Hello world!", 10, 10);
+
+        doc.table(10, 10,[{ 'asdff': 'asdfasdf' }], ['Europe', 'europe'], {  })
+        
     };
-    
+
     return (
         <>
             <div className="container">
@@ -397,7 +398,9 @@ const Manage = () => {
                         </>
                     }
                 >
-                    <Table headItems={headItems} bodyItems={utilities} />
+                    <div id="test">
+                        <Table headItems={headItems} bodyItems={utilities} />
+                    </div>
                 </Box>
             </div>
             {dataModalUtility && showModal && (
