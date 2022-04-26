@@ -6,16 +6,14 @@ import Card from "../../components/common/card/Index";
 import Table from "../../components/common/table/Index";
 import Layout from "../../components/layout";
 import ModalManage from "../../components/pages/manage/modals";
-import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { currencyFormat } from "../../helpers/currency.helper";
+import { createTablePdf } from "../../helpers/pdf/create-table-pdf";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
-import manageProvider from "../../providers/reports/reports.provider";
 import {
     getManageAction,
     removeManageAction
 } from "../../redux/actions/manage.action";
 import { getProfitsAction } from "../../redux/actions/profits.action";
-import { jsPDF } from "jspdf";
 
 const Manage = () => {
     // store
@@ -305,18 +303,13 @@ const Manage = () => {
         setShowModal(!showModal);
     };
 
-    // [new Date().toLocaleDateString()]: utilities,
     const handleExportData = async () => {
-        const test = document.getElementById("test");
-        var doc = new jsPDF();
-        // doc.text("Hello world!", 10, 10);
-
-        doc.table(10, 10,[{ 'asdff': 'asdfasdf' }], ['Europe', 'europe'], {  })
-        
+        createTablePdf(utilities, entry, personal, remaining)
     };
 
     return (
         <>
+    
             <div className="container">
                 <div className="row mt-5">
                     <Card
