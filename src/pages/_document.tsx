@@ -9,13 +9,12 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css" />
-                    <link rel="stylesheet" href="/assets/css/styles.css" />
-                    <link rel="stylesheet" href="/assets/css/loading-square.css" />
-                    {/* <link rel="stylesheet" href="/assets/css/loading-circle.css" /> */}
-                    {/* <link rel="stylesheet" href="/assets/css/loading-line.css" /> */}
-                    {/* <link rel="stylesheet" href="/assets/css/aside-bar.css" /> */}
-
+                    <meta charSet="UTF-8" />
+                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+                    <link rel="stylesheet" type="text/css" href="/assets/css/material-dashboard.min.css" />
+                    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+                    <link rel="stylesheet" type="text/css" href="/assets/css/loading-square.css" />
                     {/* jsPDF */}
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
                 </Head>
