@@ -2,7 +2,6 @@ import { NextRequest, NextResponse, NextFetchEvent } from 'next/server'
 import config from '../config';
 
 const verifyAuthToRedirect = (req: NextRequest, ev: NextFetchEvent) => {
-    console.log(req.cookies, Object.keys(req.cookies))
     return new Promise((resolve) => {
         ev.waitUntil((async () => {
             fetch(`${config.app.url}/users/me`, {
@@ -15,7 +14,7 @@ const verifyAuthToRedirect = (req: NextRequest, ev: NextFetchEvent) => {
                 }
             })
                 .then(res => res.json())
-                .then(res => [resolve(!res.error ? res : null)])
+                .then(res => resolve(!res.error ? res : null))
                 .catch(() => resolve(null))
         })());
     })
@@ -27,10 +26,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
     let account = null;
     account = await verifyAuthToRedirect(req, ev);
-
-    console.log({ url });
     console.log({ account });
-
     if (account && isPathAuth) return NextResponse.redirect(new URL('/', req.url))
     if (!account && !isPathAuth) return NextResponse.redirect(new URL('/auth/sign-in', req.url))
 

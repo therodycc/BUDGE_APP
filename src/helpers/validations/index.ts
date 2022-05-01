@@ -1,5 +1,5 @@
 export const isRequired = (field: string | number | undefined, errorMessage: string, setError: Function) => {
-    if (field === '' || field === 0) {
+    if (field === 0 || !field) {
         setError(errorMessage)
         return true
     };

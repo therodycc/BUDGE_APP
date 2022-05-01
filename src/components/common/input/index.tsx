@@ -2,13 +2,13 @@ interface InputPropsI {
     errorMessage: any | string;
     title?: string
     customClass?: string
-    props: React.InputHTMLAttributes<HTMLInputElement>;
+    props: React.InputHTMLAttributes<HTMLInputElement> | any;
 }
 
-const Input = ({ errorMessage, customClass, title, ...props }: any) => {
+const Input = ({ errorMessage, customClass, title, ...props }: InputPropsI | any) => {
     return (
         <>
-            <div className="row">
+            <div className="row text-left">
                 {
                     title && <span className="fw-bolder text-normal">{title}</span>
                 }
@@ -20,9 +20,11 @@ const Input = ({ errorMessage, customClass, title, ...props }: any) => {
                     />
                 </div>
                 {errorMessage && (
-                    <span className=" text-danger text-normal fw-bolder">
-                        {errorMessage}
-                    </span>
+                    <div className="col-lg-12">
+                        <span className="text-danger text-normal ">
+                            {errorMessage}
+                        </span>
+                    </div>
                 )}
             </div>
         </>
