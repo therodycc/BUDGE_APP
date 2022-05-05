@@ -1,16 +1,23 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { NextRouter, useRouter } from 'next/router'
+import React, { FC, useEffect, useState } from 'react'
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
 import { navLayout } from '../../settings/navbar.config'
 import Button from '../common/button'
 
-const AuthLayout = ({ children }: LayoutPropsI) => {
+const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
+
+    const router: NextRouter = useRouter()
 
     const [navLayoutSettings, setNavLayoutSettings] = useState(navLayout);
 
-    const handleNav = (_index: number) => {
+    useEffect(() => {
+        handleNav(router.pathname)
+    }, [router]);
+
+    const handleNav = (href: string) => {
         setNavLayoutSettings(_prev => _prev.map((item, index) => {
-            index === _index ? item.active = true : item.active = false
+            href === item.href ? item.active = true : item.active = false
             return item
         }))
     }
@@ -29,10 +36,10 @@ const AuthLayout = ({ children }: LayoutPropsI) => {
                     >
                         {
                             navLayoutSettings.map((item, index) => (
-                                <Link href={item.link}>
+                                <Link href={item.href}>
                                     <div className="m-0 p-0">
                                         <Button
-                                            action={() => { handleNav(index) }}
+                                            action={() => { handleNav(item.href) }}
                                             bgClass={item.active ? "success" : "light"}
                                             type={"submit"}
                                             loading={false}

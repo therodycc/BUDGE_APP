@@ -26,7 +26,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
     const isPathAuth = url.includes('/auth')
 
     let account = await verifyAuthToRedirect(req, ev);
-    console.log({account});
     if (account && isPathAuth) return NextResponse.redirect(new URL('/', req.url))
     if (!account && !isPathAuth) return NextResponse.redirect(new URL('/auth/sign-in', req.url))
 

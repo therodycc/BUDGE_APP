@@ -59,7 +59,7 @@ const Profile = () => {
                                 <img
                                     src={
                                         user?.image ||
-                                        "https://cooperativadepica.cl/wp-content/uploads/2018/07/avatar2.png"
+                                        "/assets/images/man-profile.png"
                                     }
                                     alt="profile_image"
                                     className="w-100 border-radius-lg shadow-sm"

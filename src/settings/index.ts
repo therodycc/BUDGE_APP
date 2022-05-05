@@ -1,7 +1,7 @@
 import { asideOptions } from "./aside-opts.settings";
-import { navOptions } from "./navbar.config";
+import { navOptionsRenders } from "./navbar.config";
 
 export const settings = {
-    navOptions,
+    navOptionsRenders,
     asideOptions
 }

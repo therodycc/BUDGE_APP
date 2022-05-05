@@ -1,25 +1,35 @@
-export const navOptions = [
-    {
-        icon: "fa fa-cog"
-    },
-    {
-        icon: "fa fa-bell"
-    },
-    {
-        icon: "fa fa-language"
-    },
-]
+import { faArrowsUpDown, faArrowsUpDownLeftRight, faBell, faCog, faLanguage } from "@fortawesome/free-solid-svg-icons"
+
+export const navOptionsRenders = (actions: { logout: Function }) => {
+    return [
+        {
+            icon: faCog,
+        },
+        {
+            icon: faBell
+        },
+        {
+            icon: faLanguage
+        },
+        {
+            icon: faArrowsUpDown,
+            action: async () => { actions.logout() }
+        },
+    ]
+}
+
 
 export const navLayout = [
     {
         title: "Sign In",
-        link: "/auth/sign-in",
+        href: "/auth/sign-in",
         icon: "home",
-        active: true
+        active: true,
+
     },
     {
         title: "Sign Up",
-        link: "/auth/sign-up",
+        href: "/auth/sign-up",
         icon: "home",
         active: false
     },

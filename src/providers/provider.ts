@@ -5,7 +5,7 @@ class Provider {
 
     constructor(configInstance: AxiosRequestConfig<any>) {
         this.axios = axios.create({
-            withCredentials: false,
+            withCredentials: true,
             headers: {
                 'Access-Control-Allow-Origin': "*",
                 'Access-Control-Allow-Credentials': "true",
