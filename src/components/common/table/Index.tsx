@@ -1,5 +1,5 @@
 import React from 'react'
-import { TablePropsI } from '../../../interfaces/common/table/table.interface'
+import { TablePropsI } from '../../interfaces/common/table/table.interface'
 
 const Table = ({ headItems, bodyItems }: TablePropsI) => {
     return (

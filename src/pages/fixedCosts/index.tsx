@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
 import Button from "../../components/common/button";
 import CardMini from "../../components/common/card/CardMini";
-import Table from "../../components/common/table/Index";
+import Table from "../../components/common/table";
 import Layout from "../../components/layout";
 import ModalFixedCosts from "../../components/pages/fixed-costs/modals";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";

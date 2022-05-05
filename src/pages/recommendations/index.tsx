@@ -1,7 +1,5 @@
 import { ReactElement } from "react";
-import Button from "../../components/common/button";
 import CommentItem from "../../components/common/comment-item";
-import InputText from "../../components/common/input";
 import Layout from "../../components/layout";
 import CommentsForm from "../../components/pages/recommendations/forms/Comments";
 

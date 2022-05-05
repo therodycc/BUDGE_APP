@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
-import Aside from './aside/Index'
-import Header from './header/Index'
+import Aside from './aside'
+import Header from './header'
 import { meAction } from '../../redux/actions/auth.action';
 
 const Layout = ({ children }: LayoutPropsI) => {

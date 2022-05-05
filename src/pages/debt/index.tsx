@@ -1,18 +1,17 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
+import Button from "../../components/common/button";
 import CardMini from "../../components/common/card/CardMini";
-import Table from "../../components/common/table/Index";
+import Table from "../../components/common/table";
 import Layout from "../../components/layout";
-import FormBudget from "../../components/pages/form-budget/Index";
-import { currencyFormat } from "../../helpers/currency.helper";
+import ModalDebts from "../../components/pages/debts/modals";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
+import { currencyFormat } from "../../helpers/currency.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
+import debtProvider from "../../providers/debt/debt.provider";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import { getDebtsAction, removeDebtsAction } from "../../redux/actions/debts.action";
-import ModalDebts from "../../components/pages/debts/modals";
-import Button from "../../components/common/button";
-import debtProvider from "../../providers/debt/debt.provider";
 
 const Debt = () => {
     const [debts, setDebts] = useState<Array<any>>([]);

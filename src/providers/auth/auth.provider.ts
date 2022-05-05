@@ -3,7 +3,9 @@ import Provider from "../provider"
 
 class AuthProvider extends Provider {
     constructor() {
-        super({ baseURL: `${config.app.url}/auth` })
+        super({
+            baseURL: `${config.app.url}/auth`,
+        })
     }
 
     async signIn(data: { email: string, password: string }) {

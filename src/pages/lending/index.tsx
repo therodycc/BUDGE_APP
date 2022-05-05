@@ -1,13 +1,11 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import Box from '../../components/common/box'
 import CardMini from '../../components/common/card/CardMini'
-import Table from '../../components/common/table/Index'
+import Table from '../../components/common/table'
 import Layout from '../../components/layout'
-import FormBudget from '../../components/pages/form-budget/Index'
-import { currencyFormat } from '../../helpers/currency.helper'
 import sweetAlert from '../../helpers/alerts/sweetAlert.helper'
+import { currencyFormat } from '../../helpers/currency.helper'
 import { UtilityI } from '../../interfaces/utility/utility.interface'
-import leadingProvider from '../../providers/leading/leading.provider'
 
 const Lending = () => {
 
@@ -129,22 +127,22 @@ const Lending = () => {
     }, [])
 
     const getLeading = () => {
-        leadingProvider.getAll()
-            .then(res => {
-                setLeading(res?.data);
-            })
-            .catch(error => error)
+        // leadingProvider.getAll()
+        //     .then(res => {
+        //         setLeading(res?.data);
+        //     })
+        //     .catch(error => error)
     }
 
     const removeItem = async (item: UtilityI) => {
         const confirm = await sweetAlert.question('Are you sure?', 'warning');
         if (!confirm) return
-        leadingProvider.remove(item.id)
-            .then(data => {
-                getLeading()
-                sweetAlert.alert("Done!", "Deleted", "success")
-            })
-            .catch(error => error)
+        // leadingProvider.remove(item.id)
+        //     .then(data => {
+        //         getLeading()
+        //         sweetAlert.alert("Done!", "Deleted", "success")
+        //     })
+        //     .catch(error => error)
     }
 
     const getTotalLeading = () => {
@@ -174,16 +172,6 @@ const Lending = () => {
     }
     return (
         <>
-
-            {
-                (dataModalUtility && showModal) && (<FormBudget
-                    urlTo='leading'
-                    refreshData={() => {
-                        getLeading()
-                    }}
-                    data={dataModalUtility}
-                    setToggle={() => { setShowModal(false) }} />)
-            }
             <div className="container">
                 <div className="row mb-5">
                     <div className="col-sm-4">
@@ -208,12 +196,11 @@ const Lending = () => {
         </>
     )
 }
-Lending.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Lending.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
+
 
 export default Lending

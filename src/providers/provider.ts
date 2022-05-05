@@ -1,11 +1,17 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { IResProvider } from "../interfaces/provider/provider.interface";
 
 class Provider {
     private readonly axios: AxiosInstance;
 
     constructor(configInstance: AxiosRequestConfig<any>) {
-        this.axios = axios.create(configInstance);
+        this.axios = axios.create({
+            withCredentials: false,
+            headers: {
+                'Access-Control-Allow-Origin': "*",
+                'Access-Control-Allow-Credentials': "true",
+            },
+            ...configInstance
+        });
     }
 
     protected async get(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {

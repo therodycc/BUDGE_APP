@@ -1,8 +1,7 @@
 import { ReactElement, useState } from "react";
 import Box from "../../components/common/box";
-import Table from "../../components/common/table/Index";
+import Table from "../../components/common/table";
 import Layout from "../../components/layout";
-import { currencyFormat } from "../../helpers/currency.helper";
 
 const Reports = () => {
     const [headItems, setHeadItems] = useState([
@@ -37,6 +36,7 @@ const Reports = () => {
             },
         },
     ]);
+
     const data = [
         {
             date: "adfasdfadfasdf",

@@ -1,9 +1,7 @@
 
 const app = {
-    url: "http://localhost:5000"
+    url: process.env.NEXT_PUBLIC_API_URL
 }
-
-
 
 export default {
     app

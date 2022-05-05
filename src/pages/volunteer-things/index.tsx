@@ -1,22 +1,21 @@
 import { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "../../components/common/box";
+import Button from "../../components/common/button";
 import CardMini from "../../components/common/card/CardMini";
-import Table from "../../components/common/table/Index";
+import Table from "../../components/common/table";
 import Layout from "../../components/layout";
-import FormBudget from "../../components/pages/form-budget/Index";
-import { currencyFormat } from "../../helpers/currency.helper";
+import ModalVolunteerThings from "../../components/pages/volunteer-things/modals";
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
+import { currencyFormat } from "../../helpers/currency.helper";
 import { UtilityI } from "../../interfaces/utility/utility.interface";
+import { VolunteerThingsI } from "../../interfaces/volunteer-things/volunteer-things.interface";
 import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import VolunteerThingsProvider from "../../providers/volunteer-things/volunteer-things.provider";
-import { VolunteerThingsI } from "../../interfaces/volunteer-things/volunteer-things.interface";
-import { useDispatch, useSelector } from "react-redux";
 import {
     getVolunteerThingsAction,
-    removeVolunteerThingsAction,
+    removeVolunteerThingsAction
 } from "../../redux/actions/volunteer-things.action";
-import ModalVolunteerThings from "../../components/pages/volunteer-things/modals";
-import Button from "../../components/common/button";
 
 const VolunteerThings = () => {
     const state = useSelector((state: any) => state.volunteerThings);
@@ -212,7 +211,7 @@ const VolunteerThings = () => {
         setDataModalUtility(item);
         setShowModal(!showModal);
     };
-    
+
     return (
         <>
             <div className="container">
@@ -274,12 +273,10 @@ const VolunteerThings = () => {
         </>
     );
 };
-VolunteerThings.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+VolunteerThings.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default VolunteerThings;

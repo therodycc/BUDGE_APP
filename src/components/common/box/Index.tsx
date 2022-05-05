@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { BoxPropsI } from '../../../interfaces/common/box/box.interface'
 
-const Box = ({ children, title, rightSection }: BoxPropsI) => {
+const Box: FC<BoxPropsI> = ({ children, title, rightSection }) => {
     return (
         <>
             <div className="col-md-12">
