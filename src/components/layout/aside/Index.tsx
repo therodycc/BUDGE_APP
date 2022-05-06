@@ -8,7 +8,6 @@ import { v4 as gxUUID} from 'uuid';
 const Aside = () => {
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
     const [title, setTitle] = useState("THR-Budge");
-    const [icon, setIcon] = useState("fa fa-font-awesome");
 
     useEffect(() => {
         handleSelected(Router.pathname)
@@ -22,7 +21,6 @@ const Aside = () => {
             })
         );
     };
-
 
     return (
         <>
@@ -40,7 +38,6 @@ const Aside = () => {
                     {options.map((item, index) => (
                         <Link href={item.link} key={gxUUID()} >
                             <li
-
                                 className="nav-item"
                                 onClick={() => handleSelected(item.link)}
                             >

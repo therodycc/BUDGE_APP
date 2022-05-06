@@ -3,6 +3,7 @@ import { NextRouter, useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import authProvider from "../../../providers/auth/auth.provider";
 import { settings } from "../../../settings";
+import UserInfoHead from "../../common/user-info-head";
 
 const Nav = () => {
   const { user } = useSelector((state: any) => state.auth);
@@ -40,25 +41,11 @@ const Nav = () => {
                 </div>
               ))}
 
-              <div className="ml-0 col-sm-auto col-8">
-                <div className="">
-                  <h6 className="mb-0 font-weight-bolder text-secondary">
-                    {user?.firstName} {user?.lastName}
-                  </h6>
-                  <p className="m-0 font-weight-normal text-sm text-secondary">
-                    {user?.email}
-                  </p>
-                </div>
-              </div>
-              <div className="col-sm-auto col-4">
-                <div className="avatar avatar-xl position-relative">
-                  <img
-                    src="/assets/images/man-profile.png"
-                    alt="bruce"
-                    className="w-70 rounded-circle shadow-sm border border-light"
-                  />
-                </div>
-              </div>
+              <UserInfoHead
+                firstName={user?.firstName}
+                lastName={user?.lastName}
+                email={user?.email}
+              />
             </div>
           </div>
         </ul>

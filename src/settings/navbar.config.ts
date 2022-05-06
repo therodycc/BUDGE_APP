@@ -1,4 +1,4 @@
-import { faArrowsUpDown, faArrowsUpDownLeftRight, faBell, faCog, faLanguage } from "@fortawesome/free-solid-svg-icons"
+import { faArrowsUpDown, faBell, faCog, faLanguage } from "@fortawesome/free-solid-svg-icons"
 
 export const navOptionsRenders = (actions: { logout: Function }) => {
     return [
