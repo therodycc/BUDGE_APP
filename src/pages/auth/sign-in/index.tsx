@@ -70,7 +70,7 @@ const SignIn = () => {
                                 {
                                     inputsAuthRenderSettings(form, { emailError, passwordError }).map((item, index) => (
                                         <div
-                                            key={index}
+                                            key={`input-auth-${index}`}
                                             className={`my-3 ${item.cols}`}>
                                             <InputText
                                                 type={item.type}

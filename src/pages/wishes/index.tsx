@@ -11,6 +11,7 @@ import { WishesI } from '../../interfaces/wishes/wishes.interface'
 import utilitiesProvider from '../../providers/utilities/utilities.provider'
 import wishesProvider from '../../providers/wishes/wishes.provider'
 import { getWishesAction, removeWishesAction } from '../../redux/actions/wishes.action'
+import { v4 as gxUUID} from 'uuid';
 
 const Wishes = () => {
 
@@ -109,7 +110,7 @@ const Wishes = () => {
                     wishes?.map((item, i) => (
                         <div
                             className="col-xl-4 col-sm-6 mb-xl-0"
-                            key={item.name + i}
+                            key={gxUUID()}
                         >
                             <CardImg
                                 title={item.name}

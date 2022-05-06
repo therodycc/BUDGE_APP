@@ -1,5 +1,6 @@
 import React from 'react'
-import { TablePropsI } from '../../interfaces/common/table/table.interface'
+import { TablePropsI } from '../../../interfaces/common/table/table.interface'
+import { v4 as gxUUID} from 'uuid';
 
 const Table = ({ headItems, bodyItems }: TablePropsI) => {
     return (
@@ -9,17 +10,17 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                     <tr>
                         {
                             headItems && headItems?.map((head, index) => (
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" key={head?.title + index}>{head?.title}</th>
+                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" key={gxUUID()}>{head?.title}</th>
                             ))
                         }
                     </tr>
                 </thead>
                 <tbody>
-                    {bodyItems && bodyItems?.map((item:any, index:number) => (
-                        <tr key={index} >
+                    {bodyItems && bodyItems?.map((item: any, index: number) => (
+                        <tr key={gxUUID()} >
                             {
                                 headItems.map((head, index) => (
-                                    <td key={index} className='p-3' >
+                                    <td key={gxUUID() + item.key} className='p-3' >
                                         {typeof head?.render === "function" && !head?.key && (<head.render item={item} index={index} />)}
                                         {head?.key && (
                                             <p className="text-sm font-weight-normal mb-0">{item[head?.key]}</p>

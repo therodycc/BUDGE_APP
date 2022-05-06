@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import CommentItem from "../../components/common/comment-item";
 import Layout from "../../components/layout";
 import CommentsForm from "../../components/pages/recommendations/forms/Comments";
+import { v4 as gxUUID} from 'uuid';
 
 const Recommendations = () => {
     return (
@@ -17,7 +18,9 @@ const Recommendations = () => {
                         {
                             [1, 2].map(item => (
                                 <>
-                                    <div className="mb-2">
+                                    <div
+                                        key={gxUUID()}
+                                        className="mb-2">
                                         < CommentItem />
                                     </div>
                                 </>

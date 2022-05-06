@@ -19,7 +19,7 @@ const Dropdown = ({ options, name, value, onChange, title }: DropDownPropsI) => 
                     {
                         options.map((option, index) => (
                             <option
-                                key={index + option.title}
+                                key={`${option.value}-${index}`}
                                 value={option.value}
                             >
                                 {option.title}

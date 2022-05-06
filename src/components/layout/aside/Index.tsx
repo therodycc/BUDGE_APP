@@ -3,6 +3,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { AsideOptionsI } from "../../../interfaces/layout/aside/aside.interface";
 import { asideOptions } from "../../../settings/aside-opts.settings";
+import { v4 as gxUUID} from 'uuid';
 
 const Aside = () => {
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
@@ -37,7 +38,7 @@ const Aside = () => {
             >
                 <ul className="navbar-nav">
                     {options.map((item, index) => (
-                        <Link href={item.link} key={item.title + index} >
+                        <Link href={item.link} key={gxUUID()} >
                             <li
 
                                 className="nav-item"

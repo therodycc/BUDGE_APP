@@ -1,3 +1,5 @@
+import { faHandHoldingUsd, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { CardWidgetI } from '../../../interfaces/common/card/card.interface';
 import Button from '../button';
@@ -9,7 +11,7 @@ const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, han
         <div className="row">
           <div className="col-4">
             <div className="icon icon-lg icon-shape bg-gradient-success shadow text-center border-radius-md">
-              <i className="fas fa-hand-holding-usd"></i>
+              <FontAwesomeIcon icon={faHandHoldingUsd} />
             </div>
           </div>
           <div className="col-6 my-auto text-end">
@@ -35,12 +37,12 @@ const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, han
       <Button
         action={() => { handleDelete(item) }}
         bgClass={'danger'} type={'button'} loading={false}>
-        <i className="fas fa-trash-alt"></i>
+        <FontAwesomeIcon icon={faTrashAlt} />
       </Button>
       <Button
         action={() => { handleUpdate() }}
         bgClass={'warning'} type={'button'} loading={false}>
-        <i className="fas fa-pencil-alt"></i>
+        <FontAwesomeIcon icon={faPencilAlt} />
       </Button>
     </div>
   </>;

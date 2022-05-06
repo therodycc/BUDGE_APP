@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
 import { navLayout } from '../../settings/navbar.config'
 import Button from '../common/button'
+import { v4 as gxUUID} from 'uuid';
 
 const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
 
@@ -36,7 +37,9 @@ const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
                     >
                         {
                             navLayoutSettings.map((item, index) => (
-                                <Link href={item.href}>
+                                <Link
+                                    key={gxUUID()}
+                                    href={item.href}>
                                     <div className="m-0 p-0">
                                         <Button
                                             action={() => { handleNav(item.href) }}

@@ -15,7 +15,7 @@ const Input = ({ errorMessage, customClass, title, ...props }: InputPropsI | any
                 <div className="input-group input-group-dynamic">
 
                     <input
-                        className={`form-control ${customClass}`}
+                        className={`form-control ${customClass || ""}`}
                         {...props}
                     />
                 </div>
