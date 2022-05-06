@@ -2,6 +2,7 @@ import router from "next/router";
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { useDispatch } from "react-redux";
 import Button from "../../../components/common/button";
+import HeadImages from "../../../components/common/head-images";
 import InputText from "../../../components/common/input";
 import AuthLayout from "../../../components/layout/auth-layout";
 import sweetAlert from "../../../helpers/alerts/sweetAlert.helper";
@@ -49,20 +50,7 @@ const SignIn = () => {
                 <div className="col-lg-4 mx-auto">
                     <div className="card mx-3" style={{ zIndex: 1 }}>
                         <div className="card-header text-center py-0">
-                            <div className="mt-n5">
-                                <img
-                                    className="avatar avatar-xxl shadow-lg"
-                                    style={{ marginRight: "-10px" }}
-                                    alt="Image placeholder"
-                                    src="https://www.w3schools.com/howto/img_avatar.png"
-                                />
-                                <img
-                                    className="avatar avatar-xxl shadow-lg"
-                                    style={{ marginLeft: "-10px" }}
-                                    alt="Image placeholder"
-                                    src="https://www.w3schools.com/howto/img_avatar2.png"
-                                />
-                            </div>
+                            <HeadImages />
                         </div>
                         <div className="card-body ">
                             <p className="mb-4 text-center">Enter password to unlock your account.</p>
@@ -103,11 +91,9 @@ const SignIn = () => {
         </>
     );
 };
-SignIn.getLayout = function getLayout(page: ReactElement) {
-    return (
+SignIn.getLayout = (page: ReactElement) =>(
         <AuthLayout>
             {page}
         </AuthLayout >
     )
-}
 export default SignIn;

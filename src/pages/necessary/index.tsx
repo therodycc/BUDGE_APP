@@ -261,12 +261,10 @@ const Necessary = () => {
         </>
     );
 };
-Necessary.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Necessary.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default Necessary;

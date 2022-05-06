@@ -309,7 +309,7 @@ const Manage = () => {
 
     return (
         <>
-    
+
             <div className="container">
                 <div className="row mt-5">
                     <Card
@@ -405,12 +405,11 @@ const Manage = () => {
         </>
     );
 };
-Manage.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Manage.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
+
 
 export default Manage;

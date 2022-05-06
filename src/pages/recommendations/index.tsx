@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import CommentItem from "../../components/common/comment-item";
 import Layout from "../../components/layout";
 import CommentsForm from "../../components/pages/recommendations/forms/Comments";
-import { v4 as gxUUID} from 'uuid';
+import { v4 as gxUUID } from 'uuid';
 
 const Recommendations = () => {
     return (
@@ -32,12 +32,10 @@ const Recommendations = () => {
         </>
     );
 };
-Recommendations.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Recommendations.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default Recommendations;

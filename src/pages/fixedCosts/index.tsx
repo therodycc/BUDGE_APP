@@ -219,54 +219,54 @@ const FixedCosts = () => {
 
     return (
         <>
-                <div className="container">
-                    {/* <FormBudget></FormBudget> */}
-                    <div className="row mb-5">
-                        <div className="col-sm-4">
-                            <CardMini amount={currencyFormat(total)} title="Fixed costs" />
-                        </div>
-                        <div className="col-sm-4">
-                            <CardMini
-                                amount={currencyFormat(totalActive)}
-                                title="Total active"
-                            />
-                        </div>
-                        <div className="col-sm-4">
-                            <CardMini
-                                amount={currencyFormat(totalDisabled)}
-                                title="Total disabled"
-                            />
-                        </div>
+            <div className="container">
+                {/* <FormBudget></FormBudget> */}
+                <div className="row mb-5">
+                    <div className="col-sm-4">
+                        <CardMini amount={currencyFormat(total)} title="Fixed costs" />
                     </div>
-                    <Box
-                        title="Fixed costs"
-                        rightSection={<div className="d-flex align-center-center">
-                            <Button
-                                action={() => {
-                                    setShowModal(true)
-                                    setDataModalUtility(null)
-                                }}
-                                bgClass={"primary"}
-                                type={"button"}
-                                loading={false}
-                                size="sm"
-                            >
-                                Add new
-                            </Button>
-                            <Button
-                                action={() => { }}
-                                bgClass={"danger"}
-                                type={"button"}
-                                loading={showLoadingAddToMoth}
-                                size="sm"
-                            >
-                                Add to month
-                            </Button>
-                        </div>}
-                    >
-                        <Table headItems={headItems} bodyItems={fixedCosts} />
-                    </Box>
+                    <div className="col-sm-4">
+                        <CardMini
+                            amount={currencyFormat(totalActive)}
+                            title="Total active"
+                        />
+                    </div>
+                    <div className="col-sm-4">
+                        <CardMini
+                            amount={currencyFormat(totalDisabled)}
+                            title="Total disabled"
+                        />
+                    </div>
                 </div>
+                <Box
+                    title="Fixed costs"
+                    rightSection={<div className="d-flex align-center-center">
+                        <Button
+                            action={() => {
+                                setShowModal(true)
+                                setDataModalUtility(null)
+                            }}
+                            bgClass={"primary"}
+                            type={"button"}
+                            loading={false}
+                            size="sm"
+                        >
+                            Add new
+                        </Button>
+                        <Button
+                            action={() => { }}
+                            bgClass={"danger"}
+                            type={"button"}
+                            loading={showLoadingAddToMoth}
+                            size="sm"
+                        >
+                            Add to month
+                        </Button>
+                    </div>}
+                >
+                    <Table headItems={headItems} bodyItems={fixedCosts} />
+                </Box>
+            </div>
 
 
             {/* modals */}
@@ -281,12 +281,11 @@ const FixedCosts = () => {
         </>
     );
 };
-FixedCosts.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+FixedCosts.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
+
 
 export default FixedCosts;

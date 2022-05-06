@@ -127,12 +127,11 @@ const Profile = () => {
         </>
     );
 };
-Profile.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Profile.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
+
 
 export default Profile;

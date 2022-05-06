@@ -53,12 +53,10 @@ const Reports = () => {
         </>
     );
 };
-Reports.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Reports.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default Reports;

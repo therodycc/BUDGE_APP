@@ -11,7 +11,7 @@ import { WishesI } from '../../interfaces/wishes/wishes.interface'
 import utilitiesProvider from '../../providers/utilities/utilities.provider'
 import wishesProvider from '../../providers/wishes/wishes.provider'
 import { getWishesAction, removeWishesAction } from '../../redux/actions/wishes.action'
-import { v4 as gxUUID} from 'uuid';
+import { v4 as gxUUID } from 'uuid';
 
 const Wishes = () => {
 
@@ -193,12 +193,11 @@ const Wishes = () => {
         </>
     )
 }
-Wishes.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Wishes.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
+
 
 export default Wishes

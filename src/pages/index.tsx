@@ -11,12 +11,10 @@ const Home = () => {
 }
 
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout >
-  )
-}
+Home.getLayout = (page: ReactElement) => (
+  <Layout>
+    {page}
+  </Layout >
+)
 
 export default Home

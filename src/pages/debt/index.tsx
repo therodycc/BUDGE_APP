@@ -270,12 +270,10 @@ const Debt = () => {
         </>
     );
 };
-Debt.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Debt.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default Debt;

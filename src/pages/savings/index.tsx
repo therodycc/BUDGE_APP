@@ -8,12 +8,10 @@ const Savings = () => {
         </>
     )
 }
-Savings.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout >
-    )
-}
+Savings.getLayout = (page: ReactElement) => (
+    <Layout>
+        {page}
+    </Layout >
+)
 
 export default Savings
