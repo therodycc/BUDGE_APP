@@ -1,7 +1,7 @@
 import { userTypes } from "../types/user.types";
 
 const initialState = {
-    user: {}
+    me: null
 }
 
 export const userReducer = (state: any = initialState, action: any) => {
@@ -9,7 +9,7 @@ export const userReducer = (state: any = initialState, action: any) => {
         case userTypes.GET_USER:
             return {
                 ...state,
-                user: action.payload
+                me: action.payload
             }
 
         default:

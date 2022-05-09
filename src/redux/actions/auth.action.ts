@@ -7,19 +7,6 @@ export const login = (payload: LoginStoreDataI) => ({
     payload
 })
 
-export const meAction = () => ({
-    type: AuthTypeAction.ME,
-    payload: {
-        user: {
-            firstName: 'Rody',
-            lastName: 'Castro Cuello',
-            email: 'therodycc.dev@gmail.com',
-            phone: '+55 (11) 99999-9999',
-            image:""
-        }
-    }
-})
-
 export const logout = () => ({
     type: AuthTypeAction.SIGN_OUT
 })

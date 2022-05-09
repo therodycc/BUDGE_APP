@@ -7,7 +7,6 @@ import { currencyFormat } from "../../helpers/currency.helper";
 import { ProfitI } from "../../interfaces/app/profit/profit.interface";
 import { ProfitsI } from "../../interfaces/profits/profits.interface";
 import { disabledItemAction, getProfitsAction, removeProfitsAction } from "../../redux/actions/profits.action";
-import { getUserAction } from "../../redux/actions/user.action";
 
 const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -15,11 +14,9 @@ const Profile = () => {
     const [dataProfitsSelected, setDataProfitsSelected] = useState(null);
 
     const state = useSelector((state: any) => state)
+    const { user: { me } } = useSelector((state: any) => state)
     const { user } = useSelector((state: any) => state.auth);
     const dispatch = useDispatch()
-
-    // let user: any = state?.user?.user?.user || []
-
 
     useEffect(() => {
         setProfits(state?.profits?.profits)
@@ -28,7 +25,6 @@ const Profile = () => {
 
     useEffect(() => {
         dispatch(getProfitsAction())
-        dispatch(getUserAction())
     }, []);
 
 
@@ -58,7 +54,7 @@ const Profile = () => {
                             <div className="avatar avatar-xl position-relative">
                                 <img
                                     src={
-                                        user?.image ||
+                                        me?.image ||
                                         "/assets/images/man-profile.png"
                                     }
                                     alt="profile_image"
@@ -69,15 +65,14 @@ const Profile = () => {
                         <div className="col-auto my-auto">
                             <div className="h-100 mx-2">
                                 <h5 className="mb-1">
-                                    {user?.firstName} {user?.lastName}
+                                    {me?.firstName} {me?.lastName}
                                 </h5>
                                 <p className="mb-0 font-weight-normal text-sm">
-                                    {user?.email}
+                                    {me?.email}
                                 </p>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-
+                        <div className="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3 ">
                         </div>
                     </div>
                     <div className="row  my-3">

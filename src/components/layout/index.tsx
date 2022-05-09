@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
-import Aside from './aside'
-import Header from './header'
-import { meAction } from '../../redux/actions/auth.action';
+import { LayoutPropsI } from '../../interfaces/layout/layout.interface';
+import { getMeAction } from '../../redux/actions/user.action';
+import Aside from './aside';
+import Header from './header';
 
-const Layout = ({ children }: LayoutPropsI) => {
+const Layout: FC<LayoutPropsI> = ({ children }) => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(meAction())
+        dispatch(getMeAction())
     }, []);
     return (
         <>

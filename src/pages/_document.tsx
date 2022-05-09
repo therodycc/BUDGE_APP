@@ -20,6 +20,7 @@ class MyDocument extends Document {
                 </Head>
                 <body>
                     <Main />
+                    <script src="https://kit.fontawesome.com/2e2971d45d.js" crossOrigin="anonymous"></script>
                     <NextScript />
                 </body>
             </Html>

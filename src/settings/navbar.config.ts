@@ -4,12 +4,15 @@ export const navOptionsRenders = (actions: { logout: Function }) => {
     return [
         {
             icon: faCog,
+            action: () => { }
         },
         {
-            icon: faBell
+            icon: faBell,
+            action: () => { }
         },
         {
-            icon: faLanguage
+            icon: faLanguage,
+            action: () => { }
         },
         {
             icon: faArrowsUpDown,

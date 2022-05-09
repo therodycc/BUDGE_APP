@@ -1,13 +1,13 @@
 import userProvider from "../../providers/user/user.provider";
 import { userTypes } from "../types/user.types";
 
-export const getUserAction = () => {
+export const getMeAction = () => {
     return (dispatch: Function) => {
-        userProvider.getAll()
+        userProvider.getMe()
             .then((res) => {
                 dispatch({
                     type: userTypes.GET_USER,
-                    payload: { user: res?.data }
+                    payload: res?.data
                 });
             })
             .catch((error) => error);

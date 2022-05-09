@@ -3,7 +3,11 @@ import Provider from "../provider"
 
 class UserProvider extends Provider {
     constructor() {
-        super({ baseURL: `${config.app.url}/user`})
+        super({ baseURL: `${config.app.url}/users` })
+    }
+
+    async getMe() {
+        return await this.get('/me')
     }
 
     async getAll() {
