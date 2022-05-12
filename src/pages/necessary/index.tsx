@@ -16,8 +16,7 @@ import { getNecessaryAction, removeNecessaryAction } from "../../redux/actions/n
 
 const Necessary = () => {
     const dispatch = useDispatch()
-    const state = useSelector((state: any) => state)
-    const [necessary, setNecessary] = useState<Array<any>>([]);
+    const { necessary: { necessary } } = useSelector((state: any) => state)
     const [totalNecessary, setTotalNecessary] = useState(0);
     const [totalCompleted, setTotalCompleted] = useState(0);
     const [totalMissing, setTotalMissing] = useState(0);
@@ -142,9 +141,6 @@ const Necessary = () => {
     useEffect(() => {
         dispatch(getNecessaryAction());
     }, []);
-    useEffect(() => {
-        setNecessary(state.necessary.necessary);
-    }, [state.necessary.necessary]);
 
     useEffect(() => {
         setTotalNecessary(getTotalNecessary());
@@ -179,14 +175,14 @@ const Necessary = () => {
     };
 
     const getTotalNecessary = () => {
-        return necessary?.reduce((acc, item) => {
+        return necessary?.reduce((acc: number, item: any) => {
             acc += +item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalCompleted = () => {
-        return necessary?.reduce((acc, item) => {
+        return necessary?.reduce((acc: number, item: any) => {
             if (item.status === "COMPLETED") acc += item.expense;
             if (item.status === "IN_PROGRESS") acc += item.paidOut;
 

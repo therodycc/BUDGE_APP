@@ -15,8 +15,7 @@ import { v4 as gxUUID } from 'uuid';
 
 const Wishes = () => {
 
-    const state = useSelector((state: any) => state.wishes)
-    const [wishes, setWishes] = useState<WishesI[]>([])
+    const { wishes: { wishes } } = useSelector((state: any) => state)
     const [totalWishes, setTotalWishes] = useState(0)
     const [totalCompleted, setTotalCompleted] = useState(0)
     const [totalMissing, setTotalMissing] = useState(0)
@@ -30,10 +29,6 @@ const Wishes = () => {
     }, [])
 
     useEffect(() => {
-        setWishes(state?.wishes)
-    }, [state.wishes]);
-
-    useEffect(() => {
         setTotalWishes(getTotalWishes())
         setTotalCompleted(getTotalCompleted())
     }, [wishes])
@@ -43,13 +38,13 @@ const Wishes = () => {
     }, [totalCompleted, totalWishes])
 
     const getTotalWishes = () => {
-        return wishes?.reduce((acc, item) => {
+        return wishes?.reduce((acc: number, item: any) => {
             acc += item?.expense
             return acc
         }, 0);
     }
     const getTotalCompleted = () => {
-        return wishes?.reduce((acc, item) => {
+        return wishes?.reduce((acc: number, item: any) => {
             if (item.status === 'COMPLETED') acc += item.expense
             return acc
         }, 0);
@@ -107,7 +102,7 @@ const Wishes = () => {
 
             <div className="flex-wrap mb-5 d-flex justify-content-between">
                 {
-                    wishes?.map((item, i) => (
+                    wishes?.map((item: any, i: number) => (
                         <div
                             className="col-xl-4 col-sm-6 mb-xl-0"
                             key={gxUUID()}

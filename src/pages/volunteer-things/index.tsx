@@ -18,9 +18,8 @@ import {
 } from "../../redux/actions/volunteer-things.action";
 
 const VolunteerThings = () => {
-    const state = useSelector((state: any) => state.volunteerThings);
+    const { volunteerThings: { volunteerThings } } = useSelector((state: any) => state);
 
-    const [volunteerThings, setVolunteerThings] = useState<Array<any>>([]);
     const [totalVolunteerThings, setTotalVolunteerThings] = useState<number>(0);
     const [totalCompleted, setTotalCompleted] = useState<number>(0);
     const [totalMissing, setTotalMissing] = useState<number>(0);
@@ -163,19 +162,15 @@ const VolunteerThings = () => {
         dispatch(getVolunteerThingsAction());
     }, []);
 
-    useEffect(() => {
-        setVolunteerThings(state.volunteerThings);
-    }, [state.volunteerThings]);
-
     const getTotalVolunteerThings = () => {
-        return volunteerThings?.reduce((acc, item) => {
+        return volunteerThings?.reduce((acc: number, item: any) => {
             acc += item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalCompleted = () => {
-        return volunteerThings?.reduce((acc, item) => {
+        return volunteerThings?.reduce((acc: number, item: any) => {
             if (item.status === "COMPLETED") acc += item.expense;
             if (item.status === "IN PROGRESS") acc += item.paidOut;
 

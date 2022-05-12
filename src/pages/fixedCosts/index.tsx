@@ -150,17 +150,15 @@ const FixedCosts = () => {
     ]);
 
     // stores
-    const state = useSelector((state: any) => state)
+    const { fixedCosts: { fixedCosts } } = useSelector((state: any) => state)
 
     const dispatch = useDispatch()
-
-    let fixedCosts: UtilityI[] = state?.fixedCosts.fixedCosts || []
 
     useEffect(() => {
         setTotal(getTotalFixedCosts());
         setTotalActive(getTotalActive());
         setTotalDisabled(getTotalDisabled());
-    }, [state.fixedCosts.fixedCosts]);
+    }, [fixedCosts]);
 
 
     useEffect(() => {
@@ -168,21 +166,21 @@ const FixedCosts = () => {
     }, []);
 
     const getTotalFixedCosts = () => {
-        return fixedCosts?.reduce((acc, item) => {
+        return fixedCosts?.reduce((acc: any, item: any) => {
             acc += item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalActive = () => {
-        return fixedCosts?.reduce((acc, item) => {
+        return fixedCosts?.reduce((acc: any, item: any) => {
             if (item.active) acc += item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalDisabled = () => {
-        return fixedCosts?.reduce((acc, item) => {
+        return fixedCosts?.reduce((acc: any, item: any) => {
             if (!item.active) acc += item.expense;
             return acc;
         }, 0);
@@ -198,9 +196,7 @@ const FixedCosts = () => {
             .catch((error) => error);
         utilitiesProvider
             .postItem(item)
-            .then((data) => {
-                sweetAlert.alert("Done!", "Added to this month", "success");
-            })
+            .then((data) => data)
             .catch((error) => error);
     };
 

@@ -6,9 +6,7 @@ import AuthLayout from "../../../components/layout/auth-layout";
 
 const SignUp = () => {
 
-    const handleSubmit = (e: React.FormEvent) => {
-
-    }
+    const handleSubmit = (e: React.FormEvent) => { }
 
     return (
         <>
@@ -41,8 +39,8 @@ const SignUp = () => {
     )
 }
 SignUp.getLayout = (page: ReactElement) => (
-        <AuthLayout>
-            {page}
-        </AuthLayout >
-    )
+    <AuthLayout>
+        {page}
+    </AuthLayout >
+)
 export default SignUp

@@ -14,7 +14,6 @@ import utilitiesProvider from "../../providers/utilities/utilities.provider";
 import { getDebtsAction, removeDebtsAction } from "../../redux/actions/debts.action";
 
 const Debt = () => {
-    const [debts, setDebts] = useState<Array<any>>([]);
     const [totalDebts, setTotalDebts] = useState(0);
     const [totalCompleted, setTotalCompleted] = useState(0);
     const [totalMissing, setTotalMissing] = useState(0);
@@ -22,7 +21,7 @@ const Debt = () => {
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
 
     const dispatch = useDispatch()
-    const state = useSelector((state: any) => state)
+    const { debts: { debts } } = useSelector((state: any) => state)
 
     const [headItems, setHeadItems] = useState([
         {
@@ -159,10 +158,6 @@ const Debt = () => {
     }, []);
 
     useEffect(() => {
-        setDebts(state.debts.debts)
-    }, [state.debts.debts]);
-
-    useEffect(() => {
         setTotalDebts(getTotalDebts());
         setTotalCompleted(getTotalCompleted());
     }, [debts]);
@@ -174,14 +169,14 @@ const Debt = () => {
 
 
     const getTotalDebts = () => {
-        return debts?.reduce((acc, item) => {
+        return debts?.reduce((acc: any, item: any) => {
             acc += item.expense;
             return acc;
         }, 0);
     };
 
     const getTotalCompleted = () => {
-        return debts?.reduce((acc, item) => {
+        return debts?.reduce((acc: any, item: any) => {
             if (item.status === "COMPLETED") acc += item.expense;
             if (item.status === "IN_PROGRESS") acc += item.paidOut;
             return acc;

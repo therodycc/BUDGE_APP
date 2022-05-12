@@ -17,11 +17,8 @@ import { getProfitsAction } from "../../redux/actions/profits.action";
 
 const Manage = () => {
     // store
-    const state = useSelector((state: any) => state);
+    const { manage: { manage }, profits: { profits } } = useSelector((state: any) => state);
     const dispatch = useDispatch();
-
-    const [utilities, setUtilities] = useState<Array<any>>([]);
-    const [profits, setProfits] = useState<Array<any>>([]);
 
     const [entry, setEntry] = useState(0);
     const [pending, setPending] = useState(0);
@@ -43,14 +40,6 @@ const Manage = () => {
         dispatch(getManageAction());
     }, []);
 
-    useEffect(() => {
-        if (!state.profits.profits) return
-        setProfits(state.profits.profits);
-    }, [state.profits.profits]);
-    useEffect(() => {
-        if (!state.manage.manage) return
-        setUtilities(state.manage.manage);
-    }, [state.manage.manage]);
 
     useEffect(() => {
         setPending(getPending());
@@ -63,7 +52,7 @@ const Manage = () => {
         setWishes(getWishes());
         setEntry(getProfits());
         setPaidOut(getPaidOut());
-    }, [utilities, profits]);
+    }, [manage, profits]);
 
     const getProfits = () => {
         return profits?.reduce((acc: number, item: any) => {
@@ -73,14 +62,14 @@ const Manage = () => {
     };
 
     const getPending = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             acc += item.expense - item.paidOut;
             return acc;
         }, 0);
     };
 
     const getDebt = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "debt") {
                 acc += item.expense;
             }
@@ -89,7 +78,7 @@ const Manage = () => {
     };
 
     const getFixedCosts = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "fixedCosts") {
                 acc += item.expense;
             }
@@ -97,7 +86,7 @@ const Manage = () => {
         }, 0);
     };
     const getPersonal = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "personal") {
                 acc += item.expense;
             }
@@ -105,7 +94,7 @@ const Manage = () => {
         }, 0);
     };
     const getFamily = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "family") {
                 acc += item.expense;
             }
@@ -114,7 +103,7 @@ const Manage = () => {
     };
 
     const getVoluntary = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "voluntary") {
                 acc += item.expense;
             }
@@ -122,19 +111,19 @@ const Manage = () => {
         }, 0);
     };
     const getRemaining = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             acc -= item.expense;
             return acc;
         }, entry);
     };
     const getPaidOut = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             acc += item.paidOut;
             return acc;
         }, 0);
     };
     const getWishes = () => {
-        return utilities?.reduce((acc, item) => {
+        return manage?.reduce((acc: number, item: any) => {
             if (item.category === "wishes") {
                 acc += item.expense;
             }
@@ -201,7 +190,7 @@ const Manage = () => {
                             if (toPay > item?.expense) {
                                 return sweetAlert.alert('', 'La cantidad sobrepasa el valor', 'error');
                             }
-                            utilitiesProvider.update(item?.id, {
+                            manageProvider.update(item?.id, {
                                 paidOut: item?.paidOut + toPay
                             })
                                 .then(data => {
@@ -304,7 +293,7 @@ const Manage = () => {
     };
 
     const handleExportData = async () => {
-        createTablePdf(utilities, entry, personal, remaining)
+        createTablePdf(manage, entry, personal, remaining)
     };
 
     return (
@@ -377,7 +366,7 @@ const Manage = () => {
                     />
                 </div>
                 <Box
-                    title="Utilities"
+                    title="manage"
                     rightSection={
                         <>
                             <Button
@@ -392,7 +381,7 @@ const Manage = () => {
                     }
                 >
                     <div id="test">
-                        <Table headItems={headItems} bodyItems={utilities} />
+                        <Table headItems={headItems} bodyItems={manage} />
                     </div>
                 </Box>
             </div>
