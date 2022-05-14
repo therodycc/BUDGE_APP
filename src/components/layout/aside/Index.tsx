@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Aside = () => {
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
-    const [title, setTitle] = useState("THR-Budge");
 
     useEffect(() => {
         handleSelected(Router.pathname)
@@ -25,37 +24,34 @@ const Aside = () => {
 
     return (
         <>
-            <div className="">
-                <a className="navbar-brand m-0" >
-                    <i className="icon" aria-hidden="false"></i>
-                    <span className="ms-1 font-weight-bold text-dark">{title}</span>
-                </a>
-            </div>
-            <hr className="horizontal bg-dark mt-0 mb-2" />
-            <div
-                className="collapse navbar-collapse h-auto"
+            <aside
+                className="sidebar-show sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white"
             >
-                <ul className="navbar-nav">
-                    {options.map((item, index) => (
-                        <Link href={item.link} key={gxUUID()} >
-                            <li
-                                className="nav-item"
-                                onClick={() => handleSelected(item.link)}
-                            >
-                                <span className={`nav-link text-secondary ${item.active && 'bg-primary active'}`}>
-                                    <div className="text-light icon-rounded bg-white shadow text-center me-2 d-flex align-items-center justify-content-center">
-                                        <FontAwesomeIcon icon={item.icon} />
-                                    </div>
-                                    <span className="nav-link-text ms-1">{item.title}</span>
-                                </span>
-                            </li>
-                        </Link>
-                    ))}
-                </ul>
-            </div>
-            <div className="sidenav-footer position-absolute w-100 bottom-0 ">
-                <div className="mx-3"></div>
-            </div>
+                <div
+                    className="collapse navbar-collapse h-auto sidebar-show"
+                >
+                    <ul className="navbar-nav">
+                        {options.map((item, index) => (
+                            <Link href={item.link} key={gxUUID()} >
+                                <li
+                                    className="nav-item"
+                                    onClick={() => handleSelected(item.link)}
+                                >
+                                    <span className={`nav-link text-secondary ${item.active && 'bg-primary active'}`}>
+                                        <div className="text-primary icon-rounded bg-white shadow text-center me-2 d-flex align-items-center justify-content-center">
+                                            <FontAwesomeIcon icon={item.icon} />
+                                        </div>
+                                        <span className="nav-link-text ms-1">{item.title}</span>
+                                    </span>
+                                </li>
+                            </Link>
+                        ))}
+                    </ul>
+                </div>
+                <div className="sidenav-footer position-absolute w-100 bottom-0 ">
+                    <div className="mx-3"></div>
+                </div>
+            </aside>
         </>
     );
 };

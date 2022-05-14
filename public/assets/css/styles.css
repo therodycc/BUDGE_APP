@@ -1,3 +1,5 @@
+@import url('../css/sidebar.css');
+
 .sign-in-bg {
   background: #4b6cb7;
   background: -webkit-linear-gradient(to right, #18284874, #18284874),
