@@ -6,11 +6,12 @@ interface ButtonCardPropsI {
     title: string
     icon: IconDefinition
     bgClass: bgClassType
+    action: Function
 }
-const ButtonCard: FC<ButtonCardPropsI> = ({ title, icon, bgClass }) => {
+const ButtonCard: FC<ButtonCardPropsI> = ({ title, icon, bgClass, action }) => {
     return (
         <>
-            <div className="card shadow cursor-pointer mb-2">
+            <div className="card shadow cursor-pointer mb-2 card-person" onClick={() => action()}>
                 <div className="card-body p-3">
                     <div className=" d-flex align-items-center justify-content-center ">
                         <div

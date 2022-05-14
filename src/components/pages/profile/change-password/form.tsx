@@ -1,13 +1,15 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import authProvider from '../../../../providers/auth/auth.provider';
-import { changePasswordInputs } from '../../../../settings/profile/change-password-inputs.settings';
-import Button from '../../../common/button'
-import Input from '../../../common/input'
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { isRequired } from '../../../../helpers/validations/index';
 import { setFormData } from '../../../../redux/actions/auth/change-password';
-import { useDispatch } from 'react-redux';
+import { changePasswordInputs } from '../../../../settings/profile/change-password-inputs.settings';
+import Button from '../../../common/button';
+import Input from '../../../common/input';
 
-const FormChangePassword = () => {
+
+interface FormChangePasswordPropsI {
+}
+const FormChangePassword: FC<FormChangePasswordPropsI> = () => {
     const dispatch = useDispatch()
     const [newPasswordError, setNewPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -30,42 +32,40 @@ const FormChangePassword = () => {
         const errConfirmPassword = isRequired(form.newPassword === form.confirmPassword, "Password do not match", setConfirmPasswordError)
         if (errNewPassword || errConfirmPassword) return
         dispatch(setFormData({ form }))
-
     }
     return (
         <>
-            <div className="card shadow-lg">
-                <form className="p-3" onSubmit={handleSubmit}>
-                    <h4>Change Password</h4>
-                    <div className="row mt-3">
-                        {
-                            changePasswordInputs(form, { newPasswordError, confirmPasswordError }).map(item => (
-                                <div className={`${item.cols}} my-3`}>
-                                    <Input
-                                        onChange={handleChange}
-                                        name={`${item.name}`}
-                                        placeholder={`${item.placeholder}`}
-                                        type={`${item.type}`}
-                                        value={`${item.value}`}
-                                        title={`${item.title}`}
-                                        errorMessage={`${item.errors}`}
-                                    />
-                                </div>
-                            ))
-                        }
-                    </div>
 
-                    <Button
-                        type="submit"
-                        bgClass="info"
-                        customClass='w-100'
-                        action={() => { }}
-                        loading={false}
-                    >
-                        Send
-                    </Button>
-                </form>
-            </div>
+
+            <form className="p-3" onSubmit={handleSubmit}>
+                <div className="row">
+                    {
+                        changePasswordInputs(form, { newPasswordError, confirmPasswordError }).map(item => (
+                            <div className={`${item.cols}} my-3`}>
+                                <Input
+                                    onChange={handleChange}
+                                    name={`${item.name}`}
+                                    placeholder={`${item.placeholder}`}
+                                    type={`${item.type}`}
+                                    value={`${item.value}`}
+                                    title={`${item.title}`}
+                                    errorMessage={`${item.errors}`}
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <Button
+                    type="submit"
+                    bgClass="info"
+                    customClass='w-100'
+                    action={() => { }}
+                    loading={false}
+                >
+                    Send
+                </Button>
+            </form>
         </>
     )
 }

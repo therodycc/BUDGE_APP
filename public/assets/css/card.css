@@ -1,0 +1,7 @@
+.card-person:hover {
+    transform: scale(1.03)
+}
+
+.card-person {
+    transition: .1s ease all;
+}

@@ -3,12 +3,10 @@ import { ReactElement, useState } from "react";
 import ButtonCard from "../../components/common/button/button-card";
 import Layout from "../../components/layout";
 import BgLayoutPage from "../../components/layout/bg-layout-page";
-import FormChangePassword from "../../components/pages/profile/change-password/form";
-import VerifyPassword from "../../components/pages/profile/change-password/verify-password";
+import ChangePassword from "../../components/pages/profile/change-password";
 
 const Profile = () => {
-
-    const [modalPassword, setModalPassword] = useState(false);
+    const [showChangePassword, setShowChangePassword] = useState(false);
 
     return (
         <>
@@ -16,27 +14,31 @@ const Profile = () => {
                 <div className="card card-body bg-light mx-3 mx-md-4 mt-n12">
                     <div className="row  my-3 ">
                         <div className="col-sm-6">
-                            <ButtonCard title={"Change Password"} icon={faPaintbrush} bgClass={"info"} />
-                            <ButtonCard title={"Change Password"} icon={faPaintbrush} bgClass={"info"} />
+                            <ButtonCard
+                                title={"Change Password"}
+                                action={() => setShowChangePassword(true)}
+                                icon={faPaintbrush}
+                                bgClass={"info"}
+                            />
                         </div>
                         <div className=" col-sm-6">
-                            <ButtonCard title={"Edit my profile"} icon={faPaintbrush} bgClass={"danger"} />
-                            {/* <FormChangePassword /> */}
+                            <ButtonCard
+                                action={() => { }}
+                                title={"Edit my profile"}
+                                icon={faPaintbrush}
+                                bgClass={"danger"}
+                            />
                         </div>
                     </div>
                 </div>
             </BgLayoutPage>
-            <VerifyPassword
-                show={modalPassword}
-                setToggle={setModalPassword} />
+            {showChangePassword && (
+                <ChangePassword toggle={setShowChangePassword} />
+            )}
         </>
     );
 };
-Profile.getLayout = (page: ReactElement) => (
-    <Layout>
-        {page}
-    </Layout >
-)
 
+Profile.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
 
 export default Profile;
