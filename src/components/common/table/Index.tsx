@@ -1,6 +1,7 @@
 import React from 'react'
 import { TablePropsI } from '../../../interfaces/common/table/table.interface'
-import { v4 as gxUUID} from 'uuid';
+import { v4 as gxUUID } from 'uuid';
+import NoDataTable from '../no-data/table-empty';
 
 const Table = ({ headItems, bodyItems }: TablePropsI) => {
     return (
@@ -16,7 +17,7 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {bodyItems && bodyItems?.map((item: any, index: number) => (
+                    {bodyItems?.map((item: any, index: number) => (
                         <tr key={gxUUID()} >
                             {
                                 headItems.map((head, index) => (
@@ -32,7 +33,7 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                         </tr>
                     ))
                     }
-
+                    {bodyItems?.length === 0 && (<NoDataTable />)}
                 </tbody>
             </table>
         </>
@@ -41,14 +42,3 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
 
 export default Table
 
-
-
-// <td className="align-middle text-center text-sm">
-// <p className="text-sm font-weight-normal mb-0">$9.500</p>
-// </td>
-// <td className="align-middle text-end">
-// <div className="d-flex px-3 py-1 justify-content-center align-items-center">
-//     <p className="text-sm font-weight-normal mb-0">13</p>
-//     <i className="ni ni-bold-down text-sm ms-1 text-success"></i>
-// </div>
-// </td>

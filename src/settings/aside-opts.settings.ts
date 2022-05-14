@@ -1,74 +1,81 @@
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { AsideOptionsI } from "../interfaces/layout/aside/aside.interface";
 
 export const asideOptions: AsideOptionsI[] = [
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Dashboard",
         active: true,
         link: "/",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Manage",
         active: false,
         link: "/manage",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Fixed costs",
         active: false,
         link: "/fixedCosts",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Wishes",
         active: false,
         link: "/wishes",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Volunteer things",
         active: false,
         link: "/volunteer-things",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Debt",
         active: false,
         link: "/debt",
     },
     // {
-    //     icon: "fas fa-hand-sparkles",
+    //     icon: faHome,
     //     title: "Savings",
     //     active: false,
     //     link: "/savings",
     // },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Necessary",
         active: false,
         link: "/necessary",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Reports",
         active: false,
         link: "/reports",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Profile",
         active: false,
         link: "/profile",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
+        title: "Profits",
+        active: false,
+        link: "/profits",
+    },
+    {
+        icon: faHome,
         title: "Lending",
         active: false,
         link: "/lending",
     },
     {
-        icon: "fas fa-hand-sparkles",
+        icon: faHome,
         title: "Recommendations",
         active: false,
         link: "/recommendations",

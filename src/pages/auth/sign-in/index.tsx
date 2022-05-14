@@ -8,7 +8,7 @@ import AuthLayout from "../../../components/layout/auth-layout";
 import sweetAlert from "../../../helpers/alerts/sweetAlert.helper";
 import { isRequired } from "../../../helpers/validations";
 import authProvider from "../../../providers/auth/auth.provider";
-import { login } from "../../../redux/actions/auth.action";
+import { login } from "../../../redux/actions/auth/auth.action";
 import inputsAuthRenderSettings from "../../../settings/auth/inputs-auth-render.settings";
 
 const SignIn = () => {

@@ -15,6 +15,10 @@ class AuthProvider extends Provider {
     async logout() {
         return await this.post(`/logout`)
     }
+
+    async changePassword(data: { password: string, newPassword: string }) {
+        return await this.post(`/change-password`, data)
+    }
 }
 const authProvider = new AuthProvider()
 export default authProvider

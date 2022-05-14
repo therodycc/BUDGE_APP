@@ -1,15 +1,18 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+import authProvider from '../../../../providers/auth/auth.provider';
 import { changePasswordInputs } from '../../../../settings/profile/change-password-inputs.settings';
 import Button from '../../../common/button'
 import Input from '../../../common/input'
+import { isRequired } from '../../../../helpers/validations/index';
+import { setFormData } from '../../../../redux/actions/auth/change-password';
+import { useDispatch } from 'react-redux';
 
 const FormChangePassword = () => {
-    const [passwordError, setPasswordError] = useState("");
+    const dispatch = useDispatch()
     const [newPasswordError, setNewPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
     const [form, setForm] = useState({
-        password: '',
         newPassword: '',
         confirmPassword: ''
     });
@@ -21,8 +24,13 @@ const FormChangePassword = () => {
         })
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const errNewPassword = isRequired(form.newPassword, "New password is required", setNewPasswordError)
+        const errConfirmPassword = isRequired(form.newPassword === form.confirmPassword, "Password do not match", setConfirmPasswordError)
+        if (errNewPassword || errConfirmPassword) return
+        dispatch(setFormData({ form }))
+
     }
     return (
         <>
@@ -31,11 +39,11 @@ const FormChangePassword = () => {
                     <h4>Change Password</h4>
                     <div className="row mt-3">
                         {
-                            changePasswordInputs(form, { passwordError, newPasswordError, confirmPasswordError }).map(item => (
+                            changePasswordInputs(form, { newPasswordError, confirmPasswordError }).map(item => (
                                 <div className={`${item.cols}} my-3`}>
                                     <Input
-                                        name={`${item.name}`}
                                         onChange={handleChange}
+                                        name={`${item.name}`}
                                         placeholder={`${item.placeholder}`}
                                         type={`${item.type}`}
                                         value={`${item.value}`}

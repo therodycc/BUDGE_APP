@@ -1,34 +1,34 @@
-import { ReactElement } from "react";
-import { useSelector } from "react-redux";
+import { faPaintbrush } from "@fortawesome/free-solid-svg-icons";
+import { ReactElement, useState } from "react";
+import ButtonCard from "../../components/common/button/button-card";
 import Layout from "../../components/layout";
+import BgLayoutPage from "../../components/layout/bg-layout-page";
 import FormChangePassword from "../../components/pages/profile/change-password/form";
-import ProfitsList from "../../components/pages/profits/list";
+import VerifyPassword from "../../components/pages/profile/change-password/verify-password";
 
 const Profile = () => {
 
-    const { user: { me } } = useSelector((state: any) => state)
+    const [modalPassword, setModalPassword] = useState(false);
 
     return (
         <>
-            <div className="container-fluid px-2 px-md-4">
-                <div
-                    className="page-header min-height-300 border-radius-xl mt-4"
-                    style={{ backgroundImage: "url(/assets/images/bg-profile.jfif)", }}
-                >
-                    <span className="mask  bg-gradient-info  opacity-4"></span>
-                </div>
-                <div className="card card-body mx-3 mx-md-4 mt-n12">
-                    <div className="row  my-3">
+            <BgLayoutPage>
+                <div className="card card-body bg-light mx-3 mx-md-4 mt-n12">
+                    <div className="row  my-3 ">
                         <div className="col-sm-6">
-                            <ProfitsList />
+                            <ButtonCard title={"Change Password"} icon={faPaintbrush} bgClass={"info"} />
+                            <ButtonCard title={"Change Password"} icon={faPaintbrush} bgClass={"info"} />
                         </div>
-                        <div className="card card-body col-sm-6">
-                            <FormChangePassword />
+                        <div className=" col-sm-6">
+                            <ButtonCard title={"Edit my profile"} icon={faPaintbrush} bgClass={"danger"} />
+                            {/* <FormChangePassword /> */}
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </BgLayoutPage>
+            <VerifyPassword
+                show={modalPassword}
+                setToggle={setModalPassword} />
         </>
     );
 };

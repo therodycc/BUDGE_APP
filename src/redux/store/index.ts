@@ -10,6 +10,7 @@ import { ManageReducer } from '../reducers/manage'
 import { wishesReducer } from '../reducers/wishes'
 import { volunteerThingsReducer } from '../reducers/volunteer-things'
 import { necessaryReducer } from '../reducers/necessary'
+import { changePasswordReducer } from '../reducers/change-password'
 
 
 const reducers = combineReducers({
@@ -22,6 +23,7 @@ const reducers = combineReducers({
     wishes: wishesReducer,
     volunteerThings: volunteerThingsReducer,
     necessary: necessaryReducer,
+    changePassword: changePasswordReducer
 })
 
 export const store = createStore(

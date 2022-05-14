@@ -1,15 +1,6 @@
 export const changePasswordInputs = (form: any, errors: any) => {
     return [
         {
-            title: "Password",
-            name: "password",
-            cols: "col-md-12",
-            value: form?.password,
-            type: "password",
-            placeholder: "",
-            errors: errors.passwordError
-        },
-        {
             title: "New password",
             name: "newPassword",
             cols: "col-md-12",

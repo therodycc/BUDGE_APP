@@ -1,11 +1,13 @@
+import { FC, memo } from "react";
+
 interface InputPropsI {
     errorMessage: any | string;
     title?: string
     customClass?: string
-    props: React.InputHTMLAttributes<HTMLInputElement> | any;
+    props: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
-const Input = ({ errorMessage, customClass, title, ...props }: InputPropsI | any) => {
+const Input: FC<InputPropsI | any> = memo(({ errorMessage, customClass, title, ...props }) => {
     return (
         <>
             <div className="row text-left">
@@ -29,6 +31,6 @@ const Input = ({ errorMessage, customClass, title, ...props }: InputPropsI | any
             </div>
         </>
     );
-};
+});
 
 export default Input;

@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
+export interface ButtonGroupPropsI {
+    action1: Function
+    action2: Function
+    action3: Function
+}
 
-const ButtonGroup = () => {
+const ButtonGroup: FC<ButtonGroupPropsI> = () => {
     return (
         <>
             <div className="btn-group">
