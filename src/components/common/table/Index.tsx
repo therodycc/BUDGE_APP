@@ -1,6 +1,6 @@
-import React from 'react'
-import { TablePropsI } from '../../../interfaces/common/table/table.interface'
 import { v4 as gxUUID } from 'uuid';
+import { TablePropsI } from '../../../interfaces/common/table/table.interface';
+import LoadingPoints from '../loading/loading-points';
 import NoDataTable from '../no-data/table-empty';
 
 const Table = ({ headItems, bodyItems }: TablePropsI) => {
@@ -32,6 +32,15 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                             }
                         </tr>
                     ))
+                    }
+                    {bodyItems &&
+                        <tr>
+                            <td colSpan={12}
+                                className="position-relative"
+                            >
+                                <LoadingPoints />
+                            </td>
+                        </tr>
                     }
                     {bodyItems?.length === 0 && (<NoDataTable />)}
                 </tbody>

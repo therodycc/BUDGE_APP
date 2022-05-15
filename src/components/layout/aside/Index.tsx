@@ -37,7 +37,7 @@ const Aside = () => {
                                     className="nav-item"
                                     onClick={() => handleSelected(item.link)}
                                 >
-                                    <span className={`nav-link text-secondary ${item.active && 'bg-primary active'}`}>
+                                    <span className={`transition-sm nav-link text-secondary cursor-pointer ${item.active && 'bg-primary active'}`}>
                                         <div className="text-primary icon-rounded bg-white shadow text-center me-2 d-flex align-items-center justify-content-center">
                                             <FontAwesomeIcon icon={item.icon} />
                                         </div>

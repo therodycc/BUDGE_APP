@@ -1,5 +1,7 @@
 @import url('../css/sidebar.css');
 @import url('../css/card.css');
+@import url('../css/loading-destructuring.css');
+@import url('../css/loading-points.css');
 
 .sign-in-bg {
   background: #4b6cb7;
@@ -41,12 +43,11 @@
   font-size: 12px;
 }
 
-.icon-rounded{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  line-height:50px;
-  text-align:center;
-  
-}
+.icon-rounded {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  line-height: 50px;
+  text-align: center;
 
+}

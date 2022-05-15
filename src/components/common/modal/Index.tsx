@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ModalI } from "../../../interfaces/common/modal/modal.interface";
+import LoadingSquareDestructuring from "../loading/loading-square-destructuring";
 
 const Modal = ({ title, children, footer, setToggle, active }: ModalI) => {
     const [animation, setAnimation] = useState<boolean>(false);
@@ -11,13 +12,14 @@ const Modal = ({ title, children, footer, setToggle, active }: ModalI) => {
     };
     return (
         <>
-            <div className="modal-base ">
+            <div className="modal-base">
                 <div className="back-modal" onClick={closeModal} />
-                <div className="show fade mx-3 position-fixed">
+                <div className="show fade mx-3 position-fixed overflow-hidden">
                     <div
-                        className={`bg-white rounded shadow-lg modal-layout animate__animated  ${!animation ? "animate__bounceInUp" : "animate__bounceOutDown"
+                        className={`bg-white shadow-lg modal-layout animate__animated  ${!animation ? "animate__bounceInUp" : "animate__bounceOutDown"
                             }`}
                     >
+                        <LoadingSquareDestructuring />
                         <div className="p-3 pb-0 d-flex justify-content-between align-items-center">
                             <span className="fw-bolder rounded-pill bg-light py-1 px-5">
                                 {title}
