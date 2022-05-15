@@ -1,3 +1,5 @@
+import { faBook } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 const NoDataTable = () => {
@@ -12,6 +14,7 @@ const NoDataTable = () => {
                         <img
                             className="col-3"
                             src="/assets/images/no-data/empty.svg" alt="" />
+                        {/* <FontAwesomeIcon className="icon" icon={faBook} /> */}
                     </div>
                 </td>
             </tr>

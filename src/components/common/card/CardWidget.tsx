@@ -10,7 +10,9 @@ const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, han
       <div className="card-body p-3">
         <div className="row">
           <div className="col-4">
-            <div className="icon icon-lg icon-shape bg-gradient-success shadow text-center border-radius-md">
+            <div
+              className={`rounded-circle text-white text-center bg-success me-3 icon-rounded`}
+            >
               <FontAwesomeIcon icon={faHandHoldingUsd} />
             </div>
           </div>

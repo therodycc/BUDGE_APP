@@ -10,7 +10,7 @@ import { UtilityI } from '../../interfaces/utility/utility.interface'
 const Lending = () => {
 
 
-    const [leading, setLeading] = useState<Array<any>>([])
+    const [leading, setLeading] = useState<Array<any> | null>(null)
     const [totalLeading, setTotalLeading] = useState(0)
     const [totalCompleted, setTotalCompleted] = useState(0)
     const [totalMissing, setTotalMissing] = useState(0)

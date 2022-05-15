@@ -33,10 +33,11 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                         </tr>
                     ))
                     }
-                    {bodyItems &&
+                    {!bodyItems &&
                         <tr>
                             <td colSpan={12}
                                 className="position-relative"
+                                style={{ height: '200px',}}
                             >
                                 <LoadingPoints />
                             </td>

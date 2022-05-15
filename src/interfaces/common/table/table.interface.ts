@@ -1,6 +1,6 @@
 export interface TablePropsI {
     headItems: HeadItemsI[]
-    bodyItems: any[]
+    bodyItems: any[] | null
 }
 
 
