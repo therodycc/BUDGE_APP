@@ -1,7 +1,8 @@
 export interface DropDownPropsI {
     title?: string
-    name: string
-    value: string
+    name?: string
+    value?: string 
+    type?: string
     onChange: Function
     options: OptionsDropdownI[]
 }

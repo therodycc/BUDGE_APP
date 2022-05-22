@@ -377,6 +377,14 @@ const Manage = () => {
                             >
                                 Export
                             </Button>
+                            <Button
+                                action={() => { }}
+                                bgClass={"info"}
+                                type={"button"}
+                                loading={false}
+                            >
+                                Reset
+                            </Button>
                         </>
                     }
                 >

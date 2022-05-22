@@ -1,26 +1,20 @@
-import { parse } from "node:path/win32";
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
-import { FixedCostsI } from "../../../../interfaces/fixed-costs/fixed-costs.interface";
+import { FixedCostsI, ModalFixedCostsPropsI } from "../../../../interfaces/fixed-costs/fixed-costs.interface";
 import {
     addFixedCostAction,
     updateFixedCostsAction,
 } from "../../../../redux/actions/fixed-costs.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
+import { inputsDataFixedCosts } from "../../../../settings/fixed-costs/inputs-data";
 import Button from "../../../common/button";
 import Dropdown from "../../../common/dropdown";
 import Input from "../../../common/input";
 import Modal from "../../../common/modal";
 
-interface ModalFixedCostsPropsI {
-    active: boolean;
-    toggle: Function;
-    data?: any;
-}
-
-const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
+const ModalFixedCosts = ({ active, setToggle: toggle, data }: ModalFixedCostsPropsI) => {
     const dispatch = useDispatch();
 
     const [form, setForm] = useState<FixedCostsI>({
@@ -49,19 +43,14 @@ const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const errorName = isRequired(form.name, "Name is required", setErrName);
-        const errorExpense = isRequired(
-            form.expense,
-            "Expense is required",
-            setErrExpense
-        );
-        if (errorName || errorExpense) {
-            return;
-        }
+        const errorExpense = isRequired(form.expense, "Expense is required", setErrExpense);
+
+        if (errorName || errorExpense) return;
+
         data?.uuid
-            ? dispatch(
-                updateFixedCostsAction(data.uuid, form)
-            )
+            ? dispatch(updateFixedCostsAction(data.uuid, form))
             : dispatch(addFixedCostAction(form));
+
         toggle();
     };
 
@@ -69,83 +58,28 @@ const ModalFixedCosts = ({ active, toggle, data }: ModalFixedCostsPropsI) => {
         <>
             <Modal title="Fixed costs" active={active} setToggle={toggle}>
                 <form onSubmit={handleSubmit}>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Input
-                                title="Name"
-                                type={"text"}
-                                name={"name"}
-                                onChange={handleChange}
-                                value={form?.name}
-                                placeholder={"Your name"}
-                                errorMessage={errName}
-                            />
-                        </div>
-                        <div className="col-lg-6">
-                            <Input
-                                title="Expense"
-                                type={"number"}
-                                name={"expense"}
-                                value={form?.expense}
-                                onChange={handleChange}
-                                placeholder={"The expense here"}
-                                errorMessage={errExpense}
-                            />
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Input
-                                title="Category"
-                                type={"text"}
-                                name={"category"}
-                                value={form?.category}
-                                onChange={handleChange}
-                                placeholder={"Your category"}
-                            />
-                        </div>
-                        <div className="col-lg-6">
-                            <Input
-                                title="Paid Out"
-                                type={"number"}
-                                name={"paidOut"}
-                                value={form?.paidOut}
-                                onChange={handleChange}
-                                placeholder={"Amount to pay"}
-                            />
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Dropdown
-                                title="Status"
-                                name={"status"}
-                                value={form!.status || ""}
-                                onChange={handleChange}
-                                options={statusOptions}
-                            />
-                        </div>
+                    <div className="row">
+                        {inputsDataFixedCosts({
+                            form,
+                            errors: { errName, errExpense },
+                            dropDowns: { statusOptions, urgencyOptions },
+                        }).map((item) => (
+                            <div className={`mt-3 ${item.cols}`}>
+                                {item.props.type === "dropdown" && item.options ? (
+                                    <Dropdown
+                                        title={item.props.title}
+                                        value={item.props.value?.toString()}
+                                        name={item.props.name}
+                                        options={item.options}
+                                        onChange={handleChange}
+                                    />
+                                ) : (
+                                    <Input {...item.props} {...item} onChange={handleChange} />
+                                )}
+                            </div>
+                        ))}
 
-                        <div className="col-lg-6">
-                            <Dropdown
-                                title="Urgency"
-                                name={"urgency"}
-                                value={form?.urgency || ""}
-                                onChange={handleChange}
-                                options={urgencyOptions}
-                            />
-                        </div>
-
-                        <div className="col-lg-12 mt-3">
-                            <Input
-                                title="Image"
-                                type={"text"}
-                                name={"image"}
-                                value={form?.image}
-                                onChange={handleChange}
-                                placeholder={"The image goes here"}
-                            />
-                        </div>
+                        <div className="col-lg-12 mt-3"></div>
                     </div>
                     <div className="row mt-3">
                         <div className="col-lg-6">

@@ -1,11 +1,5 @@
 import { FC, memo } from "react";
-
-interface InputPropsI {
-    errorMessage: any | string;
-    title?: string
-    customClass?: string
-    props: React.InputHTMLAttributes<HTMLInputElement>;
-}
+import { InputPropsI } from "../../../interfaces/common/input/input.interface";
 
 const Input: FC<InputPropsI | any> = memo(({ errorMessage, customClass, title, ...props }) => {
     return (

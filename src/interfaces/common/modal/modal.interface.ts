@@ -1,9 +1,11 @@
 import { ReactNode } from "react"
 
-export interface ModalI{
-    active?:boolean
-    title?:ReactNode
-    children:ReactNode
-    footer?:ReactNode
-    setToggle:Function
+export interface ModalBaseI {
+    children?: ReactNode
+    active: boolean
+    setToggle: Function
+}
+export interface ModalI extends ModalBaseI {
+    title?: ReactNode
+    footer?: ReactNode
 }
