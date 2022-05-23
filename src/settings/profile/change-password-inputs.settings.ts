@@ -1,22 +1,28 @@
-export const changePasswordInputs = (form: any, errors: any) => {
+import { InputPropsI } from "../../interfaces/common/input/input.interface"
+
+export const changePasswordInputs = (form: any, errors: any): InputPropsI[] => {
     return [
         {
             title: "New password",
-            name: "newPassword",
             cols: "col-md-12",
-            value: form?.newPassword,
-            type: "password",
-            placeholder: "",
-            errors: errors.newPasswordError
+            errorMessage: errors.newPasswordError,
+            props: {
+                name: "newPassword",
+                value: form?.newPassword,
+                type: "password",
+                placeholder: "",
+            }
         },
         {
             title: "Confirm new password",
-            name: "confirmPassword",
             cols: "col-md-12",
-            value: form?.confirmPassword,
-            type: "password",
-            placeholder: "",
-            errors: errors.confirmPasswordError
+            errorMessage: errors.confirmPasswordError,
+            props: {
+                name: "confirmPassword",
+                value: form?.confirmPassword,
+                type: "password",
+                placeholder: "",
+            }
         }
     ]
 }

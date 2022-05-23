@@ -12,7 +12,8 @@ const ChangePassword: FC<ChangePasswordPropsI> = ({ toggle }) => {
         <>
             <Modal
                 title={"Change Password"}
-                setToggle={toggle}>
+                setToggle={toggle}
+                active={true}>
                 {step === 1 && <FormChangePassword />}
                 {step === 2 && <VerifyPassword />}
             </Modal>

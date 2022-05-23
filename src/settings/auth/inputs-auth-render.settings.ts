@@ -1,24 +1,29 @@
+import { InputPropsI } from "../../interfaces/common/input/input.interface"
 
-export const inputsAuthRenderSettings = (form: any, errors: any) => {
+export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] => {
     return [
         {
             title: "Email",
-            name: "email",
+            errorMessage: errors.emailError,
             cols: "col-md-12",
-            value: form?.email,
-            type: "text",
-            placeholder: "E.g. Mars@gmail.com",
-            errors: errors.emailError
+            props: {
+                type: "text",
+                name: "email",
+                placeholder: "E.g. Mars@gmail.com",
+                value: form?.email,
+            }
         },
         {
             title: "Password",
-            name: "password",
             cols: "col-md-12",
-            value: form?.password,
-            type: "password",
-            placeholder: "Your Password",
-            errors: errors.passwordError
-        }
+            errorMessage: errors.passwordError,
+            props: {
+                type: "password",
+                name: "password",
+                placeholder: "Your Password",
+                value: form?.password,
+            }
+        },
     ]
 }
 

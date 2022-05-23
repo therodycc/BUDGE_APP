@@ -1,17 +1,14 @@
 import { ReactElement } from 'react'
 import Layout from '../../components/layout'
+import Savings from '../../components/pages/savings'
 
-const Savings = () => {
-    return (
-        <>
-            <h2>Savings</h2>
-        </>
-    )
+const SavingsPage = () => {
+    return <Savings />
 }
-Savings.getLayout = (page: ReactElement) => (
+SavingsPage.getLayout = (page: ReactElement) => (
     <Layout>
         {page}
     </Layout >
 )
 
-export default Savings
+export default SavingsPage

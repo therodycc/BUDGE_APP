@@ -35,22 +35,12 @@ const FormChangePassword: FC<FormChangePasswordPropsI> = () => {
     }
     return (
         <>
-
-
             <form className="p-3" onSubmit={handleSubmit}>
                 <div className="row">
                     {
                         changePasswordInputs(form, { newPasswordError, confirmPasswordError }).map(item => (
                             <div className={`${item.cols}} my-3`}>
-                                <Input
-                                    onChange={handleChange}
-                                    name={`${item.name}`}
-                                    placeholder={`${item.placeholder}`}
-                                    type={`${item.type}`}
-                                    value={`${item.value}`}
-                                    title={`${item.title}`}
-                                    errorMessage={`${item.errors}`}
-                                />
+                                <Input  {...item} {...item.props} onChange={handleChange} />
                             </div>
                         ))
                     }

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { isRequired } from '../../../../helpers/validations';
 import { ProfitsI } from '../../../../interfaces/profits/profits.interface';
 import { addProfitsAction, updateProfitsAction } from '../../../../redux/actions/profits.action';
+import { inputsDataProfitsModal } from '../../../../settings/profits/inputs-data';
 import Button from '../../../common/button';
 import Input from '../../../common/input';
 import Modal from '../../../common/modal';
@@ -43,9 +44,7 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
             return;
         }
         data?.uuid
-            ? dispatch(
-                updateProfitsAction(data.uuid, form)
-            )
+            ? dispatch(updateProfitsAction(data.uuid, form))
             : dispatch(addProfitsAction(form));
         toggle();
     };
@@ -55,28 +54,15 @@ const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
             <Modal title="Profits" active={active} setToggle={toggle}>
                 <form onSubmit={handleSubmit}>
                     <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Input
-                                title="Type"
-                                type={"text"}
-                                name={"type"}
-                                onChange={handleChange}
-                                value={form?.type}
-                                placeholder={"Type"}
-                                errorMessage={errName}
-                            />
-                        </div>
-                        <div className="col-lg-6">
-                            <Input
-                                title="Amount"
-                                type={"number"}
-                                name={"amount"}
-                                value={form?.amount}
-                                onChange={handleChange}
-                                placeholder={"The amount here"}
-                                errorMessage={errAmount}
-                            />
-                        </div>
+
+                        {inputsDataProfitsModal({
+                            form,
+                            errors: { errName, errAmount },
+                        }).map((item) => (
+                            <div className={`mt-3 ${item.cols}`}>
+                                <Input {...item.props} {...item} onChange={handleChange} />
+                            </div>
+                        ))}
                     </div>
 
                     <div className="row mt-3">
