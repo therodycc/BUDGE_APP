@@ -5,6 +5,7 @@ import { VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunt
 import { addVolunteerThingsAction, updateVolunteerThingsAction } from "../../../../redux/actions/volunteer-things.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
+import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
 import Dropdown from "../../../common/dropdown";
 import Input from "../../../common/input";
@@ -64,92 +65,26 @@ const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsProp
             <Modal title="Volunteer Things" active={active} setToggle={toggle}>
                 <form onSubmit={handleSubmit}>
                     <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Input
-                                title="Name"
-                                type={"text"}
-                                name={"name"}
-                                onChange={handleChange}
-                                value={form?.name}
-                                placeholder={"Your name"}
-                                errorMessage={errName}
-                            />
-                        </div>
-                        <div className="col-lg-6">
-                            <Input
-                                title="Amount"
-                                type={"number"}
-                                name={"expense"}
-                                value={form?.expense}
-                                onChange={handleChange}
-                                placeholder={"The amount here"}
-                                errorMessage={errExpense}
-                            />
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Input
-                                title="Category"
-                                type={"text"}
-                                name={"category"}
-                                value={form?.category}
-                                onChange={handleChange}
-                                placeholder={"Your category"}
-                            />
-                        </div>
-                        <div className="col-lg-6">
-                            <Input
-                                title="Paid Out"
-                                type={"number"}
-                                name={"paidOut"}
-                                value={form?.paidOut}
-                                onChange={handleChange}
-                                placeholder={"Amount to pay"}
-                            />
-                        </div>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Dropdown
-                                title="Status"
-                                name={"status"}
-                                value={form?.status || ""}
-                                onChange={handleChange}
-                                options={statusOptions}
-                            />
-                        </div>
-
-                        <div className="col-lg-6">
-                            <Dropdown
-                                title="Urgency"
-                                name={"urgency"}
-                                value={form?.urgency || ""}
-                                onChange={handleChange}
-                                options={urgencyOptions}
-                            />
-                        </div>
-
-                        <div className="col-lg-12 mt-3">
-                            <Input
-                                title="Image"
-                                type={"text"}
-                                name={"image"}
-                                value={form?.image}
-                                onChange={handleChange}
-                                placeholder={"The image goes here"}
-                            />
-                        </div>
-                        <div className="col-lg-12 mt-3">
-                            <Input
-                                title="To (Person or Group)"
-                                type={"text"}
-                                name={"to"}
-                                value={form?.to}
-                                onChange={handleChange}
-                                placeholder={"E.g. Church"}
-                            />
-                        </div>
+                        {inputsModalVolunteerThings({
+                            errors: { errName, errExpense },
+                            form,
+                            dropDowns: { statusOptions, urgencyOptions },
+                        }).map((item) => (
+                            <div className={`mt-3 ${item.cols}`}>
+                                {item.props.type === "dropdown" && item.options ? (
+                                    <Dropdown
+                                        title={item.props.title}
+                                        value={item.props.value?.toString()}
+                                        name={item.props.name}
+                                        options={item.options}
+                                        onChange={handleChange}
+                                    />
+                                ) : (
+                                    <Input {...item.props} {...item} onChange={handleChange} />
+                                )}
+                            </div>
+                        ))
+                        }
                     </div>
                     <div className="row mt-3">
                         <div className="col-lg-6">
