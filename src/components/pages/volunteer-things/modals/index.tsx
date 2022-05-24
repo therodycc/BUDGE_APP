@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
+import useForm from "../../../../hooks/useForm";
 import { VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
 import {
     addVolunteerThingsAction,
@@ -26,30 +27,13 @@ const ModalVolunteerThings = ({
     toggle,
     data,
 }: ModalVolunteerThingsPropsI) => {
+    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState<VolunteerThingsI>({
-        name: data?.name || "",
-        expense: data?.expense || 0,
-        paidOut: data?.paidOut || 0,
-        image: data?.image || "",
-        urgency: data?.urgency || "WHENEVER",
-        category: data?.category || "",
-        status: data?.status || "PENDING",
-        to: data?.to || "",
-    });
 
     // errors
     const [errName, setErrName] = useState("");
     const [errExpense, setErrExpense] = useState("");
-
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
 
     const handleSubmit = () => {
         const errorName = isRequired(form?.name, "Name is required", setErrName);
