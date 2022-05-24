@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
+import useForm from "../../../../hooks/useForm";
 import { ManageI } from "../../../../interfaces/manage/manage.interface";
 import { updateManageAction } from "../../../../redux/actions/manage.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
@@ -17,29 +18,11 @@ interface ModalManagePropsI {
 }
 
 const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
+    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
-
-    const [form, setForm] = useState<ManageI>({
-        name: data?.name || "",
-        expense: data?.expense || 0,
-        paidOut: data?.paidOut || 0,
-        image: data?.image || "",
-        urgency: data?.urgency || "WHENEVER",
-        category: data?.category || "",
-        status: data?.status || "PENDING"
-    });
-
     // errors
     const [errName, setErrName] = useState("");
     const [errExpense, setErrExpense] = useState("");
-
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();

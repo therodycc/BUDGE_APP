@@ -1,17 +1,17 @@
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
+import useForm from "../../../../hooks/useForm";
 import { NecessaryI } from "../../../../interfaces/necessary/necessary.interface";
 import {
     addNecessaryAction,
-    updateNecessaryAction,
+    updateNecessaryAction
 } from "../../../../redux/actions/necessary.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalNecessary } from "../../../../settings/necessary/inputs-data-modals";
 import Button from "../../../common/button";
-import Dropdown from "../../../common/dropdown";
-import Input from "../../../common/input";
+import Form from "../../../common/form";
 import Modal from "../../../common/modal";
 
 interface ModalNecessaryPropsI {
@@ -21,36 +21,18 @@ interface ModalNecessaryPropsI {
 }
 
 const ModalNecessary = ({ active, toggle, data }: ModalNecessaryPropsI) => {
+    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
-
-    const [form, setForm] = useState<NecessaryI>({
-        name: data?.name || "",
-        expense: data?.expense || 0,
-        paidOut: data?.paidOut || 0,
-        image: data?.image || "",
-        urgency: data?.urgency || "WHENEVER",
-        category: data?.category || "",
-        status: data?.status || "PENDING",
-    });
 
     // errors
     const [errName, setErrName] = useState("");
     const [errExpense, setErrExpense] = useState("");
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const errorName = isRequired(form.name, "Name is required", setErrName);
         const errorExpense = isRequired(form.expense, "Expense is required", setErrExpense);
         if (errorName || errorExpense) return;
-        
+
         data?.uuid
             ? dispatch(updateNecessaryAction(data.uuid, form))
             : dispatch(addNecessaryAction(form));
@@ -59,34 +41,18 @@ const ModalNecessary = ({ active, toggle, data }: ModalNecessaryPropsI) => {
     return (
         <>
             <Modal title="Necessary" active={active} setToggle={toggle}>
-                <form onSubmit={handleSubmit}>
-                    <div className="row mt-3">
-                        {inputsModalNecessary({
-                            errors: { errName, errExpense },
-                            form,
-                            dropDowns: { statusOptions, urgencyOptions },
-                        }).map((item) => (
-                            <div className={`mt-3 ${item.cols}`}>
-                                {item.props.type === "dropdown" && item.options ? (
-                                    <Dropdown
-                                        title={item.props.title}
-                                        value={item.props.value?.toString()}
-                                        name={item.props.name}
-                                        options={item.options}
-                                        onChange={handleChange}
-                                    />
-                                ) : (
-                                    <Input {...item.props} {...item} onChange={handleChange} />
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="row mt-3">
+                <Form
+                    inputsData={inputsModalNecessary({
+                        errors: { errName, errExpense },
+                        form,
+                        dropDowns: { statusOptions, urgencyOptions },
+                    })}
+                    handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                    footerSection={<>
                         <div className="col-lg-6">
                             <Button
-                                action={() => {
-                                    toggle();
-                                }}
+                                action={() => toggle()}
                                 bgClass={"secondary"}
                                 type={"button"}
                                 loading={false}
@@ -106,8 +72,8 @@ const ModalNecessary = ({ active, toggle, data }: ModalNecessaryPropsI) => {
                                 Add
                             </Button>
                         </div>
-                    </div>
-                </form>
+                    </>}
+                />
             </Modal>
         </>
     );

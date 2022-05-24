@@ -4,7 +4,7 @@ import HeadImages from '../../../common/head-images'
 
 const SignUp = () => {
 
-    const handleSubmit = (e: React.FormEvent) => { }
+    const handleSubmit = () => { }
 
     return (
         <>

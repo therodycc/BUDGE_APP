@@ -1,25 +1,24 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import Router from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { v4 as gxUUID } from 'uuid';
 import { AsideOptionsI } from "../../../interfaces/layout/aside/aside.interface";
 import { asideOptions } from "../../../settings/aside-opts.settings";
-import { v4 as gxUUID } from 'uuid';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Aside = () => {
+    const router: NextRouter = useRouter()
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
 
     useEffect(() => {
-        handleSelected(Router.pathname)
-    }, []);
+        handleSelected(router.pathname)
+    }, [router.pathname]);
 
     const handleSelected = (path: string) => {
-        setOptions(
-            asideOptions?.map((opt, i) => {
-                path === opt.link ? opt.active = true : opt.active = false;
-                return opt
-            })
-        );
+        setOptions(asideOptions?.map((opt, i) => {
+            path === opt.link ? opt.active = true : opt.active = false;
+            return opt
+        }));
     };
 
     return (
@@ -35,7 +34,6 @@ const Aside = () => {
                             <Link href={item.link} key={gxUUID()} >
                                 <li
                                     className="nav-item"
-                                    onClick={() => handleSelected(item.link)}
                                 >
                                     <span className={`transition-sm nav-link text-secondary cursor-pointer ${item.active && 'bg-primary active'}`}>
                                         <div className="text-primary icon-rounded bg-white shadow text-center me-2 d-flex align-items-center justify-content-center">

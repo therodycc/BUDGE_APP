@@ -2,12 +2,16 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
 import { VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
-import { addVolunteerThingsAction, updateVolunteerThingsAction } from "../../../../redux/actions/volunteer-things.action";
+import {
+    addVolunteerThingsAction,
+    updateVolunteerThingsAction,
+} from "../../../../redux/actions/volunteer-things.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
 import Dropdown from "../../../common/dropdown";
+import Form from "../../../common/form";
 import Input from "../../../common/input";
 import Modal from "../../../common/modal";
 
@@ -17,7 +21,11 @@ interface ModalVolunteerThingsPropsI {
     data: VolunteerThingsI | null;
 }
 
-const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsPropsI) => {
+const ModalVolunteerThings = ({
+    active,
+    toggle,
+    data,
+}: ModalVolunteerThingsPropsI) => {
     const dispatch = useDispatch();
 
     const [form, setForm] = useState<VolunteerThingsI>({
@@ -28,7 +36,7 @@ const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsProp
         urgency: data?.urgency || "WHENEVER",
         category: data?.category || "",
         status: data?.status || "PENDING",
-        to: data?.to || ""
+        to: data?.to || "",
     });
 
     // errors
@@ -43,18 +51,17 @@ const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsProp
         });
     };
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const errorName = isRequired(form?.name, "Name is required", setErrName);
-        const errorExpense = isRequired(form.expense, "Expense is required", setErrExpense);
-        if (errorName || errorExpense) {
-            return;
-        }
+        const errorExpense = isRequired(
+            form.expense,
+            "Expense is required",
+            setErrExpense
+        );
+        if (errorName || errorExpense) return;
 
         data?.uuid
-            ? dispatch(
-                updateVolunteerThingsAction(data.uuid, form)
-            )
+            ? dispatch(updateVolunteerThingsAction(data.uuid, form))
             : dispatch(addVolunteerThingsAction(form));
         toggle();
         toggle();
@@ -63,56 +70,43 @@ const ModalVolunteerThings = ({ active, toggle, data }: ModalVolunteerThingsProp
     return (
         <>
             <Modal title="Volunteer Things" active={active} setToggle={toggle}>
-                <form onSubmit={handleSubmit}>
-                    <div className="row mt-3">
-                        {inputsModalVolunteerThings({
-                            errors: { errName, errExpense },
-                            form,
-                            dropDowns: { statusOptions, urgencyOptions },
-                        }).map((item) => (
-                            <div className={`mt-3 ${item.cols}`}>
-                                {item.props.type === "dropdown" && item.options ? (
-                                    <Dropdown
-                                        title={item.props.title}
-                                        value={item.props.value?.toString()}
-                                        name={item.props.name}
-                                        options={item.options}
-                                        onChange={handleChange}
-                                    />
-                                ) : (
-                                    <Input {...item.props} {...item} onChange={handleChange} />
-                                )}
+                <Form
+                    inputsData={inputsModalVolunteerThings({
+                        errors: { errName, errExpense },
+                        form,
+                        dropDowns: { statusOptions, urgencyOptions },
+                    })}
+                    handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                    footerSection={
+                        <>
+                            <div className="col-lg-6">
+                                <Button
+                                    action={() => {
+                                        toggle();
+                                    }}
+                                    bgClass={"secondary"}
+                                    type={"button"}
+                                    loading={false}
+                                    size="sm"
+                                >
+                                    Cancel
+                                </Button>
                             </div>
-                        ))
-                        }
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col-lg-6">
-                            <Button
-                                action={() => {
-                                    toggle();
-                                }}
-                                bgClass={"secondary"}
-                                type={"button"}
-                                loading={false}
-                                size="sm"
-                            >
-                                Cancel
-                            </Button>
-                        </div>
-                        <div className="col-lg-6">
-                            <Button
-                                action={() => { }}
-                                bgClass={"success"}
-                                type={"submit"}
-                                loading={false}
-                                size="sm"
-                            >
-                                Add
-                            </Button>
-                        </div>
-                    </div>
-                </form>
+                            <div className="col-lg-6">
+                                <Button
+                                    action={() => { }}
+                                    bgClass={"success"}
+                                    type={"submit"}
+                                    loading={false}
+                                    size="sm"
+                                >
+                                    Add
+                                </Button>
+                            </div>
+                        </>
+                    }
+                />
             </Modal>
         </>
     );
