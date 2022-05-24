@@ -12,6 +12,12 @@ export interface NecessaryI {
     active?: boolean;
 }
 
+export interface headItemsNecessaryI {
+    addToThisMonth: Function
+    showModalEdit: Function
+    removeItem: Function
+}
+
 
 export interface ModalNecessaryPropsI extends ModalBaseI {
     data?: NecessaryI | null;

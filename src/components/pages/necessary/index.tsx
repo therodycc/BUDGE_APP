@@ -136,7 +136,7 @@ const Necessary = () => {
             {showModal && (
                 <ModalNecessary
                     active={showModal}
-                    toggle={() => {
+                    setToggle={() => {
                         setShowModal(false)
                     }}
                     data={dataModalUtility} />

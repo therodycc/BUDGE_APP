@@ -15,6 +15,13 @@ export interface DebtsI {
 }
 
 
+export interface headItemsDebtsI {
+    addToThisMonth: Function
+    showModalEdit: Function
+    removeItem: Function
+}
+
+
 export interface ModalDebtsPropsI extends ModalBaseI {
     data?: DebtsI | null;
 }

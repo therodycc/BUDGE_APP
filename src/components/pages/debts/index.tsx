@@ -127,7 +127,7 @@ const Debts = () => {
             {showModal && (
                 <ModalDebts
                     active={showModal}
-                    toggle={() => {
+                    setToggle={() => {
                         setShowModal(false)
                     }}
                     data={dataModalUtility} />

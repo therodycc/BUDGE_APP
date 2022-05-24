@@ -12,7 +12,12 @@ export interface FixedCostsI {
     active?: boolean;
 }
 
-
+export interface headItemsFixedCostsI {
+    addToThisMonth: Function
+    showModalEdit: Function
+    removeItem: Function
+    disabledItem: Function
+}
 export interface ModalFixedCostsPropsI extends ModalBaseI {
     data?: any;
 }

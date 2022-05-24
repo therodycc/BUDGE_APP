@@ -1,7 +1,7 @@
 import { currencyFormat } from "../../helpers/currency.helper";
-import { headItemsFixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
+import { headItemsVolunteerThingsI } from "../../interfaces/volunteer-things/volunteer-things.interface";
 
-export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem, disabledItem }: headItemsFixedCostsI) => [
+export const headersVolunteerThings = ({ addToThisMonth, showModalEdit, removeItem }: headItemsVolunteerThingsI) => [
     {
         title: "Title",
         render: ({ item }: any) => {
@@ -17,6 +17,12 @@ export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem,
                     <div className="d-flex flex-column justify-content-center">
                         <h6 className="mb-0 text-sm">{item.name}</h6>
                         <p className="text-sm font-weight-normal text-secondary mb-0">
+                            <span
+                                className={`text-${item.expense - item.paidOut === 0 ? "success" : "danger"
+                                    } font-weight-bold mx-1`}
+                            >
+                                {currencyFormat(item.expense - item.paidOut)}
+                            </span>
                             {item.category}
                         </p>
                     </div>
@@ -30,6 +36,16 @@ export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem,
             return (
                 <>
                     <span>{currencyFormat(item.expense)}</span>
+                </>
+            );
+        },
+    },
+    {
+        title: "To",
+        render: ({ item }: any) => {
+            return (
+                <>
+                    <span>{item?.to}</span>
                 </>
             );
         },
@@ -103,23 +119,4 @@ export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem,
             );
         },
     },
-    {
-        title: "Active",
-        render: ({ item }: any) => {
-            return (
-                <>
-                    <div className="form-check form-switch ms-2 my-auto is-filled">
-                        <input
-                            onClick={() => {
-                                disabledItem(item);
-                            }}
-                            className="form-check-input"
-                            type="checkbox"
-                            defaultChecked={item.active}
-                        />
-                    </div>
-                </>
-            );
-        },
-    },
-];
+]

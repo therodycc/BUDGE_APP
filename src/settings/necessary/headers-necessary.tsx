@@ -1,9 +1,6 @@
 import { currencyFormat } from "../../helpers/currency.helper";
-interface headItemsNecessaryI {
-    addToThisMonth: Function
-    showModalEdit: Function
-    removeItem: Function
-}
+import { headItemsNecessaryI } from "../../interfaces/necessary/necessary.interface";
+
 export const headersModalNecessary = ({ addToThisMonth, showModalEdit, removeItem }: headItemsNecessaryI) => [
     {
         title: "Title",

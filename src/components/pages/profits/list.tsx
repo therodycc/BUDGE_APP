@@ -57,7 +57,7 @@ const ProfitsList = () => {
                 showModal && <ModalProfits
                     data={dataProfitsSelected}
                     active={showModal}
-                    toggle={() => { setShowModal(false) }}
+                    setToggle={() => { setShowModal(false) }}
                 />
             }
         </>

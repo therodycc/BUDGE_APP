@@ -32,7 +32,7 @@ const Profile = () => {
                 </div>
             </BgLayoutPage>
             {showChangePassword && (
-                <ChangePassword toggle={setShowChangePassword} />
+                <ChangePassword setToggle={setShowChangePassword} active={showChangePassword} />
             )}
         </>
     );

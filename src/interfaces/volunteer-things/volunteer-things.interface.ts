@@ -12,7 +12,11 @@ export interface VolunteerThingsI {
     active?: boolean;
     to?: string
 }
-
+export interface headItemsVolunteerThingsI {
+    addToThisMonth: Function
+    showModalEdit: Function
+    removeItem: Function
+}
 export interface ModalVolunteerThingsPropsI extends ModalBaseI {
     data: VolunteerThingsI | null;
 }

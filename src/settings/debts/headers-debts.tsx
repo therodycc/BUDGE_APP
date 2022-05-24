@@ -1,10 +1,6 @@
 import { currencyFormat } from "../../helpers/currency.helper";
+import { headItemsDebtsI } from "../../interfaces/debts/debts.interface";
 
-interface headItemsDebtsI {
-    addToThisMonth: Function
-    showModalEdit: Function
-    removeItem: Function
-}
 export const headTableDebts = ({ addToThisMonth, showModalEdit, removeItem }: headItemsDebtsI) => [
     {
         title: "Title",

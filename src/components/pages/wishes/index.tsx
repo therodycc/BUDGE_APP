@@ -180,7 +180,7 @@ const Wishes = () => {
                 <ModalWishes
                     active={showModal}
                     data={dataModalUtility}
-                    toggle={() => {
+                    setToggle={() => {
                         setShowModal(false)
                     }} />
             }
