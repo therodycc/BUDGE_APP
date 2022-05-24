@@ -1,21 +1,16 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isRequired } from '../../../../helpers/validations';
 import useForm from '../../../../hooks/useForm';
-import { ProfitsI } from '../../../../interfaces/profits/profits.interface';
+import { ModalProfitsPropsI } from '../../../../interfaces/profits/profits.interface';
 import { addProfitsAction, updateProfitsAction } from '../../../../redux/actions/profits.action';
 import { inputsDataProfitsModal } from '../../../../settings/profits/inputs-data';
 import Button from '../../../common/button';
 import Form from '../../../common/form';
 import Modal from '../../../common/modal';
 
-interface ModalProfitsPropsI {
-    active: boolean;
-    toggle: Function;
-    data?: any;
-}
 
-const ModalProfits = ({ active, toggle, data }: ModalProfitsPropsI) => {
+const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) => {
     const [form, handleChange] = useForm()
     const dispatch = useDispatch();
     // errors

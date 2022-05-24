@@ -27,14 +27,8 @@ const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const errorName = isRequired(form?.name, "Name is required", setErrName);
-        const errorExpense = isRequired(
-            form.expense,
-            "Expense is required",
-            setErrExpense
-        );
-        if (errorName || errorExpense) {
-            return;
-        }
+        const errorExpense = isRequired(form.expense, "Expense is required", setErrExpense);
+        if (errorName || errorExpense) return;
 
         if (data.uuid) dispatch(updateManageAction(data.uuid, form))
 

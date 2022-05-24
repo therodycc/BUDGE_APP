@@ -1,5 +1,7 @@
+import { ModalBaseI } from "../common/modal/modal.interface";
+
 export interface VolunteerThingsI {
-    uuid?:string
+    uuid?: string
     name?: string;
     urgency?: string;
     paidOut?: number;
@@ -8,5 +10,9 @@ export interface VolunteerThingsI {
     category?: string;
     image?: string;
     active?: boolean;
-    to?:string
+    to?: string
+}
+
+export interface ModalVolunteerThingsPropsI extends ModalBaseI {
+    data: VolunteerThingsI | null;
 }

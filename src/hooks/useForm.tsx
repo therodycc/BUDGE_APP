@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-
-const useForm = () => {
-    const [form, setForm] = useState<{ [key: string]: string } | any>({});
+import { useState } from 'react';
+interface UseFormI {
+    [key: string]: string | number | undefined | boolean
+}
+const useForm = (data?: UseFormI) => {
+    const [form, setForm] = useState<UseFormI | any>(data || {});
 
     const handleChange = (e: any) => {
-        const { name, value } = e.target;
         setForm({
             ...form,
-            [name]: value,
+            [e.target.name]: e.target.value,
         });
     }
 

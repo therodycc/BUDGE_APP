@@ -9,7 +9,6 @@ import voluntaryProvider from '../../../providers/volunteer-things/volunteer-thi
 import wishesProvider from '../../../providers/wishes/wishes.provider';
 
 const Dashboard = () => {
-
     const [utilities, setUtilities] = useState<Array<UtilityI>>([])
     const [debt, setDebt] = useState({
         total: 0,

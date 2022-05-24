@@ -1,5 +1,5 @@
 import router from "next/router";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { isRequired } from "../../../../helpers/validations";
@@ -10,34 +10,26 @@ import inputsAuthRenderSettings from "../../../../settings/auth/inputs-auth-rend
 import Button from "../../../common/button";
 import Form from "../../../common/form";
 import HeadImages from "../../../common/head-images";
-import Input from "../../../common/input";
 
 const SignIn = () => {
     const [form, handleChange] = useForm()
     const dispatch = useDispatch();
+
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
 
     const handleSubmit = async (e: FormEvent) => {
-        setLoadingAuth(true);
-        const errEmail = isRequired(form.email, "Email is required", setEmailError);
-        const errPassword = isRequired(
-            form.password,
-            "Password is required",
-            setPasswordError
-        );
+        const errEmail = isRequired(form?.email, "Email is required", setEmailError);
+        const errPassword = isRequired(form?.password, "Password is required", setPasswordError);
 
         if (errEmail || errPassword) return;
 
+        setLoadingAuth(true);
         const res = await authProvider.signIn(form);
-        if (res.error)
-            return [
-                sweetAlert.toast("Error", res?.error?.message, "error"),
-                setLoadingAuth(false),
-            ];
+        if (res.error) return [sweetAlert.toast("Error", res?.error?.message, "error"), setLoadingAuth(false),];
         router.push("/");
-        dispatch(login({ email: "Therodycc@gmail.com" }));
+        dispatch(login({ auth: true }));
         setLoadingAuth(false);
     };
 

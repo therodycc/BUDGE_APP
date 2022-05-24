@@ -1,3 +1,3 @@
 export interface LoginStoreDataI {
-    email: string
+    auth: boolean
 }

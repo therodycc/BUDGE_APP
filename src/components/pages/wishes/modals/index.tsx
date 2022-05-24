@@ -1,25 +1,17 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
 import useForm from "../../../../hooks/useForm";
-import { WishesI } from "../../../../interfaces/wishes/wishes.interface";
+import { ModalWishesPropsI } from "../../../../interfaces/wishes/wishes.interface";
 import { addWishesAction, updateWishesAction } from "../../../../redux/actions/wishes.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalWishes } from "../../../../settings/wishes/inputs-data-modal";
 import Button from "../../../common/button";
-import Dropdown from "../../../common/dropdown";
 import Form from "../../../common/form";
-import Input from "../../../common/input";
 import Modal from "../../../common/modal";
 
-interface ModalWishesPropsI {
-    active: boolean;
-    toggle: Function;
-    data: WishesI | null;
-}
-
-const ModalWishes = ({ active, toggle, data }: ModalWishesPropsI) => {
+const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => {
     const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
@@ -37,7 +29,6 @@ const ModalWishes = ({ active, toggle, data }: ModalWishesPropsI) => {
                 updateWishesAction(data.uuid, form)
             )
             : dispatch(addWishesAction(form));
-        toggle();
         toggle();
     };
 

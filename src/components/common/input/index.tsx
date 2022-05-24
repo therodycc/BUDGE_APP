@@ -9,7 +9,6 @@ const Input: FC<InputPropsI | any> = memo(({ errorMessage, customClass, title, .
                     title && <span className="fw-bolder text-normal">{title}</span>
                 }
                 <div className="input-group input-group-dynamic">
-
                     <input
                         className={`form-control ${customClass || ""}`}
                         {...props}

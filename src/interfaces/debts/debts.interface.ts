@@ -1,3 +1,5 @@
+import { ModalBaseI } from "../common/modal/modal.interface";
+
 export interface DebtsI {
     uuid?: string
     name: string;
@@ -10,4 +12,9 @@ export interface DebtsI {
     category: string;
     // image?: string;
     active?: boolean;
+}
+
+
+export interface ModalDebtsPropsI extends ModalBaseI {
+    data?: DebtsI | null;
 }

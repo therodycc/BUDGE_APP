@@ -1,19 +1,17 @@
 import React, { FC, useState } from 'react'
+import { ChangePasswordPropsI } from '../../../../interfaces/change-password/change-password.interface'
 import Modal from '../../../common/modal'
 import FormChangePassword from './form'
 import VerifyPassword from './verify-password'
 
-interface ChangePasswordPropsI {
-    toggle: Function
-}
-const ChangePassword: FC<ChangePasswordPropsI> = ({ toggle }) => {
+const ChangePassword: FC<ChangePasswordPropsI> = ({ setToggle, active }) => {
     const [step, setStep] = useState(1);
     return (
         <>
             <Modal
                 title={"Change Password"}
-                setToggle={toggle}
-                active={true}>
+                setToggle={setToggle}
+                active={active}>
                 {step === 1 && <FormChangePassword />}
                 {step === 2 && <VerifyPassword />}
             </Modal>

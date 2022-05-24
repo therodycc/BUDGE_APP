@@ -1,30 +1,22 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
 import useForm from "../../../../hooks/useForm";
-import { VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
+import { ModalVolunteerThingsPropsI, VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
 import {
     addVolunteerThingsAction,
-    updateVolunteerThingsAction,
+    updateVolunteerThingsAction
 } from "../../../../redux/actions/volunteer-things.action";
 import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
 import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
-import Dropdown from "../../../common/dropdown";
 import Form from "../../../common/form";
-import Input from "../../../common/input";
 import Modal from "../../../common/modal";
-
-interface ModalVolunteerThingsPropsI {
-    active: boolean;
-    toggle: Function;
-    data: VolunteerThingsI | null;
-}
 
 const ModalVolunteerThings = ({
     active,
-    toggle,
+    setToggle: toggle,
     data,
 }: ModalVolunteerThingsPropsI) => {
     const [form, handleChange] = useForm()

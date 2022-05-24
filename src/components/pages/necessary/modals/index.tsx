@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isRequired } from "../../../../helpers/validations";
 import useForm from "../../../../hooks/useForm";
-import { NecessaryI } from "../../../../interfaces/necessary/necessary.interface";
+import { ModalNecessaryPropsI, NecessaryI } from "../../../../interfaces/necessary/necessary.interface";
 import {
     addNecessaryAction,
     updateNecessaryAction
@@ -14,13 +14,7 @@ import Button from "../../../common/button";
 import Form from "../../../common/form";
 import Modal from "../../../common/modal";
 
-interface ModalNecessaryPropsI {
-    active: boolean;
-    toggle: Function;
-    data?: NecessaryI | null;
-}
-
-const ModalNecessary = ({ active, toggle, data }: ModalNecessaryPropsI) => {
+const ModalNecessary = ({ active, setToggle: toggle, data }: ModalNecessaryPropsI) => {
     const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
