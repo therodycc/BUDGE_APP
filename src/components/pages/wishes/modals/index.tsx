@@ -1,29 +1,15 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { isRequired } from "../../../../helpers/validations";
-import useForm from "../../../../hooks/useForm";
 import { ModalWishesPropsI } from "../../../../interfaces/wishes/wishes.interface";
 import { addWishesAction, updateWishesAction } from "../../../../redux/actions/wishes.action";
-import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
-import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalWishes } from "../../../../settings/wishes/inputs-data-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
 import Modal from "../../../common/modal";
 
 const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => {
-    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
-    // errors
-    const [errName, setErrName] = useState("");
-    const [errExpense, setErrExpense] = useState("");
-
-    const handleSubmit = () => {
-        const errorName = isRequired(form?.name, "Name is required", setErrName);
-        const errorExpense = isRequired(form.expense, "Expense is required", setErrExpense);
-        if (errorName || errorExpense) return
-
+    const handleSubmit = (form: any) => {
         data?.uuid
             ? dispatch(
                 updateWishesAction(data.uuid, form)
@@ -35,12 +21,10 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
     return (
         <>
             <Modal title="Wishes" active={active} setToggle={toggle}>
-                <Form inputsData={inputsModalWishes({
-                    errors: { errName, errExpense },
-                    form,
-                    dropDowns: { statusOptions, urgencyOptions },
-                })} handleSubmit={handleSubmit}
-                    handleChange={handleChange}
+                <Form
+                    keyForm="wishes"
+                    inputsData={inputsModalWishes}
+                    handleSubmit={handleSubmit}
                     footerSection={<>
 
                         <div className="col-lg-6">
@@ -69,8 +53,6 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
                         </div>
                     </>}
                 />
-
-
             </Modal>
         </>
     );

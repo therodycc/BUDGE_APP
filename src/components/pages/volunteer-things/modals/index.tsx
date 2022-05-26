@@ -1,14 +1,9 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { isRequired } from "../../../../helpers/validations";
-import useForm from "../../../../hooks/useForm";
-import { ModalVolunteerThingsPropsI, VolunteerThingsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
+import { ModalVolunteerThingsPropsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
 import {
     addVolunteerThingsAction,
     updateVolunteerThingsAction
 } from "../../../../redux/actions/volunteer-things.action";
-import { statusOptions } from "../../../../settings/drops-downs-items/status.options";
-import { urgencyOptions } from "../../../../settings/drops-downs-items/urgency.options";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -19,23 +14,9 @@ const ModalVolunteerThings = ({
     setToggle: toggle,
     data,
 }: ModalVolunteerThingsPropsI) => {
-    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
-
-    // errors
-    const [errName, setErrName] = useState("");
-    const [errExpense, setErrExpense] = useState("");
-
-    const handleSubmit = () => {
-        const errorName = isRequired(form?.name, "Name is required", setErrName);
-        const errorExpense = isRequired(
-            form.expense,
-            "Expense is required",
-            setErrExpense
-        );
-        if (errorName || errorExpense) return;
-
+    const handleSubmit = (form: any) => {
         data?.uuid
             ? dispatch(updateVolunteerThingsAction(data.uuid, form))
             : dispatch(addVolunteerThingsAction(form));
@@ -47,13 +28,9 @@ const ModalVolunteerThings = ({
         <>
             <Modal title="Volunteer Things" active={active} setToggle={toggle}>
                 <Form
-                    inputsData={inputsModalVolunteerThings({
-                        errors: { errName, errExpense },
-                        form,
-                        dropDowns: { statusOptions, urgencyOptions },
-                    })}
+                    keyForm="volunteer-things"
+                    inputsData={inputsModalVolunteerThings}
                     handleSubmit={handleSubmit}
-                    handleChange={handleChange}
                     footerSection={
                         <>
                             <div className="col-lg-6">

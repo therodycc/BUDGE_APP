@@ -1,9 +1,7 @@
 import router from "next/router";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
-import { isRequired } from "../../../../helpers/validations";
-import useForm from "../../../../hooks/useForm";
 import authProvider from "../../../../providers/auth/auth.provider";
 import { login } from "../../../../redux/actions/auth/auth.action";
 import inputsAuthRenderSettings from "../../../../settings/auth/inputs-auth-render.settings";
@@ -12,19 +10,12 @@ import Form from "../../../common/form";
 import HeadImages from "../../../common/head-images";
 
 const SignIn = () => {
-    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
 
-    const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
     const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
 
-    const handleSubmit = async (e: FormEvent) => {
-        const errEmail = isRequired(form?.email, "Email is required", setEmailError);
-        const errPassword = isRequired(form?.password, "Password is required", setPasswordError);
-
-        if (errEmail || errPassword) return;
-
+    const handleSubmit = async (form: any) => {
+        
         setLoadingAuth(true);
         const res = await authProvider.signIn(form);
         if (res.error) return [sweetAlert.toast("Error", res?.error?.message, "error"), setLoadingAuth(false),];
@@ -47,12 +38,9 @@ const SignIn = () => {
                             </p>
 
                             <Form
-                                inputsData={inputsAuthRenderSettings(form, {
-                                    emailError,
-                                    passwordError,
-                                })}
+                                keyForm="sign-in"
+                                inputsData={inputsAuthRenderSettings}
                                 handleSubmit={handleSubmit}
-                                handleChange={handleChange}
                                 footerSection={
                                     <>
                                         <Button

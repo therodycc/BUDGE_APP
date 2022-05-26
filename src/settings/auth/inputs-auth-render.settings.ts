@@ -4,7 +4,7 @@ export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] 
     return [
         {
             title: "Email",
-            errorMessage: errors.emailError,
+            errorMessage: errors?.emailError,
             cols: "col-md-12",
             props: {
                 type: "text",
@@ -16,7 +16,7 @@ export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] 
         {
             title: "Password",
             cols: "col-md-12",
-            errorMessage: errors.passwordError,
+            errorMessage: errors?.passwordError,
             props: {
                 type: "password",
                 name: "password",

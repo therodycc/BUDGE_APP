@@ -1,7 +1,4 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { isRequired } from '../../../../helpers/validations';
-import useForm from '../../../../hooks/useForm';
 import { ModalProfitsPropsI } from '../../../../interfaces/profits/profits.interface';
 import { addProfitsAction, updateProfitsAction } from '../../../../redux/actions/profits.action';
 import { inputsDataProfitsModal } from '../../../../settings/profits/inputs-data';
@@ -11,18 +8,9 @@ import Modal from '../../../common/modal';
 
 
 const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) => {
-    const [form, handleChange] = useForm()
     const dispatch = useDispatch();
-    // errors
-    const [errName, setErrName] = useState("");
-    const [errAmount, setErrAmount] = useState("");
 
-    const handleSubmit = () => {
-        const errorName = isRequired(form.type, "Name is required", setErrName);
-        const errorExpense = isRequired(form.amount, "Expense is required", setErrAmount);
-        if (errorName || errorExpense) {
-            return;
-        }
+    const handleSubmit = (form: any) => {
         data?.uuid
             ? dispatch(updateProfitsAction(data.uuid, form))
             : dispatch(addProfitsAction(form));
@@ -32,12 +20,10 @@ const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) =
     return (
         <>
             <Modal title="Profits" active={active} setToggle={toggle}>
-                <Form inputsData={inputsDataProfitsModal({
-                    form,
-                    errors: { errName, errAmount },
-                })}
+                <Form
+                    keyForm="profits"
+                    inputsData={inputsDataProfitsModal}
                     handleSubmit={handleSubmit}
-                    handleChange={handleChange}
                     footerSection={<>
                         <div className="col-lg-6">
                             <Button

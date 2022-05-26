@@ -1,4 +1,6 @@
 import { InputPropsI } from "../../interfaces/common/input/input.interface";
+import { statusOptions } from "../drops-downs-items/status.options";
+import { urgencyOptions } from "../drops-downs-items/urgency.options";
 
 interface EntriesDataI {
     form: any
@@ -53,7 +55,7 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
         title: "Status",
         cols: "col-lg-6",
         errorMessage: errors?.errStatus,
-        options: dropDowns?.statusOptions,
+        options: statusOptions,
         props: {
             type: "dropdown",
             name: "status",
@@ -64,7 +66,7 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
         title: "Urgency",
         cols: "col-lg-6",
         errorMessage: errors?.errUrgency,
-        options: dropDowns?.urgencyOptions,
+        options: urgencyOptions,
         props: {
             type: "dropdown",
             name: "urgency",

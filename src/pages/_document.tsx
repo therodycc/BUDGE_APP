@@ -16,10 +16,10 @@ class MyDocument extends Document {
                     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
                     <link rel="stylesheet" type="text/css" href="/assets/css/loading-square.css" />
                     {/* jsPDF */}
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
                 </Head>
                 <body>
                     <Main />
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
                     <script src="https://kit.fontawesome.com/2e2971d45d.js" crossOrigin="anonymous"></script>
                     <NextScript />
                 </body>
