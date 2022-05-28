@@ -31,6 +31,16 @@ const ModalVolunteerThings = ({
                     keyForm="volunteer-things"
                     inputsData={inputsModalVolunteerThings}
                     handleSubmit={handleSubmit}
+                    initialState={
+                        data || {
+                            expense: 0,
+                            name: "",
+                            status: "PENDING",
+                            urgency: "WHENEVER",
+                            category: "",
+                            to: ""
+                        }
+                    }
                     footerSection={
                         <>
                             <div className="col-lg-6">

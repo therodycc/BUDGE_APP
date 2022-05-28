@@ -25,6 +25,17 @@ const ModalNecessary = ({ active, setToggle: toggle, data }: ModalNecessaryProps
                     keyForm="necessary"
                     inputsData={inputsModalNecessary}
                     handleSubmit={handleSubmit}
+                    initialState={
+                        data || {
+                            expense: 0,
+                            name: "",
+                            status: "PENDING",
+                            urgency: "WHENEVER",
+                            description: "",
+                            category: "",
+                            to: ""
+                        }
+                    }
                     footerSection={<>
                         <div className="col-lg-6">
                             <Button

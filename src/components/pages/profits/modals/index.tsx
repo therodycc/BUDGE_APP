@@ -15,7 +15,7 @@ const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) =
             ? dispatch(updateProfitsAction(data.uuid, form))
             : dispatch(addProfitsAction(form));
         toggle();
-    };
+    }; 
 
     return (
         <>
@@ -24,6 +24,12 @@ const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) =
                     keyForm="profits"
                     inputsData={inputsDataProfitsModal}
                     handleSubmit={handleSubmit}
+                    initialState={
+                        data || {
+                            type:"",
+                            amount: 0,
+                        }
+                    }
                     footerSection={<>
                         <div className="col-lg-6">
                             <Button

@@ -1,4 +1,4 @@
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faCommentAlt, faExplosion, faFileAlt, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faListCheck, faMoneyCheckDollar, faStarHalfStroke, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { AsideOptionsI } from "../interfaces/layout/aside/aside.interface";
 
 export const asideOptions: AsideOptionsI[] = [
@@ -9,31 +9,31 @@ export const asideOptions: AsideOptionsI[] = [
         link: "/",
     },
     {
-        icon: faHome,
+        icon: faListCheck,
         title: "Manage",
         active: false,
         link: "/manage",
     },
     {
-        icon: faHome,
+        icon: faHouseFire,
         title: "Fixed costs",
         active: false,
         link: "/fixedCosts",
     },
     {
-        icon: faHome,
+        icon: faStarHalfStroke,
         title: "Wishes",
         active: false,
         link: "/wishes",
     },
     {
-        icon: faHome,
+        icon: faHandshakeAngle,
         title: "Volunteer things",
         active: false,
         link: "/volunteer-things",
     },
     {
-        icon: faHome,
+        icon: faExplosion,
         title: "Debt",
         active: false,
         link: "/debt",
@@ -51,31 +51,31 @@ export const asideOptions: AsideOptionsI[] = [
         link: "/necessary",
     },
     {
-        icon: faHome,
+        icon: faFileAlt,
         title: "Reports",
         active: false,
         link: "/reports",
     },
     {
-        icon: faHome,
+        icon: faUserAlt,
         title: "Profile",
         active: false,
         link: "/profile",
     },
     {
-        icon: faHome,
+        icon: faMoneyCheckDollar,
         title: "Profits",
         active: false,
         link: "/profits",
     },
     {
-        icon: faHome,
+        icon: faHandHoldingUsd,
         title: "Lending",
         active: false,
         link: "/lending",
     },
     {
-        icon: faHome,
+        icon: faCommentAlt,
         title: "Recommendations",
         active: false,
         link: "/recommendations",

@@ -27,6 +27,14 @@ const ModalFixedCosts = ({ active, setToggle: toggle, data }: ModalFixedCostsPro
                     keyForm="fixed-costs"
                     inputsData={inputsDataFixedCosts}
                     handleSubmit={handleSubmit}
+                    initialState={data || {
+                        expense: 0,
+                        name: "",
+                        status: "PENDING",
+                        urgency: "WHENEVER",
+                        description: "",
+                        category: "",
+                    }}
                     footerSection={<>
                         <div className="col-lg-6">
                             <Button

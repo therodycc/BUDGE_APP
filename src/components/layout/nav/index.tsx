@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextRouter, useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import authProvider from "../../../providers/auth/auth.provider";
 import { settings } from "../../../settings";
-import ButtonCircleIcon from "../../common/button-circle-icon";
+import ButtonCircleIcon from "../../common/button/button-circle.icon";
 import UserInfoHead from "../../common/user-info-head";
 
 const Nav = () => {

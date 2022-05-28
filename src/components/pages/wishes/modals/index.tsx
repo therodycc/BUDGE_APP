@@ -25,6 +25,15 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
                     keyForm="wishes"
                     inputsData={inputsModalWishes}
                     handleSubmit={handleSubmit}
+                    initialState={
+                        data || {
+                            expense: 0,
+                            name: "",
+                            status: "PENDING",
+                            urgency: "WHENEVER",
+                            category: "",
+                        }
+                    }
                     footerSection={<>
 
                         <div className="col-lg-6">

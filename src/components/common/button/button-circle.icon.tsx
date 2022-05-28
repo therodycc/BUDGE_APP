@@ -1,11 +1,7 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FC } from 'react'
+import { FC } from 'react'
+import { ButtonCircleIconPropsI } from '../../../interfaces/common/button/button.interface'
 
-interface ButtonCircleIconPropsI {
-    icon: IconProp
-    action: Function
-}
 const ButtonCircleIcon: FC<ButtonCircleIconPropsI> = ({ icon, action }) => {
     return (
         <>

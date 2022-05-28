@@ -1,13 +1,7 @@
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
-import { bgClassType } from '../../../interfaces/common/button/button.type'
-interface ButtonCardPropsI {
-    title: string
-    icon: IconDefinition
-    bgClass: bgClassType
-    action: Function
-}
+import { ButtonCardPropsI } from '../../../interfaces/common/button/button.interface'
+
 const ButtonCard: FC<ButtonCardPropsI> = ({ title, icon, bgClass, action }) => {
     return (
         <>
