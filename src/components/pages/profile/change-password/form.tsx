@@ -12,6 +12,7 @@ const FormChangePassword: FC<FormChangePasswordPropsI> = () => {
     const handleSubmit = (form: any) => {
         dispatch(setFormData({ form }));
     };
+    
     return (
         <>
             <Form

@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export interface TablePropsI {
     headItems: HeadItemsI[]
     bodyItems: any[] | null
@@ -5,7 +7,8 @@ export interface TablePropsI {
 
 
 export interface HeadItemsI {
-    title: string
+    title?: string
+    headRender?: ReactNode
     key?: string
     render?: Function
 }

@@ -44,9 +44,9 @@ export const headersVolunteerThings = ({ addToThisMonth, showModalEdit, removeIt
         title: "To",
         render: ({ item }: any) => {
             return (
-                <>
+                <div>
                     <span>{item?.to}</span>
-                </>
+                </div>
             );
         },
     },

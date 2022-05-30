@@ -4,6 +4,7 @@ import authProvider from "../../../providers/auth/auth.provider";
 import { settings } from "../../../settings";
 import ButtonCircleIcon from "../../common/button/button-circle.icon";
 import UserInfoHead from "../../common/user-info-head";
+import FloatMenu from "./float-menus";
 
 const Nav = () => {
   const { user: { me } } = useSelector((state: any) => state);
@@ -28,7 +29,7 @@ const Nav = () => {
                   icon={option.icon}
                   action={option?.action} />
               ))}
-
+              <FloatMenu />
               <UserInfoHead
                 firstName={me?.firstName}
                 lastName={me?.lastName}

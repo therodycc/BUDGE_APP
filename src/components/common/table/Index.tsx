@@ -11,7 +11,14 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                     <tr>
                         {
                             headItems && headItems?.map((head, index) => (
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" key={gxUUID()}>{head?.title}</th>
+                                <>
+                                    {
+
+                                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" key={gxUUID()}>
+                                            {head?.headRender ? head.headRender : head?.title}
+                                        </th>
+                                    }
+                                </>
                             ))
                         }
                     </tr>
@@ -37,7 +44,7 @@ const Table = ({ headItems, bodyItems }: TablePropsI) => {
                         <tr>
                             <td colSpan={12}
                                 className="position-relative"
-                                style={{ height: '200px',}}
+                                style={{ height: '200px', }}
                             >
                                 <LoadingPoints />
                             </td>
