@@ -1,3 +1,6 @@
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 export const headersReports = () => [
     {
         title: "Date",
@@ -21,9 +24,11 @@ export const headersReports = () => [
                             {" "}
                             <i className="fas fa-spinner"></i>
                         </button>
-                        <button type="button" className={`btn btn-${"danger"} btn-sm`}>
-                            pdf
-                        </button>
+                        <Link href={`/reports/${item?.uuid}`}>
+                            <button type="button" className={`btn btn-${"danger"} btn-sm`}>
+                                <FontAwesomeIcon icon={faEye} />
+                            </button>
+                        </Link>
                     </div>
                 </>
             );

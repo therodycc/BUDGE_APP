@@ -5,6 +5,7 @@ import Table from '../../common/table';
 const Reports = () => {
     const data = [
         {
+            uuid: '12k3---23-asd-asd-2s3',
             date: "adfasdfadfasdf",
             amount: 2000,
             dateToRequest: new Date().toLocaleString()
