@@ -1,28 +1,32 @@
 import { faArrowsUpDown, faBell, faCog, faLanguage } from "@fortawesome/free-solid-svg-icons"
 
-export const navOptionsRenders = (actions: { logout: Function }) => {
+export const navOptionsRenders = (actions?: { handleIsMenuSquare: Function }) => {
     return [
         {
-            icon: faCog,
-            action: () => { }
-        },
-        {
             icon: faBell,
+            active: false,
             action: () => { }
         },
         {
             icon: faLanguage,
+            active: false,
             action: () => { }
         },
+        // {
+        //     icon: faArrowsUpDown,
+        //     active: false,
+        //     action: async () => { }
+        // },
         {
-            icon: faArrowsUpDown,
-            action: async () => { actions.logout() }
+            icon: faCog,
+            active: false,
+            action: () => { actions?.handleIsMenuSquare() }
         },
     ]
 }
 
 
-export const navLayout = [
+export const navAuth = [
     {
         title: "Sign In",
         href: "/auth/sign-in",

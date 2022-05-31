@@ -1,25 +1,20 @@
 import 'animate.css';
-import type { AppProps } from 'next/app'
-import { Provider } from 'react-redux'
-import { store } from '../redux/store'
-import { NextPage } from 'next';
-import { ReactElement, ReactNode } from 'react';
-
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
+import { Provider } from 'react-redux';
+import { UIProvider } from '../context';
+import { AppPropsWithLayout } from '../interfaces/app.interface';
+import { store } from '../redux/store';
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const getLayout = Component.getLayout ?? ((page) => page)
 
-  return (<Provider store={store}>
-    {getLayout(<Component {...pageProps} />)}
-  </Provider>)
+  return (
+    <UIProvider>
+      <Provider store={store}>
+        {getLayout(<Component {...pageProps} />)}
+      </Provider>
+    </UIProvider>
+  )
 }
 
 export default MyApp

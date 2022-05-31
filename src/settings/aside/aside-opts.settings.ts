@@ -1,5 +1,5 @@
 import { faCommentAlt, faExplosion, faFileAlt, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faListCheck, faMoneyCheckDollar, faStarHalfStroke, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { AsideOptionsI } from "../interfaces/layout/aside/aside.interface";
+import { AsideOptionsI } from "../../interfaces/layout/aside/aside.interface";
 
 export const asideOptions: AsideOptionsI[] = [
     {

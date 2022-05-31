@@ -2,19 +2,19 @@ import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
-import { navLayout } from '../../settings/navbar.config'
+import { navAuth } from '../../settings/nav/navbar.config'
 import Button from '../common/button'
-import { v4 as gxUUID} from 'uuid';
+import { v4 as gxUUID } from 'uuid';
 
 const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
 
     const router: NextRouter = useRouter()
 
-    const [navLayoutSettings, setNavLayoutSettings] = useState(navLayout);
+    const [navLayoutSettings, setNavLayoutSettings] = useState(navAuth);
 
     useEffect(() => {
         handleNav(router.pathname)
-    }, [router]);
+    }, [router?.pathname]);
 
     const handleNav = (href: string) => {
         setNavLayoutSettings(_prev => _prev.map((item, index) => {

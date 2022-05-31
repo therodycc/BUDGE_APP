@@ -1,5 +1,5 @@
-import { asideOptions } from "./aside-opts.settings";
-import { navOptionsRenders } from "./navbar.config";
+import { asideOptions } from "./aside/aside-opts.settings";
+import { navOptionsRenders } from "./nav/navbar.config";
 
 export const settings = {
     navOptionsRenders,

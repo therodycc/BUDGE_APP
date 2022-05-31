@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { v4 as gxUUID } from 'uuid';
 import { AsideOptionsI } from "../../../interfaces/layout/aside/aside.interface";
-import { asideOptions } from "../../../settings/aside-opts.settings";
+import { asideOptions } from "../../../settings/aside/aside-opts.settings";
 
 const Aside = () => {
     const router: NextRouter = useRouter()

@@ -1,19 +1,34 @@
-import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDownUpAcrossLine } from '@fortawesome/free-solid-svg-icons';
+import { NextRouter, useRouter } from 'next/router';
+import authProvider from '../../../../providers/auth/auth.provider';
+import { floatOptionsSettings } from '../../../../settings/nav/float-menu.settings';
 
 const FloatMenu = () => {
+    const router: NextRouter = useRouter()
+
+    const logout = async () => {
+        await authProvider.logout();
+        router.push("/auth/sign-in");
+    }
+
     return (
         <>
-            <ul className="dropdown-menu shadow-lg dropdown-menu-end p-2 me-sm-n4 show" data-bs-popper="none">
-                {[1, 2, 3, 4].map(_ => (
+            <ul
+                className="dropdown-menu shadow-lg dropdown-menu-end p-3 mt-sm-n2 me-3 show"
+                data-bs-popper="none"
+                style={{ width: "300px", }}
+            >
+                {floatOptionsSettings({ logout }).map((item) => (
                     <li className="mb-2">
-                        <a className="dropdown-item border-radius-md cursor-pointer">
+                        <a
+                            className="dropdown-item border-radius-md cursor-pointer"
+                            onClick={() => item.action()}
+                        >
                             <div className="d-flex align-items-center py-1">
-                                <FontAwesomeIcon icon={faArrowDownUpAcrossLine} />
+                                <FontAwesomeIcon className="bg-primary me-2 text-white p-3 rounded-circle shadow-lg" icon={item?.icon} />
                                 <div className="ms-2">
-                                    <h6 className="text-sm font-weight-normal my-auto">
-                                        Check new messages
+                                    <h6 className="text-sm font-weight-normal my-auto text-secondary">
+                                        {item?.title}
                                     </h6>
                                 </div>
                             </div>
