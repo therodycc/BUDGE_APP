@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
@@ -289,9 +290,19 @@ const Manage = () => {
     };
 
     const handleExportData = async () => {
-        createTablePdf(manage, entry, personal, remaining)
-    };
-
+        const result = await fetch('http://localhost:8000/reports', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                [new Date().toLocaleDateString()]: manage
+            })
+        });
+        const data = await result.json();
+        createTablePdf(manage, entry, pending, remaining)
+        sweetAlert.toast(data.message, '','success');
+    }
     return (
         <>
 
@@ -366,10 +377,10 @@ const Manage = () => {
                     rightSection={
                         <>
                             <Button
-                                action={handleExportData}
                                 bgClass={"danger"}
                                 type={"button"}
                                 loading={false}
+                                action={handleExportData}
                             >
                                 Export
                             </Button>

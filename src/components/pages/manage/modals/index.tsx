@@ -18,7 +18,9 @@ interface ModalManagePropsI {
 }
 
 const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
-    const [form, handleChange] = useForm()
+    const [form, handleChange] = useForm({
+        ...data
+    })
     const dispatch = useDispatch();
     // errors
     const [errName, setErrName] = useState("");
