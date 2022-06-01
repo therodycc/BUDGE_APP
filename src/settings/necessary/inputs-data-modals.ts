@@ -1,6 +1,7 @@
 import { InputPropsI } from '../../interfaces/common/input/input.interface';
 import { statusOptions } from '../drops-downs-items/status.options';
 import { urgencyOptions } from '../drops-downs-items/urgency.options';
+import { isRequired } from '../../helpers/validations/index';
 
 interface EntriesDataI {
     form: any
@@ -17,7 +18,7 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
             type: "text",
             name: "name",
             value: form?.name
-        }
+        },
     },
     {
         title: "Expense",

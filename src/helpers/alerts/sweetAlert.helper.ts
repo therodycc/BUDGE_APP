@@ -19,24 +19,23 @@ class SweetAlert {
             showConfirmButton: false,
             timer: 3000,
             toast: true,
-            position:'top-right',
-            timerProgressBar:true,
+            position: 'top-right',
+            timerProgressBar: true,
         })
     }
 
-    question(title: string, type: SweetAlertIcon, text?: string) {
+    question(title: string, icon: SweetAlertIcon, text?: string) {
         return Swal.fire({
-            title: title,
-            text: text,
-            icon: type,
+            title,
+            text,
+            icon,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             return result.isConfirmed
-        })
-            .catch(error => error)
+        }).catch(error => error)
     }
 }
 

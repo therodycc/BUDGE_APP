@@ -5,7 +5,7 @@ const Button = ({ children, action, bgClass, size, type, loading, customClass }:
     return (
         <>
             <button
-                onClick={() => action && action()}
+                onClick={() => action?.()}
                 type={type}
                 className={`btn btn-${bgClass} btn-${size && (size || '')} mx-1 ${customClass}`}
                 disabled={loading}

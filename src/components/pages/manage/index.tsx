@@ -290,6 +290,8 @@ const Manage = () => {
     };
 
     const handleExportData = async () => {
+        const confirm = await sweetAlert.question('Do you want to export data?', 'warning','');
+        if (!confirm) return
         const result = await fetch('http://localhost:8000/reports', {
             method: 'POST',
             headers: {
@@ -301,7 +303,7 @@ const Manage = () => {
         });
         const data = await result.json();
         createTablePdf(manage, entry, pending, remaining)
-        sweetAlert.toast(data.message, '','success');
+        sweetAlert.toast(data.message, '', 'success');
     }
     return (
         <>
