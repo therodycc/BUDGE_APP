@@ -10,9 +10,7 @@ const BgLayoutPage: FC = ({ children }) => {
                 >
                     <span className="mask  bg-gradient-info  opacity-4"></span>
                 </div>
-                <div>
-                    {children}
-                </div>
+                <div> {children} </div>
             </div>
 
         </>
