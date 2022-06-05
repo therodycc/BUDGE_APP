@@ -10,6 +10,7 @@ import Box from '../../common/box';
 import Button from '../../common/button';
 import Card from '../../common/card';
 import Table from '../../common/table';
+import Tabs from '../../common/tabs';
 import ModalManage from './modals';
 
 const Manage = () => {
@@ -290,7 +291,7 @@ const Manage = () => {
     };
 
     const handleExportData = async () => {
-        const confirm = await sweetAlert.question('Do you want to export data?', 'warning','');
+        const confirm = await sweetAlert.question('Do you want to export data?', 'warning', '');
         if (!confirm) return
         const result = await fetch('http://localhost:8000/reports', {
             method: 'POST',
@@ -375,7 +376,7 @@ const Manage = () => {
                     />
                 </div>
                 <Box
-                    title="manage"
+                    title={<Tabs />}
                     rightSection={
                         <>
                             <Button

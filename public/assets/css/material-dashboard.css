@@ -24579,7 +24579,7 @@ hr.horizontal.gray-light {
 .moving-tab .nav-link.active {
   color: #fff;
   font-weight: 600;
-  box-shadow: 0px 1px 5px 1px #ddd;
+  box-shadow: 0px 0px 0px 0px #ddd;
   -webkit-animation: 0.2s ease;
   animation: 0.2s ease;
   background: #fff;
@@ -27459,4 +27459,6 @@ pre[class*="language-"] {
   }
 }
 
-/*# sourceMappingURL=material-dashboard.css.map */
+.person-card-loading {
+  background-color: #0057f7 !important;
+}

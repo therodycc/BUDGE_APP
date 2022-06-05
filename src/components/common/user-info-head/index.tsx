@@ -10,7 +10,7 @@ interface UserInfoHeadPropsI {
 const UserInfoHead: FC<UserInfoHeadPropsI> = ({ firstName, lastName, email }) => {
     return (
         <>
-                <div className="ml-0 col-sm-auto col-8 p-3">
+                <div className="ml-0 col-sm-auto col-8 p-3 text-end" >
                     <div className="">
                         <h6 className="mb-0 font-weight-bolder text-secondary">
                             {firstName} {lastName}

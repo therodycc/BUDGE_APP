@@ -5,47 +5,62 @@ import { profitsTypes } from "../types/profits.types";
 
 export const getProfitsAction = () => {
     return (dispatch: Function) => {
-        profitsProvider.getAll()
-            .then(res => {
+        profitsProvider
+            .getAll()
+            .then((res) => {
                 dispatch({
                     type: profitsTypes.GET_ALL_PROFITS,
-                    payload: res?.data
-                })
+                    payload: res?.data,
+                });
             })
-            .catch(err => err)
-    }
-}
+            .catch((err) => err);
+    };
+};
 
 export const addProfitsAction = (data: ProfitsI) => {
     return (dispatch: Function, getStore: Function) => {
-        profitsProvider.create(data)
-            .then(res => {
-                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
-                sweetAlert.alert('Success', 'Done!', 'success')
+        profitsProvider
+            .create(data)
+            .then((res) => {
+                if (res.error)
+                    return sweetAlert.alert("Error", res?.error?.message, "error");
+                sweetAlert.alert("Success", "Done!", "success");
                 dispatch({
                     type: profitsTypes.ADD_ITEM_PROFITS,
-                    payload: [res?.data?.response].concat(getStore().profits.profits)
-                })
+                    payload: [
+                        {
+                            ...res?.data?.response,
+                            ...(data?.amount && { amount: +data.amount }),
+                        },
+                    ].concat(getStore().profits.profits),
+                });
             })
-            .catch(err => err)
-    }
-}
+            .catch((err) => err);
+    };
+};
 
 export const updateProfitsAction = (uuid: string, data: any) => {
     return async (dispatch: Function, getStore: Function) => {
         profitsProvider
             .update(uuid, data)
             .then((res) => {
-                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
-                sweetAlert.alert('Success', 'Updated!', 'success')
+                if (res.error)
+                    return sweetAlert.alert("Error", res?.error?.message, "error");
+                sweetAlert.alert("Success", "Updated!", "success");
                 dispatch({
                     type: profitsTypes.UPDATE_ITEM_PROFITS,
-                    payload: getStore().profits.profits.map((item: ProfitsI) => item.uuid == uuid ? { ...item, ...data } : item)
-                })
+                    payload: getStore().profits.profits.map((item: ProfitsI) =>
+                        item.uuid == uuid ? {
+                            ...item,
+                            ...data,
+                            ...(data?.amount && { amount: +data.amount }),
+                        } : item
+                    ),
+                });
             })
             .catch((error) => error);
-    }
-}
+    };
+};
 
 export const removeProfitsAction = (uuid: string) => {
     return async (dispatch: Function, getStore: Function) => {
@@ -54,17 +69,19 @@ export const removeProfitsAction = (uuid: string) => {
         profitsProvider
             .remove(uuid)
             .then((res) => {
-                if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
-                sweetAlert.alert('Success', 'Done!', 'success')
+                if (res.error)
+                    return sweetAlert.alert("Error", res?.error?.message, "error");
+                sweetAlert.alert("Success", "Done!", "success");
                 dispatch({
                     type: profitsTypes.DELETE_ITEM_PROFITS,
-                    payload: getStore().profits.profits.filter((item: any) => item.uuid !== uuid)
-                })
+                    payload: getStore().profits.profits.filter(
+                        (item: any) => item.uuid !== uuid
+                    ),
+                });
             })
             .catch((error) => error);
-    }
-}
-
+    };
+};
 
 export const disabledItemAction = (item: any) => {
     return async (dispatch: Function, getStore: Function) => {
@@ -76,11 +93,11 @@ export const disabledItemAction = (item: any) => {
                 dispatch({
                     type: profitsTypes.DISABLE_ITEM_PROFITS,
                     payload: getStore()?.profits?.profits?.map((fc: any) => {
-                        if (fc.id === item.id) fc.active = !item.active
-                        return fc
-                    })
-                })
+                        if (fc.id === item.id) fc.active = !item.active;
+                        return fc;
+                    }),
+                });
             })
             .catch((error) => error);
-    }
-}
+    };
+};

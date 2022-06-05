@@ -1,19 +1,17 @@
-import React from 'react'
-
-const LoadingSquareDestructuring = () => {
+import React, { FC } from 'react'
+interface LoadingSquareDestructuringPropsI {
+    customClassLoading?: string
+}
+const LoadingSquareDestructuring: FC<LoadingSquareDestructuringPropsI> = ({ customClassLoading }) => {
     return (
         <>
             <div className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-white overflow-hidden" style={{ zIndex: 10 }}>
-                <div className="sk-cube-grid-destructuring">
-                    <div className="sk-cube sk-cube1"></div>
-                    <div className="sk-cube sk-cube2"></div>
-                    <div className="sk-cube sk-cube3"></div>
-                    <div className="sk-cube sk-cube4"></div>
-                    <div className="sk-cube sk-cube5"></div>
-                    <div className="sk-cube sk-cube6"></div>
-                    <div className="sk-cube sk-cube7"></div>
-                    <div className="sk-cube sk-cube8"></div>
-                    <div className="sk-cube sk-cube9"></div>
+                <div className="sk-cube-grid-destructuring" >
+                    {
+                        [...Array(9)].map((_, index) => (
+                            <div key={index} className={`sk-cube sk-cube${index + 1} ${customClassLoading}`} />
+                        ))
+                    }
                 </div>
             </div>
         </>

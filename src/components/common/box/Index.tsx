@@ -6,10 +6,14 @@ const Box: FC<BoxPropsI> = ({ children, title, rightSection }) => {
         <>
             <div className="col-md-12">
                 <div className="card mb-4">
-                    <div className="card-header pb-0 d-flex justify-content-between">
-                        <h6>{title}</h6>
-                        <div>
-                            {rightSection}
+                    <div className="card-header pb-0 ">
+                        <div className="row">
+                            <div className="col-lg-6 d-flex justify-content-start align-items-center">
+                                {title}
+                            </div>
+                            <div className="col-lg-6 d-flex justify-content-end ">
+                                {rightSection}
+                            </div>
                         </div>
                     </div>
                     <div className="card-body px-0 pt-0 pb-2">

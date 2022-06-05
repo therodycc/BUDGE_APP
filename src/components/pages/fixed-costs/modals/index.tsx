@@ -12,7 +12,6 @@ import Modal from "../../../common/modal";
 const ModalFixedCosts = ({ active, setToggle: toggle, data }: ModalFixedCostsPropsI) => {
     const dispatch = useDispatch();
     const handleSubmit = (form: any) => {
-
         data?.uuid
             ? dispatch(updateFixedCostsAction(data.uuid, form))
             : dispatch(addFixedCostAction(form));

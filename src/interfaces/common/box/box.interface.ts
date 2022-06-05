@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-export interface BoxPropsI{
-    title:string
-    rightSection?:ReactNode
+export interface BoxPropsI {
+    title: ReactNode
+    rightSection?: ReactNode
 }

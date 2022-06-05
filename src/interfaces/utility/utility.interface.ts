@@ -6,7 +6,7 @@ export interface UtilityI {
     name: string,
     expense: number,
     paidOut: number,
-    img: null
+    img: null | string
     urgency: UrgencyType,
     category: CategoryType,
     status: StatusType,

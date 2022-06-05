@@ -1,9 +1,7 @@
 import { useState } from 'react';
-interface UseFormI {
-    [key: string]: string | number | undefined | boolean
-}
-const useForm = (data?: UseFormI) => {
-    const [form, setForm] = useState<UseFormI | any>(data || {});
+
+const useForm = <T extends Object,>(data?: T) => {
+    const [form, setForm] = useState<T>(data as T || {});
 
     const handleChange = (e: any) => {
         setForm({

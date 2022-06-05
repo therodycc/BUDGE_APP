@@ -1,9 +1,17 @@
 import React from 'react'
+import { currencyFormat } from '../../../helpers/currency.helper'
+import CardHome from '../../common/card/CardHome'
 
 const Savings = () => {
     return (
         <>
-            <h2>Savings</h2>
+            <div className="col-lg-6">
+                <CardHome
+                    subtitle={currencyFormat(0)}
+                    title={currencyFormat(0)}
+                    description={""}
+                />
+            </div>
         </>
     )
 }
