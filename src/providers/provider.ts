@@ -14,48 +14,33 @@ class Provider {
         });
     }
 
-    protected async get(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
-        try {
-            const res = await this.axios.get(endpoint, config);
-            return res.data;
-        } catch (error) {
-            return { error };
-        }
+    protected get(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
+        return this.axios.get(endpoint, config)
+            .then(res => res.data)
+            .catch(err => Promise.resolve(err?.response?.data));
     }
 
-    protected async post(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
-        try {
-            const res = await this.axios.post(endpoint, data, config);
-            return res.data;
-        } catch (error) {
-            return { error };
-        }
+    protected post(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
+        return this.axios.post(endpoint, data, config)
+            .then(res => res.data)
+            .catch(err => Promise.resolve(err?.response?.data));
     }
 
-    protected async update(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
-        try {
-            const res = await this.axios.patch(endpoint, data, config);
-            return res.data;
-        } catch (error) {
-            return { error };
-        }
+    protected update(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
+        return this.axios.patch(endpoint, data, config)
+            .then(res => res.data)
+            .catch(err => Promise.resolve(err?.response?.data));
     }
 
-    protected async delete(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
-        try {
-            const res = await this.axios.delete(endpoint, config);
-            return res.data;
-        } catch (error) {
-            return { error };
-        }
+    protected delete(endpoint: string, config: AxiosRequestConfig = {}): Promise<any> {
+        return this.axios.delete(endpoint, config)
+            .then(res => res.data)
+            .catch(err => Promise.resolve(err?.response?.data));
     }
-    protected async patch(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
-        try {
-            const res = await this.axios.patch(endpoint, data, config);
-            return res.data;
-        } catch (error) {
-            return { error };
-        }
+    protected patch(endpoint: string, data: object = {}, config: AxiosRequestConfig = {}): Promise<any> {
+        return this.axios.patch(endpoint, data, config)
+            .then(res => res.data)
+            .catch(err => Promise.resolve(err?.response?.data));
     }
 }
 
