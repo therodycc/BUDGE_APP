@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
+import React from "react";
 import { useEffect, useState } from "react";
 import { v4 as gxUUID } from 'uuid';
 import { AsideOptionsI } from "../../../interfaces/layout/aside/aside.interface";
@@ -10,9 +11,7 @@ const Aside = () => {
     const router: NextRouter = useRouter()
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
 
-    useEffect(() => {
-        handleSelected(router.pathname)
-    }, [router.pathname]);
+    useEffect(() => { handleSelected(router.pathname) }, [router.pathname]);
 
     const handleSelected = (path: string) => {
         setOptions(asideOptions?.map((opt, i) => {
@@ -22,10 +21,8 @@ const Aside = () => {
     };
 
     return (
-        <>
-            <aside
-                className="sidebar-show sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white"
-            >
+        <React.Fragment>
+            <aside className="sidebar-show sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" >
                 <div
                     className="collapse navbar-collapse h-auto sidebar-show"
                 >
@@ -50,7 +47,7 @@ const Aside = () => {
                     <div className="mx-3"></div>
                 </div>
             </aside>
-        </>
+        </React.Fragment>
     );
 };
 
