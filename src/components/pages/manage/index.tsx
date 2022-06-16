@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import Script from 'next/script';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
+import { StatusType } from '../../../interfaces/utility/utilily.type';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { getManageAction, removeManageAction } from '../../../redux/actions/manage.action';
 import { getProfitsAction } from '../../../redux/actions/profits.action';
 import Box from '../../common/box';
 import Button from '../../common/button';
+import ButtonGroup from '../../common/button/button-group';
 import Card from '../../common/card';
+import DTProfileTable from '../../common/dt-profile-table';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
+import TrafficLights from '../../common/traffic-lights';
+import { ButtonGroupDataManage } from './buttons-settings';
 import ModalManage from './modals';
 
 const Manage = () => {
@@ -136,34 +142,8 @@ const Manage = () => {
     const [headItems, setHeadItems] = useState([
         {
             title: "Title",
-            render: ({ item }: any) => {
-                return (
-                    <div className="d-flex px-3 py-1">
-                        <div>
-                            <img
-                                src={
-                                    item?.img ||
-                                    "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg"
-                                }
-                                className="avatar me-3"
-                                alt="image"
-                            />
-                        </div>
-                        <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">{item?.name}</h6>
-                            <p className="text-sm font-weight-normal text-secondary mb-0">
-                                <span
-                                    className={`text-${item?.expense - item?.paidOut === 0 ? "success" : "danger"
-                                        } font-weight-bold mx-1`}
-                                >
-                                    {currencyFormat(item?.expense - item?.paidOut)}
-                                </span>
-                                {item?.category}
-                            </p>
-                        </div>
-                    </div>
-                );
-            },
+            render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
+
         },
         {
             title: "Expense",
@@ -175,115 +155,15 @@ const Manage = () => {
                 );
             },
         },
-        /*    {
-                    title: 'To pay',
-                    render: ({ item }) => {
-                        let toPay: number = 0;
-        
-                        const handleChange = (value: string) => {
-                            toPay = parseInt(value)
-                        }
-        
-                        const handleClickToPay = () => {
-                            if (toPay > item?.expense) {
-                                return sweetAlert.alert('', 'La cantidad sobrepasa el valor', 'error');
-                            }
-                            manageProvider.update(item?.id, {
-                                paidOut: item?.paidOut + toPay
-                            })
-                                .then(data => {
-                                    sweetAlert.alert('Done!', '', 'success');
-                                })
-                                .catch(error => error)
-                        }
-        
-                        return (
-                            <>
-                                <div className='row'>
-                                    <div className='col-md-8'>
-        
-                                        <InputText
-                                            name={item?.title}
-                                            placeholder='To pay'
-                                            onChange={(e: any) => { handleChange(e.target.value) }}
-                                            type='number'
-                                            maxLength={item?.expense.length}
-                                        />
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <button
-                                            className='btn btn-success btn-sm'
-                                            onClick={() => { handleClickToPay() }}
-                                        >
-                                            <i className="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </>
-                        )
-                    }
-                }, */
+        // { title: "Paid Out", render: ({ item }: any) => { return <PayItemOn /> } },
         {
             title: "Actions",
-            render: ({ item }: any) => {
-                return (
-                    <>
-                        <div className="btn-group">
-                            <span
-                                className={` text-${item?.status === "PENDING" ? "danger" : "light"
-                                    } display-8`}
-                            >
-                                {" "}
-                                <i className="fas fa-circle"></i>
-                            </span>
-                            <span
-                                className={` text-${item?.status === "IN_PROGRESS" ? "warning" : "light"
-                                    } display-8 mx-2`}
-                            >
-                                {" "}
-                                <i className="fas fa-circle"></i>
-                            </span>
-                            <span
-                                className={` text-${item?.status === "COMPLETED" ? "success" : "light"
-                                    } display-8 `}
-                            >
-                                <i className="fas fa-circle"></i>
-                            </span>
-                        </div>
-                    </>
-                );
-            },
+            render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },
         },
         {
             title: "Actions",
-            render: ({ item }: any) => {
-                return (
-                    <>
-                        <div className="btn-group">
-                            <button
-                                type="button"
-                                className={`btn btn-secondary btn-sm`}
-                                onClick={() => {
-                                    showModalEdit(item);
-                                }}
-                            >
-                                <i className="fas fa-spinner"></i>
-                            </button>
-                            <button
-                                type="button"
-                                className={`btn btn-light btn-sm`}
-                                onClick={() => {
-                                    removeItem(item);
-                                }}
-                            >
-                                <i className="far fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </>
-                );
-            },
-        },
-    ]);
+            render: ({ item }: any) => { return (<ButtonGroup buttonsGroupsData={ButtonGroupDataManage({ action1: () => showModalEdit(item), action2: () => removeItem(item) })} />); },
+        }]);
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);
@@ -293,6 +173,7 @@ const Manage = () => {
     const handleExportData = async () => {
         const confirm = await sweetAlert.question('Do you want to export data?', 'warning', '');
         if (!confirm) return
+        createTablePdf(manage, entry, pending, remaining)
         const result = await fetch('http://localhost:8000/reports', {
             method: 'POST',
             headers: {
@@ -303,12 +184,12 @@ const Manage = () => {
             })
         });
         const data = await result.json();
-        createTablePdf(manage, entry, pending, remaining)
+        if (!data) return
         sweetAlert.toast(data.message, '', 'success');
     }
     return (
         <>
-
+            <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></Script>
             <div className="container">
                 <div className="row mt-5">
                     <Card

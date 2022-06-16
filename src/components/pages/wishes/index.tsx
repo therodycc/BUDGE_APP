@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
 import { currencyFormat } from '../../../helpers/currency.helper'
 import { gxUUID } from '../../../helpers/uuid-generator.helper'
+import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import utilitiesProvider from '../../../providers/utilities/utilities.provider'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
@@ -10,6 +11,8 @@ import { getWishesAction, removeWishesAction } from '../../../redux/actions/wish
 import Button from '../../common/button'
 import CardImg from '../../common/card/CardImg'
 import CardMini from '../../common/card/CardMini'
+import TrafficLights from '../../common/traffic-lights'
+import CustomBtnGroups from '../../custom/btn-actions-groups'
 import ModalWishes from './modals'
 
 const Wishes = () => {
@@ -21,7 +24,6 @@ const Wishes = () => {
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<WishesI | null>(null);
     const dispatch = useDispatch()
-
 
     useEffect(() => {
         dispatch(getWishesAction())
@@ -114,55 +116,14 @@ const Wishes = () => {
                             >
                                 <div className='mx-4'>
                                     <div className='row'>
-                                        <div className="btn-group col-md-4">
-                                            <span
-                                                className={` text-${item.status === "PENDING" ? "danger" : "light"
-                                                    } display-8`}
-                                            >
-                                                {" "}
-                                                <i className="fas fa-circle"></i>
-                                            </span>
-                                            <span
-                                                className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
-                                                    } display-8 mx-2`}
-                                            >
-                                                {" "}
-                                                <i className="fas fa-circle"></i>
-                                            </span>
-                                            <span
-                                                className={` text-${item.status === "COMPLETED" ? "success" : "light"} display-8 `}
-                                            >
-                                                <i className="fas fa-circle"></i>
-                                            </span>
+                                        <div className="col-md-4">
+                                            <TrafficLights status={item.status as StatusType} />
                                         </div>
-                                        <div className="btn-group col-md-8">
-                                            <button
-                                                type="button"
-                                                className={`btn btn-success btn-sm`}
-                                                onClick={() => {
-                                                    addToThisMonth(item);
-                                                }}
-                                            >
-                                                <i className="fas fa-plus-circle"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={`btn btn-secondary btn-sm`}
-                                                onClick={() => {
-                                                    showModalEdit(item)
-                                                }}
-                                            >
-                                                <i className="fas fa-spinner"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={`btn btn-light btn-sm`}
-                                                onClick={() => {
-                                                    removeItem(item);
-                                                }}
-                                            >
-                                                <i className="far fa-trash-alt"></i>
-                                            </button>
+                                        <div className="col-md-8 d-flex p-0 justify-content-end">
+                                            <CustomBtnGroups
+                                                action1={() => addToThisMonth(item)}
+                                                action2={() => { showModalEdit(item) }}
+                                                action3={() => { removeItem(item); }} />
                                         </div>
                                     </div>
                                     <div className='row'>

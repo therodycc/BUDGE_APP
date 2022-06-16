@@ -2,6 +2,8 @@
 @import url('../css/card.css');
 @import url('../css/loading-destructuring.css');
 @import url('../css/loading-points.css');
+@import url('../css/material-dashboard.min.css');
+@import url('../css/loading-square.css');
 
 .sign-in-bg {
   background: #4b6cb7;

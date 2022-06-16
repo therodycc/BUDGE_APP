@@ -1,4 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const CommentItem = () => {
     return (
@@ -25,11 +27,11 @@ const CommentItem = () => {
                 </div>
                 <div className="row p-3">
                     <div className="d-flex align-items-center cursor-pointer col-6">
-                        <i className="fa fa-heart text-secondary me-2"></i>
+                        <FontAwesomeIcon className="text-secondary me-2" icon={faHeart}/>
                         <span className="text-normal fw-bolder text-secondary">I like this idea</span>
                     </div>
                     <div className="d-flex align-items-center justify-content-end col-6">
-                        <i className="fa fa-heart text-danger me-2"></i>
+                        <FontAwesomeIcon className="text-danger me-2" icon={faHeart}/>
                         <span className="text-normal fw-bolder text-secondary">256 likes</span>
                     </div>
                 </div>

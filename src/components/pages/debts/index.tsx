@@ -58,11 +58,7 @@ const Debts = () => {
     };
 
     const addToThisMonth = (item: UtilityI) => {
-        debtProvider.update(item.id, {
-            status: 'IN_PROGRESS'
-        })
-            .then(res => {
-            })
+        debtProvider.update(item.id, { status: 'IN_PROGRESS' }) .then(res => { })
             .catch(error => error)
         utilitiesProvider
             .postItem(item)

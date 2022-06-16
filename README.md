@@ -27,7 +27,9 @@ TODO: loading for cards
 
 ## manage
 
-Pagar un boton de pago rapido 
+error de ui en paidout 
+
+put un boton de pago rapido 
 
 Solo se Deberia de modificar el balance ya que este debe de tener una relacion con el item de donde se agregó 
 
@@ -46,3 +48,13 @@ El estatus del item deberia de cambiar dependiendo de si la persona
 ## reports
 Pagina para los detalles de los reportes
 se debe de crear un view que agregue el precio en el que se exportó en ese momento y una relacion con ese gasto
+
+name 
+price 
+relation with the item 
+category === which was his category
+userId
+keyDateExported
+
+TODO : CREAR COMPONENTE PARA EL MANEJO DEL ESTADO (COMPONENTE DE SEMAFORO) Y QUE ESTO SEA DE FORMA AUTOMATICA 
+

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gxUUID } from "../../../helpers/uuid-generator.helper";
 import { TabsItemI } from "../../../interfaces/common/tabs/tab.interface";
 import { tabsSettings } from "../../../settings/manage/tabs.settings";
 import MovingTab from "./moving-tab";
@@ -27,7 +28,7 @@ const Tabs = () => {
                         flex: "wrap"
                     }}>
                         {tabs?.map((item, index) => (
-                            <React.Fragment>
+                            <React.Fragment key={item?.title + index}>
                                 <TabItem
                                     {...item}
                                     action={() => handleTabClick(index)}

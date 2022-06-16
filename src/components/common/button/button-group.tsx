@@ -1,44 +1,33 @@
-import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
+import { faPlusCircle, faSpinner, faTrashAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { FC } from 'react';
+import { gxUUID } from '../../../helpers/uuid-generator.helper';
 export interface ButtonGroupPropsI {
-    action1: Function
-    action2: Function
-    action3: Function
+    buttonsGroupsData: ButtonGroupI[];
 }
-
-const ButtonGroup: FC<ButtonGroupPropsI> = () => {
+export interface ButtonGroupI {
+    bgClass: string,
+    icon: IconDefinition,
+    action: Function
+}
+let uuidGX = gxUUID();
+const ButtonGroup: FC<ButtonGroupPropsI> = ({ buttonsGroupsData }) => {
     return (
-        <>
+        <React.Fragment>
             <div className="btn-group">
-                <button
-                    type="button"
-                    className={`btn btn-success btn-sm`}
-                    onClick={() => {
-                        // addToThisMonth(item);
-                    }}
-                >
-                    <i className="fas fa-plus-circle"></i>
-                </button>
-                <button
-                    type="button"
-                    className={`btn btn-secondary btn-sm`}
-                    onClick={() => {
-                        // showModalEdit(item)
-                    }}
-                >
-                    <i className="fas fa-spinner"></i>
-                </button>
-                <button
-                    type="button"
-                    className={`btn btn-light btn-sm`}
-                    onClick={() => {
-                        // removeItem(item);
-                    }}
-                >
-                    <i className="far fa-trash-alt"></i>
-                </button>
+                {buttonsGroupsData?.map((item, i) => (
+                    <button
+                        key={uuidGX + i}
+                        type="button"
+                        className={`btn btn-${item?.bgClass} btn-sm`}
+                        onClick={() => item?.action()}
+                    >
+                        <FontAwesomeIcon icon={item?.icon} />
+                    </button>
+                ))}
             </div>
-        </>
+        </React.Fragment>
     )
 }
 

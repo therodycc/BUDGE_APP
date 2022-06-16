@@ -11,16 +11,14 @@ const Button = ({ children, action, bgClass, size, type, loading, customClass }:
                 disabled={loading}
             >
                 {
-                    loading ? <>
+                    loading ?
                         <div className='d-flex align-items-center justify-content-center text-white'>
                             <span className="spinner-border spinner-border-sm mx-1" ></span>
                             <span className="">Please wait...</span>
                         </div>
-                    </>
                         : children
 
                 }
-
             </button>
         </>
     )

@@ -1,106 +1,31 @@
+import DTProfileTable from "../../components/common/dt-profile-table";
+import TrafficLights from "../../components/common/traffic-lights";
+import CustomBtnGroups from "../../components/custom/btn-actions-groups";
 import { currencyFormat } from "../../helpers/currency.helper";
 import { headItemsFixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
+import { StatusType } from "../../interfaces/utility/utilily.type";
 
 export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem, disabledItem }: headItemsFixedCostsI) => [
     {
         title: "Title",
-        render: ({ item }: any) => {
-            return (
-                <div className="d-flex px-3 py-1">
-                    <div>
-                        <img
-                            src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg"
-                            className="avatar me-3"
-                            alt="image"
-                        />
-                    </div>
-                    <div className="d-flex flex-column justify-content-center">
-                        <h6 className="mb-0 text-sm">{item.name}</h6>
-                        <p className="text-sm font-weight-normal text-secondary mb-0">
-                            {item.category}
-                        </p>
-                    </div>
-                </div>
-            );
-        },
+        render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
+
     },
     {
         title: "Expense",
-        render: ({ item }: any) => {
-            return (
-                <>
-                    <span>{currencyFormat(item.expense)}</span>
-                </>
-            );
-        },
+        render: ({ item }: any) => { return (<span>{currencyFormat(item.expense)}</span>); },
     },
     {
         title: "Status",
-        render: ({ item }: any) => {
-            return (
-                <>
-                    <div className="btn-group">
-                        <span
-                            className={` text-${item.status === "PENDING" ? "danger" : "light"
-                                } display-8`}
-                        >
-                            {" "}
-                            <i className="fas fa-circle"></i>
-                        </span>
-                        <span
-                            className={` text-${item.status === "IN_PROGRESS" ? "warning" : "light"
-                                } display-8 mx-2`}
-                        >
-                            {" "}
-                            <i className="fas fa-circle"></i>
-                        </span>
-                        <span
-                            className={` text-${item.status === "COMPLETED" ? "success" : "light"
-                                } display-8 `}
-                        >
-                            <i className="fas fa-circle"></i>
-                        </span>
-                    </div>
-                </>
-            );
-        },
+        render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },
     },
     {
         title: "Actions",
         render: ({ item }: any) => {
-            return (
-                <>
-                    <div className="btn-group">
-                        <button
-                            type="button"
-                            className={`btn btn-success btn-sm`}
-                            onClick={() => {
-                                addToThisMonth(item);
-                            }}
-                        >
-                            <i className="fas fa-plus-circle"></i>
-                        </button>
-                        <button
-                            type="button"
-                            className={`btn btn-secondary btn-sm`}
-                            onClick={() => {
-                                showModalEdit(item);
-                            }}
-                        >
-                            <i className="fas fa-spinner"></i>
-                        </button>
-                        <button
-                            type="button"
-                            className={`btn btn-light btn-sm`}
-                            onClick={() => {
-                                removeItem(item);
-                            }}
-                        >
-                            <i className="far fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </>
-            );
+            return (<CustomBtnGroups
+                action1={() => { addToThisMonth(item); }}
+                action2={() => { showModalEdit(item) }}
+                action3={() => { removeItem(item); }} />);
         },
     },
     {

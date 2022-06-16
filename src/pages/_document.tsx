@@ -12,15 +12,11 @@ class MyDocument extends Document {
                     <meta charSet="UTF-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-                    <link rel="stylesheet" type="text/css" href="/assets/css/material-dashboard.min.css" />
                     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
-                    <link rel="stylesheet" type="text/css" href="/assets/css/loading-square.css" />
                     {/* jsPDF */}
                 </Head>
                 <body>
                     <Main />
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-                    <script src="https://kit.fontawesome.com/2e2971d45d.js" crossOrigin="anonymous"></script>
                     <NextScript />
                 </body>
             </Html>

@@ -1,9 +1,10 @@
+import React from "react";
 import { FC, memo } from "react";
 import { InputPropsI } from "../../../interfaces/common/input/input.interface";
 
-const Input: FC<InputPropsI | any> = memo(({ errorMessage, customClass, title, ...props }) => {
+const Input: FC<InputPropsI | any> = memo(function Input({ errorMessage, customClass, title, ...props }) {
     return (
-        <>
+        <React.Fragment>
             <div className="row text-left">
                 {
                     title && <span className="fw-bolder text-normal">{title}</span>
@@ -22,7 +23,7 @@ const Input: FC<InputPropsI | any> = memo(({ errorMessage, customClass, title, .
                     </div>
                 )}
             </div>
-        </>
+        </React.Fragment>
     );
 });
 
