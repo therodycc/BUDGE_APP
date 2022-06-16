@@ -1,22 +1,21 @@
 import Script from 'next/script';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
-import { StatusType } from '../../../interfaces/utility/utilily.type';
+import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { getManageAction, removeManageAction } from '../../../redux/actions/manage.action';
 import { getProfitsAction } from '../../../redux/actions/profits.action';
 import Box from '../../common/box';
 import Button from '../../common/button';
-import ButtonGroup from '../../common/button/button-group';
 import Card from '../../common/card';
-import DTProfileTable from '../../common/dt-profile-table';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
-import TrafficLights from '../../common/traffic-lights';
-import { ButtonGroupDataManage } from './buttons-settings';
+import { manageCardsData } from './cards-settings/manage-card';
+import { headersManageItems } from './headers/manage-headers';
 import ModalManage from './modals';
 
 const Manage = () => {
@@ -35,9 +34,7 @@ const Manage = () => {
     const [remaining, setRemaining] = useState(0);
     const [wishes, setWishes] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
-        null
-    );
+    const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
 
     useEffect(() => {
         dispatch(getProfitsAction());
@@ -139,32 +136,6 @@ const Manage = () => {
         dispatch(removeManageAction(item?.uuid));
     };
 
-    const [headItems, setHeadItems] = useState([
-        {
-            title: "Title",
-            render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
-
-        },
-        {
-            title: "Expense",
-            render: ({ item }: any) => {
-                return (
-                    <>
-                        <span>{currencyFormat(item?.expense)}</span>
-                    </>
-                );
-            },
-        },
-        // { title: "Paid Out", render: ({ item }: any) => { return <PayItemOn /> } },
-        {
-            title: "Actions",
-            render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },
-        },
-        {
-            title: "Actions",
-            render: ({ item }: any) => { return (<ButtonGroup buttonsGroupsData={ButtonGroupDataManage({ action1: () => showModalEdit(item), action2: () => removeItem(item) })} />); },
-        }]);
-
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);
         setShowModal(!showModal);
@@ -192,74 +163,20 @@ const Manage = () => {
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></Script>
             <div className="container">
                 <div className="row mt-5">
-                    <Card
-                        title="Entry"
-                        description=""
-                        icon={<i className="fas fa-dollar-sign"></i>}
-                        amount={currencyFormat(entry)}
-                        bgIcon="success"
-                    />
-                    <Card
-                        title="Pending"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(pending)}
-                        bgIcon="warning"
-                    />
-                    <Card
-                        title="Paid Out"
-                        description=""
-                        icon={<i className="fa fa-money"></i>}
-                        amount={currencyFormat(paidOut)}
-                        bgIcon="info"
-                    />
-                    <Card
-                        title="Fixed costs"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(fixedCosts)}
-                        bgIcon="dark"
-                    />
-                    <Card
-                        title="Personal"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(personal)}
-                        bgIcon="dark"
-                    />
-                    <Card
-                        title="Family"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(family)}
-                        bgIcon="dark"
-                    />
-                    <Card
-                        title="Voluntary"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(voluntary)}
-                        bgIcon="dark"
-                    />
-                    <Card
-                        title="Remaining"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(remaining)}
-                        bgIcon="dark"
-                    />
-                    <Card
-                        title="Wishes"
-                        description=""
-                        icon={<i className="fa fa-check"></i>}
-                        amount={currencyFormat(wishes)}
-                        bgIcon="dark"
-                    />
+                    {manageCardsData({ entry, debt, paidOut, fixedCosts, personal, family, voluntary, remaining, wishes, pending}).map((item: ManageCardsDataI, index: number) => (
+                        <Card
+                            title={item?.title}
+                            description={item?.description}
+                            icon={item?.icon}
+                            amount={currencyFormat(item?.amount)}
+                            bgIcon={item?.bgIcon}
+                        />
+                    ))}
                 </div>
                 <Box
                     title={<Tabs />}
                     rightSection={
-                        <>
+                        <React.Fragment>
                             <Button
                                 bgClass={"danger"}
                                 type={"button"}
@@ -276,11 +193,11 @@ const Manage = () => {
                             >
                                 Reset
                             </Button>
-                        </>
+                        </React.Fragment>
                     }
                 >
                     <div id="test">
-                        <Table headItems={headItems} bodyItems={manage} />
+                        <Table headItems={headersManageItems({ removeItem, showModalEdit })} bodyItems={manage} />
                     </div>
                 </Box>
             </div>

@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { BgColorIconTypeCard } from "../common/card/card.type";
+
 export interface ManageI {
     uuid?: string
     name: string;
@@ -8,4 +11,12 @@ export interface ManageI {
     category?: string;
     image?: string;
     active?: boolean;
+}
+
+export interface ManageCardsDataI {
+    title: string
+    description: string
+    icon: ReactNode,
+    amount: number,
+    bgIcon: BgColorIconTypeCard
 }
