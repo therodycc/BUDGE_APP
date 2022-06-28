@@ -4,7 +4,7 @@ import { CardPropsI } from '../../../interfaces/common/card/card.interface'
 const Card = ({ title, description, amount, icon, bgIcon }: CardPropsI) => {
     return (
         <>
-            <div className="col-lg-4 col-md-6 col-sm-6 mb-3">
+            <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
                 <div className="card  mb-2">
                     <div className="card-header p-3 pt-2">
                         <div className={`d-flex justify-content-center align-items-center text-white icon icon-lg icon-shape bg-gradient-${bgIcon} shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute`}>

@@ -56,8 +56,8 @@ const Leading = () => {
 
     const getTotalCompleted = () => {
         return leading?.reduce((acc, item) => {
-            if (item.status === 'Completed') acc += item.expense
-            if (item.status === 'In progress') acc += item.paidOut
+            if (item.status === 'COMPLETED') acc += item.expense
+            if (item.status === 'IN_PROGRESS') acc += item.paidOut
 
             return acc
         }, 0);

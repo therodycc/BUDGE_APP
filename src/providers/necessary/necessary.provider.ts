@@ -1,5 +1,6 @@
 import config from "../../config"
 import { NecessaryI } from "../../interfaces/necessary/necessary.interface"
+import { TypeTable } from "../../interfaces/utility/utilily.type"
 import Provider from "../provider"
 
 class NecessaryProvider extends Provider {

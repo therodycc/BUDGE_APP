@@ -9,6 +9,7 @@ export type CategoryType =
     | "debt"
     | "wishes";
 
+export type TypeTable = "NECESSARY" | "WISH" | "VOLUNTEER_THING" | "FIXED_COST" | "DEBT"
 export type StatusType = "IN_PROGRESS" | "COMPLETED" | "PENDING";
 
 export type UrgencyType = "IMMEDIATE" | "EARLY" | "WHENEVER";

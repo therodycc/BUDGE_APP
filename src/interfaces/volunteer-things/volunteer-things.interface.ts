@@ -11,6 +11,7 @@ export interface VolunteerThingsI {
     image?: string;
     active?: boolean;
     to?: string
+    inMonth?: boolean
 }
 export interface headItemsVolunteerThingsI {
     addToThisMonth: Function

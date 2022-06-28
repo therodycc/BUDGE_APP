@@ -1,55 +1,20 @@
 import { v4 as gxUUID } from 'uuid';
 import { TablePropsI } from '../../../interfaces/common/table/table.interface';
-import LoadingPoints from '../loading/loading-points';
 import NoDataTable from '../no-data/table-empty';
+import LoadingTable from './loading-table';
+import TBody from './t-body';
+import THead from './t-head';
 
 const Table = ({ headItems, bodyItems }: TablePropsI) => {
     return (
         <>
             <table className="table align-items-center mb-0">
                 <thead>
-                    <tr>
-                        {
-                            headItems && headItems?.map((head, index) => (
-                                <>
-                                    {
-
-                                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" key={gxUUID()}>
-                                            {head?.headRender ? head.headRender : head?.title}
-                                        </th>
-                                    }
-                                </>
-                            ))
-                        }
-                    </tr>
+                    <THead headItems={headItems} />
                 </thead>
                 <tbody>
-                    {bodyItems?.map((item: any, index: number) => (
-                        <tr key={gxUUID()} >
-                            {
-                                headItems.map((head, index) => (
-                                    <td key={gxUUID() + item.key} className='p-3' >
-                                        {typeof head?.render === "function" && !head?.key && (<head.render item={item} index={index} />)}
-                                        {head?.key && (
-                                            <p className="text-sm font-weight-normal mb-0">{item[head?.key]}</p>
-                                        )}
-
-                                    </td>
-                                ))
-                            }
-                        </tr>
-                    ))
-                    }
-                    {!bodyItems &&
-                        <tr>
-                            <td colSpan={12}
-                                className="position-relative"
-                                style={{ height: '200px', }}
-                            >
-                                <LoadingPoints />
-                            </td>
-                        </tr>
-                    }
+                    <TBody headItems={headItems} bodyItems={bodyItems} />
+                    {!bodyItems && <LoadingTable />}
                     {bodyItems?.length === 0 && (<NoDataTable />)}
                 </tbody>
             </table>

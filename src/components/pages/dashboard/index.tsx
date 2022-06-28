@@ -104,8 +104,8 @@ const Dashboard = () => {
         voluntaryProvider.getAll()
             .then(({ data }) => {
                 const totalMissing = data.reduce((acc: number, item: any) => {
-                    if (item.status === 'Pending') acc += item.expense
-                    if (item.status === 'In progress') acc += (item.expense - item.paidOut)
+                    if (item.status === 'PENDING') acc += item.expense
+                    if (item.status === 'IN_PROGRESS') acc += (item.expense - item.paidOut)
                     return acc
                 }, 0);
                 const total = data.reduce((acc: number, item: any) => {
@@ -123,8 +123,8 @@ const Dashboard = () => {
         necessaryProvider.getAll()
             .then(({ data }) => {
                 const totalMissing = data.reduce((acc: number, item: any) => {
-                    if (item.status === 'Pending') acc += item.expense
-                    if (item.status === 'In progress') acc += (item.expense - item.paidOut)
+                    if (item.status === 'PENDING') acc += item.expense
+                    if (item.status === 'IN_PROGRESS') acc += (item.expense - item.paidOut)
                     return acc
                 }, 0);
                 const total = data.reduce((acc: number, item: any) => {

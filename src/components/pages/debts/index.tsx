@@ -4,7 +4,7 @@ import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
-import utilitiesProvider from '../../../providers/utilities/utilities.provider';
+import manageProvider from '../../../providers/utilities/utilities.provider';
 import { getDebtsAction, removeDebtsAction } from '../../../redux/actions/debts.action';
 import { headTableDebts } from '../../../settings/debts/headers-debts';
 import Box from '../../common/box';
@@ -25,17 +25,7 @@ const Debts = () => {
 
     useEffect(() => {
         dispatch(getDebtsAction())
-    }, []);
-
-    useEffect(() => {
-        setTotalDebts(getTotalDebts());
-        setTotalCompleted(getTotalCompleted());
-    }, [debts]);
-
-    useEffect(() => {
-        setTotalMissing(getTotalMissing());
-    }, [totalCompleted, totalMissing]);
-
+    }, [dispatch, getDebtsAction]);
 
 
     const getTotalDebts = () => {
@@ -57,16 +47,22 @@ const Debts = () => {
         return totalDebts - totalCompleted;
     };
 
+    useEffect(() => {
+        setTotalDebts(getTotalDebts());
+        setTotalCompleted(getTotalCompleted());
+    }, [debts, getTotalDebts, getTotalCompleted]);
+
     const addToThisMonth = (item: UtilityI) => {
-        debtProvider.update(item.id, { status: 'IN_PROGRESS' }) .then(res => { })
-            .catch(error => error)
-        utilitiesProvider
-            .postItem(item)
-            .then((res) => {
+        debtProvider.update(item.uuid, { status: 'IN_PROGRESS', inMonth: true })
+            .then(res => {
+                if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
-            .catch((error) => error);
     };
+
+    useEffect(() => {
+        setTotalMissing(getTotalMissing());
+    }, [totalCompleted, totalMissing, getTotalMissing]);
 
     const removeItem = async (item: UtilityI) => {
         dispatch(removeDebtsAction(item?.uuid))

@@ -1,8 +1,9 @@
 import config from "../../config"
 import { ManageI } from "../../interfaces/manage/manage.interface"
+import { TypeTable } from "../../interfaces/utility/utilily.type"
 import Provider from "../provider"
 
-class UtilitiesProvider extends Provider {
+class ManageProvider extends Provider {
     constructor() {
         super({ baseURL: `${config.app.url}/manage` })
     }
@@ -14,8 +15,8 @@ class UtilitiesProvider extends Provider {
         return await this.post('/', data)
     }
 
-    async update(id: string, data: any) {
-        return await this.patch(`/${id}`, data)
+    async updateAction(id: string, type: TypeTable, data: any) {
+        return await this.patch(`/${id}?type=${type}`, data,)
     }
 
     async create(data: ManageI) {
@@ -25,6 +26,10 @@ class UtilitiesProvider extends Provider {
     async remove(uuid: string) {
         return await this.delete(`/${uuid}`)
     }
+
+    async deleteAllManage(uuidsManage: string[]) {
+        return await this.delete('/', { data: { uuidsManage } })
+    }
 }
-const utilitiesProvider = new UtilitiesProvider()
-export default utilitiesProvider
+const manageProvider = new ManageProvider()
+export default manageProvider

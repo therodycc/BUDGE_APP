@@ -20,6 +20,8 @@ export const ManageReducer = (state: any = initialState, action: any) => {
                 ...state,
                 manage: action.payload
             }
+        case ManageTypes.REMOVE_ALL_MANAGE:
+            return { manage: [] }
         default:
             return state
     }

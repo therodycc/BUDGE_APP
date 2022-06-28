@@ -1,32 +1,38 @@
 import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
 import { ManageI } from "../../interfaces/manage/manage.interface";
-import utilitiesProvider from "../../providers/utilities/utilities.provider";
+import { TypeTable } from "../../interfaces/utility/utilily.type";
+import manageProvider from "../../providers/utilities/utilities.provider";
 import { ManageTypes } from "../types/manage.type";
 
 export const getManageAction = () => {
     return (dispatch: Function) => {
-        utilitiesProvider
+        manageProvider
             .getAll()
             .then((res) => {
+                let added: any = [];
+                res.data.forEach((item: any) => {
+                    item.forEach((element: any) => {
+                        added.push(element);
+                    });
+                });
                 dispatch({
                     type: ManageTypes.GET_ALL,
-                    payload: res?.data,
+                    payload: added,
                 });
             })
             .catch((err) => err);
     };
 };
 
-export const removeManageAction = (uuid: string) => {
+export const removeManageAction = (uuid: string, type: TypeTable) => {
     return async (dispatch: Function, getStore: Function) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
-        utilitiesProvider
-            .remove(uuid)
+        manageProvider
+            .updateAction(uuid, type, { inMonth: false })
             .then((res) => {
-                if (res.error)
-                    return sweetAlert.alert("Error", res?.error?.message, "error");
-                sweetAlert.alert("Success", "Deleted!", "success");
+                if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+                sweetAlert.alert("Success", "Removed of this month!", "success");
                 dispatch({
                     type: ManageTypes.REMOVE_ITEM,
                     payload: getStore().manage.manage.filter(
@@ -38,10 +44,10 @@ export const removeManageAction = (uuid: string) => {
     };
 };
 
-export const updateManageAction = (uuid: string, data: ManageI) => {
+export const updateManageAction = (uuid: string, type: TypeTable, data: ManageI) => {
     return async (dispatch: Function, getStore: Function) => {
-        utilitiesProvider
-            .update(uuid, data)
+        manageProvider
+            .updateAction(uuid, type, data)
             .then((res) => {
                 if (res.error)
                     return sweetAlert.alert("Error", res?.error?.message, "error");
@@ -60,3 +66,8 @@ export const updateManageAction = (uuid: string, data: ManageI) => {
             .catch((error) => error);
     };
 };
+
+
+export const removeAllManageAction = () => ({
+    type: ManageTypes.REMOVE_ALL_MANAGE,
+})

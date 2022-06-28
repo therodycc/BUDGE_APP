@@ -21,7 +21,6 @@ export const headersReports = () => [
                             className={`btn btn-${item.status === "In progress" ? "warning" : "light"
                                 } btn-sm`}
                         >
-                            {" "}
                             <i className="fas fa-spinner"></i>
                         </button>
                         <Link href={`/reports/${item?.uuid}`}>

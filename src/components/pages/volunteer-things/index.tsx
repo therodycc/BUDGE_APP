@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { VolunteerThingsI } from '../../../interfaces/volunteer-things/volunteer-things.interface';
-import utilitiesProvider from '../../../providers/utilities/utilities.provider';
 import volunteerThingsProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import { getVolunteerThingsAction, removeVolunteerThingsAction } from '../../../redux/actions/volunteer-things.action';
 import { headersVolunteerThings } from '../../../settings/volunteer-things/headers-table.settings';
@@ -24,8 +23,8 @@ const VolunteerThings = () => {
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setTotalVolunteerThings(getTotalVolunteerThings());
@@ -61,16 +60,9 @@ const VolunteerThings = () => {
     };
 
     const addToThisMonth = (item: VolunteerThingsI) => {
-        volunteerThingsProvider.update(item.uuid || "", {
-            status: "In progress",
-        })
-            .then((data) => {
-            })
-            .catch((error) => error);
-
-        utilitiesProvider
-            .postItem(item)
-            .then((data) => {
+        volunteerThingsProvider.update(item.uuid || "", { status: "IN_PROGRESS", inMonth: true })
+            .then((res) => {
+                if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
             .catch((error) => error);

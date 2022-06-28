@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { NecessaryI } from '../../../interfaces/necessary/necessary.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
-import utilitiesProvider from '../../../providers/utilities/utilities.provider';
 import { getNecessaryAction, removeNecessaryAction } from '../../../redux/actions/necessary.action';
 import { headersModalNecessary } from '../../../settings/necessary/headers-necessary';
 import Box from '../../common/box';
@@ -40,18 +39,11 @@ const Necessary = () => {
 
 
     const addToThisMonth = (item: UtilityI) => {
+        console.log({ item });
         necessaryProvider
-            .update(item.id, {
-                status: "In progress",
-            })
-            .then((data) => {
-            })
-            .catch((error) => error);
-
-        utilitiesProvider
-            .postItem(item)
+            .update(item.uuid, { status: "IN_PROGRESS", inMonth: true })
             .then((res) => {
-                if (res.error) return sweetAlert.alert("Error", res.error.message, "error");
+                if (res.error) return sweetAlert.toast("Error", res.error.message, "error");
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
             .catch((error) => error);

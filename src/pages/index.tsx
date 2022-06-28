@@ -6,7 +6,6 @@ const Home = () => {
   return (<Dashboard />)
 }
 
-
 Home.getLayout = (page: ReactElement) => (
   <Layout>
     {page}

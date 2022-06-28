@@ -86,8 +86,7 @@ export const disabledItemAction = (item: FixedCostsI) => {
             })
             .then((res) => {
                 if (res.error)
-                    return sweetAlert.toast("Error", res?.error?.message, "error");
-                sweetAlert.toast("Success", "Changed!", "success");
+                    return
                 dispatch({
                     type: fixedCostsTypes.DISABLE_ITEM,
                     payload: getStore().fixedCosts.fixedCosts.map((fc: any) => {

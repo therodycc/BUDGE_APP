@@ -3,7 +3,7 @@ import { BgColorIconTypeCard } from "../common/card/card.type";
 
 export interface ManageI {
     uuid?: string
-    name: string;
+    name?: string;
     urgency?: string;
     paidOut?: number;
     expense: number;
@@ -11,6 +11,7 @@ export interface ManageI {
     category?: string;
     image?: string;
     active?: boolean;
+    type?: any
 }
 
 export interface ManageCardsDataI {

@@ -7,14 +7,16 @@ import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
 import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
-import { getManageAction, removeManageAction } from '../../../redux/actions/manage.action';
+import manageProvider from '../../../providers/utilities/utilities.provider';
+import { getManageAction, removeAllManageAction, removeManageAction } from '../../../redux/actions/manage.action';
 import { getProfitsAction } from '../../../redux/actions/profits.action';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import Card from '../../common/card';
+import CardAmountText from '../../common/card/card-amount-text';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
-import { manageCardsData } from './cards-settings/manage-card';
+import { manageCardsData, manageCategories } from './cards-settings/manage-card';
 import { headersManageItems } from './headers/manage-headers';
 import ModalManage from './modals';
 
@@ -133,13 +135,20 @@ const Manage = () => {
     };
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeManageAction(item?.uuid));
+        dispatch(removeManageAction(item?.uuid, item?.type?.name));
     };
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);
         setShowModal(!showModal);
     };
+
+    const resetTableData = async () => {
+        const result = await manageProvider.deleteAllManage(manage?.map((item: UtilityI) => item.uuid));
+        if (result.error) return sweetAlert.alert("Error", result?.error?.message, "error");
+        sweetAlert.toast("Success", 'All items was deleted', 'success');
+        dispatch(removeAllManageAction());
+    }
 
     const handleExportData = async () => {
         const confirm = await sweetAlert.question('Do you want to export data?', 'warning', '');
@@ -163,15 +172,27 @@ const Manage = () => {
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></Script>
             <div className="container">
                 <div className="row mt-5">
-                    {manageCardsData({ entry, debt, paidOut, fixedCosts, personal, family, voluntary, remaining, wishes, pending}).map((item: ManageCardsDataI, index: number) => (
-                        <Card
-                            title={item?.title}
-                            description={item?.description}
-                            icon={item?.icon}
-                            amount={currencyFormat(item?.amount)}
-                            bgIcon={item?.bgIcon}
-                        />
-                    ))}
+                    <div className="col-lg-8 row">
+                        {manageCardsData({ entry, paidOut, remaining, pending }).map((item: ManageCardsDataI, index: number) => (
+                            <Card
+                                title={item?.title}
+                                description={item?.description}
+                                icon={item?.icon}
+                                amount={currencyFormat(item?.amount)}
+                                bgIcon={item?.bgIcon}
+                            />
+                        ))}
+                    </div>
+                    <div className="col-lg-4">
+                        {
+                            manageCategories({ debt, fixedCosts, personal, family, voluntary, wishes }).map((item: ManageCardsDataI, index: number) => (
+                                <CardAmountText
+                                    title={item?.title}
+                                    description={currencyFormat(item.amount)}
+                                />
+                            ))
+                        }
+                    </div>
                 </div>
                 <Box
                     title={<Tabs />}
@@ -186,7 +207,7 @@ const Manage = () => {
                                 Export
                             </Button>
                             <Button
-                                action={() => { }}
+                                action={resetTableData}
                                 bgClass={"info"}
                                 type={"button"}
                                 loading={false}
@@ -205,7 +226,12 @@ const Manage = () => {
                 <ModalManage
                     active={false}
                     toggle={() => setShowModal(false)}
-                    data={dataModalUtility} />
+                    data={{
+                        type: dataModalUtility.type.name,
+                        expense: dataModalUtility?.expense,
+                        uuid: dataModalUtility?.uuid
+                    }}
+                />
             )}
         </>
     );

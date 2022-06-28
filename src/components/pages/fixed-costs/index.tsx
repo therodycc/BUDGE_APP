@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
-import utilitiesProvider from '../../../providers/utilities/utilities.provider';
+import manageProvider from '../../../providers/utilities/utilities.provider';
 import { disabledItemAction, getFixedCostsAction, removeFixedCostsAction } from '../../../redux/actions/fixed-costs.action';
 import { headItemsFixedCosts } from '../../../settings/fixed-costs/header-fixed-costs';
 import Box from '../../common/box';
@@ -65,17 +66,22 @@ const FixedCosts = () => {
 
     const addToThisMonth = (item: UtilityI) => {
         fixedCostsProvider
-            .update(item?.uuid, {
-                status: "IN_PROGRESS",
+            .update(item?.uuid, { status: "IN_PROGRESS", inMonth: true })
+            .then((res) => {
+                if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
+                sweetAlert.alert("Done!", "Added to this month", "success");
             })
-            .then((data) => {
-            })
-            .catch((error) => error);
-        utilitiesProvider
-            .postItem(item)
-            .then((data) => data)
             .catch((error) => error);
     };
+
+    const addToMonth = () => {
+        Promise.all(fixedCosts?.filter((item: UtilityI) => item.active).map(async (item: UtilityI) => {
+            return await manageProvider.postItem(item)
+        }))
+            .then((data) => {
+                sweetAlert.alert("Success", "Fixed costs added to this month", "success");
+            })
+    }
 
     const removeItem = async (item: UtilityI) => {
         dispatch(removeFixedCostsAction(item?.uuid))
@@ -127,7 +133,7 @@ const FixedCosts = () => {
                             Add new
                         </Button>
                         <Button
-                            action={() => { }}
+                            action={addToMonth}
                             bgClass={"danger"}
                             type={"button"}
                             loading={showLoadingAddToMoth}

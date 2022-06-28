@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
 import { currencyFormat } from '../../../helpers/currency.helper'
 import { gxUUID } from '../../../helpers/uuid-generator.helper'
 import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
-import utilitiesProvider from '../../../providers/utilities/utilities.provider'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
 import { getWishesAction, removeWishesAction } from '../../../redux/actions/wishes.action'
 import Button from '../../common/button'
@@ -55,17 +54,12 @@ const Wishes = () => {
     }
 
     const addToThisMonth = (item: WishesI) => {
-        wishesProvider.update(item?.uuid || '', {
-            status: 'IN_PROGRESS'
-        })
-            .then(data => {
-            })
-            .catch(error => error)
-        utilitiesProvider.postItem(item)
-            .then((data) => {
+        wishesProvider.update(item?.uuid || "", { status: 'IN_PROGRESS', inMonth: true })
+            .then((res) => {
+                if (res.error) return sweetAlert.toast("Error", res.error.message, "error");
                 sweetAlert.alert("Done!", "Added to this month", "success");
             })
-            .catch((error) => error);
+            .catch(error => error)
     };
 
     const removeItem = async (item: WishesI) => {
