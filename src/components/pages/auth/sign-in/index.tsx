@@ -15,10 +15,9 @@ const SignIn = () => {
     const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
 
     const handleSubmit = async (form: any) => {
-        
         setLoadingAuth(true);
         const res = await authProvider.signIn(form);
-        if (res.error) return [sweetAlert.toast("Error", res?.error?.message, "error"), setLoadingAuth(false),];
+        if (res?.error) return [sweetAlert.toast("Error", res?.error?.message, "error"), setLoadingAuth(false),];
         router.push("/");
         dispatch(login({ auth: true }));
         setLoadingAuth(false);

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { gxUUID } from "../../../helpers/uuid-generator.helper";
+import React, { FC, useState } from "react";
 import { TabsItemI } from "../../../interfaces/common/tabs/tab.interface";
-import { tabsSettings } from "../../../settings/manage/tabs.settings";
 import MovingTab from "./moving-tab";
 import TabItem from "./tab-item";
+interface TabsPropsI {
+    tabsSettings: TabsItemI[];
+    setActiveTab: (tab: number) => void;
+    activeTab: number;
+}
 
-const Tabs = () => {
-
+const Tabs: FC<TabsPropsI> = ({ tabsSettings, setActiveTab, activeTab }) => {
     const [tabs, setTabs] = useState<TabsItemI[]>(tabsSettings);
-    const [activeTab, setActiveTab] = useState<number>(0);
 
     const handleTabClick = (index: number) => {
         setActiveTab(index)

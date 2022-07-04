@@ -39,14 +39,14 @@ const ProfitsList = () => {
                 </div>
             </div>
             {profits &&
-                profits?.map((item: any) => (
+                profits?.map((item: any, index: number) => (
                     <CardWidget
                         handleDelete={removeProfit}
                         handleUpdate={() => {
                             setShowModal(true)
                             setDataProfitsSelected(item)
                         }}
-                        key={`card-widget-${item.id}`}
+                        key={`card-widget-${index}`}
                         title={item?.type}
                         description={currencyFormat(item?.amount)}
                         toggleEnabled={() => disabledItem(item)}

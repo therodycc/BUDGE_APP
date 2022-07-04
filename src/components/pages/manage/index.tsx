@@ -1,15 +1,17 @@
 import Script from 'next/script';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
+import { getFilterByStatus } from '../../../helpers/status.helper';
 import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import manageProvider from '../../../providers/utilities/utilities.provider';
 import { getManageAction, removeAllManageAction, removeManageAction } from '../../../redux/actions/manage.action';
 import { getProfitsAction } from '../../../redux/actions/profits.action';
+import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import Card from '../../common/card';
@@ -24,6 +26,7 @@ const Manage = () => {
     // store
     const { manage: { manage }, profits: { profits } } = useSelector((state: any) => state);
     const dispatch = useDispatch();
+    const [tab, setTab] = useState<number>(0);
 
     const [entry, setEntry] = useState(0);
     const [pending, setPending] = useState(0);
@@ -43,6 +46,9 @@ const Manage = () => {
         dispatch(getManageAction());
     }, []);
 
+    useMemo(() => {
+
+    }, [tab])
 
     useEffect(() => {
         setPending(getPending());
@@ -144,10 +150,12 @@ const Manage = () => {
     };
 
     const resetTableData = async () => {
-        const result = await manageProvider.deleteAllManage(manage?.map((item: UtilityI) => item.uuid));
-        if (result.error) return sweetAlert.alert("Error", result?.error?.message, "error");
-        sweetAlert.toast("Success", 'All items was deleted', 'success');
-        dispatch(removeAllManageAction());
+        Promise.all(manage?.map((item: any) => manageProvider.updateAction(item.uuid, item.type.name, { inMonth: false })))
+            .then((res: any) => {
+                if (res?.error) return sweetAlert.toast("Error", res?.error?.message, "error");
+                sweetAlert.toast("Success", 'All items was removed from this month', 'success');
+                dispatch(removeAllManageAction());
+            })
     }
 
     const handleExportData = async () => {
@@ -164,8 +172,8 @@ const Manage = () => {
             })
         });
         const data = await result.json();
-        if (!data) return
-        sweetAlert.toast(data.message, '', 'success');
+        if (!data) return sweetAlert.alert("Error", "Something went wrong", "error");
+        sweetAlert.toast(data?.message, '', 'success');
     }
     return (
         <>
@@ -175,6 +183,7 @@ const Manage = () => {
                     <div className="col-lg-8 row">
                         {manageCardsData({ entry, paidOut, remaining, pending }).map((item: ManageCardsDataI, index: number) => (
                             <Card
+                                key={`manage-card-${index}`}
                                 title={item?.title}
                                 description={item?.description}
                                 icon={item?.icon}
@@ -187,6 +196,7 @@ const Manage = () => {
                         {
                             manageCategories({ debt, fixedCosts, personal, family, voluntary, wishes }).map((item: ManageCardsDataI, index: number) => (
                                 <CardAmountText
+                                    key={`manage-card-${index}`}
                                     title={item?.title}
                                     description={currencyFormat(item.amount)}
                                 />
@@ -195,7 +205,14 @@ const Manage = () => {
                     </div>
                 </div>
                 <Box
-                    title={<Tabs />}
+                    customClassLeftSection='col-lg-8'
+                    customClassRightSection='col-lg-4'
+                    leftSection={
+                        <Tabs
+                            tabsSettings={tabsSettings}
+                            setActiveTab={setTab}
+                            activeTab={tab}
+                        />}
                     rightSection={
                         <React.Fragment>
                             <Button
@@ -218,7 +235,10 @@ const Manage = () => {
                     }
                 >
                     <div id="test">
-                        <Table headItems={headersManageItems({ removeItem, showModalEdit })} bodyItems={manage} />
+                        <Table
+                            headItems={headersManageItems({ removeItem, showModalEdit })}
+                            bodyItems={manage?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                        />
                     </div>
                 </Box>
             </div>
@@ -227,7 +247,7 @@ const Manage = () => {
                     active={false}
                     toggle={() => setShowModal(false)}
                     data={{
-                        type: dataModalUtility.type.name,
+                        type: dataModalUtility?.type?.name,
                         expense: dataModalUtility?.expense,
                         uuid: dataModalUtility?.uuid
                     }}

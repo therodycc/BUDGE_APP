@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
+import { getFilterByStatus } from '../../../helpers/status.helper';
 import { NecessaryI } from '../../../interfaces/necessary/necessary.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
 import { getNecessaryAction, removeNecessaryAction } from '../../../redux/actions/necessary.action';
+import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersModalNecessary } from '../../../settings/necessary/headers-necessary';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
+import Tabs from '../../common/tabs';
 import ModalNecessary from './modals';
 
 const Necessary = () => {
@@ -23,6 +26,7 @@ const Necessary = () => {
     const [dataModalUtility, setDataModalUtility] = useState<NecessaryI | null>(
         null
     );
+    const [tab, setTab] = useState(0);
 
     useEffect(() => {
         dispatch(getNecessaryAction());
@@ -102,7 +106,13 @@ const Necessary = () => {
                     </div>
                 </div>
                 <Box
-                    title="Necessary"
+                    leftSection={
+                        <Tabs
+                            tabsSettings={tabsSettings}
+                            setActiveTab={setTab}
+                            activeTab={tab}
+                        />
+                    }
                     rightSection={
                         <>
                             <div className="">
@@ -121,7 +131,9 @@ const Necessary = () => {
                         </>
                     }
                 >
-                    <Table headItems={headersModalNecessary({ addToThisMonth, removeItem, showModalEdit })} bodyItems={necessary} />
+                    <Table
+                        headItems={headersModalNecessary({ addToThisMonth, removeItem, showModalEdit })}
+                        bodyItems={necessary?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))} />
                 </Box>
             </div>
 

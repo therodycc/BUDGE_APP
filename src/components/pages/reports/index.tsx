@@ -14,7 +14,7 @@ const Reports = () => {
 
     return (
         <>
-            <Box title="Reports">
+            <Box leftSection="Reports">
                 <Table headItems={headersReports()} bodyItems={data} />
             </Box>
         </>

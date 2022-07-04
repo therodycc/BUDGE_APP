@@ -15,7 +15,6 @@ const ModalFixedCosts = ({ active, setToggle: toggle, data }: ModalFixedCostsPro
         data?.uuid
             ? dispatch(updateFixedCostsAction(data.uuid, form))
             : dispatch(addFixedCostAction(form));
-
         toggle();
     };
 

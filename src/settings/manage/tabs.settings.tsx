@@ -1,11 +1,11 @@
-import { TabsItemI } from "../../interfaces/common/tabs/tab.interface"
+import { faClipboardCheck, faPersonDigging } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPersonDigging, faPray } from "@fortawesome/free-solid-svg-icons";
+import { TabsItemI } from "../../interfaces/common/tabs/tab.interface";
 
 export const tabsSettings: TabsItemI[] = [
     {
         title: "All",
-        active: false,
+        active: true,
         icon: <FontAwesomeIcon icon={faPersonDigging} />,
         action: () => { }
     },
@@ -16,9 +16,15 @@ export const tabsSettings: TabsItemI[] = [
         action: () => { }
     },
     {
+        title: "In progress",
+        active: false,
+        icon: <FontAwesomeIcon icon={faPersonDigging} />,
+        action: () => { }
+    },
+    {
         title: "Paid",
-        active: true,
-        icon: <FontAwesomeIcon icon={faPray} />,
+        active: false,
+        icon: <FontAwesomeIcon icon={faClipboardCheck} />,
         action: () => { }
     }
 ]

@@ -89,7 +89,7 @@ const Leading = () => {
                         <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
                     </div >
                 </div >
-                <Box title="Leading">
+                <Box leftSection="Leading">
                     <Table
                         headItems={headersLeading({ removeItem, showModalEdit })}
                         bodyItems={leading} />

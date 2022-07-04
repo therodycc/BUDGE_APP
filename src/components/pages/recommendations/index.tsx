@@ -15,14 +15,14 @@ const Recommendations = () => {
                 <div className="col-lg-8">
                     <div className="row">
                         {
-                            [1, 2].map(item => (
-                                <>
+                            [1, 2].map((item, index) => (
+                                <React.Fragment key={`recommendations-item-${index}`}>
                                     <div
                                         key={gxUUID()}
                                         className="mb-2">
                                         < CommentItem />
                                     </div>
-                                </>
+                                </React.Fragment>
                             ))
                         }
                     </div>

@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
 import { BoxPropsI } from '../../../interfaces/common/box/box.interface'
 
-const Box: FC<BoxPropsI> = ({ children, title, rightSection }) => {
+const Box: FC<BoxPropsI> = ({ children, leftSection, rightSection, customClassLeftSection, customClassRightSection }) => {
     return (
         <>
             <div className="col-md-12">
                 <div className="card mb-4">
                     <div className="card-header pb-0 ">
                         <div className="row">
-                            <div className="col-lg-6 d-flex justify-content-start align-items-center">
-                                {title}
+                            <div className={`${customClassLeftSection || "col-lg-6"} d-flex justify-content-start align-items-center`}>
+                                {leftSection}
                             </div>
-                            <div className="col-lg-6 d-flex justify-content-end ">
+                            <div className={`${customClassRightSection || "col-lg-6"} d-flex justify-content-end `}>
                                 {rightSection}
                             </div>
                         </div>

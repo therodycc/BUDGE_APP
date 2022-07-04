@@ -2,14 +2,17 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
 import { currencyFormat } from '../../../helpers/currency.helper'
+import { getFilterByStatus } from '../../../helpers/status.helper'
 import { gxUUID } from '../../../helpers/uuid-generator.helper'
 import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
 import { getWishesAction, removeWishesAction } from '../../../redux/actions/wishes.action'
+import { tabsSettings } from '../../../settings/manage/tabs.settings'
 import Button from '../../common/button'
 import CardImg from '../../common/card/CardImg'
 import CardMini from '../../common/card/CardMini'
+import Tabs from '../../common/tabs'
 import TrafficLights from '../../common/traffic-lights'
 import CustomBtnGroups from '../../custom/btn-actions-groups'
 import ModalWishes from './modals'
@@ -22,6 +25,7 @@ const Wishes = () => {
     const [totalMissing, setTotalMissing] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<WishesI | null>(null);
+    const [tab, setTab] = useState<number>(0);
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -65,6 +69,7 @@ const Wishes = () => {
     const removeItem = async (item: WishesI) => {
         dispatch(removeWishesAction(item.uuid || ''))
     };
+
     const showModalEdit = (item: WishesI) => {
         setDataModalUtility(item)
         setShowModal(!showModal)
@@ -84,20 +89,29 @@ const Wishes = () => {
                 </div >
             </div >
 
-            <div className="mt-5 bg-white mx-2 p-2 border-radius-lg shadow">
-                <Button
-                    bgClass={'success'}
-                    type={'button'}
-                    loading={false}
-                    action={() => { setShowModal(true); setDataModalUtility(null) }}
-                >
-                    Add new
-                </Button>
+            <div className="row justify-content-between align-items-center mt-5 bg-white mx-2 p-2 border-radius-lg shadow">
+                <div className="col-lg-8">
+                    <Tabs
+                        tabsSettings={tabsSettings}
+                        setActiveTab={setTab}
+                        activeTab={tab}
+                    />
+                </div>
+                <div className="col-lg-4 row mt-3">
+                    <Button
+                        bgClass={'success'}
+                        type={'button'}
+                        loading={false}
+                        action={() => { setShowModal(true); setDataModalUtility(null) }}
+                    >
+                        Add new
+                    </Button>
+                </div>
             </div>
 
             <div className="flex-wrap mb-5 d-flex justify-content-between">
                 {
-                    wishes?.map((item: any, i: number) => (
+                    wishes?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))?.map((item: any, i: number) => (
                         <div
                             className="col-xl-4 col-sm-6 mb-xl-0"
                             key={gxUUID()}

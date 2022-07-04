@@ -19,7 +19,7 @@ const CardAmountText: FC<CardAmountTextPropsI> = ({ title, description }) => {
                 }}>
                     <path
                         fill="#0099ff"
-                        fill-opacity="1"
+                        fillOpacity="1"
                         d="M0,32L60,64C120,96,240,160,360,165.3C480,171,600,117,720,101.3C840,85,960,107,1080,144C1200,181,1320,235,1380,261.3L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
                     ></path>
                 </svg>
@@ -28,7 +28,7 @@ const CardAmountText: FC<CardAmountTextPropsI> = ({ title, description }) => {
                         className="me-2 shadow-lg rounded-3"
                         icon={faTeeth}
                     />
-                    <span className="text-dark" style={{fontSize:"16px"}}>{title}</span>
+                    <span className="text-dark" style={{ fontSize: "16px" }}>{title}</span>
                 </div>
                 <span className=" text-end col-4 d-flex align-items-center justify-content-end">
                     {description}

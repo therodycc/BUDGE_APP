@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
+import { getFilterByStatus } from '../../../helpers/status.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
-import manageProvider from '../../../providers/utilities/utilities.provider';
 import { disabledItemAction, getFixedCostsAction, removeFixedCostsAction } from '../../../redux/actions/fixed-costs.action';
 import { headItemsFixedCosts } from '../../../settings/fixed-costs/header-fixed-costs';
+import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
+import Tabs from '../../common/tabs';
 import ModalFixedCosts from './modals';
 
 const FixedCosts = () => {
@@ -21,6 +23,7 @@ const FixedCosts = () => {
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
+    const [tab, setTab] = useState<number>(0);
 
     // shows
     const [showModal, setShowModal] = useState(false);
@@ -75,10 +78,13 @@ const FixedCosts = () => {
     };
 
     const addToMonth = () => {
-        Promise.all(fixedCosts?.filter((item: UtilityI) => item.active).map(async (item: UtilityI) => {
-            return await manageProvider.postItem(item)
-        }))
-            .then((data) => {
+        Promise.all(
+            fixedCosts?.filter((item: UtilityI) => item.active)
+                .map(async (item: UtilityI) => {
+                    return await fixedCostsProvider.update(item.uuid, { inMonth: true, status: "IN_PROGRESS" });
+                }))
+            .then((data: any) => {
+                if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");
                 sweetAlert.alert("Success", "Fixed costs added to this month", "success");
             })
     }
@@ -99,7 +105,6 @@ const FixedCosts = () => {
     return (
         <>
             <div className="container">
-                {/* <FormBudget></FormBudget> */}
                 <div className="row mb-5">
                     <div className="col-sm-4">
                         <CardMini amount={currencyFormat(total)} title="Fixed costs" />
@@ -118,7 +123,15 @@ const FixedCosts = () => {
                     </div>
                 </div>
                 <Box
-                    title="Fixed costs"
+                    customClassLeftSection='col-lg-8'
+                    customClassRightSection='col-lg-4'
+                    leftSection={
+                        <Tabs
+                            tabsSettings={tabsSettings}
+                            setActiveTab={setTab}
+                            activeTab={tab}
+                        />
+                    }
                     rightSection={<div className="d-flex align-center-center">
                         <Button
                             action={() => {
@@ -143,12 +156,13 @@ const FixedCosts = () => {
                         </Button>
                     </div>}
                 >
-                    <Table headItems={headItemsFixedCosts({ addToThisMonth, disabledItem, removeItem, showModalEdit })} bodyItems={fixedCosts} />
+                    <Table
+                        headItems={headItemsFixedCosts({ addToThisMonth, disabledItem, removeItem, showModalEdit })}
+                        bodyItems={fixedCosts?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                    />
                 </Box>
             </div>
 
-
-            {/* modals */}
             {showModal &&
                 <ModalFixedCosts
                     active={showModal}

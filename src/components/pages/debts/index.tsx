@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
+import { getFilterByStatus } from '../../../helpers/status.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
-import manageProvider from '../../../providers/utilities/utilities.provider';
 import { getDebtsAction, removeDebtsAction } from '../../../redux/actions/debts.action';
 import { headTableDebts } from '../../../settings/debts/headers-debts';
+import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
+import Tabs from '../../common/tabs';
 import ModalDebts from './modals';
 
 const Debts = () => {
@@ -19,6 +21,7 @@ const Debts = () => {
     const [totalMissing, setTotalMissing] = useState(0);
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
+    const [tab, setTab] = useState<number>(0);
 
     const dispatch = useDispatch()
     const { debts: { debts } } = useSelector((state: any) => state)
@@ -94,7 +97,15 @@ const Debts = () => {
                     </div>
                 </div>
                 <Box
-                    title="Debt"
+                    customClassLeftSection='col-lg-8'
+                    customClassRightSection='col-lg-4'
+                    leftSection={
+                        <Tabs
+                            tabsSettings={tabsSettings}
+                            setActiveTab={setTab}
+                            activeTab={tab}
+                        />
+                    }
                     rightSection={
                         <>
                             <div className="">
@@ -113,7 +124,9 @@ const Debts = () => {
                         </>
                     }
                 >
-                    <Table headItems={headTableDebts({ addToThisMonth, removeItem, showModalEdit })} bodyItems={debts} />
+                    <Table
+                        headItems={headTableDebts({ addToThisMonth, removeItem, showModalEdit })}
+                        bodyItems={debts?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))} />
                 </Box>
             </div>
             {showModal && (

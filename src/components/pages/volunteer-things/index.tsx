@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
+import { getFilterByStatus } from '../../../helpers/status.helper';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { VolunteerThingsI } from '../../../interfaces/volunteer-things/volunteer-things.interface';
 import volunteerThingsProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import { getVolunteerThingsAction, removeVolunteerThingsAction } from '../../../redux/actions/volunteer-things.action';
+import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersVolunteerThings } from '../../../settings/volunteer-things/headers-table.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
+import Tabs from '../../common/tabs';
 import ModalVolunteerThings from './modals';
 
 const VolunteerThings = () => {
@@ -23,6 +26,7 @@ const VolunteerThings = () => {
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
+    const [tab, setTab] = useState<number>(0);
 
     const dispatch = useDispatch();
 
@@ -101,7 +105,15 @@ const VolunteerThings = () => {
                     </div>
                 </div>
                 <Box
-                    title="VolunteerThings"
+                    customClassLeftSection='col-lg-8'
+                    customClassRightSection='col-lg-4'
+                    leftSection={
+                        <Tabs
+                            tabsSettings={tabsSettings}
+                            setActiveTab={setTab}
+                            activeTab={tab}
+                        />
+                    }
                     rightSection={
                         <>
                             <div className="">
@@ -120,7 +132,10 @@ const VolunteerThings = () => {
                         </>
                     }
                 >
-                    <Table headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })} bodyItems={volunteerThings} />
+                    <Table
+                        headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })}
+                        bodyItems={volunteerThings?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                    />
                 </Box>
             </div>
 

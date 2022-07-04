@@ -8,6 +8,7 @@ export const getFixedCostsAction = () => {
         fixedCostsProvider
             .getAll()
             .then((res) => {
+                console.log(res.data)
                 dispatch({
                     type: fixedCostsTypes.GET_ALL,
                     payload: res?.data,

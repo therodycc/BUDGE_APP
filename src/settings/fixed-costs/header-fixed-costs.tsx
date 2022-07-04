@@ -8,7 +8,7 @@ import { StatusType } from "../../interfaces/utility/utilily.type";
 export const headItemsFixedCosts = ({ addToThisMonth, showModalEdit, removeItem, disabledItem }: headItemsFixedCostsI) => [
     {
         title: "Title",
-        render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
+        render: ({ item }: any) => { return (<DTProfileTable inMonth={item?.inMonth} name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
 
     },
     {

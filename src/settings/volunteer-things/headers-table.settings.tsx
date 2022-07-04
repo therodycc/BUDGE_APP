@@ -1,3 +1,6 @@
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 import DTProfileTable from "../../components/common/dt-profile-table";
 import TrafficLights from "../../components/common/traffic-lights";
 import CustomBtnGroups from "../../components/custom/btn-actions-groups";
@@ -8,7 +11,7 @@ import { headItemsVolunteerThingsI } from "../../interfaces/volunteer-things/vol
 export const headersVolunteerThings = ({ addToThisMonth, showModalEdit, removeItem }: headItemsVolunteerThingsI) => [
     {
         title: "Title",
-        render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
+        render: ({ item }: any) => { return (<DTProfileTable inMonth={item?.inMonth} name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
 
     },
     {

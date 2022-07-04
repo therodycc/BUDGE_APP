@@ -1,6 +1,8 @@
 import { ReactNode } from "react"
 
 export interface BoxPropsI {
-    title: ReactNode
+    leftSection: ReactNode
     rightSection?: ReactNode
+    customClassRightSection?: string
+    customClassLeftSection?: string
 }

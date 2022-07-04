@@ -1,3 +1,5 @@
+import { faCartArrowDown, faCartPlus, faHourglassEmpty } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { FC } from 'react'
 import { currencyFormat } from '../../../helpers/currency.helper'
 export interface DTProfileTablePropsI {
@@ -6,19 +8,28 @@ export interface DTProfileTablePropsI {
     expense: number
     paidOut: number
     category: string
+    inMonth?: boolean
 }
-const DTProfileTable: FC<DTProfileTablePropsI> = ({ category, expense, image, name, paidOut }) => {
+const DTProfileTable: FC<DTProfileTablePropsI> = ({ category, expense, image, name, paidOut, inMonth = false }) => {
     return (
         <div className="d-flex px-3 py-1">
             <div>
-                <img
-                    src={
-                        image ||
-                        "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg "
-                    }
-                    className="avatar me-3"
-                    alt="image"
-                />
+                <React.Fragment>
+                    {inMonth ? (<div
+                        className="me-3 animate__infinite  bg-success rounded-circle shadow-sm animate__animated animate__pulse d-flex align-items-center justify-content-center" style={{ width: "50px", height: "50px" }}>
+                        <FontAwesomeIcon
+                            className="text-white"
+                            icon={faCartArrowDown} style={{ fontSize: "20px" }} />
+                    </div>
+                    ) : (
+                        <div
+                            className="me-3  bg-white rounded-circle d-flex align-items-center justify-content-center" style={{ width: "50px", height: "50px" }}>
+                            <FontAwesomeIcon
+                                className="text-light"
+                                icon={faCartPlus} style={{ fontSize: "20px" }} />
+                        </div>
+                    )}
+                </React.Fragment>
             </div>
             <div className="d-flex flex-column justify-content-center">
                 <h6 className="mb-0 text-sm">{name}</h6>
