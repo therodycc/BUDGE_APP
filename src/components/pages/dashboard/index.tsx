@@ -7,6 +7,10 @@ import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provi
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
 import voluntaryProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import wishesProvider from '../../../providers/wishes/wishes.provider';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProfitsAction } from '../../../redux/actions/profits.action';
+import CardWidget from '../../common/card/CardWidget';
+import CardAmountText from '../../common/card/card-amount-text';
 
 const Dashboard = () => {
     const [utilities, setUtilities] = useState<Array<UtilityI>>([])
@@ -31,9 +35,12 @@ const Dashboard = () => {
         totalMissing: 0
     })
 
-    useEffect(() => {
 
-    }, [])
+    const { profits: { profits } } = useSelector((state: any) => state)
+    const dispatch = useDispatch()
+
+    useEffect(() => { dispatch(getProfitsAction()) }, []);
+
     useEffect(() => {
         getDebt()
         getFixedCosts()
@@ -139,6 +146,12 @@ const Dashboard = () => {
             .catch(error => error)
     }
 
+    const getProfits = () => {
+        return profits?.reduce((acc: number, item: any) => {
+            if (item?.active) acc += item.amount;
+            return acc;
+        }, 0);
+    };
 
     return <>
         <div className='row'>
@@ -172,6 +185,10 @@ const Dashboard = () => {
                 />
             </div>
             <div className="col-md-4">
+                <CardAmountText title={"Church Tithe - 10%"} description={(currencyFormat(getProfits() * 0.10)).toString()} />
+                <CardAmountText title={"Debts and Savings - 20%"} description={(currencyFormat(getProfits() * 0.20)).toString()} />
+                <CardAmountText title={"Wishes and more - 20%"} description={(currencyFormat(getProfits() * 0.20)).toString()} />
+                <CardAmountText title={"Fixed Costs - 50%"} description={(currencyFormat(getProfits() * 0.50)).toString()} />
             </div>
         </div>
     </>;

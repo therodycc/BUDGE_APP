@@ -24110,6 +24110,11 @@ hr.horizontal.gray-light {
   transition: all 0.2s ease-in-out;
 }
 
+
+.g-sidenav-show {
+  margin-left: 0 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .g-sidenav-show .sidenav .nav-item .collapse {
     transition: none;

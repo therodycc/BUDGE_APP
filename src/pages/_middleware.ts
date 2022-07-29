@@ -7,10 +7,11 @@ const verifyAuthToRedirect = (req: NextRequest, ev: NextFetchEvent) => {
             fetch(`${config.app.url}/users/me`, {
                 method: 'GET',
                 headers: {
-                    'Cookie': Object.keys(req.cookies).reduce((storage: string, key: string) => {
-                        storage += `${key}=${req.cookies[key]};`
-                        return storage;
-                    }, '')
+                    'Cookie': Object.keys(req.cookies)
+                        .reduce((storage: string, key: string) => {
+                            storage += `${key}=${req.cookies[key]};`
+                            return storage;
+                        }, '')
                 }
             })
                 .then(res => res.json())
@@ -23,9 +24,10 @@ const verifyAuthToRedirect = (req: NextRequest, ev: NextFetchEvent) => {
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
     let url = req.url;
     if (req.nextUrl.pathname.includes(".")) return NextResponse.next()
-    const isPathAuth = url.includes('/auth')
 
+    const isPathAuth = url.includes('/auth')
     let account = await verifyAuthToRedirect(req, ev);
+
     if (account && isPathAuth) return NextResponse.redirect(new URL('/', req.url))
     if (!account && !isPathAuth) return NextResponse.redirect(new URL('/auth/sign-in', req.url))
 

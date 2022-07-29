@@ -415,6 +415,474 @@
         }
       ],
       "id": 2
+    },
+    {
+      "15/7/2022": [
+        {
+          "uuid": "a353ee1d-baa0-4a8e-90dc-cb0375c98ef7",
+          "createAt": "2022-06-30T17:25:15.059Z",
+          "updatedAt": "2022-07-02T01:58:27.058Z",
+          "name": "Camisa para Graduacion",
+          "urgency": "WHENEVER",
+          "paidOut": 1295,
+          "expense": 1295,
+          "status": "COMPLETED",
+          "category": "",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "34e79af6-d8b4-460f-85bb-97fd9376543e",
+          "createAt": "2022-07-02T02:02:32.864Z",
+          "updatedAt": "2022-07-02T02:02:59.455Z",
+          "name": "Programas asignaturas",
+          "urgency": "WHENEVER",
+          "paidOut": 2200,
+          "expense": 2200,
+          "status": "COMPLETED",
+          "category": "university",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "f5717eda-b1aa-49b6-8e67-a0fcb0065400",
+          "createAt": "2022-06-30T17:25:31.306Z",
+          "updatedAt": "2022-07-02T01:58:43.386Z",
+          "name": "Pantalon para graduacion",
+          "urgency": "WHENEVER",
+          "paidOut": 1950,
+          "expense": 1950,
+          "status": "COMPLETED",
+          "category": "clothes",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "62526496-8b59-4c13-a220-cfb643dbc31e",
+          "createAt": "2022-07-08T13:04:19.365Z",
+          "updatedAt": "2022-07-10T03:56:13.224Z",
+          "name": "Taxi para ir a fotos graduacion",
+          "urgency": "WHENEVER",
+          "paidOut": 1000,
+          "expense": 1000,
+          "status": "COMPLETED",
+          "category": "graduacion",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "b96e46d0-6a75-4764-93ee-1719435fd46a",
+          "createAt": "2022-07-02T01:59:28.405Z",
+          "updatedAt": "2022-07-02T01:59:41.460Z",
+          "name": "Yogent",
+          "urgency": "WHENEVER",
+          "paidOut": 400,
+          "expense": 400,
+          "status": "COMPLETED",
+          "category": "otros",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "572512c1-c4c3-4c15-9508-160db238ee6f",
+          "createAt": "2022-07-09T03:58:23.986Z",
+          "updatedAt": "2022-07-09T03:58:36.030Z",
+          "name": "Arreglo pantalones",
+          "urgency": "WHENEVER",
+          "paidOut": 200,
+          "expense": 200,
+          "status": "COMPLETED",
+          "category": "",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "b0ec00a5-3bef-42a1-8ada-3dcb5206b374",
+          "createAt": "2022-07-09T03:59:02.264Z",
+          "updatedAt": "2022-07-09T03:59:27.249Z",
+          "name": "Salon mother Rosi Fotos graduacion",
+          "urgency": "WHENEVER",
+          "paidOut": 400,
+          "expense": 400,
+          "status": "COMPLETED",
+          "category": "",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "27d30b9c-1dfc-4db6-bba4-7b59f9eeda5e",
+          "createAt": "2022-07-09T04:04:14.833Z",
+          "updatedAt": "2022-07-09T04:06:33.524Z",
+          "name": "Planchar la camisa",
+          "urgency": "WHENEVER",
+          "paidOut": 100,
+          "expense": 100,
+          "status": "COMPLETED",
+          "category": "graduacion",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "0f6a3d23-6e2e-40b1-81d8-86b335d8075d",
+            "createAt": "2022-06-28T13:55:42.936Z",
+            "updatedAt": "2022-06-28T13:55:42.936Z",
+            "name": "NECESSARY"
+          }
+        },
+        {
+          "uuid": "85421619-d0a2-4df0-8094-aa2ce56fc36c",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-09T12:19:23.594Z",
+          "name": "Hygiene (Listerine, tic tac mentas )",
+          "urgency": "EARLY",
+          "paidOut": 625,
+          "expense": 625,
+          "status": "COMPLETED",
+          "category": "personal",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "bbe55142-bb18-4388-92f8-c347bc6fdcab",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-03T12:12:07.544Z",
+          "name": "Pasaje",
+          "urgency": "EARLY",
+          "paidOut": 1200,
+          "expense": 1200,
+          "status": "COMPLETED",
+          "category": "fixedCosts",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "ab506ea5-7dff-4210-a418-30f73e7c95c3",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-06-30T17:14:49.107Z",
+          "name": "Salón mother | Rosy",
+          "urgency": "EARLY",
+          "paidOut": 1000,
+          "expense": 1000,
+          "status": "COMPLETED",
+          "category": "fixedCosts",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "0d8d9de2-465b-4468-9d62-d2a398f178c6",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-03T01:16:36.007Z",
+          "name": "House ",
+          "urgency": "EARLY",
+          "paidOut": 1500,
+          "expense": 1500,
+          "status": "COMPLETED",
+          "category": "fixedCosts",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "fda99114-a8dd-4de1-aa9b-3b65eab3a098",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-06-30T17:14:49.133Z",
+          "name": "Diezmo ",
+          "urgency": "EARLY",
+          "paidOut": 1600,
+          "expense": 1600,
+          "status": "COMPLETED",
+          "category": "fixedCosts",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "6db01a19-c633-49a8-a736-08fc3241ea75",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-02T16:20:51.687Z",
+          "name": "brackets maintenance",
+          "urgency": "WHENEVER",
+          "paidOut": 1000,
+          "expense": 1000,
+          "status": "COMPLETED",
+          "category": "dentist",
+          "image": "",
+          "active": false,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "205c51c4-fe77-479e-b9d1-b58a7b8946f0",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-09T04:22:00.823Z",
+          "name": "Otros (comida 135, recargas 275)",
+          "urgency": "EARLY",
+          "paidOut": 540,
+          "expense": 540,
+          "status": "COMPLETED",
+          "category": "fixedCosts",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "7e4bbb2b-9f36-47a1-9eeb-25c603e1441b",
+          "createAt": "2022-06-12T01:46:03.280Z",
+          "updatedAt": "2022-07-10T03:56:52.772Z",
+          "name": "Barber Shop",
+          "urgency": "EARLY",
+          "paidOut": 550,
+          "expense": 550,
+          "status": "COMPLETED",
+          "category": "wishes",
+          "image": "",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "8e744b6d-1abe-432f-8761-d41c1189d1fb",
+            "createAt": "2022-06-28T13:55:50.873Z",
+            "updatedAt": "2022-06-28T13:55:50.873Z",
+            "name": "FIXED_COST"
+          }
+        },
+        {
+          "uuid": "959250e5-4ae6-4e45-b034-446c3450692d",
+          "createAt": "2022-07-03T01:31:17.596Z",
+          "updatedAt": "2022-07-03T01:32:55.756Z",
+          "name": "Regalo",
+          "urgency": "WHENEVER",
+          "paidOut": 50,
+          "expense": 50,
+          "status": "COMPLETED",
+          "category": "volunteer",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "to": "Niños montando bicibleta",
+          "type": {
+            "uuid": "80054ad7-88cf-406f-8b8a-c230a2dcec5a",
+            "createAt": "2022-06-28T13:55:36.078Z",
+            "updatedAt": "2022-06-28T13:55:36.078Z",
+            "name": "VOLUNTEER_THING"
+          }
+        },
+        {
+          "uuid": "79a01c9b-9b32-4ae7-8f06-286bb32d76cc",
+          "createAt": "2022-07-03T01:19:09.144Z",
+          "updatedAt": "2022-07-03T01:32:00.217Z",
+          "name": "Para completar sobretodo",
+          "urgency": "WHENEVER",
+          "paidOut": 250,
+          "expense": 250,
+          "status": "COMPLETED",
+          "category": "family",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "to": "Mother",
+          "type": {
+            "uuid": "80054ad7-88cf-406f-8b8a-c230a2dcec5a",
+            "createAt": "2022-06-28T13:55:36.078Z",
+            "updatedAt": "2022-06-28T13:55:36.078Z",
+            "name": "VOLUNTEER_THING"
+          }
+        },
+        {
+          "uuid": "500d2885-8a43-436e-8dc9-47a67ecee86b",
+          "createAt": "2022-07-08T13:05:12.284Z",
+          "updatedAt": "2022-07-08T13:07:45.484Z",
+          "name": "Regalo",
+          "urgency": "WHENEVER",
+          "paidOut": 100,
+          "expense": 100,
+          "status": "COMPLETED",
+          "category": "family",
+          "image": null,
+          "active": true,
+          "inMonth": true,
+          "to": "Hansel",
+          "type": {
+            "uuid": "80054ad7-88cf-406f-8b8a-c230a2dcec5a",
+            "createAt": "2022-06-28T13:55:36.078Z",
+            "updatedAt": "2022-06-28T13:55:36.078Z",
+            "name": "VOLUNTEER_THING"
+          }
+        },
+        {
+          "uuid": "e9f12b93-acb7-4dc5-b200-9017218bd9c1",
+          "createAt": "2022-07-03T01:24:03.040Z",
+          "updatedAt": "2022-07-03T01:24:29.002Z",
+          "name": "Anillo",
+          "urgency": "WHENEVER",
+          "paidOut": 180,
+          "expense": 180,
+          "status": "COMPLETED",
+          "category": "personal",
+          "image": "https://www.dhresource.com/albu_525488009_00/1.0x0.jpg",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "45a92d62-3be6-4f64-94ed-304d5ae6ac1d",
+            "createAt": "2022-06-28T13:55:20.057Z",
+            "updatedAt": "2022-06-28T13:55:20.057Z",
+            "name": "WISH"
+          }
+        },
+        {
+          "uuid": "7c191484-6ec1-4849-b114-df467a7d52b9",
+          "createAt": "2022-06-30T17:22:06.188Z",
+          "updatedAt": "2022-07-02T16:31:10.649Z",
+          "name": "Mesa simple (Envio 500)",
+          "urgency": "WHENEVER",
+          "paidOut": 3890,
+          "expense": 3890,
+          "status": "COMPLETED",
+          "category": "wishes",
+          "image": "https://static.ikea.com.do/assets/images/772/0977222_PE813466_S4.webp",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "45a92d62-3be6-4f64-94ed-304d5ae6ac1d",
+            "createAt": "2022-06-28T13:55:20.057Z",
+            "updatedAt": "2022-06-28T13:55:20.057Z",
+            "name": "WISH"
+          }
+        },
+        {
+          "uuid": "b0d90649-57a4-485f-b73b-033acbae30d1",
+          "createAt": "2022-07-02T12:47:16.299Z",
+          "updatedAt": "2022-07-02T16:34:41.297Z",
+          "name": "Reloj",
+          "urgency": "WHENEVER",
+          "paidOut": 680,
+          "expense": 680,
+          "status": "COMPLETED",
+          "category": "wishes",
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/latin/es-ar/timepiece/product/watch/G/GA/gab/ga-b2100-2a/assets/GA-B2100-2A.png.transform/product-panel/image.png",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "45a92d62-3be6-4f64-94ed-304d5ae6ac1d",
+            "createAt": "2022-06-28T13:55:20.057Z",
+            "updatedAt": "2022-06-28T13:55:20.057Z",
+            "name": "WISH"
+          }
+        },
+        {
+          "uuid": "bc646e02-36b7-402c-828e-7a602d08e995",
+          "createAt": "2022-07-08T13:14:03.975Z",
+          "updatedAt": "2022-07-10T21:48:27.101Z",
+          "name": "Un verano en jarabacoa ",
+          "urgency": "WHENEVER",
+          "paidOut": 2000,
+          "expense": 2000,
+          "status": "COMPLETED",
+          "category": "wishes",
+          "image": "https://static.wixstatic.com/media/6730e9_518c768be6f9434392c6960317cf1a95~mv2_d_2560_1600_s_2.jpg/v1/fill/w_980,h_343,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/6730e9_518c768be6f9434392c6960317cf1a95~mv2_d_2560_1600_s_2.jpg",
+          "active": true,
+          "inMonth": true,
+          "type": {
+            "uuid": "45a92d62-3be6-4f64-94ed-304d5ae6ac1d",
+            "createAt": "2022-06-28T13:55:20.057Z",
+            "updatedAt": "2022-06-28T13:55:20.057Z",
+            "name": "WISH"
+          }
+        }
+      ],
+      "id": 3
     }
   ]
 }

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { ProfitI } from '../../../interfaces/app/profit/profit.interface';
@@ -23,18 +25,20 @@ const ProfitsList = () => {
     const removeProfit = (item: ProfitsI) => {
         dispatch(removeProfitsAction(item?.uuid || ''))
     }
+
     return (
         <>
             <div className="row">
                 <div className="col-lg-12">
                     <button
                         type="button"
-                        className="btn btn-success btn-rounded"
+                        className="btn btn-success btn-rounded d-flex align-items-center"
                         onClick={() => {
                             setShowModal(true)
                             setDataProfitsSelected(null)
                         }} >
-                        <i className="fas fa-plus-circle "></i>
+                        <FontAwesomeIcon className="me-1" icon={faPlusCircle} />
+                        add new entry
                     </button>
                 </div>
             </div>
