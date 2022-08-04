@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { UIContext } from "../../../context";
@@ -12,7 +13,7 @@ const Nav = () => {
   const { isMenuSquareOpen, handleIsMenuSquare } = useContext(UIContext);
 
   return (
-    <>
+    <React.Fragment>
       <div
         className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
         style={{ zIndex: 10 }}
@@ -43,7 +44,7 @@ const Nav = () => {
           < FloatMenu />
         </BackModal>
       }
-    </>
+    </React.Fragment>
   );
 };
 

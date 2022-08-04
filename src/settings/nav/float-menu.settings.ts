@@ -7,10 +7,4 @@ export const floatOptionsSettings = (actions: { logout: Function }) => [
         icon: faArrowDownUpAcrossLine,
         active: true,
     },
-    {
-        title: "Test",
-        action: async () => { },
-        icon: faNoteSticky,
-        active: true,
-    },
 ]

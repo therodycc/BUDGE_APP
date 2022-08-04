@@ -6,6 +6,7 @@ import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
 import { getFilterByStatus } from '../../../helpers/status.helper';
+import useManage from '../../../hooks/useManage';
 import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import manageProvider from '../../../providers/utilities/utilities.provider';
@@ -19,7 +20,7 @@ import CardAmountText from '../../common/card/card-amount-text';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
 import { manageCardsData, manageCategories } from './cards-settings/manage-card';
-import { headersManageItems } from './headers/manage-headers';
+import { ColumnsManageItems } from './headers/manage-headers';
 import ModalManage from './modals';
 
 const Manage = () => {
@@ -28,16 +29,12 @@ const Manage = () => {
     const dispatch = useDispatch();
     const [tab, setTab] = useState<number>(0);
 
-    const [entry, setEntry] = useState(0);
-    const [pending, setPending] = useState(0);
-    const [debt, setDebt] = useState(0);
-    const [paidOut, setPaidOut] = useState(0);
-    const [fixedCosts, setFixedCosts] = useState(0);
-    const [personal, setPersonal] = useState(0);
-    const [family, setFamily] = useState(0);
-    const [voluntary, setVoluntary] = useState(0);
-    const [remaining, setRemaining] = useState(0);
-    const [wishes, setWishes] = useState(0);
+    const { debt, entry, family, fixedCosts, paidOut, pending, personal, remaining, voluntary, wishes } = useManage(manage, profits,
+        profits?.reduce((acc: number, item: any) => {
+            if (item?.active) acc += item.amount;
+            return acc;
+        }, 0)
+    )
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
 
@@ -45,100 +42,6 @@ const Manage = () => {
         dispatch(getProfitsAction());
         dispatch(getManageAction());
     }, []);
-
-    useMemo(() => {
-
-    }, [tab])
-
-    useEffect(() => {
-        setPending(getPending());
-        setDebt(getDebt());
-        setFamily(getFamily());
-        setFixedCosts(getFixedCosts());
-        setPersonal(getPersonal());
-        setVoluntary(getVoluntary());
-        setRemaining(getRemaining());
-        setWishes(getWishes());
-        setEntry(getProfits());
-        setPaidOut(getPaidOut());
-    }, [manage, profits]);
-
-    const getProfits = () => {
-        return profits?.reduce((acc: number, item: any) => {
-            if (item?.active) acc += item.amount;
-            return acc;
-        }, 0);
-    };
-
-    const getPending = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            acc += item.expense - item.paidOut;
-            return acc;
-        }, 0);
-    };
-
-    const getDebt = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "debt") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
-
-    const getFixedCosts = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "fixedCosts") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
-    const getPersonal = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "personal") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
-    const getFamily = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "family") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
-
-    const getVoluntary = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "voluntary") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
-    const getRemaining = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            acc -= item.expense;
-            return acc;
-        }, entry);
-    };
-    const getPaidOut = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            acc += item.paidOut;
-            return acc;
-        }, 0);
-    };
-    const getWishes = () => {
-        return manage?.reduce((acc: number, item: any) => {
-            if (item.category === "wishes") {
-                acc += item.expense;
-            }
-            return acc;
-        }, 0);
-    };
 
     const removeItem = async (item: UtilityI) => {
         dispatch(removeManageAction(item?.uuid, item?.type?.name));
@@ -235,10 +138,13 @@ const Manage = () => {
                     }
                 >
                     <div id="test">
-                        <Table
-                            headItems={headersManageItems({ removeItem, showModalEdit })}
-                            bodyItems={manage?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
-                        />
+                        <ColumnsManageItems removeItem={removeItem} showModalEdit={showModalEdit}
+                        >
+                            {({ columns }) => <Table
+                                headItems={columns}
+                                bodyItems={manage?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                            />}
+                        </ColumnsManageItems>
                     </div>
                 </Box>
             </div>

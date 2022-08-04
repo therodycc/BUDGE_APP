@@ -15,7 +15,7 @@ const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) =
             ? dispatch(updateProfitsAction(data.uuid, form))
             : dispatch(addProfitsAction(form));
         toggle();
-    }; 
+    };
 
     return (
         <>
@@ -26,7 +26,7 @@ const ModalProfits = ({ active, setToggle: toggle, data }: ModalProfitsPropsI) =
                     handleSubmit={handleSubmit}
                     initialState={
                         data || {
-                            type:"",
+                            type: "",
                             amount: 0,
                         }
                     }

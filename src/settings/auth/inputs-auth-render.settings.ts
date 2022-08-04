@@ -1,10 +1,9 @@
 import { InputPropsI } from "../../interfaces/common/input/input.interface"
 
-export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] => {
+export const inputsAuthRenderSettings = (form: any): InputPropsI[] => {
     return [
         {
             title: "Email",
-            errorMessage: errors?.emailError,
             cols: "col-md-12",
             props: {
                 type: "text",
@@ -16,7 +15,6 @@ export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] 
         {
             title: "Password",
             cols: "col-md-12",
-            errorMessage: errors?.passwordError,
             props: {
                 type: "password",
                 name: "password",
@@ -25,6 +23,17 @@ export const inputsAuthRenderSettings = (form: any, errors: any): InputPropsI[] 
             }
         },
     ]
+}
+
+export const inputsAuthRenderRules = () => {
+    return {
+        email: {
+            isRequired: { message: "The Email is required" },
+        },
+        password: {
+            isRequired: { message: "The Password is required" },
+        },
+    }
 }
 
 export default inputsAuthRenderSettings

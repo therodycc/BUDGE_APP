@@ -10,7 +10,6 @@ interface EntriesDataI {
 
 export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): InputPropsI[] => [
     {
-        errorMessage: errors?.nameError,
         title: "Name",
         cols: "col-lg-6",
         props: {
@@ -22,7 +21,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Expense",
         cols: "col-lg-6",
-        errorMessage: errors?.errExpense,
         props: {
             type: "number",
             name: "expense",
@@ -33,7 +31,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Category",
         cols: "col-lg-6",
-        errorMessage: errors?.errCategory,
         props: {
             type: "text",
             name: "category",
@@ -44,7 +41,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Paid Out",
         cols: "col-lg-6",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "number",
             name: "paidOut",
@@ -55,7 +51,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Status",
         cols: "col-lg-6",
-        errorMessage: errors?.errStatus,
         options: statusOptions,
         props: {
             type: "dropdown",
@@ -66,7 +61,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Urgency",
         cols: "col-lg-6",
-        errorMessage: errors?.errUrgency,
         options: urgencyOptions,
         props: {
             type: "dropdown",
@@ -77,7 +71,6 @@ export const inputsModalWishes = ({ form, errors, dropDowns }: EntriesDataI): In
     {
         title: "Image",
         cols: "",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "text",
             name: "image",

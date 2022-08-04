@@ -9,7 +9,6 @@ interface EntriesDataI {
 }
 export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesDataI): InputPropsI[] => [
     {
-        errorMessage: errors?.nameError,
         title: "Name",
         cols: "col-lg-6",
         props: {
@@ -21,7 +20,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Expense",
         cols: "col-lg-6",
-        errorMessage: errors?.errExpense,
         props: {
             type: "number",
             name: "expense",
@@ -32,7 +30,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Category",
         cols: "col-lg-6",
-        errorMessage: errors?.errCategory,
         props: {
             type: "text",
             name: "category",
@@ -43,7 +40,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Paid Out",
         cols: "col-lg-6",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "number",
             name: "paidOut",
@@ -54,7 +50,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Status",
         cols: "col-lg-6",
-        errorMessage: errors?.errStatus,
         options: statusOptions,
         props: {
             type: "dropdown",
@@ -65,7 +60,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Urgency",
         cols: "col-lg-6",
-        errorMessage: errors?.errUrgency,
         options: urgencyOptions,
         props: {
             type: "dropdown",
@@ -76,7 +70,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "Image",
         cols: "",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "text",
             name: "image",
@@ -87,7 +80,6 @@ export const inputsModalVolunteerThings = ({ errors, form, dropDowns }: EntriesD
     {
         title: "To (Person or Group)",
         cols: "",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "text",
             name: "to",

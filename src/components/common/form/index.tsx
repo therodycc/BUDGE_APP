@@ -1,6 +1,8 @@
-import { FormEvent, ReactNode } from 'react'
+import { FormEvent, ReactNode, useEffect, useMemo, useState } from 'react'
 import useForm from '../../../hooks/useForm'
 import { InputPropsI } from '../../../interfaces/common/input/input.interface'
+import formValidation from '../../custom/form copy'
+import { inputFormToJSON } from '../../custom/form copy/form/form.helper'
 import Dropdown from '../dropdown'
 import Input from '../input'
 interface FormPropsI {
@@ -9,13 +11,28 @@ interface FormPropsI {
     footerSection: ReactNode
     initialState?: { [key: string]: string | number } | any
     keyForm?: string
+    dataRules?: { [key: string]: any }
+    setLeaveForm?: Function
 }
-const Form = ({ inputsData, handleSubmit, footerSection, keyForm,initialState }: FormPropsI) => {
 
-    const [form, handleChange] = useForm(initialState || {})
+const Form = ({ inputsData, handleSubmit, footerSection, keyForm, initialState, dataRules, setLeaveForm }: FormPropsI) => {
+
+    const { form, handleChange, setForm } = useForm(initialState || {})
+
+    let items = useMemo(() => {
+        const { errors } = formValidation(form, dataRules || {});
+        return inputsData({ form }).map((item: any) => {
+            item.errorMessage = errors[item.props.name] ? errors[item.props.name][0] : "";
+            return item;
+        })
+    }, [form])
 
     const handleSubmitAction = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const data = inputFormToJSON(e.target as HTMLFormElement);
+        setForm(data)
+        const { isValid } = formValidation(data, dataRules);
+        if (!isValid) return
         handleSubmit(form)
     }
 
@@ -23,7 +40,7 @@ const Form = ({ inputsData, handleSubmit, footerSection, keyForm,initialState }:
         <>
             <form onSubmit={handleSubmitAction}>
                 <div className="row mt-3">
-                    {inputsData({ form, errors: {} })?.map((item: InputPropsI, index: number) => (
+                    {items?.map((item: InputPropsI, index: number) => (
                         <div
                             key={`${keyForm}-${index}`}
                             className={`mt-3 ${item.cols}`}>
@@ -36,7 +53,11 @@ const Form = ({ inputsData, handleSubmit, footerSection, keyForm,initialState }:
                                     onChange={handleChange}
                                 />
                             ) : (
-                                <Input {...item.props} {...item} onChange={handleChange} />
+                                <Input
+                                    {...item.props}
+                                    {...item}
+                                    onChange={handleChange}
+                                />
                             )}
                         </div>
                     ))}

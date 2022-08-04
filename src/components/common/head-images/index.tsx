@@ -7,13 +7,13 @@ const HeadImages: FC = () => {
                 className="avatar avatar-xxl shadow-lg"
                 style={{ marginRight: "-10px" }}
                 alt="Image placeholder"
-                src="https://www.w3schools.com/howto/img_avatar.png"
+                src="/assets/images/avatars/man_avatar.png"
             />
             <img
                 className="avatar avatar-xxl shadow-lg"
                 style={{ marginLeft: "-10px" }}
                 alt="Image placeholder"
-                src="https://www.w3schools.com/howto/img_avatar2.png"
+                src="/assets/images/avatars/woman_avatar.png"
             />
         </div>
     )

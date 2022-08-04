@@ -15,10 +15,6 @@ interface ModalManagePropsI {
 }
 
 const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
-    const [form, handleChange] = useForm<ManageI | any>({
-        ...data
-    })
-
     const dispatch = useDispatch();
 
     const handleSubmit = (data: any) => {

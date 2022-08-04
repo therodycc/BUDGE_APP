@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import authProvider from "../../../../providers/auth/auth.provider";
 import { login } from "../../../../redux/actions/auth/auth.action";
-import inputsAuthRenderSettings from "../../../../settings/auth/inputs-auth-render.settings";
+import inputsAuthRenderSettings, { inputsAuthRenderRules } from "../../../../settings/auth/inputs-auth-render.settings";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
 import HeadImages from "../../../common/head-images";
@@ -17,7 +17,10 @@ const SignIn = () => {
     const handleSubmit = async (form: any) => {
         setLoadingAuth(true);
         const res = await authProvider.signIn(form);
-        if (res?.error) return [sweetAlert.toast("Error", res?.error?.message, "error"), setLoadingAuth(false),];
+        if (res?.error) return [
+            sweetAlert.toast("Error", res?.error?.message, "error"),
+            setLoadingAuth(false)
+        ];
         router.push("/");
         dispatch(login({ auth: true }));
         setLoadingAuth(false);
@@ -37,6 +40,7 @@ const SignIn = () => {
                             </p>
 
                             <Form
+                                dataRules={inputsAuthRenderRules()}
                                 keyForm="sign-in"
                                 inputsData={inputsAuthRenderSettings}
                                 handleSubmit={handleSubmit}

@@ -89,6 +89,18 @@ const FixedCosts = () => {
             })
     }
 
+    const formatFixedCosts = () => {
+        Promise.all(
+            fixedCosts?.filter((item: UtilityI) => item.active)
+                .map(async (item: UtilityI) => {
+                    return await fixedCostsProvider.update(item.uuid, { status: "PENDING", paidOut: 0 });
+                }))
+            .then((data: any) => {
+                if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");
+                sweetAlert.alert("Success", "Fixed costs was reset", "success");
+            })
+    }
+
     const removeItem = async (item: UtilityI) => {
         dispatch(removeFixedCostsAction(item?.uuid))
     };
@@ -153,6 +165,15 @@ const FixedCosts = () => {
                             size="sm"
                         >
                             Add to month
+                        </Button>
+                        <Button
+                            action={formatFixedCosts}
+                            bgClass={"warning"}
+                            type={"button"}
+                            loading={false}
+                            size="sm"
+                        >
+                            Format fixed costs
                         </Button>
                     </div>}
                 >

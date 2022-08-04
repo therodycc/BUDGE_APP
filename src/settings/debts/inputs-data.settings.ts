@@ -9,7 +9,6 @@ interface EntriesDataI {
 export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI): InputPropsI[] => {
     return [
         {
-            errorMessage: errors?.errName,
             title: "Name",
             cols: "col-lg-6",
             props: {
@@ -23,7 +22,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Expense",
             cols: "col-lg-6",
-            errorMessage: errors?.errExpense,
             props: {
                 type: "number",
                 name: "expense",
@@ -34,7 +32,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Category",
             cols: "col-lg-6",
-            errorMessage: errors?.errCategory,
             props: {
                 type: "text",
                 name: "category",
@@ -45,7 +42,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Paid Out",
             cols: "col-lg-6",
-            errorMessage: errors?.errPaidOut,
             props: {
                 type: "number",
                 name: "paidOut",
@@ -56,7 +52,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Status",
             cols: "col-lg-6",
-            errorMessage: errors?.errStatus,
             options: statusOptions,
             props: {
                 type: "dropdown",
@@ -68,7 +63,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Urgency",
             cols: "col-lg-6",
-            errorMessage: errors?.errUrgency,
             options: urgencyOptions,
             props: {
                 type: "dropdown",
@@ -80,7 +74,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "Description",
             cols: "",
-            errorMessage: errors?.errPaidOut,
             props: {
                 type: "text",
                 name: "description",
@@ -91,7 +84,6 @@ export const inputsDataDebtsModal = ({ form, errors, dropDowns }: EntriesDataI):
         {
             title: "To whom",
             cols: "",
-            errorMessage: errors?.errPaidOut,
             props: {
                 type: "text",
                 name: "to",

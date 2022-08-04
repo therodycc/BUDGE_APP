@@ -5,7 +5,6 @@ export const changePasswordInputs = (form: any, errors: any): InputPropsI[] => {
         {
             title: "New password",
             cols: "col-md-12",
-            errorMessage: errors?.newPasswordError,
             props: {
                 name: "newPassword",
                 value: form?.newPassword,
@@ -16,7 +15,6 @@ export const changePasswordInputs = (form: any, errors: any): InputPropsI[] => {
         {
             title: "Confirm new password",
             cols: "col-md-12",
-            errorMessage: errors?.confirmPasswordError,
             props: {
                 name: "confirmPassword",
                 value: form?.confirmPassword,

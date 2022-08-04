@@ -8,7 +8,6 @@ interface EntriesDataI {
 }
 export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI): InputPropsI[] => [
     {
-        errorMessage: errors?.nameError,
         title: "Name",
         cols: "col-lg-6",
         props: {
@@ -20,7 +19,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Expense",
         cols: "col-lg-6",
-        errorMessage: errors?.errExpense,
         props: {
             type: "number",
             name: "expense",
@@ -31,7 +29,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Category",
         cols: "col-lg-6",
-        errorMessage: errors?.errCategory,
         props: {
             type: "text",
             name: "category",
@@ -42,7 +39,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Paid Out",
         cols: "col-lg-6",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "number",
             name: "paidOut",
@@ -53,7 +49,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Status",
         cols: "col-lg-6",
-        errorMessage: errors?.errStatus,
         options: statusOptions,
         props: {
             type: "dropdown",
@@ -64,7 +59,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Urgency",
         cols: "col-lg-6",
-        errorMessage: errors?.errUrgency,
         options: urgencyOptions,
         props: {
             type: "dropdown",
@@ -75,7 +69,6 @@ export const inputsDataFixedCosts = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Image",
         cols: "",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "text",
             name: "image",

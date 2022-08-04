@@ -6,7 +6,6 @@ interface EntriesDataI {
 export const inputsDataProfitsModal = ({ form, errors }: EntriesDataI): InputPropsI[] => {
     return [
         {
-            errorMessage: errors?.errName,
             title: "Type",
             cols: "col-lg-6",
             props: {
@@ -20,7 +19,6 @@ export const inputsDataProfitsModal = ({ form, errors }: EntriesDataI): InputPro
         {
             title: "Amount",
             cols: "col-lg-6",
-            errorMessage: errors?.errAmount,
             props: {
                 type: "number",
                 name: "amount",

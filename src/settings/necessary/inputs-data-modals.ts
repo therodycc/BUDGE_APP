@@ -1,17 +1,13 @@
 import { InputPropsI } from '../../interfaces/common/input/input.interface';
 import { statusOptions } from '../drops-downs-items/status.options';
 import { urgencyOptions } from '../drops-downs-items/urgency.options';
-import { isRequired } from '../../helpers/validations/index';
 
 interface EntriesDataI {
     form: any
-    errors: any
-    dropDowns: any
 }
 
-export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI): InputPropsI[] => [
+export const inputsModalNecessary = ({ form }: EntriesDataI): InputPropsI[] => [
     {
-        errorMessage: errors?.nameError,
         title: "Name",
         cols: "col-lg-6",
         props: {
@@ -23,7 +19,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Expense",
         cols: "col-lg-6",
-        errorMessage: errors?.errExpense,
         props: {
             type: "number",
             name: "expense",
@@ -34,7 +29,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Category",
         cols: "col-lg-6",
-        errorMessage: errors?.errCategory,
         props: {
             type: "text",
             name: "category",
@@ -45,7 +39,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Paid Out",
         cols: "col-lg-6",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "number",
             name: "paidOut",
@@ -56,7 +49,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Status",
         cols: "col-lg-6",
-        errorMessage: errors?.errStatus,
         options: statusOptions,
         props: {
             type: "dropdown",
@@ -67,7 +59,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Urgency",
         cols: "col-lg-6",
-        errorMessage: errors?.errUrgency,
         options: urgencyOptions,
         props: {
             type: "dropdown",
@@ -78,7 +69,6 @@ export const inputsModalNecessary = ({ form, errors, dropDowns }: EntriesDataI):
     {
         title: "Image",
         cols: "",
-        errorMessage: errors?.errPaidOut,
         props: {
             type: "text",
             name: "image",
