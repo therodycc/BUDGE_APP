@@ -25,16 +25,18 @@ export const changePasswordInputs = (form: any, errors: any): InputPropsI[] => {
     ]
 }
 
-export const changePasswordRules = () => {
+export const changePasswordRules = ({ form }: any) => {
     return {
         newPassword: {
-            isRequired: { message: "The Password is Required" }
-
+            isRequired: { message: "Password is Required" }
             ,
         },
         confirmPassword: {
-            isRequired: { message: "The Password is required" },
-            // isEqual: { message: "The Password and Confirm Password must match", value: "form?.newPassword" }
+            isRequired: { message: "Confirm Password is required" },
+            isEqualTo: {
+                message: "Password and Confirm Password must match",
+                value: form?.newPassword
+            }
         },
     }
 }

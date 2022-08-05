@@ -40,7 +40,7 @@ const SignIn = () => {
                             </p>
 
                             <Form
-                                dataRules={inputsAuthRenderRules()}
+                                dataRules={inputsAuthRenderRules}
                                 keyForm="sign-in"
                                 inputsData={inputsAuthRenderSettings}
                                 handleSubmit={handleSubmit}

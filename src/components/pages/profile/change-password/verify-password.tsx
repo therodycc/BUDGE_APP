@@ -1,52 +1,67 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useForm from '../../../../hooks/useForm';
+import sweetAlert from '../../../../helpers/alerts/sweetAlert.helper';
 import authProvider from '../../../../providers/auth/auth.provider';
+import Badge from '../../../common/badge';
 import Button from '../../../common/button';
-import Input from '../../../common/input/index';
+import Form from '../../../common/form';
+import { inputsChangePassword } from './inputs-verify-password';
 interface VerifyPasswordPropsI {
+    setToggle: Function
 }
-const VerifyPassword: FC<VerifyPasswordPropsI> = ({ }) => {
-    const [passwordError, setPasswordError] = useState("");
 
-    const { changePassword: { form: formState } } = useSelector((state: any) => state)
+const VerifyPassword: FC<VerifyPasswordPropsI> = ({ setToggle }) => {
+    const router = useRouter()
+    const { changePassword: { newPassword } } = useSelector((state: any) => state)
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<null | string>(null);
 
-    const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (!error) return;
+        setTimeout(() => {
+            setError(null);
+        }, 2000)
+    }, [error]);
 
-        // const result = await authProvider.changePassword({
-        //     password: form.password,
-        //     newPassword: formState?.newPassword
-        // })
 
-        // if (result.error) return setPasswordError(result.error.message);
+    const handleSubmit = async (form: any) => {
+        setLoading(true)
+        const result = await authProvider.changePassword({
+            password: form?.password,
+            newPassword: newPassword
+        })
+        if (result.error) return [setError(result?.error?.message), setLoading(false)];
+        setToggle(false);
+        setLoading(false)
+        setError(null);
+        sweetAlert.alert("Success", "Password changed successfully", "success");
+        setTimeout(() => { router.reload(); }, 1000)
     }
-    return (
-        <>
-            <form className="p-3" onSubmit={handleSubmit}>
-                <div className="row mt-3">
-                    <Input
-                        // onChange={handleChange}
-                        name={`password`}
-                        placeholder={``}
-                        type={`password`}
-                        // value={form?.password}
-                        title={"Password"}
-                        errorMessage={passwordError}
-                    />
-                </div>
 
-                <Button
-                    type="submit"
-                    bgClass="info"
-                    customClass='w-100 mt-3'
-                    action={() => { }}
-                    loading={false}
-                >
-                    Confirm
-                </Button>
-            </form>
-        </>
+    return (
+        <React.Fragment>
+            <div className=''>
+                <p className='text-secondary mb-0' style={{ fontSize: "20px" }}>Verify your Password</p>
+                <p className='text-secondary'>Please put you actually password for update</p>
+            </div>
+            {error && <Badge text={error} bgClass="danger" />}
+            <Form
+                inputsData={inputsChangePassword}
+                handleSubmit={handleSubmit}
+                footerSection={<div className='row mt-3 justify-content-between'>
+                    <Button
+                        type="submit"
+                        bgClass="info"
+                        customClass='mb-3 col-md-6'
+                        action={() => { }}
+                        loading={loading}
+                    >
+                        Confirm
+                    </Button>
+                </div>}
+            />
+        </React.Fragment>
     )
 }
 

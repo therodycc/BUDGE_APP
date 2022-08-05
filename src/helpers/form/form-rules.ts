@@ -141,14 +141,10 @@ const getIfContainThis = (field: any, fields: any, { message, value }: any) => {
 
 const isEqualTo = (field: any, fields: any, { message, value }: any) => {
     let response = { error: '', valid: true }
-
-    if (value || fields?.[field]) {
-        if (!fields[field] !== (value)) {
-            response.valid = false;
-            response.error = printF(message, value);
-        }
+    if (fields?.[field] !== (value)) {
+        response.valid = false;
+        response.error = printF(message, value);
     }
-
     return response;
 
 }
