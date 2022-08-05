@@ -1,22 +1,26 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../../../../redux/actions/auth/change-password";
-import { changePasswordInputs } from "../../../../settings/profile/change-password-inputs.settings";
+import { changePasswordInputs, changePasswordRules } from "../../../../settings/profile/change-password-inputs.settings";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
 
-interface FormChangePasswordPropsI { }
-const FormChangePassword: FC<FormChangePasswordPropsI> = () => {
+interface FormChangePasswordPropsI {
+    setStep: (step: number) => void;
+}
+const FormChangePassword: FC<FormChangePasswordPropsI> = ({ setStep }) => {
     const dispatch = useDispatch();
 
     const handleSubmit = (form: any) => {
         dispatch(setFormData({ form }));
+        setStep(2);
     };
-    
+
     return (
         <>
             <Form
                 keyForm="changePassword"
+                dataRules={changePasswordRules}
                 inputsData={changePasswordInputs}
                 handleSubmit={handleSubmit}
                 footerSection={<>
