@@ -6,7 +6,7 @@ interface BadgePropsI {
 }
 const Badge: FC<BadgePropsI> = ({ text = "A simple danger alert with ", bgClass }) => {
     return (
-        <div className={`alert alert-${bgClass} alert-dismissible text-white`} role="alert">
+        <div className={`alert alert-${bgClass} p-1 px-3 text-white`} role="alert">
             <span className="text-sm">{text}</span>
         </div>
     )

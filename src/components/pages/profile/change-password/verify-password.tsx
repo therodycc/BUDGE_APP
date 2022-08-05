@@ -42,8 +42,8 @@ const VerifyPassword: FC<VerifyPasswordPropsI> = ({ setToggle }) => {
     return (
         <React.Fragment>
             <div className=''>
-                <p className='text-secondary mb-0' style={{ fontSize: "20px" }}>Verify your Password</p>
-                <p className='text-secondary'>Please put you actually password for update</p>
+                <p className='text-secondary mb-0' style={{ fontSize: "16px" }}>Verify your Password</p>
+                <p className='text-secondary'  style={{ fontSize: "12px" }}>Please put you actually password for update</p>
             </div>
             {error && <Badge text={error} bgClass="danger" />}
             <Form

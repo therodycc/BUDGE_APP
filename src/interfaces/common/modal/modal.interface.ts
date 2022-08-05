@@ -8,4 +8,5 @@ export interface ModalBaseI {
 export interface ModalI extends ModalBaseI {
     title?: ReactNode
     footer?: ReactNode
+    modalStylesContainer?: React.CSSProperties
 }
