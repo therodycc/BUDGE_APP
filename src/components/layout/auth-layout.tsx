@@ -56,7 +56,7 @@ const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
                     </div>
                 </nav>
 
-                <div className="col-lg-12 d-flex align-items-center ">
+                <div className="col-lg-12 d-flex align-items-center">
                     {children}
                 </div>
                 <svg

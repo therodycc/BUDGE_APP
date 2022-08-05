@@ -13,7 +13,9 @@ const Aside = () => {
     const [options, setOptions] = useState<AsideOptionsI[]>([]);
 
     useEffect(() => { handleSelected(router.pathname) }, [router.pathname]);
+
     const { showAsideBar } = useContext(UIContext);
+
     const handleSelected = (path: string) => {
         setOptions(asideOptions?.map((opt, i) => {
             path === opt.link ? opt.active = true : opt.active = false;

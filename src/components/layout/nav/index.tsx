@@ -21,13 +21,14 @@ const Nav = () => {
         <ul className="navbar-nav ms-md-auto" >
           <div className="card px-3">
             <div className="row justify-content-center align-items-center">
-              {settings.navOptionsRenders({ handleIsMenuSquare }).map((option, index) => (
+              {settings?.navOptionsRenders().map((option, index) => (
                 <ButtonCircleIcon
                   key={`nav-option-${index}`}
-                  icon={option.icon}
+                  icon={option?.icon}
                   action={option?.action} />
               ))}
               <UserInfoHead
+                imageAction={handleIsMenuSquare}
                 firstName={me?.firstName}
                 lastName={me?.lastName}
                 email={me?.email}

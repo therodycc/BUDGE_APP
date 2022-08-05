@@ -1,27 +1,27 @@
-import { faArrowsUpDown, faBell, faCog, faLanguage } from "@fortawesome/free-solid-svg-icons"
+import { faArrowsUpDown, faBell, faCog, faLanguage, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+interface NavOptionsI {
+    icon: IconDefinition,
+    active: false,
+    action: Function
+}
 
-export const navOptionsRenders = (actions?: { handleIsMenuSquare: Function }) => {
+export const navOptionsRenders = (): NavOptionsI[] => {
     return [
-        {
-            icon: faBell,
-            active: false,
-            action: () => { }
-        },
-        {
-            icon: faLanguage,
-            active: false,
-            action: () => { }
-        },
         // {
-        //     icon: faArrowsUpDown,
+        //     icon: faBell,
         //     active: false,
-        //     action: async () => { }
+        //     action: () => { }
         // },
-        {
-            icon: faCog,
-            active: false,
-            action: () => { actions?.handleIsMenuSquare() }
-        },
+        // {
+        //     icon: faLanguage,
+        //     active: false,
+        //     action: () => { }
+        // },
+        // {
+        //     icon: faCog,
+        //     active: false,
+        //     action: () => { }
+        // },
     ]
 }
 
