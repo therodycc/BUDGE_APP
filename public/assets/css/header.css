@@ -1,0 +1,8 @@
+.user-profile-head-image {
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+.user-profile-head-image:hover {
+    transform: scale(1.02);
+}
