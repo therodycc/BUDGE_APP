@@ -1,5 +1,5 @@
-import { DataReturnValidationI, ObjectKeyStringReturnArrayOfStringI } from './interfaces/form.interfaces';
-import rulesFuncs from './rules';
+import { DataReturnValidationI, ObjectKeyStringReturnArrayOfStringI } from './form.interfaces';
+import rulesFuncs from './form-rules';
 
 const formValidation = (fields: any, rules: any): DataReturnValidationI => {
 

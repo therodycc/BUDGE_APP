@@ -14,7 +14,7 @@ interface ChangePasswordStateI {
 export const changePasswordReducer = (state: ChangePasswordStateI = initialState, action: any) => {
     switch (action.type) {
         case ChangePasswordTypeAction.SET_FORM_DATA:
-            return state.form = action.payload.form
+            return state.form = action?.payload?.form
 
         default:
             return state

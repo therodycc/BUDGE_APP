@@ -1,4 +1,4 @@
-import { cleanAmountFormat } from "../amount/amount.helper";
+import { cleanAmountFormat } from "./amount.helper";
 
 export function printF(template: string, ...args: any[]) {
     return template.replace(/{(\d+)}/g, function (match, number) {
@@ -138,6 +138,20 @@ const getIfContainThis = (field: any, fields: any, { message, value }: any) => {
     return response;
 
 }
+
+const isEqualTo = (field: any, fields: any, { message, value }: any) => {
+    let response = { error: '', valid: true }
+
+    if (value || fields?.[field]) {
+        if (!fields[field] !== (value)) {
+            response.valid = false;
+            response.error = printF(message, value);
+        }
+    }
+
+    return response;
+
+}
 const customValidation = (field: any, fields: any, { message, value }: any) => {
     let response = { error: '', valid: true }
     if (!value) {
@@ -159,7 +173,8 @@ const rulesFuncs: any = {
     minNumber,
     maxNumber,
     getIfContainThis,
-    customValidation
+    customValidation,
+    isEqualTo
 };
 
 export default rulesFuncs;
