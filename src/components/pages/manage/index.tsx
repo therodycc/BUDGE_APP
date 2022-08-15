@@ -138,12 +138,14 @@ const Manage = () => {
                     }
                 >
                     <div id="test">
-                        <ColumnsManageItems removeItem={removeItem} showModalEdit={showModalEdit}
+                        <ColumnsManageItems
+                            removeItem={removeItem}
+                            showModalEdit={showModalEdit}
                         >
-                            {({ columns }) => <Table
+                            {({ columns }) => (<Table
                                 headItems={columns}
                                 bodyItems={manage?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
-                            />}
+                            />)}
                         </ColumnsManageItems>
                     </div>
                 </Box>

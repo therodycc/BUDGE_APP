@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { getFilterByStatus } from '../../../helpers/status.helper';
+import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
 import { getDebtsAction, removeDebtsAction } from '../../../redux/actions/debts.action';
@@ -16,44 +17,21 @@ import Tabs from '../../common/tabs';
 import ModalDebts from './modals';
 
 const Debts = () => {
-    const [totalDebts, setTotalDebts] = useState(0);
-    const [totalCompleted, setTotalCompleted] = useState(0);
-    const [totalMissing, setTotalMissing] = useState(0);
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
     const [tab, setTab] = useState<number>(0);
 
     const dispatch = useDispatch()
+
     const { debts: { debts } } = useSelector((state: any) => state)
+
+    const { total: totalDebts, totalCompleted, totalMissing } = useCalcCategory({
+        valueToCalc: debts
+    })
 
     useEffect(() => {
         dispatch(getDebtsAction())
     }, [dispatch, getDebtsAction]);
-
-
-    const getTotalDebts = () => {
-        return debts?.reduce((acc: any, item: any) => {
-            acc += item.expense;
-            return acc;
-        }, 0);
-    };
-
-    const getTotalCompleted = () => {
-        return debts?.reduce((acc: any, item: any) => {
-            if (item.status === "COMPLETED") acc += item.expense;
-            if (item.status === "IN_PROGRESS") acc += item.paidOut;
-            return acc;
-        }, 0);
-    };
-
-    const getTotalMissing = () => {
-        return totalDebts - totalCompleted;
-    };
-
-    useEffect(() => {
-        setTotalDebts(getTotalDebts());
-        setTotalCompleted(getTotalCompleted());
-    }, [debts, getTotalDebts, getTotalCompleted]);
 
     const addToThisMonth = (item: UtilityI) => {
         debtProvider.update(item.uuid, { status: 'IN_PROGRESS', inMonth: true })
@@ -63,19 +41,15 @@ const Debts = () => {
             })
     };
 
-    useEffect(() => {
-        setTotalMissing(getTotalMissing());
-    }, [totalCompleted, totalMissing, getTotalMissing]);
-
     const removeItem = async (item: UtilityI) => {
         dispatch(removeDebtsAction(item?.uuid))
     };
-
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item)
         setShowModal(!showModal)
     }
+
     return (
         <>
             <div className="container">

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { getFilterByStatus } from '../../../helpers/status.helper';
+import useFixedCostsStatics from '../../../hooks/useFixedCostsStatics';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
 import { disabledItemAction, getFixedCostsAction, removeFixedCostsAction } from '../../../redux/actions/fixed-costs.action';
@@ -17,9 +18,6 @@ import ModalFixedCosts from './modals';
 
 const FixedCosts = () => {
 
-    const [total, setTotal] = useState(0);
-    const [totalActive, setTotalActive] = useState(0);
-    const [totalDisabled, setTotalDisabled] = useState(0);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
@@ -35,37 +33,14 @@ const FixedCosts = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        setTotal(getTotalFixedCosts());
-        setTotalActive(getTotalActive());
-        setTotalDisabled(getTotalDisabled());
-    }, [fixedCosts]);
+    const { total, totalActive, totalDisabled } = useFixedCostsStatics({ fixedCosts });
 
 
     useEffect(() => {
         dispatch(getFixedCostsAction())
     }, []);
 
-    const getTotalFixedCosts = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            acc += item.expense;
-            return acc;
-        }, 0);
-    };
 
-    const getTotalActive = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            if (item.active) acc += item.expense;
-            return acc;
-        }, 0);
-    };
-
-    const getTotalDisabled = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            if (!item.active) acc += item.expense;
-            return acc;
-        }, 0);
-    };
 
     const addToThisMonth = (item: UtilityI) => {
         fixedCostsProvider
@@ -99,6 +74,11 @@ const FixedCosts = () => {
                 if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");
                 sweetAlert.alert("Success", "Fixed costs was reset", "success");
             })
+    }
+
+    const changeDateToPay = async (uuid: string, day: number) => {
+        const result = await fixedCostsProvider.update(uuid, { dateToPay: day })
+        if (result?.error) return sweetAlert.toast("Error", result.error.message, "error");
     }
 
     const removeItem = async (item: UtilityI) => {
@@ -144,41 +124,52 @@ const FixedCosts = () => {
                             activeTab={tab}
                         />
                     }
-                    rightSection={<div className="d-flex align-center-center">
-                        <Button
-                            action={() => {
-                                setShowModal(true)
-                                setDataModalUtility(null)
-                            }}
-                            bgClass={"primary"}
-                            type={"button"}
-                            loading={false}
-                            size="sm"
-                        >
-                            Add new
-                        </Button>
-                        <Button
-                            action={addToMonth}
-                            bgClass={"danger"}
-                            type={"button"}
-                            loading={showLoadingAddToMoth}
-                            size="sm"
-                        >
-                            Add to month
-                        </Button>
-                        <Button
-                            action={formatFixedCosts}
-                            bgClass={"warning"}
-                            type={"button"}
-                            loading={false}
-                            size="sm"
-                        >
-                            Format fixed costs
-                        </Button>
+                    rightSection={<div>
+
                     </div>}
                 >
+                    <div className="col-lg-12 my-4">
+                        <div className="d-flex align-center-center px-4">
+                            <Button
+                                action={() => {
+                                    setShowModal(true)
+                                    setDataModalUtility(null)
+                                }}
+                                bgClass={"primary"}
+                                type={"button"}
+                                loading={false}
+                                size="sm"
+                            >
+                                Add new
+                            </Button>
+                            <Button
+                                action={addToMonth}
+                                bgClass={"danger"}
+                                type={"button"}
+                                loading={showLoadingAddToMoth}
+                                size="sm"
+                            >
+                                Add to month
+                            </Button>
+                            <Button
+                                action={formatFixedCosts}
+                                bgClass={"warning"}
+                                type={"button"}
+                                loading={false}
+                                size="sm"
+                            >
+                                Format fixed costs
+                            </Button>
+                        </div>
+                    </div>
                     <Table
-                        headItems={headItemsFixedCosts({ addToThisMonth, disabledItem, removeItem, showModalEdit })}
+                        headItems={headItemsFixedCosts({
+                            addToThisMonth,
+                            disabledItem,
+                            removeItem,
+                            showModalEdit,
+                            changeDateToPay
+                        })}
                         bodyItems={fixedCosts?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
                     />
                 </Box>

@@ -59,6 +59,7 @@ export const updateManageAction = (uuid: string, type: TypeTable, data: ManageI)
                             ...item,
                             ...data,
                             ...(data.expense && { expense: +data.expense }),
+                            ...(data.paidOut && { paidOut: +data.paidOut }),
                         } : item
                     ),
                 });

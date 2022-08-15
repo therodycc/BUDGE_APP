@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { getFilterByStatus } from '../../../helpers/status.helper';
+import useCalcCategory from '../../../hooks/useCalcCategory';
+
 import { NecessaryI } from '../../../interfaces/necessary/necessary.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
@@ -19,9 +21,7 @@ import ModalNecessary from './modals';
 const Necessary = () => {
     const dispatch = useDispatch()
     const { necessary: { necessary } } = useSelector((state: any) => state)
-    const [totalNecessary, setTotalNecessary] = useState(0);
-    const [totalCompleted, setTotalCompleted] = useState(0);
-    const [totalMissing, setTotalMissing] = useState(0);
+
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<NecessaryI | null>(
         null
@@ -32,18 +32,12 @@ const Necessary = () => {
         dispatch(getNecessaryAction());
     }, []);
 
-    useEffect(() => {
-        setTotalNecessary(getTotalNecessary());
-        setTotalCompleted(getTotalCompleted());
-    }, [necessary]);
-
-    useEffect(() => {
-        setTotalMissing(getTotalMissing());
-    }, [totalCompleted, totalMissing]);
+    const { totalCompleted, totalMissing, total: totalNecessary } = useCalcCategory({
+        valueToCalc: necessary
+    })
 
 
     const addToThisMonth = (item: UtilityI) => {
-        console.log({ item });
         necessaryProvider
             .update(item.uuid, { status: "IN_PROGRESS", inMonth: true })
             .then((res) => {
@@ -57,25 +51,7 @@ const Necessary = () => {
         dispatch(removeNecessaryAction(item.uuid || ""))
     };
 
-    const getTotalNecessary = () => {
-        return necessary?.reduce((acc: number, item: any) => {
-            acc += +item.expense;
-            return acc;
-        }, 0);
-    };
 
-    const getTotalCompleted = () => {
-        return necessary?.reduce((acc: number, item: any) => {
-            if (item.status === "COMPLETED") acc += item.expense;
-            if (item.status === "IN_PROGRESS") acc += item.paidOut;
-
-            return acc;
-        }, 0);
-    };
-
-    const getTotalMissing = () => {
-        return totalNecessary - totalCompleted;
-    };
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);

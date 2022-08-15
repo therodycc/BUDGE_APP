@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { getFilterByStatus } from '../../../helpers/status.helper';
+import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { VolunteerThingsI } from '../../../interfaces/volunteer-things/volunteer-things.interface';
 import volunteerThingsProvider from '../../../providers/volunteer-things/volunteer-things.provider';
@@ -19,49 +20,23 @@ import ModalVolunteerThings from './modals';
 const VolunteerThings = () => {
     const { volunteerThings: { volunteerThings } } = useSelector((state: any) => state);
 
-    const [totalVolunteerThings, setTotalVolunteerThings] = useState<number>(0);
-    const [totalCompleted, setTotalCompleted] = useState<number>(0);
-    const [totalMissing, setTotalMissing] = useState<number>(0);
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
         null
     );
+
     const [tab, setTab] = useState<number>(0);
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        setTotalVolunteerThings(getTotalVolunteerThings());
-        setTotalCompleted(getTotalCompleted());
-    }, [volunteerThings]);
+    const { total: totalVolunteerThings, totalCompleted, totalMissing } = useCalcCategory({
+        valueToCalc: volunteerThings
+    })
 
-    useEffect(() => {
-        setTotalMissing(getTotalMissing());
-    }, [totalCompleted, totalMissing]);
 
     useEffect(() => {
         dispatch(getVolunteerThingsAction());
     }, []);
-
-    const getTotalVolunteerThings = () => {
-        return volunteerThings?.reduce((acc: number, item: any) => {
-            acc += item.expense;
-            return acc;
-        }, 0);
-    };
-
-    const getTotalCompleted = () => {
-        return volunteerThings?.reduce((acc: number, item: any) => {
-            if (item.status === "COMPLETED") acc += item.expense;
-            if (item.status === "IN PROGRESS") acc += item.paidOut;
-
-            return acc;
-        }, 0);
-    };
-
-    const getTotalMissing = () => {
-        return totalVolunteerThings - totalCompleted;
-    };
 
     const addToThisMonth = (item: VolunteerThingsI) => {
         volunteerThingsProvider.update(item.uuid || "", { status: "IN_PROGRESS", inMonth: true })

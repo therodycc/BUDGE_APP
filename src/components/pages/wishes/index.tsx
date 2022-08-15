@@ -4,6 +4,7 @@ import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
 import { currencyFormat } from '../../../helpers/currency.helper'
 import { getFilterByStatus } from '../../../helpers/status.helper'
 import { gxUUID } from '../../../helpers/uuid-generator.helper'
+import useCalcCategory from '../../../hooks/useCalcCategory'
 import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
@@ -20,42 +21,19 @@ import ModalWishes from './modals'
 const Wishes = () => {
 
     const { wishes: { wishes } } = useSelector((state: any) => state)
-    const [totalWishes, setTotalWishes] = useState(0)
-    const [totalCompleted, setTotalCompleted] = useState(0)
-    const [totalMissing, setTotalMissing] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<WishesI | null>(null);
     const [tab, setTab] = useState<number>(0);
     const dispatch = useDispatch()
 
+    const { total: totalWishes, totalCompleted, totalMissing } = useCalcCategory({
+        valueToCalc: wishes
+    })
+
     useEffect(() => {
         dispatch(getWishesAction())
     }, [])
 
-    useEffect(() => {
-        setTotalWishes(getTotalWishes())
-        setTotalCompleted(getTotalCompleted())
-    }, [wishes])
-
-    useEffect(() => {
-        setTotalMissing(getTotalMissing())
-    }, [totalCompleted, totalWishes])
-
-    const getTotalWishes = () => {
-        return wishes?.reduce((acc: number, item: any) => {
-            acc += item?.expense
-            return acc
-        }, 0);
-    }
-    const getTotalCompleted = () => {
-        return wishes?.reduce((acc: number, item: any) => {
-            if (item.status === 'COMPLETED') acc += item.expense
-            return acc
-        }, 0);
-    }
-    const getTotalMissing = () => {
-        return totalWishes - totalCompleted;
-    }
 
     const addToThisMonth = (item: WishesI) => {
         wishesProvider.update(item?.uuid || "", { status: 'IN_PROGRESS', inMonth: true })
@@ -130,8 +108,8 @@ const Wishes = () => {
                                         <div className="col-md-8 d-flex p-0 justify-content-end">
                                             <CustomBtnGroups
                                                 action1={() => addToThisMonth(item)}
-                                                action2={() => { showModalEdit(item) }}
-                                                action3={() => { removeItem(item); }} />
+                                                action2={() => showModalEdit(item)}
+                                                action3={() => removeItem(item)} />
                                         </div>
                                     </div>
                                     <div className='row'>

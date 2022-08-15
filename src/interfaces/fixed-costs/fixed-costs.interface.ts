@@ -17,6 +17,8 @@ export interface headItemsFixedCostsI {
     showModalEdit: Function
     removeItem: Function
     disabledItem: Function
+    changeDateToPay: Function
+
 }
 export interface ModalFixedCostsPropsI extends ModalBaseI {
     data?: any;

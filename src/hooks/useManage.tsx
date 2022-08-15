@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { currencyFormat } from "../helpers/currency.helper";
+import { useMemo } from "react";
 
 const useManage = (manage: any, profits: any, entry: any) => {
     let statists = useMemo(() => {
