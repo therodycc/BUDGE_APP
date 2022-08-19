@@ -57,12 +57,6 @@ export const asideOptions: AsideOptionsI[] = [
         link: "/reports",
     },
     {
-        icon: faUserAlt,
-        title: "Profile",
-        active: false,
-        link: "/profile",
-    },
-    {
         icon: faMoneyCheckDollar,
         title: "Profits",
         active: false,

@@ -1,9 +1,15 @@
-import { faArrowDownUpAcrossLine, faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownUpAcrossLine, faNoteSticky, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 
 export const floatOptionsSettings = (actions: { logout: Function }) => [
     {
+        icon: faUserAlt,
+        title: "Profile",
+        active: false,
+        href: "/profile",
+    },
+    {
         title: "Logout",
-        action: async () => { actions.logout() },
+        action: () => { actions.logout() },
         icon: faArrowDownUpAcrossLine,
         active: true,
     },

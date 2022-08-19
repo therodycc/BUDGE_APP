@@ -56,7 +56,11 @@ const FixedCosts = () => {
         Promise.all(
             fixedCosts?.filter((item: UtilityI) => item.active)
                 .map(async (item: UtilityI) => {
-                    return await fixedCostsProvider.update(item.uuid, { inMonth: true, status: "IN_PROGRESS" });
+                    return await fixedCostsProvider.update(item.uuid, {
+                        inMonth: true,
+                        paidOut: 0,
+                        status: "IN_PROGRESS"
+                    });
                 }))
             .then((data: any) => {
                 if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");

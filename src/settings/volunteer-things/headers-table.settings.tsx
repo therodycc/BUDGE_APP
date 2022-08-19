@@ -1,6 +1,3 @@
-import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import DTProfileTable from "../../components/common/dt-profile-table";
 import TrafficLights from "../../components/common/traffic-lights";
 import CustomBtnGroups from "../../components/custom/btn-actions-groups";
@@ -29,7 +26,7 @@ export const headersVolunteerThings = ({ addToThisMonth, showModalEdit, removeIt
         render: ({ item }: any) => {
             return (
                 <div>
-                    <span>{item?.to}</span>
+                    <span style={{ whiteSpace: "pre-wrap" }}>{item?.to}</span>
                 </div>
             );
         },

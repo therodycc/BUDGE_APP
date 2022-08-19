@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { gxUUID } from '../../../../helpers/uuid-generator.helper';
 import authProvider from '../../../../providers/auth/auth.provider';
@@ -16,18 +17,19 @@ const FloatMenu = () => {
 
     return (
         <>
-            <ul 
+            <ul
                 className="dropdown-menu shadow-lg dropdown-menu-end p-3 mt-sm-n2 me-3 show"
                 data-bs-popper="none"
                 style={{ width: "300px", }}
             >
                 {floatOptionsSettings({ logout }).map((item, index) => (
-                    <li className="mb-2"
+                    <Link
+                        href={item?.href || ""}
                         key={uuidGX + item.title}
                     >
                         <a
                             className="dropdown-item border-radius-md cursor-pointer"
-                            onClick={() => item.action()}
+                            onClick={() => item?.action?.()}
                         >
                             <div className="d-flex align-items-center py-1">
                                 <FontAwesomeIcon
@@ -41,7 +43,7 @@ const FloatMenu = () => {
                                 </div>
                             </div>
                         </a>
-                    </li>
+                    </Link>
                 ))}
             </ul>
         </>

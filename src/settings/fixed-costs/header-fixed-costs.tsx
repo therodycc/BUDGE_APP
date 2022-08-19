@@ -7,6 +7,8 @@ import { currencyFormat } from "../../helpers/currency.helper";
 import { headItemsFixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
 import { StatusType } from "../../interfaces/utility/utilily.type";
 import { ChangeEvent } from 'react';
+import ManageDays from "../../components/pages/fixed-costs/manage-days";
+import Toggle from "../../components/common/input/toggle";
 
 export const headItemsFixedCosts = ({
     addToThisMonth,
@@ -33,7 +35,8 @@ export const headItemsFixedCosts = ({
             render: ({ item }: any) => {
                 return (
                     <React.Fragment>
-                        <Dropdown
+                        <ManageDays />
+                        {/* <Dropdown
                             defaultValue={item.dateToPay}
                             name="dateToPay"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +51,7 @@ export const headItemsFixedCosts = ({
                                     title: "Dias 30",
                                     value: 30
                                 },
-                            ]} />
+                            ]} /> */}
                     </React.Fragment>
                 );
             },
@@ -65,20 +68,7 @@ export const headItemsFixedCosts = ({
         {
             title: "Active",
             render: ({ item }: any) => {
-                return (
-                    <>
-                        <div className="form-check form-switch ms-2 my-auto is-filled">
-                            <input
-                                onClick={() => {
-                                    disabledItem(item);
-                                }}
-                                className="form-check-input"
-                                type="checkbox"
-                                defaultChecked={item.active}
-                            />
-                        </div>
-                    </>
-                );
+                return (<Toggle checked={item.active} onChange={() => { disabledItem(item); }} />);
             },
         },
     ];
