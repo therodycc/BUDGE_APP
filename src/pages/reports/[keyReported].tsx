@@ -1,56 +1,32 @@
-import { NextPage } from "next";
-import React from "react";
-import { currencyFormat } from "../../helpers/currency.helper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import React, { ReactNode, useEffect, useState } from "react";
 import CardAmountText from "../../components/common/card/card-amount-text";
 import ListTableCard from "../../components/common/list/list-table-card";
 import Layout from "../../components/layout";
-import { ReactNode } from 'react';
 import SimpleLayout from '../../components/layout/simple-layout';
+import { currencyFormat } from "../../helpers/currency.helper";
+import useFetch from "../../hooks/useFetch";
+import reportsProvider from "../../providers/reports/reports.provider";
+
+export interface ReportItemI {
+    uuid: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+    price: string;
+    paidOut: string;
+}
 
 const ReportExportedKey = () => {
     const router = useRouter();
 
-    const fixedExported = [
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-        {
-            name: "House",
-            description: currencyFormat(200),
-        },
-    ];
+    const { data } = useFetch<{}, ReportItemI[]>({
+        params: router.query.keyReported,
+        providerAction: reportsProvider,
+        functionProviderName: 'getReportItems',
+    }, router.query.keyReported);
 
     return (
 
@@ -86,11 +62,11 @@ const ReportExportedKey = () => {
                             </div>
                             <div className="col-lg-7">
                                 <div className="row mx-3">
-                                    {fixedExported?.map((item, index) => (
+                                    {data?.map((item: any, index: number) => (
                                         <React.Fragment key={item.name + index}>
                                             <ListTableCard
                                                 title={item?.name}
-                                                description={item.description}
+                                                description={currencyFormat(+item.price)}
                                                 index={index}
                                             />
                                         </React.Fragment>
@@ -107,9 +83,9 @@ const ReportExportedKey = () => {
 
 ReportExportedKey.getLayout = (page: ReactNode) => (
     // <Layout>
-        <SimpleLayout >
-            {page}
-        </SimpleLayout>
+    <SimpleLayout >
+        {page}
+    </SimpleLayout>
     // </Layout>
 )
 

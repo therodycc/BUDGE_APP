@@ -6,6 +6,14 @@ class ReportsProvider extends Provider {
         super({ baseURL: `${config.app.url}/reports` })
     }
 
+    getReports() {
+        return this.get('/')
+    }
+
+    getReportItems(uuid: string) {
+        return this.get(`/items/${uuid}`)
+    }
+
     async exportPDF(data: any) {
         return await this.post('/', data)
     }

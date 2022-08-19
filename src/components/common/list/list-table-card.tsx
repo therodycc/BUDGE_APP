@@ -4,6 +4,7 @@ interface ListTableCard {
     description: string
     index: number
 }
+
 const ListTableCard: FC<ListTableCard> = ({ title, description, index }) => {
     return (
         <React.Fragment>
@@ -11,11 +12,11 @@ const ListTableCard: FC<ListTableCard> = ({ title, description, index }) => {
                 <div className="col-lg-6">
                     <h6 className="mb-0 text-sm">{title}</h6>
                 </div>
-                <td className="col-lg-6 d-flex justify-content-end">
+                <div className="col-lg-6 d-flex justify-content-end">
                     <span className="text-xs">
                         {description}
                     </span>
-                </td>
+                </div>
             </div>
         </React.Fragment>
     )

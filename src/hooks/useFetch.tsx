@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
 interface useFetchI<T> {
-    params: T | any,
+    params?: T | any,
     providerAction: any
     functionProviderName: string;
     callback?: Function
 }
 
 // hook in progress ... 
-const useFetch = <T extends {}>({ params, providerAction, callback, functionProviderName }: useFetchI<T>, waitChanges?: any) => {
+const useFetch = <T extends {}, D = {}>({ params = undefined, providerAction, callback, functionProviderName }: useFetchI<T>, waitChanges?: any) => {
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<D | null>(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -22,7 +22,6 @@ const useFetch = <T extends {}>({ params, providerAction, callback, functionProv
         if (result?.error) return setError(result.error);
         setData(result?.data);
         callback?.(result?.data)
-        setError(null);
     }
 
     return { data, error, getData }

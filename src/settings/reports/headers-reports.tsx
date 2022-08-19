@@ -1,14 +1,27 @@
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import { currencyFormat } from '../../helpers/currency.helper';
 export const headersReports = () => [
     {
-        title: "Date",
-        key: "date",
+        title: "Entry",
+        render: ({ item }: any) => (
+            <div>
+                <span>{currencyFormat(+item?.entry)}</span>
+            </div>
+        ),
     },
     {
-        title: "Amount",
-        key: "amount",
+        title: "Description",
+        key: "description",
+    },
+    {
+        title: "Exported at",
+        render: ({ item }: any) => (
+            <div>
+                <span>{new Date(item?.createdAt).toLocaleString()}</span>
+            </div>
+        ),
     },
     {
         title: "Actions",
