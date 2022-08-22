@@ -12,7 +12,7 @@ const FloatMenu = () => {
 
     const logout = async () => {
         await authProvider.logout();
-        router.push("/auth/sign-in");
+        router.reload();
     }
 
     return (

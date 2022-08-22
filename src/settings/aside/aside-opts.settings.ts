@@ -9,34 +9,10 @@ export const asideOptions: AsideOptionsI[] = [
         link: "/",
     },
     {
-        icon: faListCheck,
-        title: "Manage",
-        active: false,
-        link: "/manage",
-    },
-    {
         icon: faHouseFire,
-        title: "Fixed costs",
+        title: "General",
         active: false,
-        link: "/fixedCosts",
-    },
-    {
-        icon: faStarHalfStroke,
-        title: "Wishes",
-        active: false,
-        link: "/wishes",
-    },
-    {
-        icon: faHandshakeAngle,
-        title: "Volunteer things",
-        active: false,
-        link: "/volunteer-things",
-    },
-    {
-        icon: faExplosion,
-        title: "Debt",
-        active: false,
-        link: "/debt",
+        link: "/general",
     },
     {
         icon: faPiggyBank,
@@ -45,28 +21,10 @@ export const asideOptions: AsideOptionsI[] = [
         link: "/savings",
     },
     {
-        icon: faHome,
-        title: "Necessary",
-        active: false,
-        link: "/necessary",
-    },
-    {
         icon: faFileAlt,
         title: "Reports",
         active: false,
         link: "/reports",
-    },
-    {
-        icon: faMoneyCheckDollar,
-        title: "Profits",
-        active: false,
-        link: "/profits",
-    },
-    {
-        icon: faHandHoldingUsd,
-        title: "Lending",
-        active: false,
-        link: "/lending",
     },
     {
         icon: faCommentAlt,

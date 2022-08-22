@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
@@ -19,6 +20,7 @@ import ModalVolunteerThings from './modals';
 
 const VolunteerThings = () => {
     const { volunteerThings: { volunteerThings } } = useSelector((state: any) => state);
+    const router = useRouter();
 
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
@@ -32,7 +34,6 @@ const VolunteerThings = () => {
     const { total: totalVolunteerThings, totalCompleted, totalMissing } = useCalcCategory({
         valueToCalc: volunteerThings
     })
-
 
     useEffect(() => {
         dispatch(getVolunteerThingsAction());

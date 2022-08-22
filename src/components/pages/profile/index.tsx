@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ButtonCard from '../../common/button/button-card';
 import ModalAlert from '../../common/modal/alert';
 import BgLayoutPage from '../../layout/bg-layout-page';
+import Profits from '../profits';
 import ChangePassword from './change-password';
 
 const Profile = () => {
@@ -35,13 +36,22 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-lg-6'>
-                        <div className='card p-3'>
-                            <span>Forma de cobros</span>
-                            <div className='card-body row'>
-                                <span>quincenal</span>
-                                <span>semanal</span>
-                                <span>mensual</span>
+                    <div className="">
+                        <div className="row">
+                            <div className=" col-sm-6">
+                                <div className='card card-body'>
+                                    <Profits />
+                                </div>
+                            </div>
+                            <div className=" col-sm-6">
+                                <div className='card p-3'>
+                                    <span>Forma de cobros</span>
+                                    <div className='card-body row'>
+                                        <span>quincenal</span>
+                                        <span>semanal</span>
+                                        <span>mensual</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
