@@ -9,7 +9,7 @@ const General = () => {
         <React.Fragment>
             <div className="row  my-3 ">
                 {optionsPages.map((option, index) => (
-                    <Link href={option.link}>
+                    <Link key={index} href={option.link}>
                         <div className="col-sm-6">
                             <ButtonCard
                                 title={option.title}

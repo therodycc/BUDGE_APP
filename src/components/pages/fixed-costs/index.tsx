@@ -7,6 +7,7 @@ import useFixedCostsStatics from '../../../hooks/useFixedCostsStatics';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
 import { addFixedCosts, disableFixedCost, removeFixedCost } from '../../../redux-toolkit/slices/fixed-costs.slice';
+import { RootState } from '../../../redux-toolkit/store';
 import { headItemsFixedCosts } from '../../../settings/fixed-costs/header-fixed-costs';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
@@ -15,6 +16,7 @@ import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
 import ModalFixedCosts from './modals';
+import { FixedCostsI } from '../../../interfaces/fixed-costs/fixed-costs.interface';
 
 const FixedCosts = () => {
 
@@ -29,11 +31,11 @@ const FixedCosts = () => {
     const [showLoadingAddToMoth, setShowLoadingAddToMoth] = useState(false);
 
     // stores
-    const { fixedCosts: { fixedCosts } } = useSelector((state: any) => state)
+    const { fixedCosts } = useSelector((state: RootState) => state)
 
     const dispatch = useDispatch()
 
-    const { total, totalActive, totalDisabled } = useFixedCostsStatics({ fixedCosts });
+    const { total, totalActive, totalDisabled } = useFixedCostsStatics({ fixedCosts: fixedCosts.result });
 
 
     useEffect(() => {
@@ -60,15 +62,14 @@ const FixedCosts = () => {
 
     const addToMonth = () => {
         Promise.all(
-            fixedCosts?.filter((item: UtilityI) => item.active)
-                .map(async (item: UtilityI) => {
-                    return await fixedCostsProvider.update(item.uuid, {
-                        inMonth: true,
-                        paidOut: 0,
-                        status: "IN_PROGRESS"
-                    });
-                }))
+            (fixedCosts?.result || [])?.filter((item: FixedCostsI, index: number) => item.active)
+                .map((item, index) => fixedCostsProvider.update(item.uuid as string, {
+                    inMonth: true,
+                    paidOut: 0,
+                    status: "IN_PROGRESS"
+                })))
             .then((data: any) => {
+                console.log("🪲 ~ .then ~ data", data)
                 if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");
                 sweetAlert.alert("Success", "Fixed costs added to this month", "success");
             })
@@ -76,9 +77,9 @@ const FixedCosts = () => {
 
     const formatFixedCosts = () => {
         Promise.all(
-            fixedCosts?.filter((item: UtilityI) => item.active)
-                .map(async (item: UtilityI) => {
-                    return await fixedCostsProvider.update(item.uuid, { status: "PENDING", paidOut: 0 });
+            (fixedCosts?.result || []).filter((item: FixedCostsI) => item.active)
+                .map(async (item: FixedCostsI) => {
+                    return await fixedCostsProvider.update(item.uuid as string, { status: "PENDING", paidOut: 0 });
                 }))
             .then((data: any) => {
                 if (data?.error) return sweetAlert.toast("Error", data.error.message, "error");
@@ -187,7 +188,7 @@ const FixedCosts = () => {
                             showModalEdit,
                             changeDateToPay
                         })}
-                        bodyItems={fixedCosts?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                        bodyItems={fixedCosts.result?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                     />
                 </Box>
             </div>

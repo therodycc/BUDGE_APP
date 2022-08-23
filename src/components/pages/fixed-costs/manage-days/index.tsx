@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Toggle from '../../../common/input/toggle';
-import classes from './manage-days.module.css'
 
 export interface MonthDays {
     day: number,
@@ -26,8 +25,9 @@ const ManageDays = () => {
     return (
         <React.Fragment>
             <div className="row card px-2 py-3">
-                {monthDays.map((item) => (
+                {monthDays.map((item, index) => (
                     <div
+                        key={index}
                         className='d-flex align-items-center justify-content-center'
                         onClick={() => handleActive(item.day)}>
                         <span>

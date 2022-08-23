@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import debtsReducer from '../slices/debts.slice'
+import fixedCostsReducer from '../slices/fixed-costs.slice'
 import manageReducer from '../slices/manage.slice'
 import meReducer from '../slices/me.slice'
 import necessaryReducer from '../slices/necessary.slice'
@@ -15,7 +16,8 @@ export const store = configureStore({
         manage: manageReducer,
         necessary: necessaryReducer,
         volunteerThings: volunteerThingsReducer,
-        wishes: wishesReducer
+        wishes: wishesReducer,
+        fixedCosts: fixedCostsReducer
     },
 })
 
