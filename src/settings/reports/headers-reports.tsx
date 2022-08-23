@@ -1,8 +1,8 @@
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { currencyFormat } from '../../helpers/currency.helper';
-export const headersReports = () => [
+export const headersReports = ({ deleteReport }: { deleteReport: Function }) => [
     {
         title: "Entry",
         render: ({ item }: any) => (
@@ -33,8 +33,9 @@ export const headersReports = () => [
                             type="button"
                             className={`btn btn-${item.status === "In progress" ? "warning" : "light"
                                 } btn-sm`}
+                            onClick={() => { deleteReport(item.uuid) }}
                         >
-                            <i className="fas fa-spinner"></i>
+                            <FontAwesomeIcon icon={faTrash} />
                         </button>
                         <Link href={`/reports/${item?.uuid}`}>
                             <button type="button" className={`btn btn-${"danger"} btn-sm`}>

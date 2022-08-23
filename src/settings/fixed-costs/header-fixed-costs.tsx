@@ -1,14 +1,12 @@
 import React from "react";
-import Dropdown from "../../components/common/dropdown";
 import DTProfileTable from "../../components/common/dt-profile-table";
+import Toggle from "../../components/common/input/toggle";
 import TrafficLights from "../../components/common/traffic-lights";
 import CustomBtnGroups from "../../components/custom/btn-actions-groups";
+import ManageDays from "../../components/pages/fixed-costs/manage-days";
 import { currencyFormat } from "../../helpers/currency.helper";
 import { headItemsFixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.interface";
 import { StatusType } from "../../interfaces/utility/utilily.type";
-import { ChangeEvent } from 'react';
-import ManageDays from "../../components/pages/fixed-costs/manage-days";
-import Toggle from "../../components/common/input/toggle";
 
 export const headItemsFixedCosts = ({
     addToThisMonth,

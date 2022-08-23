@@ -54,7 +54,7 @@ const ProfitsList = () => {
                         title={item?.type}
                         description={currencyFormat(item?.amount)}
                         toggleEnabled={() => disabledItem(item)}
-                        item={item}
+                        item={{ ...item, showOptions: true }}
                     />
                 ))}
             {

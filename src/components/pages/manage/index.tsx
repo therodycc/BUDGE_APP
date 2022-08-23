@@ -8,7 +8,9 @@ import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
 import { getFilterByStatus } from '../../../helpers/status.helper';
 import useManage from '../../../hooks/useManage';
 import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
+import { ReportsBodyToSendI } from '../../../interfaces/reports/reports-items.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
+import reportsProvider from '../../../providers/reports/reports.provider';
 import manageProvider from '../../../providers/utilities/utilities.provider';
 import { getManageAction, removeAllManageAction, removeManageAction } from '../../../redux/actions/manage.action';
 import { getProfitsAction } from '../../../redux/actions/profits.action';
@@ -63,21 +65,22 @@ const Manage = () => {
 
     const handleExportData = async () => {
         const confirm = await sweetAlert.question('Do you want to export data?', 'warning', '');
-        if (!confirm) return
+        if (!confirm) return;
+        const result = await reportsProvider.createReports({
+            description: 'THERE IS NOT A DESCRIPTION',
+            entry,
+            reportItems: manage.map((item: any) => ({
+                name: item.name,
+                price: item.expense,
+                type: item.type.name,
+                uuidItemExported: item.uuid
+            }))
+        })
+        if (result?.error) return sweetAlert.toast("Error", result?.error?.message, "error");
+        sweetAlert.toast("Success", 'Data was exported', 'success');
         createTablePdf(manage, entry, pending, remaining)
-        const result = await fetch('http://localhost:8000/reports', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                [new Date().toLocaleDateString()]: manage
-            })
-        });
-        const data = await result.json();
-        if (!data) return sweetAlert.alert("Error", "Something went wrong", "error");
-        sweetAlert.toast(data?.message, '', 'success');
     }
+
     return (
         <>
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></Script>

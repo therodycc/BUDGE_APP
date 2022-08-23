@@ -1,4 +1,5 @@
 import config from "../../config";
+import { ReportsBodyToSendI } from "../../interfaces/reports/reports-items.interface";
 import Provider from "../provider";
 
 class ReportsProvider extends Provider {
@@ -12,6 +13,14 @@ class ReportsProvider extends Provider {
 
     getReportItems(uuid: string) {
         return this.get(`/items/${uuid}`)
+    }
+
+    deleteReport(uuid: string) {
+        return this.delete(`/${uuid}`)
+    }
+
+    createReports(body: ReportsBodyToSendI) {
+        return this.post('/', body)
     }
 
     async exportPDF(data: any) {

@@ -3,4 +3,5 @@ export interface ProfitI{
     type:string 
     amount:number
     active:boolean
+    showOptions:boolean
 }
