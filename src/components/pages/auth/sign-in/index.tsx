@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import authProvider from "../../../../providers/auth/auth.provider";
-import { login } from "../../../../redux/actions/auth/auth.action";
 import inputsAuthRenderSettings, { inputsAuthRenderRules } from "../../../../settings/auth/inputs-auth-render.settings";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -22,7 +21,7 @@ const SignIn = () => {
             setLoadingAuth(false)
         ];
         router.push("/");
-        dispatch(login({ auth: true }));
+        // dispatch(login({ auth: true }));
         setLoadingAuth(false);
     };
 

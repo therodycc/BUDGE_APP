@@ -7,7 +7,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
 import { addDebts, removeDebt } from '../../../redux-toolkit/slices/debts.slice';
-import { RootState } from '../../../redux-toolkit/store/index';
+import { RootState } from '../../../redux-toolkit/store';
 import { headTableDebts } from '../../../settings/debts/headers-debts';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';

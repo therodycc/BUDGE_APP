@@ -8,7 +8,7 @@ import { ProfitI } from '../../../interfaces/app/profit/profit.interface';
 import { ProfitsI } from '../../../interfaces/profits/profits.interface';
 import profitsProvider from '../../../providers/profits/profits.provider';
 import { disableProfit, removeProfit } from '../../../redux-toolkit/slices/profits.slice';
-import { RootState } from '../../../redux-toolkit/store/index';
+import { RootState } from '../../../redux-toolkit/store';
 import CardWidget from '../../common/card/CardWidget';
 import ModalProfits from './modals';
 

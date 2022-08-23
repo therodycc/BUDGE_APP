@@ -6,7 +6,7 @@ import { addNewDebt } from "../../../../redux-toolkit/slices/debts.slice";
 import { inputsDataDebtsModal } from "../../../../settings/debts/inputs-data.settings";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
-import Modal from "../../../common/modal/Index";
+import Modal from "../../../common/modal";
 
 const ModalDebts = ({ active, setToggle: toggle, data }: ModalDebtsPropsI) => {
     const dispatch = useDispatch();

@@ -5,8 +5,8 @@ import profitsProvider from '../../providers/profits/profits.provider';
 import userProvider from '../../providers/user/user.provider';
 import { getMeAction } from '../../redux-toolkit/slices/me.slice';
 import { addProfits } from '../../redux-toolkit/slices/profits.slice';
-import Aside from './aside/Index';
-import Header from './header/Index';
+import Aside from './aside';
+import Header from './header';
 
 
 const Layout: FC<LayoutPropsI> = ({ children }) => {

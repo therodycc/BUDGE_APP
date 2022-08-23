@@ -1,12 +1,11 @@
 import { faPaintbrush } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux-toolkit/store';
 import ButtonCard from '../../common/button/button-card';
-import ModalAlert from '../../common/modal/alert';
 import BgLayoutPage from '../../layout/bg-layout-page';
 import Profits from '../profits';
 import ChangePassword from './change-password';
-import { RootState } from '../../../redux-toolkit/store/index';
 
 const Profile = () => {
     const [showChangePassword, setShowChangePassword] = useState(false);
