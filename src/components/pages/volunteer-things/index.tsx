@@ -17,9 +17,10 @@ import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
 import ModalVolunteerThings from './modals';
+import { RootState } from '../../../redux-toolkit/store/index';
 
 const VolunteerThings = () => {
-    const { volunteerThings: { volunteerThings } } = useSelector((state: any) => state);
+    const { volunteerThings } = useSelector((state: RootState) => state);
     const router = useRouter();
 
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +33,7 @@ const VolunteerThings = () => {
     const dispatch = useDispatch();
 
     const { total: totalVolunteerThings, totalCompleted, totalMissing } = useCalcCategory({
-        valueToCalc: volunteerThings
+        valueToCalc: volunteerThings.result,
     })
 
     useEffect(() => {
@@ -120,7 +121,7 @@ const VolunteerThings = () => {
                 >
                     <Table
                         headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })}
-                        bodyItems={volunteerThings?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                        bodyItems={(volunteerThings.result || [])?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
                     />
                 </Box>
             </div>

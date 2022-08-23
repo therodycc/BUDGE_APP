@@ -95,7 +95,7 @@ const Manage = () => {
         })
         if (result?.error) return sweetAlert.toast("Error", result?.error?.message, "error");
         sweetAlert.toast("Success", 'Data was exported', 'success');
-        createTablePdf(manage, entry, pending, remaining)
+        createTablePdf(manage?.result, entry, pending, remaining)
     }
 
     return (

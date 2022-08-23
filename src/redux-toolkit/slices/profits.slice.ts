@@ -17,13 +17,14 @@ export const profitsSlice = createSlice({
             state.result = action.payload.result
         },
         addNewProfit: (state: ProfitsStateI, action: PayloadAction<{ profit: ProfitsI }>) => {
+            console.log(action.payload.profit);
             state.result && (state.result = [action.payload.profit, ...state.result])
         },
         updateProfit: (state: ProfitsStateI, action: PayloadAction<{ profit: ProfitsI }>) => {
             state.result && (state.result = state.result.map((item: ProfitsI) =>
                 item.uuid == action.payload.profit.uuid
                     ?
-                    action.payload.profit : item))
+                    { ...item, ...action.payload.profit } : item))
         },
         removeProfit: (state: ProfitsStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: ProfitsI) => item.uuid != action.payload.uuid))

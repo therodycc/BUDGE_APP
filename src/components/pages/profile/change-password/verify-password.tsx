@@ -7,13 +7,14 @@ import Badge from '../../../common/badge';
 import Button from '../../../common/button';
 import Form from '../../../common/form';
 import { inputsChangePassword } from './inputs-verify-password';
+import { RootState } from '../../../../redux-toolkit/store/index';
 interface VerifyPasswordPropsI {
     setToggle: Function
 }
 
 const VerifyPassword: FC<VerifyPasswordPropsI> = ({ setToggle }) => {
     const router = useRouter()
-    const { changePassword: { newPassword } } = useSelector((state: any) => state)
+    const { changePassword: { form: dataForm } } = useSelector((state: RootState) => state)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<null | string>(null);
 
@@ -29,7 +30,7 @@ const VerifyPassword: FC<VerifyPasswordPropsI> = ({ setToggle }) => {
         setLoading(true)
         const result = await authProvider.changePassword({
             password: form?.password,
-            newPassword: newPassword
+            newPassword: dataForm?.newPassword
         })
         if (result.error) return [setError(result?.error?.message), setLoading(false)];
         setToggle(false);
@@ -43,7 +44,7 @@ const VerifyPassword: FC<VerifyPasswordPropsI> = ({ setToggle }) => {
         <React.Fragment>
             <div className=''>
                 <p className='text-secondary mb-0' style={{ fontSize: "16px" }}>Verify your Password</p>
-                <p className='text-secondary'  style={{ fontSize: "12px" }}>Please put you actually password for update</p>
+                <p className='text-secondary' style={{ fontSize: "12px" }}>Please put you actually password for update</p>
             </div>
             {error && <Badge text={error} bgClass="danger" />}
             <Form

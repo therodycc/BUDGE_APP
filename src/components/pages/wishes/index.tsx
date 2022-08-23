@@ -9,6 +9,7 @@ import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
 import { addWishes, removeWish } from '../../../redux-toolkit/slices/wishes.slice'
+import { RootState } from '../../../redux-toolkit/store'
 import { tabsSettings } from '../../../settings/manage/tabs.settings'
 import Button from '../../common/button'
 import CardImg from '../../common/card/CardImg'
@@ -20,14 +21,14 @@ import ModalWishes from './modals'
 
 const Wishes = () => {
 
-    const { wishes: { wishes } } = useSelector((state: any) => state)
+    const { wishes } = useSelector((state: RootState) => state)
     const [showModal, setShowModal] = useState(false)
     const [dataModalUtility, setDataModalUtility] = useState<WishesI | null>(null);
     const [tab, setTab] = useState<number>(0);
     const dispatch = useDispatch()
 
     const { total: totalWishes, totalCompleted, totalMissing } = useCalcCategory({
-        valueToCalc: wishes
+        valueToCalc: wishes.result
     })
 
     useEffect(() => {
@@ -98,7 +99,7 @@ const Wishes = () => {
 
             <div className="flex-wrap mb-5 d-flex justify-content-between">
                 {
-                    wishes?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))?.map((item: any, i: number) => (
+                    (wishes?.result || [])?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))?.map((item: any, i: number) => (
                         <div
                             className="col-xl-4 col-sm-6 mb-xl-0"
                             key={gxUUID()}

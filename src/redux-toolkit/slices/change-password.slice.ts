@@ -2,11 +2,15 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface ChangePasswordStateI {
-    form: any
+    form: {
+        newPassword: string,
+    }
 }
 
 const changePasswordState: ChangePasswordStateI = {
-    form: null,
+    form: {
+        newPassword: '',
+    },
 }
 
 export const changePasswordSlice = createSlice({

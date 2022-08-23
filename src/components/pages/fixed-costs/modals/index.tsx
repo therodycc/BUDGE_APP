@@ -20,6 +20,7 @@ const ModalFixedCosts = ({ active, setToggle: toggle, data: globalData }: ModalF
 
     const updateFixedCostData = async (uuid: string, form: any) => {
         const res = await fixedCostsProvider.update(uuid, form)
+        console.log("🪲 ", { res })
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
         dispatch(updateFixedCost({

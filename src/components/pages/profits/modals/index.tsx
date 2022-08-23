@@ -35,10 +35,9 @@ const ModalProfits = ({ active, setToggle: toggle, data: globalData }: ModalProf
         const res = await profitsProvider.create(form)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Done!", "success");
-
         dispatch(addNewProfit({
             profit: {
-                ...res?.form?.response,
+                ...res?.data?.response,
                 ...(form?.amount && { amount: +form.amount }),
             }
         }));

@@ -21,13 +21,15 @@ const ProfitsList = () => {
 
 
     const disabledItem = async (item: ProfitI) => {
-        const res = await profitsProvider.update(item?.id || "", { active: !item.active })
+        const res = await profitsProvider.update(item?.uuid || "", { active: !item.active })
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
         dispatch(disableProfit({ item }))
     }
 
     const removeProfitItem = async (item: ProfitsI) => {
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
         const res = await profitsProvider.remove(item.uuid as string)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Done!", "success");
@@ -53,7 +55,7 @@ const ProfitsList = () => {
             {profits &&
                 profits?.result?.map((item: any, index: number) => (
                     <CardWidget
-                        handleDelete={removeProfit}
+                        handleDelete={removeProfitItem}
                         handleUpdate={() => {
                             setShowModal(true)
                             setDataProfitsSelected(item)

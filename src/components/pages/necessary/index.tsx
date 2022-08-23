@@ -17,10 +17,11 @@ import CardMini from '../../common/card/CardMini';
 import Table from '../../common/table';
 import Tabs from '../../common/tabs';
 import ModalNecessary from './modals';
+import { RootState } from '../../../redux-toolkit/store/index';
 
 const Necessary = () => {
     const dispatch = useDispatch()
-    const { necessary: { necessary } } = useSelector((state: any) => state)
+    const { necessary } = useSelector((state: RootState) => state)
 
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<NecessaryI | null>(
@@ -36,7 +37,7 @@ const Necessary = () => {
         dispatch(addNecessaries({ result: res?.data }))
     }
     const { totalCompleted, totalMissing, total: totalNecessary } = useCalcCategory({
-        valueToCalc: necessary
+        valueToCalc: necessary.result
     })
 
 
@@ -116,7 +117,7 @@ const Necessary = () => {
                 >
                     <Table
                         headItems={headersModalNecessary({ addToThisMonth, removeItem, showModalEdit })}
-                        bodyItems={necessary?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))} />
+                        bodyItems={(necessary.result || [])?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))} />
                 </Box>
             </div>
 
