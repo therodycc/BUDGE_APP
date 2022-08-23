@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ChangePasswordPropsI } from '../../../../interfaces/change-password/change-password.interface'
+import { setFormForChangePassword } from '../../../../redux-toolkit/slices/change-password.slice'
 import Modal from '../../../common/modal'
 import FormChangePassword from './form'
 import VerifyPassword from './verify-password'
-import { setFormData } from '../../../../redux/actions/auth/change-password';
 
 const ChangePassword: FC<ChangePasswordPropsI> = ({ setToggle, active }) => {
     const [step, setStep] = useState(1);
@@ -12,7 +12,7 @@ const ChangePassword: FC<ChangePasswordPropsI> = ({ setToggle, active }) => {
 
     useEffect(() => {
         return () => {
-            dispatch(setFormData({ form: {} }))
+            dispatch(setFormForChangePassword({ form: {} }))
         }
     }, []);
 

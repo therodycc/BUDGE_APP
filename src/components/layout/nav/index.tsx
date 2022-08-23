@@ -4,6 +4,7 @@ import React from "react";
 import { useContext, useMemo } from 'react';
 import { useSelector } from "react-redux";
 import { UIContext } from "../../../context";
+import { RootState } from "../../../redux-toolkit/store";
 import { settings } from "../../../settings";
 import BackModal from "../../common/back-modals/back-modal";
 import ButtonCircleIcon from "../../common/button/button-circle.icon";
@@ -11,7 +12,7 @@ import UserInfoHead from "../../common/user-info-head";
 import FloatMenu from "./float-menus";
 
 const Nav = () => {
-  const { user: { me } } = useSelector((state: any) => state);
+  const { me: { result: me } } = useSelector((state: RootState) => state);
   const { isMenuSquareOpen, handleIsMenuSquare } = useContext(UIContext);
   const router = useRouter();
 

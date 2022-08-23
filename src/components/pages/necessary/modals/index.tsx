@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
+import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ModalNecessaryPropsI } from "../../../../interfaces/necessary/necessary.interface";
-import {
-    addNecessaryAction,
-    updateNecessaryAction
-} from "../../../../redux/actions/necessary.action";
+import necessaryProvider from "../../../../providers/necessary/necessary.provider";
+import { addNewNecessary, updateNecessary } from "../../../../redux-toolkit/slices/necessary.slice";
 import { inputsModalNecessary } from "../../../../settings/necessary/inputs-data-modals";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -14,10 +13,25 @@ const ModalNecessary = ({ active, setToggle: toggle, data }: ModalNecessaryProps
 
     const handleSubmit = (form: any) => {
         data?.uuid
-            ? dispatch(updateNecessaryAction(data.uuid, form))
-            : dispatch(addNecessaryAction(form));
+            ? updateNecessaryData(data.uuid, form)
+            : addNewNecessaryData(form);
         toggle();
     };
+
+    const updateNecessaryData = async (uuid: string, form: any) => {
+        const res = await necessaryProvider.update(uuid, data)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+        sweetAlert.alert('Success', 'Updated!', 'success')
+        dispatch(updateNecessary({ necessary: form }))
+    }
+
+    const addNewNecessaryData = async (form: any) => {
+        const res = await necessaryProvider.create(form)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+        sweetAlert.alert('Success', 'Done!', 'success')
+        dispatch(addNewNecessary({ necessary: res?.data?.response }))
+    }
+
     return (
         <>
             <Modal title="Necessary" active={active} setToggle={toggle}>

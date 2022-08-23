@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory';
 import { NecessaryI } from '../../../interfaces/necessary/necessary.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
-import { getNecessaryAction, removeNecessaryAction } from '../../../redux/actions/necessary.action';
+import { addNecessaries, removeNecessary } from '../../../redux-toolkit/slices/necessary.slice';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersModalNecessary } from '../../../settings/necessary/headers-necessary';
 import Box from '../../common/box';
@@ -29,9 +29,12 @@ const Necessary = () => {
     const [tab, setTab] = useState(0);
 
     useEffect(() => {
-        dispatch(getNecessaryAction());
+        getAllNecessaryData()
     }, []);
-
+    const getAllNecessaryData = async () => {
+        const res = await necessaryProvider.getAll()
+        dispatch(addNecessaries({ result: res?.data }))
+    }
     const { totalCompleted, totalMissing, total: totalNecessary } = useCalcCategory({
         valueToCalc: necessary
     })
@@ -48,9 +51,13 @@ const Necessary = () => {
     };
 
     const removeItem = async (item: NecessaryI) => {
-        dispatch(removeNecessaryAction(item.uuid || ""))
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await necessaryProvider.remove(item.uuid as string)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
+        sweetAlert.alert('Success', 'Done!', 'success')
+        dispatch(removeNecessary({ uuid: item.uuid as string }))
     };
-
 
 
     const showModalEdit = (item: UtilityI) => {

@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
+import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ModalWishesPropsI } from "../../../../interfaces/wishes/wishes.interface";
-import { addWishesAction, updateWishesAction } from "../../../../redux/actions/wishes.action";
+import wishesProvider from "../../../../providers/wishes/wishes.provider";
+import { addNewWish, updateWish } from "../../../../redux-toolkit/slices/wishes.slice";
 import { inputsModalWishes } from "../../../../settings/wishes/inputs-data-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -11,12 +13,34 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
 
     const handleSubmit = (form: any) => {
         data?.uuid
-            ? dispatch(
-                updateWishesAction(data.uuid, form)
-            )
-            : dispatch(addWishesAction(form));
+            ? updateWishData(data.uuid, form)
+            : addNewWishData(form);
         toggle();
     };
+
+    const addNewWishData = async (form: any) => {
+        const res = await wishesProvider.create(form)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Done!", "success");
+        dispatch(addNewWish({
+            wishes: {
+                ...res?.data?.response,
+                ...(form.expense && { expense: +form.expense }),
+            }
+        }));
+    }
+
+    const updateWishData = async (uuid: string, form: any) => {
+        const res = await wishesProvider.update(uuid, data)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Updated!", "success");
+        dispatch(updateWish({
+            wishes: {
+                ...form,
+                ...(form.expense && { expense: +form.expense }),
+            }
+        }));
+    }
 
     return (
         <>

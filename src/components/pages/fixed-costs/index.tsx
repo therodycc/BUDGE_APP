@@ -6,7 +6,7 @@ import { getFilterByStatus } from '../../../helpers/status.helper';
 import useFixedCostsStatics from '../../../hooks/useFixedCostsStatics';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
-import { disabledItemAction, getFixedCostsAction, removeFixedCostsAction } from '../../../redux/actions/fixed-costs.action';
+import { addFixedCosts, disableFixedCost, removeFixedCost } from '../../../redux-toolkit/slices/fixed-costs.slice';
 import { headItemsFixedCosts } from '../../../settings/fixed-costs/header-fixed-costs';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
@@ -37,8 +37,14 @@ const FixedCosts = () => {
 
 
     useEffect(() => {
-        dispatch(getFixedCostsAction())
+        getAllFixedCostsData()
     }, []);
+
+
+    const getAllFixedCostsData = async () => {
+        const res = await fixedCostsProvider.getAll()
+        dispatch(addFixedCosts({ result: res?.data }));
+    }
 
 
 
@@ -86,11 +92,18 @@ const FixedCosts = () => {
     }
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeFixedCostsAction(item?.uuid))
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await fixedCostsProvider.remove(item.uuid)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Deleted!", "success");
+        dispatch(removeFixedCost({ uuid: item.uuid }))
     };
 
-    const disabledItem = (item: UtilityI) => {
-        dispatch(disabledItemAction(item))
+    const disabledItem = async (item: UtilityI) => {
+        const res = await fixedCostsProvider.update(item?.uuid || "", { active: !item?.active, })
+        if (res.error) return;
+        dispatch(disableFixedCost({ item }));
     };
 
     const showModalEdit = (item: UtilityI) => {

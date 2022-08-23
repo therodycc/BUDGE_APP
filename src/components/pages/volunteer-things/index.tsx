@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { VolunteerThingsI } from '../../../interfaces/volunteer-things/volunteer-things.interface';
 import volunteerThingsProvider from '../../../providers/volunteer-things/volunteer-things.provider';
-import { getVolunteerThingsAction, removeVolunteerThingsAction } from '../../../redux/actions/volunteer-things.action';
+import { addVolunteerThings, removeVolunteerThing } from '../../../redux-toolkit/slices/volunteer-things.slice';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersVolunteerThings } from '../../../settings/volunteer-things/headers-table.settings';
 import Box from '../../common/box';
@@ -36,8 +36,13 @@ const VolunteerThings = () => {
     })
 
     useEffect(() => {
-        dispatch(getVolunteerThingsAction());
+        getAllVolunteerThings()
     }, []);
+
+    const getAllVolunteerThings = async () => {
+        const res = await volunteerThingsProvider.getAll()
+        dispatch(addVolunteerThings({ result: res?.data, }));
+    }
 
     const addToThisMonth = (item: VolunteerThingsI) => {
         volunteerThingsProvider.update(item.uuid || "", { status: "IN_PROGRESS", inMonth: true })
@@ -49,7 +54,12 @@ const VolunteerThings = () => {
     };
 
     const removeItem = async (item: VolunteerThingsI) => {
-        dispatch(removeVolunteerThingsAction(item.uuid || ""));
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await volunteerThingsProvider.remove(item.uuid as string)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Done!", "success");
+        dispatch(removeVolunteerThing({ uuid: item.uuid as string }));
     };
 
     const showModalEdit = (item: UtilityI) => {

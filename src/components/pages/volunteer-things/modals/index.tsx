@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
+import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ModalVolunteerThingsPropsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
-import {
-    addVolunteerThingsAction,
-    updateVolunteerThingsAction
-} from "../../../../redux/actions/volunteer-things.action";
+import volunteerThingsProvider from "../../../../providers/volunteer-things/volunteer-things.provider";
+import { addVolunteerThings, updateVolunteerThing } from "../../../../redux-toolkit/slices/volunteer-things.slice";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -18,11 +17,37 @@ const ModalVolunteerThings = ({
 
     const handleSubmit = (form: any) => {
         data?.uuid
-            ? dispatch(updateVolunteerThingsAction(data.uuid, form))
-            : dispatch(addVolunteerThingsAction(form));
+            ? updateVolunteerThingData(data.uuid, form)
+            : addVolunteerThing(form);
         toggle();
         toggle();
     };
+
+    const addVolunteerThing = async (form: any) => {
+        const res = await volunteerThingsProvider.create(form)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Done!", "success");
+        dispatch(addVolunteerThings({
+            result: {
+                ...res?.data?.response,
+                ...(form.expense && { expense: +form.expense }),
+            },
+        }));
+    }
+
+    const updateVolunteerThingData = async (uuid: string, form: any) => {
+        const res = await volunteerThingsProvider.update(uuid, form)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Updated!", "success");
+        dispatch(updateVolunteerThing({
+            volunteerThing: {
+                ...form,
+                ...(form.expense && { expense: +form.expense })
+            }
+        }))
+
+
+    }
 
     return (
         <>

@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory'
 import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
-import { getWishesAction, removeWishesAction } from '../../../redux/actions/wishes.action'
+import { addWishes, removeWish } from '../../../redux-toolkit/slices/wishes.slice'
 import { tabsSettings } from '../../../settings/manage/tabs.settings'
 import Button from '../../common/button'
 import CardImg from '../../common/card/CardImg'
@@ -31,9 +31,13 @@ const Wishes = () => {
     })
 
     useEffect(() => {
-        dispatch(getWishesAction())
+        getAllWishes()
     }, [])
 
+    const getAllWishes = async () => {
+        const res = await wishesProvider.getAll()
+        dispatch(addWishes({ result: res?.data, }));
+    }
 
     const addToThisMonth = (item: WishesI) => {
         wishesProvider.update(item?.uuid || "", { status: 'IN_PROGRESS', inMonth: true })
@@ -45,7 +49,12 @@ const Wishes = () => {
     };
 
     const removeItem = async (item: WishesI) => {
-        dispatch(removeWishesAction(item.uuid || ''))
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await wishesProvider.remove(item.uuid as string)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Done!", "success");
+        dispatch(removeWish({ uuid: item.uuid as string }));
     };
 
     const showModalEdit = (item: WishesI) => {

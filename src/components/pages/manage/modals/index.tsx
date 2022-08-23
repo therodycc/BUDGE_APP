@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import useForm from "../../../../hooks/useForm";
+import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ManageI } from "../../../../interfaces/manage/manage.interface";
-import { updateManageAction } from "../../../../redux/actions/manage.action";
+import manageProvider from "../../../../providers/utilities/utilities.provider";
+import { updateManage } from "../../../../redux-toolkit/slices/manage.slice";
 import { inputsModalManage } from "../../../../settings/manage/inputs-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -14,15 +15,28 @@ interface ModalManagePropsI {
     data: ManageI;
 }
 
-const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
+const ModalManage = ({ active, toggle, data: globalData }: ModalManagePropsI) => {
     const dispatch = useDispatch();
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit = async (data: any) => {
         const { type, uuid, expense, ...rest } = data
         if (!data.uuid) return console.log("no passed");
-        dispatch(updateManageAction(uuid, type, rest))
+
+        const res = await manageProvider.updateAction(uuid, type, data)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Updated!", "success");
+
+        dispatch(updateManage({
+            manage: {
+                data,
+                ...(data.expense && { expense: +data.expense }),
+                ...(data.paidOut && { paidOut: +data.paidOut }),
+            }
+        }))
         toggle();
-    };
+    }
+
+
 
     return (
         <React.Fragment>
@@ -30,7 +44,7 @@ const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
                 <Form
                     inputsData={inputsModalManage}
                     handleSubmit={handleSubmit}
-                    initialState={data || {}}
+                    initialState={globalData || {}}
                     footerSection={
                         <div className="row mt-3">
                             <div className="col-lg-6">

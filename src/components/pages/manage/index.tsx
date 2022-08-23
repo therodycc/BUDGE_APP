@@ -1,6 +1,5 @@
 import Script from 'next/script';
-import React, { useMemo } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
@@ -8,12 +7,11 @@ import { createTablePdf } from '../../../helpers/pdf/create-table-pdf';
 import { getFilterByStatus } from '../../../helpers/status.helper';
 import useManage from '../../../hooks/useManage';
 import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
-import { ReportsBodyToSendI } from '../../../interfaces/reports/reports-items.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import reportsProvider from '../../../providers/reports/reports.provider';
 import manageProvider from '../../../providers/utilities/utilities.provider';
-import { getManageAction, removeAllManageAction, removeManageAction } from '../../../redux/actions/manage.action';
-import { getProfitsAction } from '../../../redux/actions/profits.action';
+import { addManage, removeAllManage, removeManage } from '../../../redux-toolkit/slices/manage.slice';
+import { RootState } from '../../../redux-toolkit/store/index';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
@@ -27,12 +25,12 @@ import ModalManage from './modals';
 
 const Manage = () => {
     // store
-    const { manage: { manage }, profits: { profits } } = useSelector((state: any) => state);
+    const { profits, manage } = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
     const [tab, setTab] = useState<number>(0);
 
-    const { debt, entry, family, fixedCosts, paidOut, pending, personal, remaining, voluntary, wishes } = useManage(manage, profits,
-        profits?.reduce((acc: number, item: any) => {
+    const { debt, entry, family, fixedCosts, paidOut, pending, personal, remaining, voluntary, wishes } = useManage(manage.result, profits.result,
+        profits?.result?.reduce((acc: number, item: any) => {
             if (item?.active) acc += item.amount;
             return acc;
         }, 0)
@@ -41,13 +39,29 @@ const Manage = () => {
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
 
     useEffect(() => {
-        dispatch(getProfitsAction());
-        dispatch(getManageAction());
+        getAllManage()
     }, []);
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeManageAction(item?.uuid, item?.type?.name));
+        dispatch(removeManage({ uuid: item?.uuid }));
     };
+
+
+    const getAllManage = async () => {
+        const res = await manageProvider.getAll()
+        console.log(res.data)
+        let added: any = [];
+
+        res.data.forEach((item: any) => {
+            item.forEach((element: any) => {
+                added.push(element);
+            });
+        });
+
+        if (res.error) return sweetAlert.toast("Error", res.error, 'error')
+        dispatch(addManage({ result: added }));
+
+    }
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);
@@ -55,11 +69,14 @@ const Manage = () => {
     };
 
     const resetTableData = async () => {
-        Promise.all(manage?.map((item: any) => manageProvider.updateAction(item.uuid, item.type.name, { inMonth: false })))
+        Promise.all(manage?.result?.map((item: any) => manageProvider.updateAction(item.uuid,
+            item.type.name,
+            { inMonth: false }
+        )) || [])
             .then((res: any) => {
                 if (res?.error) return sweetAlert.toast("Error", res?.error?.message, "error");
                 sweetAlert.toast("Success", 'All items was removed from this month', 'success');
-                dispatch(removeAllManageAction());
+                dispatch(removeAllManage());
             })
     }
 
@@ -69,12 +86,12 @@ const Manage = () => {
         const result = await reportsProvider.createReports({
             description: 'THERE IS NOT A DESCRIPTION',
             entry,
-            reportItems: manage.map((item: any) => ({
+            reportItems: manage?.result?.map((item: any) => ({
                 name: item.name,
                 price: item.expense,
                 type: item.type.name,
                 uuidItemExported: item.uuid
-            }))
+            })) || []
         })
         if (result?.error) return sweetAlert.toast("Error", result?.error?.message, "error");
         sweetAlert.toast("Success", 'Data was exported', 'success');
@@ -147,7 +164,7 @@ const Manage = () => {
                         >
                             {({ columns }) => (<Table
                                 headItems={columns}
-                                bodyItems={manage?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                                bodyItems={manage?.result?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                             />)}
                         </ColumnsManageItems>
                     </div>

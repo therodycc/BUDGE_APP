@@ -6,10 +6,11 @@ import ModalAlert from '../../common/modal/alert';
 import BgLayoutPage from '../../layout/bg-layout-page';
 import Profits from '../profits';
 import ChangePassword from './change-password';
+import { RootState } from '../../../redux-toolkit/store/index';
 
 const Profile = () => {
     const [showChangePassword, setShowChangePassword] = useState(false);
-    const { user: { me } } = useSelector((state: any) => state);
+    const {  me } = useSelector((state: RootState) => state);
 
     return (
         <React.Fragment>
@@ -28,10 +29,10 @@ const Profile = () => {
                         <div className="col-8 p-3 " >
                             <div className="">
                                 <h6 className="mb-0 font-weight-bolder text-secondary">
-                                    {me?.firstName} {me?.lastName}
+                                    {me?.result?.firstName} {me?.result?.lastName}
                                 </h6>
                                 <p className="m-0 font-weight-normal text-sm text-secondary">
-                                    {me?.email}
+                                    {me?.result?.email}
                                 </p>
                             </div>
                         </div>

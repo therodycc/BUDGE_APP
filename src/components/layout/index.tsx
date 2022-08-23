@@ -1,13 +1,34 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LayoutPropsI } from '../../interfaces/layout/layout.interface';
-import { getMeAction } from '../../redux/actions/user.action';
-import Aside from './aside';
-import Header from './header';
+import profitsProvider from '../../providers/profits/profits.provider';
+import userProvider from '../../providers/user/user.provider';
+import { getMeAction } from '../../redux-toolkit/slices/me.slice';
+import { addProfits } from '../../redux-toolkit/slices/profits.slice';
+import Aside from './aside/Index';
+import Header from './header/Index';
+
 
 const Layout: FC<LayoutPropsI> = ({ children }) => {
+
     const dispatch = useDispatch()
-    useEffect(() => { dispatch(getMeAction()) }, []);
+
+    useEffect(() => { getMe() }, []);
+
+    const getMe = async () => {
+        const res = await userProvider.getMe()
+        if (res.error) return console.log(res)
+        dispatch(getMeAction({ me: res?.data }));
+    }
+
+    useEffect(() => {
+        getAllProfits()
+    }, []);
+
+    const getAllProfits = async () => {
+        const res = await profitsProvider.getAll()
+        dispatch(addProfits({ result: res?.data }))
+    }
     return (
         <>
             <div className="g-sidenav-show bg-light ">

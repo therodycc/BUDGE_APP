@@ -6,7 +6,8 @@ import { getFilterByStatus } from '../../../helpers/status.helper';
 import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
-import { getDebtsAction, removeDebtsAction } from '../../../redux/actions/debts.action';
+import { addDebts, removeDebt } from '../../../redux-toolkit/slices/debts.slice';
+import { RootState } from '../../../redux-toolkit/store/index';
 import { headTableDebts } from '../../../settings/debts/headers-debts';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
@@ -23,15 +24,21 @@ const Debts = () => {
 
     const dispatch = useDispatch()
 
-    const { debts: { debts } } = useSelector((state: any) => state)
+    const { debts } = useSelector((state: RootState) => state)
 
     const { total: totalDebts, totalCompleted, totalMissing } = useCalcCategory({
-        valueToCalc: debts
+        valueToCalc: debts.result
     })
 
+    const getAllDebts = async () => {
+        const res = await debtProvider.getAll()
+        if (res.error) return sweetAlert.toast("", res.error.message, "error");
+        dispatch(addDebts({ result: res.data }));
+    }
+
     useEffect(() => {
-        dispatch(getDebtsAction())
-    }, [dispatch, getDebtsAction]);
+        getAllDebts()
+    }, []);
 
     const addToThisMonth = (item: UtilityI) => {
         debtProvider.update(item.uuid, { status: 'IN_PROGRESS', inMonth: true })
@@ -42,7 +49,12 @@ const Debts = () => {
     };
 
     const removeItem = async (item: UtilityI) => {
-        dispatch(removeDebtsAction(item?.uuid))
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await debtProvider.remove(item.uuid)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        dispatch(removeDebt({ uuid: item?.uuid }))
+        sweetAlert.alert("Success", "Done!", "success");
     };
 
     const showModalEdit = (item: UtilityI) => {
@@ -100,7 +112,7 @@ const Debts = () => {
                 >
                     <Table
                         headItems={headTableDebts({ addToThisMonth, removeItem, showModalEdit })}
-                        bodyItems={debts?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))} />
+                        bodyItems={debts?.result?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []} />
                 </Box>
             </div>
             {showModal && (

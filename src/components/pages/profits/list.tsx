@@ -1,11 +1,14 @@
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { ProfitI } from '../../../interfaces/app/profit/profit.interface';
 import { ProfitsI } from '../../../interfaces/profits/profits.interface';
-import { disabledItemAction, getProfitsAction, removeProfitsAction } from '../../../redux/actions/profits.action';
+import profitsProvider from '../../../providers/profits/profits.provider';
+import { disableProfit, removeProfit } from '../../../redux-toolkit/slices/profits.slice';
+import { RootState } from '../../../redux-toolkit/store/index';
 import CardWidget from '../../common/card/CardWidget';
 import ModalProfits from './modals';
 
@@ -13,17 +16,22 @@ const ProfitsList = () => {
     const [showModal, setShowModal] = useState(false);
     const [dataProfitsSelected, setDataProfitsSelected] = useState(null);
 
-    const { profits: { profits } } = useSelector((state: any) => state)
+    const { profits } = useSelector((state: RootState) => state)
     const dispatch = useDispatch()
 
-    useEffect(() => { dispatch(getProfitsAction()) }, []);
 
-    const disabledItem = (item: ProfitI) => {
-        dispatch(disabledItemAction(item))
+    const disabledItem = async (item: ProfitI) => {
+        const res = await profitsProvider.update(item?.id || "", { active: !item.active })
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Updated!", "success");
+        dispatch(disableProfit({ item }))
     }
 
-    const removeProfit = (item: ProfitsI) => {
-        dispatch(removeProfitsAction(item?.uuid || ''))
+    const removeProfitItem = async (item: ProfitsI) => {
+        const res = await profitsProvider.remove(item.uuid as string)
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Done!", "success");
+        dispatch(removeProfit({ uuid: item.uuid as string }))
     }
 
     return (
@@ -43,7 +51,7 @@ const ProfitsList = () => {
                 </div>
             </div>
             {profits &&
-                profits?.map((item: any, index: number) => (
+                profits?.result?.map((item: any, index: number) => (
                     <CardWidget
                         handleDelete={removeProfit}
                         handleUpdate={() => {

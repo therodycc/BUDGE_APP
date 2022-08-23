@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import CardHome from '../../common/card/CardHome';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormat } from '../../../helpers/currency.helper';
+import { ProfitsI } from '../../../interfaces/profits/profits.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
+import profitsProvider from '../../../providers/profits/profits.provider';
 import voluntaryProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import wishesProvider from '../../../providers/wishes/wishes.provider';
-import { useSelector, useDispatch } from 'react-redux';
-import { getProfitsAction } from '../../../redux/actions/profits.action';
-import CardWidget from '../../common/card/CardWidget';
+import { disableProfit } from '../../../redux-toolkit/slices/profits.slice';
+import { RootState } from '../../../redux-toolkit/store';
 import CardAmountText from '../../common/card/card-amount-text';
+import CardHome from '../../common/card/CardHome';
 
 const Dashboard = () => {
     const [utilities, setUtilities] = useState<Array<UtilityI>>([])
@@ -36,10 +38,14 @@ const Dashboard = () => {
     })
 
 
-    const { profits: { profits } } = useSelector((state: any) => state)
+    const { profits } = useSelector((state: RootState) => state)
     const dispatch = useDispatch()
 
-    useEffect(() => { dispatch(getProfitsAction()) }, []);
+
+    const disableProfitItem = async (item: ProfitsI) => {
+        const res = await profitsProvider.update(item?.uuid as string, { active: !item?.active, })
+        dispatch(disableProfit({ item }));
+    }
 
     useEffect(() => {
         getDebt()
@@ -147,7 +153,7 @@ const Dashboard = () => {
     }
 
     const getProfits = () => {
-        return profits?.reduce((acc: number, item: any) => {
+        return profits?.result?.reduce((acc: number, item: any) => {
             if (item?.active) acc += item.amount;
             return acc;
         }, 0);
@@ -185,10 +191,10 @@ const Dashboard = () => {
                 />
             </div>
             <div className="col-md-4">
-                <CardAmountText title={"Church Tithe - 10%"} description={(currencyFormat(getProfits() * 0.10)).toString()} />
-                <CardAmountText title={"Debts and Savings - 20%"} description={(currencyFormat(getProfits() * 0.20)).toString()} />
-                <CardAmountText title={"Wishes and more - 20%"} description={(currencyFormat(getProfits() * 0.20)).toString()} />
-                <CardAmountText title={"Fixed Costs - 50%"} description={(currencyFormat(getProfits() * 0.50)).toString()} />
+                <CardAmountText title={"Church Tithe - 10%"} description={(currencyFormat(getProfits() as number * 0.10)).toString()} />
+                <CardAmountText title={"Debts and Savings - 20%"} description={(currencyFormat(getProfits() as number * 0.20)).toString()} />
+                <CardAmountText title={"Wishes and more - 20%"} description={(currencyFormat(getProfits() as number * 0.20)).toString()} />
+                <CardAmountText title={"Fixed Costs - 50%"} description={(currencyFormat(getProfits() as number * 0.50)).toString()} />
             </div>
         </div>
     </>;

@@ -1,6 +1,0 @@
-export const WishesTypes = {
-    GET_ALL: "GET_ALL_WISHES",
-    REMOVE_ITEM: "REMOVE_WISHES",
-    UPDATE_ITEM: "UPDATE_WISHES",
-    ADD_ITEM: "ADD_WISHES"
-}
