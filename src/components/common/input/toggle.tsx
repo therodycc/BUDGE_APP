@@ -1,19 +1,19 @@
 import React, { ChangeEvent, FC } from 'react'
 
-interface TogglePropsI {
+interface TogglePropsI extends React.InputHTMLAttributes<HTMLInputElement> {
     checked: boolean;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Toggle: FC<TogglePropsI> = ({ checked, onChange }) => {
+const Toggle: FC<TogglePropsI> = ({ checked, ...props }) => {
 
     return (
-        <div className="form-check form-switch ms-2 my-auto is-filled">
+        <div className={`form-check form-switch ms-2 my-auto is-filled ${props?.className}`}>
             <input
-                onChange={onChange}
                 className="form-check-input"
                 type="checkbox"
                 defaultChecked={checked}
+                {...props}
             />
         </div>
     )

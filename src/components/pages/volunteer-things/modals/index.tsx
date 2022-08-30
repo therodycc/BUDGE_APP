@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ModalVolunteerThingsPropsI } from "../../../../interfaces/volunteer-things/volunteer-things.interface";
 import volunteerThingsProvider from "../../../../providers/volunteer-things/volunteer-things.provider";
-import { addVolunteerThings, updateVolunteerThing } from "../../../../redux-toolkit/slices/volunteer-things.slice";
+import { addNewVolunteerThing, addVolunteerThings, updateVolunteerThing } from "../../../../redux-toolkit/slices/volunteer-things.slice";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -27,11 +27,8 @@ const ModalVolunteerThings = ({
         const res = await volunteerThingsProvider.create(form)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Done!", "success");
-        dispatch(addVolunteerThings({
-            result: {
-                ...res?.data?.response,
-                ...(form.expense && { expense: +form.expense }),
-            },
+        dispatch(addNewVolunteerThing({
+            volunteerThing:res?.data?.response
         }));
     }
 
@@ -45,8 +42,6 @@ const ModalVolunteerThings = ({
                 ...(form.expense && { expense: +form.expense })
             }
         }))
-
-
     }
 
     return (

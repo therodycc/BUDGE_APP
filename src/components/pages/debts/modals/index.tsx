@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { DebtsI, ModalDebtsPropsI } from "../../../../interfaces/debts/debts.interface";
 import debtProvider from "../../../../providers/debt/debt.provider";
-import { addNewDebt } from "../../../../redux-toolkit/slices/debts.slice";
+import { addNewDebt, updateDebt } from "../../../../redux-toolkit/slices/debts.slice";
 import { inputsDataDebtsModal } from "../../../../settings/debts/inputs-data.settings";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -13,23 +13,35 @@ const ModalDebts = ({ active, setToggle: toggle, data }: ModalDebtsPropsI) => {
 
     const handleSubmit = (form: any) => {
         data?.uuid
-            ? updateDebt(data.uuid, {
+            ? updateDebtData(data.uuid, {
                 ...form,
-                ...(form.expense && { expense: +data.expense }),
+                ...(form.expense && { expense: +form.expense }),
             })
             : createNewDebt(form);
         toggle();
     };
 
-    const createNewDebt = async (data: DebtsI) => {
-        const result = await debtProvider.create(data)
+    const createNewDebt = async (form: DebtsI) => {
+        const result = await debtProvider.create(form)
         dispatch(addNewDebt({ debt: result.data.response }))
     }
 
-    const updateDebt = async (uuid: string, data: DebtsI) => {
-        const res = await debtProvider.update(uuid, data)
+    const updateDebtData = async (uuid: string, form: DebtsI) => {
+        const res = await debtProvider.update(uuid, {
+            ...form,
+            ...(form.expense && { expense: +form.expense }),
+            ...(form.paidOut && { paidOut: +form.paidOut }),
+
+        })
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
+        dispatch(updateDebt({
+            debt: {
+                ...form,
+                ...(form.expense && { expense: +form.expense }),
+                ...(form.paidOut && { paidOut: +form.paidOut }),
+            }
+        }))
     }
 
     return (

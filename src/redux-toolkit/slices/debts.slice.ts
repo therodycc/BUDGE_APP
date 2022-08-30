@@ -22,9 +22,10 @@ export const debtsSlice = createSlice({
         },
         updateDebt: (state: DebtsStateI, action: PayloadAction<{ debt: DebtsI }>) => {
             state.result && (state.result = state.result.map((item: DebtsI) =>
-                item.uuid == action.payload.debt.uuid
-                    ?
-                    action.payload.debt : item))
+                item.uuid == action.payload.debt.uuid ? {
+                    ...item,
+                    ...action.payload.debt
+                } : item))
         },
         removeDebt: (state: DebtsStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: DebtsI) => item.uuid != action.payload.uuid))

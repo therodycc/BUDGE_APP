@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import savingsProvider from '../../../providers/savings/savings.provider';
 import CardHome from '../../common/card/CardHome';
+import NotWorkingSection from '../../common/not-working';
 
 const Savings = () => {
     useEffect(() => {

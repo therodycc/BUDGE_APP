@@ -15,22 +15,24 @@ interface ModalManagePropsI {
     data: ManageI;
 }
 
-const ModalManage = ({ active, toggle, data: globalData }: ModalManagePropsI) => {
+const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
+
     const dispatch = useDispatch();
 
-    const handleSubmit = async (data: any) => {
-        const { type, uuid, expense, ...rest } = data
+    const handleSubmit = async (form: any) => {
         if (!data.uuid) return console.log("no passed");
 
-        const res = await manageProvider.updateAction(uuid, type, data)
+        const { type, ...restForm } = form
+
+        const res = await manageProvider.updateAction(data.uuid, data.type, restForm)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
 
         dispatch(updateManage({
             manage: {
-                data,
-                ...(data.expense && { expense: +data.expense }),
-                ...(data.paidOut && { paidOut: +data.paidOut }),
+                ...form,
+                ...(form.expense && { expense: +form.expense }),
+                ...(form.paidOut && { paidOut: +form.paidOut }),
             }
         }))
         toggle();
@@ -44,7 +46,7 @@ const ModalManage = ({ active, toggle, data: globalData }: ModalManagePropsI) =>
                 <Form
                     inputsData={inputsModalManage}
                     handleSubmit={handleSubmit}
-                    initialState={globalData || {}}
+                    initialState={data || {}}
                     footerSection={
                         <div className="row mt-3">
                             <div className="col-lg-6">

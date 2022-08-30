@@ -19,7 +19,12 @@ const ModalNecessary = ({ active, setToggle: toggle, data }: ModalNecessaryProps
     };
 
     const updateNecessaryData = async (uuid: string, form: any) => {
-        const res = await necessaryProvider.update(uuid, data)
+        const res = await necessaryProvider.update(uuid, {
+            ...form,
+            expense: +form.expense,
+            paidOut: +form.paidOut,
+        })
+
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, 'error')
         sweetAlert.alert('Success', 'Updated!', 'success')
         dispatch(updateNecessary({ necessary: form }))

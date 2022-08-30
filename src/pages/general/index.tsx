@@ -10,7 +10,7 @@ const General = () => {
             <div className="row  my-3 ">
                 {optionsPages.map((option, index) => (
                     <Link key={index} href={option.link}>
-                        <div className="col-sm-6">
+                        <div className="col-sm-4">
                             <ButtonCard
                                 title={option.title}
                                 action={() => { }}

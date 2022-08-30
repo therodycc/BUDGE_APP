@@ -31,7 +31,7 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
     }
 
     const updateWishData = async (uuid: string, form: any) => {
-        const res = await wishesProvider.update(uuid, data)
+        const res = await wishesProvider.update(uuid, form)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
         dispatch(updateWish({

@@ -121,7 +121,7 @@ const VolunteerThings = () => {
                 >
                     <Table
                         headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })}
-                        bodyItems={(volunteerThings.result || [])?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status))}
+                        bodyItems={(volunteerThings?.result)?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                     />
                 </Box>
             </div>

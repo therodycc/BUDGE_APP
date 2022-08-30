@@ -43,6 +43,11 @@ const Manage = () => {
     }, []);
 
     const removeItem = async (item: UtilityI) => {
+        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        if (!confirm) return;
+        const res = await manageProvider.updateAction(item.uuid, item.type.name, { inMonth: false })
+        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
+        sweetAlert.alert("Success", "Removed of this month!", "success");
         dispatch(removeManage({ uuid: item?.uuid }));
     };
 

@@ -1,15 +1,13 @@
-import { faPaintbrush } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux-toolkit/store';
-import ButtonCard from '../../common/button/button-card';
 import BgLayoutPage from '../../layout/bg-layout-page';
 import Profits from '../profits';
-import ChangePassword from './change-password';
+import Wallet from './wallet';
+import WaysOfEntries from './way-of-entries';
 
 const Profile = () => {
-    const [showChangePassword, setShowChangePassword] = useState(false);
-    const {  me } = useSelector((state: RootState) => state);
+    const { me } = useSelector((state: RootState) => state);
 
     return (
         <React.Fragment>
@@ -44,42 +42,16 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className=" col-sm-6">
-                                <div className='card p-3'>
-                                    <span>Forma de cobros</span>
-                                    <div className='card-body row'>
-                                        <span>quincenal</span>
-                                        <span>semanal</span>
-                                        <span>mensual</span>
-                                    </div>
-                                </div>
+                                <WaysOfEntries />
+                                <Wallet />
                             </div>
-                        </div>
-                    </div>
-                    <div className="row  my-3 ">
-                        <div className="col-sm-6">
-                            <ButtonCard
-                                title={"Change Password"}
-                                action={() => setShowChangePassword(true)}
-                                icon={faPaintbrush}
-                                bgClass={"info"}
-                            />
-                        </div>
-                        <div className=" col-sm-6">
-                            <ButtonCard
-                                action={() => { }}
-                                title={"Edit my profile"}
-                                icon={faPaintbrush}
-                                bgClass={"danger"}
-                            />
                         </div>
                     </div>
                 </div>
             </BgLayoutPage>
-            {showChangePassword && (
-                <ChangePassword setToggle={setShowChangePassword} active={showChangePassword} />
-            )}
         </React.Fragment>
     );
 }
+
 
 export default Profile
