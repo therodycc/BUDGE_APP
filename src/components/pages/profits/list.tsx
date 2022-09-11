@@ -23,7 +23,6 @@ const ProfitsList = () => {
     const disabledItem = async (item: ProfitI) => {
         const res = await profitsProvider.update(item?.uuid || "", { active: !item.active })
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
-        sweetAlert.alert("Success", "Updated!", "success");
         dispatch(disableProfit({ item }))
     }
 

@@ -1,5 +1,5 @@
 import { SweetAlertIconType } from "../../interfaces/helper/sweetAlert/sweetAlert.type"
-import Swal, { SweetAlertIcon } from 'sweetalert2'
+import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2'
 
 class SweetAlert {
     alert(title: string, message: string, type: SweetAlertIcon) {
@@ -24,7 +24,8 @@ class SweetAlert {
         })
     }
 
-    question(title: string, icon: SweetAlertIcon, text?: string) {
+
+    question(title: string, icon: SweetAlertIcon, text?: string, props?: SweetAlertOptions<any, any>) {
         return Swal.fire({
             title,
             text,
@@ -32,7 +33,8 @@ class SweetAlert {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes',
+            ...props
         }).then((result) => {
             return result.isConfirmed
         }).catch(error => error)

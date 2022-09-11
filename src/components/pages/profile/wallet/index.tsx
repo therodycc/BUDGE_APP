@@ -8,7 +8,9 @@ const Wallet = () => {
                 <NotWorkingSection />
                 <span>Wallet</span>
                 <div className='card-body row'>
-                    <span>200,000.00</span>
+                    <span className='fw-bolder ' style={{
+                        fontSize: '1.5rem',
+                    }}>200,000.00</span>
                 </div>
             </div>
         </React.Fragment>
