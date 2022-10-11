@@ -22,9 +22,10 @@ export const manageSlice = createSlice({
         },
         updateManage: (state: ManageStateI, action: PayloadAction<{ manage: ManageI }>) => {
             state.result && (state.result = state.result.map((item: ManageI) =>
-                item.uuid == action.payload.manage.uuid
-                    ?
-                    action.payload.manage : item))
+                item.uuid == action.payload.manage.uuid ? {
+                    ...item,
+                    ...action.payload.manage
+                } : item))
         },
         removeManage: (state: ManageStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: ManageI) => item.uuid != action.payload.uuid))

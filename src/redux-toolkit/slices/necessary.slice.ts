@@ -22,7 +22,10 @@ export const necessarySlice = createSlice({
         },
         updateNecessary: (state: NecessaryStateI, action: PayloadAction<{ necessary: NecessaryI }>) => {
             state.result && (state.result = state.result.map((item: NecessaryI) =>
-                item.uuid == action.payload.necessary.uuid ? action.payload.necessary : item))
+                item.uuid == action.payload.necessary.uuid ? {
+                    ...item,
+                    ...action.payload.necessary
+                } : item))
         },
         removeNecessary: (state: NecessaryStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: NecessaryI) => item.uuid != action.payload.uuid))

@@ -7,9 +7,10 @@ export interface FixedCostsI {
     paidOut?: number;
     expense?: number;
     status?: string;
-    category: string;
+    category?: string;
     image?: string;
     active?: boolean;
+    inMonth?: boolean;
 }
 
 export interface headItemsFixedCostsI {

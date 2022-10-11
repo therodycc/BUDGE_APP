@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory';
 import { NecessaryI } from '../../../interfaces/necessary/necessary.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
-import { addNecessaries, removeNecessary } from '../../../redux-toolkit/slices/necessary.slice';
+import { addNecessaries, removeNecessary, updateNecessary } from '../../../redux-toolkit/slices/necessary.slice';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersModalNecessary } from '../../../settings/necessary/headers-necessary';
 import Box from '../../common/box';
@@ -43,10 +43,10 @@ const Necessary = () => {
 
     const addToThisMonth = (item: UtilityI) => {
         necessaryProvider
-            .update(item.uuid, { status: "IN_PROGRESS", inMonth: true })
+            .update(item.uuid, { inMonth: true })
             .then((res) => {
                 if (res.error) return sweetAlert.toast("Error", res.error.message, "error");
-                sweetAlert.alert("Done!", "Added to this month", "success");
+                dispatch(updateNecessary({ necessary: { uuid: item.uuid, inMonth: true } }))
             })
             .catch((error) => error);
     };

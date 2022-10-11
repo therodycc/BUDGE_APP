@@ -6,7 +6,7 @@ import { getFilterByStatus } from '../../../helpers/status.helper';
 import useFixedCostsStatics from '../../../hooks/useFixedCostsStatics';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
-import { addFixedCosts, disableFixedCost, removeFixedCost } from '../../../redux-toolkit/slices/fixed-costs.slice';
+import { addFixedCosts, disableFixedCost, removeFixedCost, updateFixedCost } from '../../../redux-toolkit/slices/fixed-costs.slice';
 import { RootState } from '../../../redux-toolkit/store';
 import { headItemsFixedCosts } from '../../../settings/fixed-costs/header-fixed-costs';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
@@ -52,10 +52,10 @@ const FixedCosts = () => {
 
     const addToThisMonth = (item: UtilityI) => {
         fixedCostsProvider
-            .update(item?.uuid, { status: "IN_PROGRESS", inMonth: true })
+            .update(item?.uuid, { inMonth: true })
             .then((res) => {
                 if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
-                sweetAlert.alert("Done!", "Added to this month", "success");
+                dispatch(updateFixedCost({ fixedCost: { uuid: item.uuid, inMonth: true } }))
             })
             .catch((error) => error);
     };

@@ -1,8 +1,8 @@
-import { FormEvent, ReactNode, useEffect, useMemo, useState } from 'react'
-import useForm from '../../../hooks/useForm'
-import { InputPropsI } from '../../../interfaces/common/input/input.interface'
+import { FormEvent, ReactNode, useMemo } from 'react'
 import formValidation from '../../../helpers/form/form-validation'
 import { inputFormToJSON } from '../../../helpers/form/form.helper'
+import useForm from '../../../hooks/useForm'
+import { InputPropsI } from '../../../interfaces/common/input/input.interface'
 import Dropdown from '../dropdown'
 import Input from '../input'
 interface FormPropsI {
@@ -11,7 +11,7 @@ interface FormPropsI {
     footerSection: ReactNode
     initialState?: { [key: string]: string | number } | any
     keyForm?: string
-    dataRules?: any
+    dataRules?: Function
     setLeaveForm?: Function
 }
 
@@ -38,7 +38,7 @@ const Form = ({ inputsData, handleSubmit, footerSection, keyForm, initialState, 
 
     return (
         <>
-            <form onSubmit={handleSubmitAction}>
+            <form onSubmit={handleSubmitAction} style={{ margin: "auto" }}>
                 <div className="row mt-3">
                     {items?.map((item: InputPropsI, index: number) => (
                         <div

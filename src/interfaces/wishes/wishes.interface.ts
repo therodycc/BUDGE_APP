@@ -2,14 +2,15 @@ import { ModalBaseI } from "../common/modal/modal.interface";
 
 export interface WishesI {
     uuid?: string
-    name: string;
+    name?: string;
     urgency?: string;
     paidOut?: number;
-    expense: number;
+    expense?: number;
     status?: string;
-    category: string;
+    category?: string;
     image?: string;
     active?: boolean;
+    inMonth?: boolean
 }
 
 export interface ModalWishesPropsI extends ModalBaseI {

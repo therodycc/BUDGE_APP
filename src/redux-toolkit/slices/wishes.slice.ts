@@ -22,7 +22,10 @@ export const wishesSlice = createSlice({
         },
         updateWish: (state: WishesStateI, action: PayloadAction<{ wishes: WishesI }>) => {
             state.result && (state.result = state.result.map((item: WishesI) =>
-                item.uuid == action.payload.wishes.uuid ? action.payload.wishes : item))
+                item.uuid == action.payload.wishes.uuid ? {
+                    ...item,
+                    ...action.payload.wishes
+                } : item))
         },
         removeWish: (state: WishesStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: WishesI) => item.uuid != action.payload.uuid))

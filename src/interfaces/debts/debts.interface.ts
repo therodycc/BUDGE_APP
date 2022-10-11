@@ -2,15 +2,16 @@ import { ModalBaseI } from "../common/modal/modal.interface";
 
 export interface DebtsI {
     uuid?: string
-    name: string;
+    name?: string;
     urgency?: string;
     paidOut?: number;
-    expense: number;
+    expense?: number;
     to?: string;
     description?: string
     status?: string;
-    category: string;
+    category?: string;
     // image?: string;
+    inMonth?: boolean
     active?: boolean;
 }
 

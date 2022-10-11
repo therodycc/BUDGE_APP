@@ -22,7 +22,10 @@ export const volunteerThingsSlice = createSlice({
         },
         updateVolunteerThing: (state: VolunteerThingsStateI, action: PayloadAction<{ volunteerThing: VolunteerThingsI }>) => {
             state.result && (state.result = state.result.map((item: VolunteerThingsI) =>
-                item.uuid == action.payload.volunteerThing.uuid ? action.payload.volunteerThing : item))
+                item.uuid == action.payload.volunteerThing.uuid ? {
+                    ...item,
+                    ...action.payload.volunteerThing
+                } : item))
         },
         removeVolunteerThing: (state: VolunteerThingsStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: VolunteerThingsI) => item.uuid != action.payload.uuid))

@@ -6,7 +6,7 @@ import { getFilterByStatus } from '../../../helpers/status.helper';
 import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
-import { addDebts, removeDebt } from '../../../redux-toolkit/slices/debts.slice';
+import { addDebts, removeDebt, updateDebt } from '../../../redux-toolkit/slices/debts.slice';
 import { RootState } from '../../../redux-toolkit/store';
 import { headTableDebts } from '../../../settings/debts/headers-debts';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
@@ -41,10 +41,10 @@ const Debts = () => {
     }, []);
 
     const addToThisMonth = (item: UtilityI) => {
-        debtProvider.update(item.uuid, { status: 'IN_PROGRESS', inMonth: true })
+        debtProvider.update(item.uuid, { inMonth: true })
             .then(res => {
                 if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
-                sweetAlert.alert("Done!", "Added to this month", "success");
+                dispatch(updateDebt({ debt: { uuid: item.uuid, inMonth: true } }))
             })
     };
 

@@ -22,6 +22,7 @@ export const inputFormToJSON = (target: HTMLFormElement): any => {
         return a;
     }, {})
 }
+
 export const getValueTypeOfInput = (target: any) => {
     const values: { checkbox: string } = {
         checkbox: target.checked

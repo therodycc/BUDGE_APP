@@ -21,9 +21,10 @@ export const profitsSlice = createSlice({
         },
         updateFixedCost: (state: FixedCostsStateI, action: PayloadAction<{ fixedCost: FixedCostsI }>) => {
             state.result && (state.result = state.result.map((item: FixedCostsI) =>
-                item.uuid == action.payload.fixedCost.uuid
-                    ?
-                    action.payload.fixedCost : item))
+                item.uuid == action.payload.fixedCost.uuid ? {
+                    ...item,
+                    ...action.payload.fixedCost
+                } : item))
         },
         removeFixedCost: (state: FixedCostsStateI, action: PayloadAction<{ uuid: string }>) => {
             state.result && (state.result = state.result.filter((item: FixedCostsI) => item.uuid != action.payload.uuid))

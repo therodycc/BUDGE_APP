@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import { VolunteerThingsI } from '../../../interfaces/volunteer-things/volunteer-things.interface';
 import volunteerThingsProvider from '../../../providers/volunteer-things/volunteer-things.provider';
-import { addVolunteerThings, removeVolunteerThing } from '../../../redux-toolkit/slices/volunteer-things.slice';
+import { addVolunteerThings, removeVolunteerThing, updateVolunteerThing } from '../../../redux-toolkit/slices/volunteer-things.slice';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersVolunteerThings } from '../../../settings/volunteer-things/headers-table.settings';
 import Box from '../../common/box';
@@ -46,10 +46,10 @@ const VolunteerThings = () => {
     }
 
     const addToThisMonth = (item: VolunteerThingsI) => {
-        volunteerThingsProvider.update(item.uuid || "", { status: "IN_PROGRESS", inMonth: true })
+        volunteerThingsProvider.update(item.uuid || "", { inMonth: true })
             .then((res) => {
                 if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
-                sweetAlert.alert("Done!", "Added to this month", "success");
+                dispatch(updateVolunteerThing({ volunteerThing: { uuid: item.uuid, inMonth: true } }))
             })
             .catch((error) => error);
     };

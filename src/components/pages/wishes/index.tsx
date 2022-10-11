@@ -8,7 +8,7 @@ import useCalcCategory from '../../../hooks/useCalcCategory'
 import { StatusType } from '../../../interfaces/utility/utilily.type'
 import { WishesI } from '../../../interfaces/wishes/wishes.interface'
 import wishesProvider from '../../../providers/wishes/wishes.provider'
-import { addWishes, removeWish } from '../../../redux-toolkit/slices/wishes.slice'
+import { addWishes, removeWish, updateWish } from '../../../redux-toolkit/slices/wishes.slice'
 import { RootState } from '../../../redux-toolkit/store'
 import { tabsSettings } from '../../../settings/manage/tabs.settings'
 import Button from '../../common/button'
@@ -41,10 +41,10 @@ const Wishes = () => {
     }
 
     const addToThisMonth = (item: WishesI) => {
-        wishesProvider.update(item?.uuid || "", { status: 'IN_PROGRESS', inMonth: true })
+        wishesProvider.update(item?.uuid || "", { inMonth: true })
             .then((res) => {
                 if (res.error) return sweetAlert.toast("Error", res.error.message, "error");
-                sweetAlert.alert("Done!", "Added to this month", "success");
+                dispatch(updateWish({ wishes: { uuid: item.uuid, inMonth: true } }))
             })
             .catch(error => error)
     };
