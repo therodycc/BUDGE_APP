@@ -1,3 +1,4 @@
+import React from "react";
 import DTProfileTable from "../../components/common/dt-profile-table";
 import TrafficLights from "../../components/common/traffic-lights";
 import CustomBtnGroups from "../../components/custom/btn-actions-groups";
@@ -34,9 +35,9 @@ export const headTableDebts = ({ addToThisMonth, showModalEdit, removeItem }: he
         title: "Description",
         render: ({ item }: any) => {
             return (
-                <>
-                    <span>{item.description}</span>
-                </>
+                <div style={{whiteSpace:"pre-wrap", fontSize:"12px", color:"gray", fontWeight:"bold"}}>
+                    <span >{item.description}</span>
+                </div>
             );
         },
     },

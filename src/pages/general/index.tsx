@@ -1,25 +1,41 @@
-import { faExplosion, faHandshakeAngle, faHome, faPaintbrush, faStarHalfStroke, faHandHoldingUsd, faHouseFire } from '@fortawesome/free-solid-svg-icons';
+import { faExplosion, faHandshakeAngle, faHome, faPaintbrush, faStarHalfStroke, faHandHoldingUsd, faHouseFire, faPersonDigging } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import ButtonCard from '../../components/common/button/button-card'
+import Tabs from '../../components/common/tabs';
 import Layout from '../../components/layout'
+import Debts from '../../components/pages/debts';
+import Necessary from '../../components/pages/necessary';
+import VolunteerThings from '../../components/pages/volunteer-things';
+import FixedCosts from '../fixedCosts';
+import LendingPage from '../lending';
+import Wishes from '../wishes';
 
 const General = () => {
+    const [tab, setTab] = useState(0);
+
     return (
         <React.Fragment>
             <div className="row  my-3 ">
-                {optionsPages.map((option, index) => (
-                    <Link key={index} href={option.link}>
-                        <div className="col-sm-4">
-                            <ButtonCard
-                                title={option.title}
-                                action={() => { }}
-                                icon={option.icon}
-                                bgClass={"info"}
-                            />
-                        </div>
-                    </Link>
-                ))}
+                <div className="mb-5">
+                    <Tabs
+                        tabsSettings={optionsPages.map(item => ({
+                            ...item,
+                            icon: <FontAwesomeIcon icon={item.icon} />
+                        }))
+                        }
+                        setActiveTab={setTab}
+                        activeTab={tab}
+                    />
+                </div>
+
+                {tab === 0 && <FixedCosts />}
+                {tab === 1 && <Wishes />}
+                {tab === 2 && <VolunteerThings />}
+                {tab === 3 && <Debts />}
+                {tab === 4 && <Necessary />}
+                {tab === 5 && <LendingPage />}
             </div>
         </React.Fragment>
     )

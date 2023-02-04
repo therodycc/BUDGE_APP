@@ -27,7 +27,6 @@ const PayItemOn = () => {
         <>
             <div className='row'>
                 <div className='col-md-8'>
-
                     <Input
                         placeholder='To pay'
                         onChange={(e: any) => { handleChange(e.target.value) }}

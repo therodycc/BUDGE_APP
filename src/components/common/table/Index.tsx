@@ -1,4 +1,3 @@
-import { v4 as gxUUID } from 'uuid';
 import { TablePropsI } from '../../../interfaces/common/table/table.interface';
 import NoDataTable from '../no-data/table-empty';
 import LoadingTable from './loading-table';

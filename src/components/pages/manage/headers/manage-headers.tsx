@@ -1,12 +1,10 @@
-import { faUpDownLeftRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactElement } from "react";
 import { currencyFormat } from "../../../../helpers/currency.helper";
 import { StatusType } from "../../../../interfaces/utility/utilily.type";
-import Button from "../../../common/button";
 import ButtonGroup from "../../../common/button/button-group";
 import DTProfileTable from "../../../common/dt-profile-table";
 import TrafficLights from "../../../common/traffic-lights";
+import FastPayButton from "../../../custom/fast-pay";
 import { ButtonGroupDataManage } from "../buttons-settings";
 interface HeadersManageItemsI {
     removeItem: Function
@@ -23,11 +21,7 @@ export const ColumnsManageItems = ({ showModalEdit, removeItem, children }: Head
         {
             title: "Expense",
             render: ({ item }: any) => {
-                return (
-                    <>
-                        <span>{currencyFormat(item?.expense)}</span>
-                    </>
-                );
+                return (<span>{currencyFormat(item?.expense)}</span>);
             },
         },
         // { title: "Paid Out", render: ({ item }: any) => { return <PayItemOn /> } },
@@ -38,9 +32,7 @@ export const ColumnsManageItems = ({ showModalEdit, removeItem, children }: Head
         {
             title: "Fast pay",
             render: ({ item }: any) => {
-                return (<Button bgClass={"info"} type={"button"} loading={false} >
-                    <FontAwesomeIcon className="cursor-pointer" icon={faUpDownLeftRight} />
-                </Button>);
+                return (<FastPayButton paidOut={item.expense} type={item?.type?.name} uuid={item.uuid} />);
             },
         },
         {

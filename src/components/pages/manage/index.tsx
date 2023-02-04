@@ -54,7 +54,6 @@ const Manage = () => {
 
     const getAllManage = async () => {
         const res = await manageProvider.getAll()
-        console.log(res.data)
         let added: any = [];
 
         res.data.forEach((item: any) => {

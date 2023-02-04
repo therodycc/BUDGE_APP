@@ -13,7 +13,11 @@ export const headersReports = ({ deleteReport }: { deleteReport: Function }) => 
     },
     {
         title: "Description",
-        key: "description",
+        render: ({ item }: any) => (
+            <div style={{ whiteSpace: "pre-wrap", fontSize: "12px", color: "gray", fontWeight: "bold" }}>
+                <span >{item.description}</span>
+            </div>
+        ),
     },
     {
         title: "Exported at",

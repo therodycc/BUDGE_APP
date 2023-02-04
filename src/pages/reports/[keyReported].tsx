@@ -1,11 +1,10 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import CardAmountText from "../../components/common/card/card-amount-text";
 import ListTableCard from "../../components/common/list/list-table-card";
 import Layout from "../../components/layout";
-import SimpleLayout from '../../components/layout/simple-layout';
 import { currencyFormat } from "../../helpers/currency.helper";
 import useFetch from "../../hooks/useFetch";
 import reportsProvider from "../../providers/reports/reports.provider";
@@ -29,49 +28,46 @@ const ReportExportedKey = () => {
     }, router.query.keyReported);
 
     return (
-
-        <div className="container my-5">
-            <div className="col-lg-12 p-3 rounded">
-                <div className="card ">
-                    <div className="d-flex align-items-center rounded-pill shadow-lg text-white m-3 p-3">
-                        <FontAwesomeIcon
-                            onClick={() => router.back()}
-                            className="bg-light rounded-circle p-3 text-dark cursor-pointer me-3"
-                            style={{
-                                fontSize: "15px",
-                            }}
-                            icon={faArrowLeft}
-                        />
-                        <h6 className="mt-2">12 - 12 - 2001</h6>
-                    </div>
-                    <div className=" p-3 py-1 ">
-                        <div className="row mt-2">
-                            <div className="col-lg-5 px-5 pt-2">
-                                <CardAmountText
-                                    title={"Total"}
-                                    description={currencyFormat(0)}
-                                />
-                                <CardAmountText
-                                    title={"Pending"}
-                                    description={currencyFormat(0)}
-                                />
-                                <CardAmountText
-                                    title={"Remaining"}
-                                    description={currencyFormat(0)}
-                                />
-                            </div>
-                            <div className="col-lg-7">
-                                <div className="row mx-3">
-                                    {data?.map((item: any, index: number) => (
-                                        <React.Fragment key={item.name + index}>
-                                            <ListTableCard
-                                                title={item?.name}
-                                                description={currencyFormat(+item.price)}
-                                                index={index}
-                                            />
-                                        </React.Fragment>
-                                    ))}
-                                </div>
+        <div className="col-lg-12 px-3 rounded">
+            <div className="card ">
+                <div className="d-flex align-items-center rounded-pill shadow-lg text-white m-3 p-3">
+                    <FontAwesomeIcon
+                        onClick={() => router.back()}
+                        className="bg-light rounded-circle p-3 text-dark cursor-pointer me-3"
+                        style={{
+                            fontSize: "15px",
+                        }}
+                        icon={faArrowLeft}
+                    />
+                    <h6 className="mt-2">12 - 12 - 2001</h6>
+                </div>
+                <div className=" p-3 py-1 ">
+                    <div className="row mt-2">
+                        <div className="col-lg-5 px-5 pt-2">
+                            <CardAmountText
+                                title={"Total"}
+                                description={currencyFormat(0)}
+                            />
+                            <CardAmountText
+                                title={"Pending"}
+                                description={currencyFormat(0)}
+                            />
+                            <CardAmountText
+                                title={"Remaining"}
+                                description={currencyFormat(0)}
+                            />
+                        </div>
+                        <div className="col-lg-7">
+                            <div className="row mx-3">
+                                {data?.map((item: any, index: number) => (
+                                    <React.Fragment key={item.name + index}>
+                                        <ListTableCard
+                                            title={item?.name}
+                                            description={currencyFormat(+item.price)}
+                                            index={index}
+                                        />
+                                    </React.Fragment>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -82,11 +78,9 @@ const ReportExportedKey = () => {
 };
 
 ReportExportedKey.getLayout = (page: ReactNode) => (
-    // <Layout>
-    <SimpleLayout >
+    <Layout>
         {page}
-    </SimpleLayout>
-    // </Layout>
+    </Layout>
 )
 
 
