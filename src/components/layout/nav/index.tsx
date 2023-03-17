@@ -9,6 +9,8 @@ import { settings } from "../../../settings";
 import BackModal from "../../common/back-modals/back-modal";
 import ButtonCircleIcon from "../../common/button/button-circle.icon";
 import UserInfoHead from "../../common/user-info-head";
+import { WalletInformation } from "../../custom/wallet-information";
+import Wallet from "../../pages/profile/wallet";
 import FloatMenu from "./float-menus";
 
 const Nav = () => {
@@ -27,11 +29,11 @@ const Nav = () => {
         className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
         style={{ zIndex: 10 }}
       >
-
         <Link href='/manage'>
           <button className={`btn ${router.pathname === "/manage" ? "btn-info" : "btn-secondary"}`}>Manage</button>
         </Link>
         <ul className="navbar-nav ms-md-auto" >
+          <WalletInformation />
           <div className="card px-3">
             <div className="row justify-content-center align-items-center">
               {settings?.navOptionsRenders({ router, showBackButton }).map((option, index) => (
@@ -45,6 +47,7 @@ const Nav = () => {
                   }
                 </React.Fragment>
               ))}
+
               <UserInfoHead
                 imageAction={handleIsMenuSquare}
                 firstName={me?.firstName}

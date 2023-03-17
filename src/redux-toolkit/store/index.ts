@@ -20,4 +20,6 @@ const useSelector = useAppSelector;
 
 const useDispatch = () => useAppDispatch();
 
+export type RootState = ReturnType<typeof store.getState>
+
 export { store, persistor, dispatch, useSelector, useDispatch };

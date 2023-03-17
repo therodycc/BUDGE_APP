@@ -32,6 +32,7 @@ const Necessary = () => {
     useEffect(() => {
         getAllNecessaryData()
     }, []);
+
     const getAllNecessaryData = async () => {
         const res = await necessaryProvider.getAll()
         dispatch(addNecessaries({ result: res?.data }))

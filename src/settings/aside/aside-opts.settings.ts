@@ -1,4 +1,4 @@
-import { faCommentAlt, faExplosion, faFileAlt, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faListCheck, faMoneyCheckDollar, faPiggyBank, faStarHalfStroke, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCableCar, faCommentAlt, faExplosion, faFileAlt, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faListCheck, faMoneyCheckDollar, faPiggyBank, faStarHalfStroke, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { AsideOptionsI } from "../../interfaces/layout/aside/aside.interface";
 
 export const asideOptions: AsideOptionsI[] = [
@@ -31,5 +31,11 @@ export const asideOptions: AsideOptionsI[] = [
         title: "Recommendations",
         active: false,
         link: "/recommendations",
+    },
+    {
+        icon: faCableCar,
+        title: "Accounts",
+        active: false,
+        link: "/accounts",
     },
 ]

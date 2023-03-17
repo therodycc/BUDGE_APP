@@ -5,6 +5,7 @@ import Necessary from "../../components/pages/necessary";
 const NecessaryPage = () => {
     return <Necessary />
 };
+
 NecessaryPage.getLayout = (page: ReactElement) => (
     <Layout>
         {page}

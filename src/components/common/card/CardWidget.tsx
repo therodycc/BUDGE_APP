@@ -1,4 +1,4 @@
-import { faGear, faHandHoldingUsd, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faGear, faHandHoldingUsd, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { CardWidgetI } from '../../../interfaces/common/card/card.interface';
@@ -15,7 +15,9 @@ const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, han
             >
               <FontAwesomeIcon className='cursor-pointer' icon={faHandHoldingUsd} />
             </div>
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faChevronDown} style={{
+              cursor: "pointer"
+            }} />
           </div>
           <div className="col-6 my-auto text-end">
             <p className="text-sm mb-0 opacity-7">{title}</p>

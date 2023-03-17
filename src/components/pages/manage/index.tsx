@@ -11,7 +11,7 @@ import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import reportsProvider from '../../../providers/reports/reports.provider';
 import manageProvider from '../../../providers/utilities/utilities.provider';
 import { addManage, removeAllManage, removeManage } from '../../../redux-toolkit/slices/manage.slice';
-import { RootState } from '../../../redux-toolkit/store';
+
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
@@ -25,7 +25,7 @@ import ModalManage from './modals';
 
 const Manage = () => {
     // store
-    const { profits, manage } = useSelector((state: RootState) => state);
+    const { profits, manage } = useSelector((state: any) => state);
     const dispatch = useDispatch();
     const [tab, setTab] = useState<number>(0);
 

@@ -13,7 +13,6 @@ interface IPayAction {
 //TODO se necesita implentar que se pueda usar el dispatch desde aqui
 
 export const payAction = ({ uuid, type, paidOut, actions }: IPayAction) => {
-
     return async (dispatch: any, getStore: Function) => {
         if (!uuid) return console.log("no passed");
 
@@ -26,6 +25,5 @@ export const payAction = ({ uuid, type, paidOut, actions }: IPayAction) => {
                 status: 'COMPLETED'
             }
         }))
-        // actions?.()
     }
 }

@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
-import React, { useContext } from "react";
-import { useEffect, useState } from "react";
-import { v4 as gxUUID } from 'uuid';
+import React, { useContext, useEffect, useState } from "react";
 import { UIContext } from "../../../context";
 import { AsideOptionsI } from "../../../interfaces/layout/aside/aside.interface";
 import { asideOptions } from "../../../settings/aside/aside-opts.settings";
@@ -31,7 +29,7 @@ const Aside = () => {
                 >
                     <ul className="navbar-nav">
                         {options.map((item, index) => (
-                            <Link href={item.link} key={gxUUID()} >
+                            <Link href={item.link} key={index}>
                                 <li className="nav-item" >
                                     <span className={`transition-sm nav-link text-secondary cursor-pointer ${item.active && 'bg-primary active'}`}>
                                         <div className="text-primary icon-rounded bg-white shadow text-center me-2 d-flex align-items-center justify-content-center">

@@ -3,12 +3,12 @@ import React from 'react'
 const NotWorkingSection = () => {
     return (
         <React.Fragment>
-            <span
-                className='px-4 py-1 bg-warning text-white rounded position-absolute'
-                style={{ top: '-10px', right: '-10px' }}
+            <div
+                className='w-100 h-100 rounded position-absolute d-flex justify-content-center align-items-center'
+                style={{ fontSize: '.8rem', fontWeight: "700", backgroundColor: 'rgba(255, 87, 51,.3)', top: 0, left: 0, right: 0, bottom: 0 }}
             >
-                Not Working
-            </span>
+                <span  className="p-2 py-1 rounded-pill" style={{ fontSize: '.8rem', background: 'white' }}> Not Working</span>
+            </div>
         </React.Fragment>
     )
 }
