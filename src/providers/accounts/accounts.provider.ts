@@ -8,7 +8,7 @@ class AccountProvider extends Provider {
         })
     }
 
-    async getAccounts() {
+    async getAll() {
         return await this.get(`/`)
     }
 }

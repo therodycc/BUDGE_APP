@@ -1,5 +1,6 @@
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { currencyFormat } from "../../../../helpers/currency.helper";
 
 interface HeadersTransactionsI {
     children: ({ columns }: { columns: any }) => JSX.Element
@@ -13,8 +14,7 @@ export const HeadersTransactions = ({ children }: HeadersTransactionsI) => {
             render: ({ item, index }: any) => {
                 return (
                     <div className="d-flex align-items-center justify-content-center h-100" style={{ height: "100%" }}>
-
-                        {index % 2 === 0 ? <FontAwesomeIcon icon={faArrowDown} className="text-lg text-danger" /> :    <FontAwesomeIcon icon={faArrowUp} className="text-lg text-success" />}
+                        {item.type === "WITHDRAW" ? <FontAwesomeIcon icon={faArrowDown} className="text-lg text-danger" /> : <FontAwesomeIcon icon={faArrowUp} className="text-lg text-success" />}
                     </div>
                 );
             },
@@ -35,8 +35,8 @@ export const HeadersTransactions = ({ children }: HeadersTransactionsI) => {
             title: "To",
             render: ({ item, index }: any) => {
                 return (
-                    <div className={`d-flex align-items-center justify-content-end text-${index % 2 === 0 ? 'danger' : 'success'} text-gradient text-sm font-weight-bold`}>
-                        - $ 2,500
+                    <div className={`d-flex align-items-center justify-content-end text-${item.type === "WITHDRAW" ? 'danger' : 'success'} text-gradient text-sm font-weight-bold`}>
+                        {currencyFormat(item?.amount)}
                     </div>
                 );
             },

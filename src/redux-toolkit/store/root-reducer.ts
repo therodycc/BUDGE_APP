@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import accountReducer from '../slices/account/accounts.slice';
 // reducers
-import changePasswordReducer from '../slices/change-password.slice'
-import debtsReducer from '../slices/debts.slice'
-import fixedCostsReducer from '../slices/fixed-costs.slice'
-import manageReducer from '../slices/manage.slice'
-import meReducer from '../slices/me.slice'
-import necessaryReducer from '../slices/necessary.slice'
-import profitsReducer from '../slices/profits.slice'
-import volunteerThingsReducer from '../slices/volunteer-things.slice'
-import wishesReducer from '../slices/wishes.slice'
+import changePasswordReducer from '../slices/change-password.slice';
+import debtsReducer from '../slices/debts.slice';
+import fixedCostsReducer from '../slices/fixed-costs.slice';
+import manageReducer from '../slices/manage.slice';
+import meReducer from '../slices/me.slice';
+import necessaryReducer from '../slices/necessary.slice';
+import profitsReducer from '../slices/profits.slice';
+import volunteerThingsReducer from '../slices/volunteer-things.slice';
+import wishesReducer from '../slices/wishes.slice';
 
 const createNoopStorage = () => ({
     getItem() {
@@ -49,6 +49,7 @@ const rootReducer = combineReducers({
     wishes: wishesReducer,
     fixedCosts: fixedCostsReducer,
     changePassword: changePasswordReducer,
+    account: accountReducer
     // test: persistReducer(testPersistConfig, testReducer),
 });
 

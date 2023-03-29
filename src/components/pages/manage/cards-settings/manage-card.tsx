@@ -1,6 +1,7 @@
 import { faCheck, faDollarSign, faMoneyCheck } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ManageCardsDataI } from "../../../../interfaces/manage/manage.interface"
+
 export const manageCategories = (state: any): ManageCardsDataI[] => {
     return [
         {
@@ -40,6 +41,7 @@ export const manageCategories = (state: any): ManageCardsDataI[] => {
         },
     ]
 }
+
 export const manageCardsData = (state: any): ManageCardsDataI[] => {
     return [
         {

@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist';
+import { AnyAction, configureStore, Store } from '@reduxjs/toolkit';
 import { useDispatch as useAppDispatch, useSelector as useAppSelector } from 'react-redux';
+import { persistReducer, persistStore } from 'redux-persist';
 import { rootPersistConfig, rootReducer } from './root-reducer';
 
-const store = configureStore({
+const store: Store<any, AnyAction> = configureStore({
     reducer: persistReducer(rootPersistConfig, rootReducer),
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
@@ -18,7 +18,7 @@ const { dispatch } = store;
 
 const useSelector = useAppSelector;
 
-const useDispatch = () => useAppDispatch();
+const useDispatch: any = () => useAppDispatch();
 
 export type RootState = ReturnType<typeof store.getState>
 
