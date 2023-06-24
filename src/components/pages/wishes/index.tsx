@@ -105,10 +105,12 @@ const Wishes = () => {
                             key={gxUUID()}
                         >
                             <CardImg
+
                                 title={item.name}
                                 description={item.expense.toString()}
                                 image={item.image || ''}
                                 completed={item.status === 'COMPLETED' ? true : false}
+                                inMonth={item?.inMonth}
                             >
                                 <div className='mx-4'>
                                     <div className='row'>
@@ -133,7 +135,8 @@ const Wishes = () => {
                     ))
                 }
             </div >
-            {showModal &&
+            {
+                showModal &&
                 <ModalWishes
                     active={showModal}
                     data={dataModalUtility}

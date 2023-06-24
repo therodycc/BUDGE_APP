@@ -4,6 +4,7 @@ interface BackModalPropsI {
 }
 const BackModal: FC<BackModalPropsI> = ({ children, toggle }) => {
     const [animation, setAnimation] = useState(false);
+
     const handleClose = () => {
         setAnimation(true);
         setTimeout(() => {
@@ -11,6 +12,7 @@ const BackModal: FC<BackModalPropsI> = ({ children, toggle }) => {
             setAnimation(false);
         }, 400);
     }
+
     return (
         <div style={{ zIndex: 9, }} >
             <div

@@ -1,12 +1,22 @@
+import { faCartArrowDown, faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Children } from 'react'
 import { currencyFormat } from '../../../helpers/currency.helper'
 import { CardImgPropsI } from '../../../interfaces/common/card/card.interface'
 
-const CardImg = ({ title, description, image, completed, children }: CardImgPropsI) => {
+const CardImg = ({ title, description, image, completed, inMonth, children }: CardImgPropsI) => {
     return (
         <>
             <div className="card mx-2 mt-5">
                 <div className="card-header p-0 position-relative mt-n4 mx-3">
+                    <div className='position-absolute' style={{ top: -20, left: -20, zIndex: 1 }}>
+                        {inMonth && (<div
+                            className="me-3 animate__infinite  bg-success rounded-circle shadow-sm animate__animated animate__pulse d-flex align-items-center justify-content-center" style={{ width: "50px", height: "50px" }}>
+                            <FontAwesomeIcon
+                                className="text-white"
+                                icon={faCartArrowDown} style={{ fontSize: "20px" }} />
+                        </div>)}
+                    </div>
                     <div className="tab-content shadow-dark border-radius-lg">
                         {
                             completed && (
