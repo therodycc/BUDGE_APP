@@ -2,7 +2,7 @@ import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { FC, useCallback } from 'react'
 import { TypeTable } from '../../../interfaces/utility/utilily.type'
-import { payAction } from '../../../redux-toolkit/actions/manage.actions'
+import { payAction } from '../../../redux-toolkit/slices/manage/manage.actions'
 import { useDispatch } from '../../../redux-toolkit/store'
 import Button from '../../common/button'
 

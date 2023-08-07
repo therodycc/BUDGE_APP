@@ -48,22 +48,20 @@ const FixedCosts = () => {
         dispatch(addFixedCosts({ result: res?.data }));
     }
 
-
-
     const addToThisMonth = (item: UtilityI) => {
         fixedCostsProvider
-            .update(item?.uuid, { inMonth: true })
+            .update(item?.uuid, { inMonth: !item.inMonth })
             .then((res) => {
                 if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
-                dispatch(updateFixedCost({ fixedCost: { uuid: item.uuid, inMonth: true } }))
+                dispatch(updateFixedCost({ fixedCost: { uuid: item.uuid, inMonth: !item.inMonth } }))
             })
             .catch((error) => error);
     };
 
     const addToMonth = () => {
         Promise.all(
-            (fixedCosts?.result || [])?.filter((item: FixedCostsI, index: number) => item.active)
-                .map((item, index) => fixedCostsProvider.update(item.uuid as string, {
+            (fixedCosts?.result || [])?.filter((item: FixedCostsI) => item.active)
+                .map((item: FixedCostsI) => fixedCostsProvider.update(item.uuid as string, {
                     inMonth: true,
                     paidOut: 0,
                     status: "IN_PROGRESS"
@@ -77,7 +75,7 @@ const FixedCosts = () => {
 
     const formatFixedCosts = () => {
         Promise.all(
-            (fixedCosts?.result || []).filter((item: FixedCostsI) => item.active)
+            (fixedCosts?.result || [])
                 .map(async (item: FixedCostsI) => {
                     return await fixedCostsProvider.update(item.uuid as string, { status: "PENDING", paidOut: 0 });
                 }))

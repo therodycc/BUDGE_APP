@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import { ManageI } from "../../../../interfaces/manage/manage.interface";
 import manageProvider from "../../../../providers/utilities/utilities.provider";
-import { updateManage } from "../../../../redux-toolkit/slices/manage.slice";
+import { updateManage } from "../../../../redux-toolkit/slices/manage/manage.slice";
 import { inputsModalManage } from "../../../../settings/manage/inputs-modal";
 import Button from "../../../common/button";
 import Form from "../../../common/form";
@@ -19,12 +19,10 @@ const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = async (form: any) => {
-        if (!data.uuid) return console.log("no passed");
-
+    const handleSubmit = useCallback(async (form: any) => {
         const { type, ...restForm } = form
 
-        const res = await manageProvider.updateAction(data.uuid, data.type, restForm)
+        const res = await manageProvider.updateAction(data?.uuid!, data.type, { ...restForm, paidOut: data!.paidOut! + +form.paidOut })
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         sweetAlert.alert("Success", "Updated!", "success");
 
@@ -32,11 +30,11 @@ const ModalManage = ({ active, toggle, data }: ModalManagePropsI) => {
             manage: {
                 ...form,
                 ...(form.expense && { expense: +form.expense }),
-                ...(form.paidOut && { paidOut: +form.paidOut }),
+                ...(form.paidOut && { paidOut: data!.paidOut! + +form.paidOut }),
             }
         }))
         toggle();
-    }
+    }, [data, dispatch, toggle])
 
 
 

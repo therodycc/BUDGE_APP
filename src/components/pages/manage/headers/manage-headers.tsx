@@ -16,7 +16,6 @@ export const ColumnsManageItems = ({ showModalEdit, removeItem, children }: Head
         {
             title: "Title",
             render: ({ item }: any) => { return (<DTProfileTable name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
-
         },
         {
             title: "Expense",
@@ -25,6 +24,12 @@ export const ColumnsManageItems = ({ showModalEdit, removeItem, children }: Head
             },
         },
         // { title: "Paid Out", render: ({ item }: any) => { return <PayItemOn /> } },
+        {
+            title: "Paid Out",
+            render: ({ item }: any) => <span style={{
+                fontSize: "12px"
+            }}> {item?.type?.name}</span>
+        },
         {
             title: "Status",
             render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },

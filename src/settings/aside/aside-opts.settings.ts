@@ -38,4 +38,10 @@ export const asideOptions: AsideOptionsI[] = [
         active: false,
         link: "/accounts",
     },
+    {
+        icon: faCableCar,
+        title: "Financial expenses",
+        active: false,
+        link: "/financial-expenses",
+    },
 ]

@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { ManageI } from '../../interfaces/manage/manage.interface';
+import { ManageI } from '../../../interfaces/manage/manage.interface';
 
 export interface ManageStateI {
     result: ManageI[]

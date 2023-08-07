@@ -18,13 +18,14 @@ export interface CardMiniPropsI {
 export interface CardImgPropsI extends CardBaseI {
     image: string
     completed: boolean
+    inMonth: boolean
     children: ReactNode
 }
 export interface CardWidgetI extends CardBaseI {
     toggleEnabled: Function
     item?: ProfitI
-    handleDelete:Function
-    handleUpdate:Function
+    handleDelete: Function
+    handleUpdate: Function
 }
 export interface CardHomePropsI extends CardBaseI {
     subtitle: string

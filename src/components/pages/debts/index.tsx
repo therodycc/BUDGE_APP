@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
@@ -30,32 +30,36 @@ const Debts = () => {
         valueToCalc: debts.result
     })
 
-    const getAllDebts = async () => {
+    const getAllDebts = useCallback(async () => {
         const res = await debtProvider.getAll()
         if (res.error) return sweetAlert.toast("", res.error.message, "error");
         dispatch(addDebts({ result: res.data }));
-    }
+    }, [dispatch])
+
+    const addToThisMonth = useCallback(
+        (item: UtilityI) => {
+            debtProvider.update(item.uuid, { inMonth: !item.inMonth })
+                .then(res => {
+                    if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
+                    dispatch(updateDebt({ debt: { uuid: item.uuid, inMonth: !item.inMonth } }))
+                })
+        },
+        [dispatch],
+    )
 
     useEffect(() => {
         getAllDebts()
-    }, []);
+    }, [getAllDebts]);
 
-    const addToThisMonth = (item: UtilityI) => {
-        debtProvider.update(item.uuid, { inMonth: true })
-            .then(res => {
-                if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
-                dispatch(updateDebt({ debt: { uuid: item.uuid, inMonth: true } }))
-            })
-    };
-
-    const removeItem = async (item: UtilityI) => {
+    const removeItem = useCallback(async (item: UtilityI) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
         if (!confirm) return;
         const res = await debtProvider.remove(item.uuid)
         if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
         dispatch(removeDebt({ uuid: item?.uuid }))
         sweetAlert.alert("Success", "Done!", "success");
-    };
+    }, [dispatch])
+
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item)

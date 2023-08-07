@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
@@ -10,7 +10,7 @@ import { ManageCardsDataI } from '../../../interfaces/manage/manage.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import reportsProvider from '../../../providers/reports/reports.provider';
 import manageProvider from '../../../providers/utilities/utilities.provider';
-import { addManage, removeAllManage, removeManage } from '../../../redux-toolkit/slices/manage.slice';
+import { addManage, removeAllManage, removeManage } from '../../../redux-toolkit/slices/manage/manage.slice';
 
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
@@ -38,9 +38,7 @@ const Manage = () => {
     const [showModal, setShowModal] = useState(false);
     const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
 
-    useEffect(() => {
-        getAllManage()
-    }, []);
+
 
     const removeItem = async (item: UtilityI) => {
         const confirm = await sweetAlert.question("Are you sure?", "warning");
@@ -51,8 +49,7 @@ const Manage = () => {
         dispatch(removeManage({ uuid: item?.uuid }));
     };
 
-
-    const getAllManage = async () => {
+    const getAllManage = useCallback(async () => {
         const res = await manageProvider.getAll()
         let added: any = [];
 
@@ -65,14 +62,20 @@ const Manage = () => {
         if (res.error) return sweetAlert.toast("Error", res.error, 'error')
         dispatch(addManage({ result: added }));
 
-    }
+    }, [dispatch])
+
+    useEffect(() => {
+        getAllManage()
+    }, [getAllManage]);
 
     const showModalEdit = (item: UtilityI) => {
         setDataModalUtility(item);
         setShowModal(!showModal);
     };
 
-    const resetTableData = async () => {
+    const resetTableData = useCallback(async () => {
+        const confirm = await sweetAlert.question('Do you want to reset this month?', 'warning', '');
+        if (!confirm) return;
         Promise.all(manage?.result?.map((item: any) => manageProvider.updateAction(item.uuid,
             item.type.name,
             { inMonth: false }
@@ -82,9 +85,9 @@ const Manage = () => {
                 sweetAlert.toast("Success", 'All items was removed from this month', 'success');
                 dispatch(removeAllManage());
             })
-    }
+    }, [dispatch, manage?.result])
 
-    const handleExportData = async () => {
+    const handleExportData = useCallback(async () => {
         const confirm = await sweetAlert.question('Do you want to export data?', 'warning', '');
         if (!confirm) return;
         const result = await reportsProvider.createReports({
@@ -100,7 +103,8 @@ const Manage = () => {
         if (result?.error) return sweetAlert.toast("Error", result?.error?.message, "error");
         sweetAlert.toast("Success", 'Data was exported', 'success');
         createTablePdf(manage?.result, entry, pending, remaining)
-    }
+    }, [entry, manage?.result, pending, remaining],)
+
 
     return (
         <>
@@ -181,6 +185,7 @@ const Manage = () => {
                     data={{
                         type: dataModalUtility?.type?.name,
                         expense: dataModalUtility?.expense,
+                        paidOut: dataModalUtility?.paidOut,
                         uuid: dataModalUtility?.uuid
                     }}
                 />

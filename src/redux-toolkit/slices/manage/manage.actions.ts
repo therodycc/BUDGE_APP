@@ -1,7 +1,7 @@
-import sweetAlert from "../../helpers/alerts/sweetAlert.helper";
-import { TypeTable } from "../../interfaces/utility/utilily.type";
-import manageProvider from "../../providers/utilities/utilities.provider";
-import { updateManage } from "../slices/manage.slice";
+import sweetAlert from "../../../helpers/alerts/sweetAlert.helper";
+import { TypeTable } from "../../../interfaces/utility/utilily.type";
+import manageProvider from "../../../providers/utilities/utilities.provider";
+import { updateManage } from "./manage.slice";
 
 interface IPayAction {
     type: TypeTable;

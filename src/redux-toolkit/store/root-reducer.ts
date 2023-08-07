@@ -4,8 +4,9 @@ import accountReducer from '../slices/account/accounts.slice';
 // reducers
 import changePasswordReducer from '../slices/change-password.slice';
 import debtsReducer from '../slices/debts.slice';
+import financialExpenseReducer from '../slices/financial-expense/financial-expense.slice';
 import fixedCostsReducer from '../slices/fixed-costs.slice';
-import manageReducer from '../slices/manage.slice';
+import manageReducer from '../slices/manage/manage.slice';
 import meReducer from '../slices/me.slice';
 import necessaryReducer from '../slices/necessary.slice';
 import profitsReducer from '../slices/profits.slice';
@@ -49,7 +50,8 @@ const rootReducer = combineReducers({
     wishes: wishesReducer,
     fixedCosts: fixedCostsReducer,
     changePassword: changePasswordReducer,
-    account: accountReducer
+    account: accountReducer,
+    financialExpenses: financialExpenseReducer
     // test: persistReducer(testPersistConfig, testReducer),
 });
 

@@ -9,6 +9,7 @@ export interface UtilityI {
     img: null | string
     //TODO:RODY PENDING TO REMOVE ANY 
     type: any
+    inMonth?: boolean
     urgency: UrgencyType,
     category: CategoryType,
     status: StatusType,
