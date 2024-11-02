@@ -35,7 +35,7 @@ export const headTableDebts = ({ addToThisMonth, showModalEdit, removeItem }: he
         title: "Description",
         render: ({ item }: any) => {
             return (
-                <div style={{whiteSpace:"pre-wrap", fontSize:"12px", color:"gray", fontWeight:"bold"}}>
+                <div style={{ whiteSpace: "pre-wrap", fontSize: "12px", color: "gray", fontWeight: "bold" }}>
                     <span >{item.description}</span>
                 </div>
             );
@@ -54,6 +54,13 @@ export const headTableDebts = ({ addToThisMonth, showModalEdit, removeItem }: he
     {
         title: "Status",
         render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },
+    },
+    {
+        title: "Status",
+        render: ({ item }: any) => {
+            console.log(item)
+            return (<div>{new Date(item?.createdAt).toDateString()}</div>);
+        },
     },
     {
         title: "Actions",

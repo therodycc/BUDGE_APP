@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
 import authProvider from "../../../../providers/auth/auth.provider";
 import inputsAuthRenderSettings, { inputsAuthRenderRules } from "../../../../settings/auth/inputs-auth-render.settings";
-import Button from "../../../common/button";
 import Form from "../../../common/form";
 import HeadImages from "../../../common/head-images";
+import { RccButton } from 'rcc-react-lib'
 
 const SignIn = () => {
     const dispatch = useDispatch();
@@ -45,14 +45,14 @@ const SignIn = () => {
                                 handleSubmit={handleSubmit}
                                 footerSection={
                                     <>
-                                        <Button
+                                        <RccButton
                                             bgClass={"primary"}
                                             type={"submit"}
                                             loading={loadingAuth}
                                             customClass="mt-3 w-100"
                                         >
                                             Log In
-                                        </Button>
+                                        </RccButton>
                                     </>
                                 }
                             />

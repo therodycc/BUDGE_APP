@@ -1,4 +1,3 @@
-
 const app = {
     url: process.env.NEXT_PUBLIC_API_URL
 }
@@ -6,3 +5,4 @@ const app = {
 export default {
     app
 }
+// do a timer
