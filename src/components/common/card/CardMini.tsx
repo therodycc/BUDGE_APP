@@ -1,6 +1,6 @@
 import React from 'react'
 import { CardMiniPropsI } from '../../../interfaces/common/card/card.interface'
-import LoadingSquareDestructuring from '../loading/loading-square-destructuring'
+import { RccLoadingSquareDestructuring } from 'rcc-react-lib'
 
 const CardMini = ({ title, amount }: CardMiniPropsI) => {
     return (
@@ -30,7 +30,7 @@ const CardMini = ({ title, amount }: CardMiniPropsI) => {
                 <div className="card overflow-hidden " style={{ height: "110px" }}>
                     <div className="row">
                         <div className="col-7 text-start">
-                            <LoadingSquareDestructuring customClassLoading='person-card-loading' />
+                            <RccLoadingSquareDestructuring customClassLoading='person-card-loading' />
                         </div>
                     </div>
                 </div>

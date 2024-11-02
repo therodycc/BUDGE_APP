@@ -17,7 +17,7 @@ import Box from '../../common/box';
 import Button from '../../common/button';
 import Card from '../../common/card';
 import CardAmountText from '../../common/card/card-amount-text';
-import Table from '../../common/table';
+import { RccTable } from 'rcc-react-lib'
 import Tabs from '../../common/tabs';
 import { manageCardsData, manageCategories } from './cards-settings/manage-card';
 import { ColumnsManageItems } from './headers/manage-headers';
@@ -170,7 +170,7 @@ const Manage = () => {
                             removeItem={removeItem}
                             showModalEdit={showModalEdit}
                         >
-                            {({ columns }) => (<Table
+                            {({ columns }) => (<RccTable
                                 headItems={columns}
                                 bodyItems={manage?.result?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                             />)}

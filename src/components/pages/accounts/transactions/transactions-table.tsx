@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { accountSelector } from '../../../../redux-toolkit/slices/account/account.selector'
-import TBody from '../../../common/table/t-body'
+
 import { HeadersTransactions } from './table-options'
+import { RccTBody } from 'rcc-react-lib'
 
 export const TransactionsTable = () => {
     const transactionsOfActiveAccount = useSelector(accountSelector.getTransactionsOfActiveAccount)
@@ -13,7 +14,7 @@ export const TransactionsTable = () => {
             <table>
                 <HeadersTransactions>
                     {({ columns }) => (
-                        <TBody bodyItems={transactionsOfActiveAccount} headItems={columns} />
+                        <RccTBody bodyItems={transactionsOfActiveAccount} headItems={columns} />
                     )}
                 </HeadersTransactions>
             </table>

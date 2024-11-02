@@ -22,7 +22,7 @@ const Modal = ({ title, children, footer, setToggle, active, modalStylesContaine
                         className={`bg-white shadow-lg modal-layout animate__animated  ${!animation ? "animate__bounceInUp" : "animate__bounceOutDown"}`}
                         style={{ borderRadius: "15px", overflow: "hidden", ...modalStylesContainer }}
                     >
-                        {/* <LoadingSquareDestructuring /> */}
+                        {/* <RccLoadingSquareDestructuring /> */}
                         <div className="p-3 pb-0 d-flex justify-content-between align-items-center">
                             <span className="px-2">
                                 {title}

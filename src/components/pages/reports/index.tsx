@@ -3,7 +3,7 @@ import useFetch from '../../../hooks/useFetch';
 import reportsProvider from '../../../providers/reports/reports.provider';
 import { headersReports } from '../../../settings/reports/headers-reports';
 import Box from '../../common/box';
-import Table from '../../common/table';
+import { RccTable } from 'rcc-react-lib'
 
 export interface ReportsI {
     uuid: string;
@@ -30,7 +30,7 @@ const Reports = () => {
     return (
         <>
             <Box leftSection="Reports">
-                <Table
+                <RccTable
                     headItems={headersReports({ deleteReport })}
                     bodyItems={data as ReportsI[]}
                 />

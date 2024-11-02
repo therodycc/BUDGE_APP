@@ -13,7 +13,7 @@ import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
-import Table from '../../common/table';
+import { RccTable } from 'rcc-react-lib'
 import Tabs from '../../common/tabs';
 import ModalFixedCosts from './modals';
 import { FixedCostsI } from '../../../interfaces/fixed-costs/fixed-costs.interface';
@@ -178,7 +178,7 @@ const FixedCosts = () => {
                             </Button>
                         </div>
                     </div>
-                    <Table
+                    <RccTable
                         headItems={headItemsFixedCosts({
                             addToThisMonth,
                             disabledItem,

@@ -2508,10 +2508,10 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-rcc-react-lib@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/rcc-react-lib/-/rcc-react-lib-0.0.2.tgz#630d822e08ccac56bbf55f72d272d88d80fbe80f"
-  integrity sha512-2OCMZCg3ySnh0ja2fdKmp6SSkymdIA1uLh3G0fVaFeT9HbE7m664s7O9m7qB2vpYynAndzECmB9eT1SnjZl9ag==
+rcc-react-lib@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/rcc-react-lib/-/rcc-react-lib-0.0.5.tgz#d8af722c6ef698c5b815afcb56ff14d1a583431d"
+  integrity sha512-78bo/gthsM+wl0uY4KApgxOofSHN12Is0PHMKAM2Bkd9a+xxPVLpnk3HjF26oSsAZpAgMbXljkMNXZ21p7+PmQ==
 
 react-dom@^18.3.1:
   version "18.3.1"

@@ -14,7 +14,7 @@ import { headersVolunteerThings } from '../../../settings/volunteer-things/heade
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
-import Table from '../../common/table';
+import { RccTable } from 'rcc-react-lib'
 import Tabs from '../../common/tabs';
 import ModalVolunteerThings from './modals';
 import { RootState } from '../../../redux-toolkit/store/index';
@@ -119,7 +119,7 @@ const VolunteerThings = () => {
                         </>
                     }
                 >
-                    <Table
+                    <RccTable
                         headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })}
                         bodyItems={(volunteerThings?.result)?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                     />

@@ -65,7 +65,7 @@ const Leading = () => {
                     </div >
                 </div >
                 <Box leftSection="Leading">
-                    <Table
+                    <RccTable
                         headItems={headersLeading({ removeItem, showModalEdit })}
                         bodyItems={leading} />
                 </Box>

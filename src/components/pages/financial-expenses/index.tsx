@@ -9,7 +9,7 @@ import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
-import Table from '../../common/table';
+import { RccTable } from 'rcc-react-lib'
 import Tabs from '../../common/tabs';
 
 export const FinancialExpenses = () => {
@@ -73,7 +73,7 @@ export const FinancialExpenses = () => {
                         </>
                     }
                 >
-                    <Table
+                    <RccTable
                         headItems={headTableFinancialExpenses()}
                         bodyItems={financialExpenses.data} />
                 </Box>

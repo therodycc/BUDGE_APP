@@ -13,9 +13,9 @@ import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import Box from '../../common/box';
 import Button from '../../common/button';
 import CardMini from '../../common/card/CardMini';
-import Table from '../../common/table';
 import Tabs from '../../common/tabs';
 import ModalDebts from './modals';
+import { RccTable } from 'rcc-react-lib'
 
 const Debts = () => {
     const [showModal, setShowModal] = useState(false)
@@ -114,7 +114,7 @@ const Debts = () => {
                         </>
                     }
                 >
-                    <Table
+                    <RccTable
                         headItems={headTableDebts({ addToThisMonth, removeItem, showModalEdit })}
                         bodyItems={debts?.result?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []} />
                 </Box>
