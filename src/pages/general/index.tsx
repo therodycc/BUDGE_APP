@@ -1,16 +1,14 @@
-import { faExplosion, faHandshakeAngle, faHome, faPaintbrush, faStarHalfStroke, faHandHoldingUsd, faHouseFire, faPersonDigging } from '@fortawesome/free-solid-svg-icons';
+import { faExplosion, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link'
-import React, { ReactNode, useState } from 'react'
-import ButtonCard from '../../components/common/button/button-card'
-import Tabs from '../../components/common/tabs';
-import Layout from '../../components/layout'
+import React, { ReactNode, useState } from 'react';
+import Layout from '../../components/layout';
 import Debts from '../../components/pages/debts';
 import Necessary from '../../components/pages/necessary';
 import VolunteerThings from '../../components/pages/volunteer-things';
 import FixedCosts from '../fixedCosts';
 import LendingPage from '../lending';
 import Wishes from '../wishes';
+import { RccTabs } from "rcc-react-lib";
 
 const General = () => {
     const [tab, setTab] = useState(0);
@@ -19,7 +17,7 @@ const General = () => {
         <React.Fragment>
             <div className="row  my-3 ">
                 <div className="mb-5">
-                    <Tabs
+                    <RccTabs
                         tabsSettings={optionsPages.map(item => ({
                             ...item,
                             icon: <FontAwesomeIcon icon={item.icon} />

@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
-import { LayoutPropsI } from '../../interfaces/layout/layout.interface'
 import { navAuth } from '../../settings/nav/navbar.config'
-import Button from '../common/button'
+import { RccButton } from 'rcc-react-lib'
 import { v4 as gxUUID } from 'uuid';
 
-const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
+const AuthLayout: FC<any> = ({ children }) => {
 
     const router: NextRouter = useRouter()
 
@@ -41,14 +40,14 @@ const AuthLayout: FC<LayoutPropsI> = ({ children }) => {
                                     key={gxUUID()}
                                     href={item.href}>
                                     <div className="m-0 p-0">
-                                        <Button
+                                        <RccButton
                                             action={() => { handleNav(item.href) }}
                                             bgClass={item.active ? "success" : "light"}
                                             type={"submit"}
                                             loading={false}
                                         >
                                             {item.title}
-                                        </Button>
+                                        </RccButton>
                                     </div>
                                 </Link>
                             ))

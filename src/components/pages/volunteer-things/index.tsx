@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import sweetAlert from '../../../helpers/alerts/sweetAlert.helper';
 import { currencyFormat } from '../../../helpers/currency.helper';
 import { getFilterByStatus } from '../../../helpers/status.helper';
 import useCalcCategory from '../../../hooks/useCalcCategory';
@@ -11,13 +10,11 @@ import volunteerThingsProvider from '../../../providers/volunteer-things/volunte
 import { addVolunteerThings, removeVolunteerThing, updateVolunteerThing } from '../../../redux-toolkit/slices/volunteer-things.slice';
 import { tabsSettings } from '../../../settings/manage/tabs.settings';
 import { headersVolunteerThings } from '../../../settings/volunteer-things/headers-table.settings';
-import Box from '../../common/box';
-import Button from '../../common/button';
-import CardMini from '../../common/card/CardMini';
-import { RccTable } from 'rcc-react-lib'
-import Tabs from '../../common/tabs';
-import ModalVolunteerThings from './modals';
+
+import { RccButton, RccTable, RccBox, RccNotifications, RccTabs } from 'rcc-react-lib';
 import { RootState } from '../../../redux-toolkit/store/index';
+import CardMini from '../../common/card/CardMini';
+import ModalVolunteerThings from './modals';
 
 const VolunteerThings = () => {
     const { volunteerThings } = useSelector((state: RootState) => state);
@@ -48,18 +45,18 @@ const VolunteerThings = () => {
     const addToThisMonth = (item: VolunteerThingsI) => {
         volunteerThingsProvider.update(item.uuid || "", { inMonth: true })
             .then((res) => {
-                if (res?.error) return sweetAlert.toast("Error", res.error.message, "error");
+                if (res?.error) return RccNotifications.toast("Error", res.error.message, "error");
                 dispatch(updateVolunteerThing({ volunteerThing: { uuid: item.uuid, inMonth: true } }))
             })
             .catch((error) => error);
     };
 
     const removeItem = async (item: VolunteerThingsI) => {
-        const confirm = await sweetAlert.question("Are you sure?", "warning");
+        const confirm = await RccNotifications.question("Are you sure?", "warning");
         if (!confirm) return;
         const res = await volunteerThingsProvider.remove(item.uuid as string)
-        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
-        sweetAlert.alert("Success", "Done!", "success");
+        if (res.error) return RccNotifications.alert("Error", res?.error?.message, "error");
+        RccNotifications.alert("Success", "Done!", "success");
         dispatch(removeVolunteerThing({ uuid: item.uuid as string }));
     };
 
@@ -91,11 +88,11 @@ const VolunteerThings = () => {
                         />
                     </div>
                 </div>
-                <Box
+                <RccBox
                     customClassLeftSection='col-lg-8'
                     customClassRightSection='col-lg-4'
                     leftSection={
-                        <Tabs
+                        <RccTabs
                             tabsSettings={tabsSettings}
                             setActiveTab={setTab}
                             activeTab={tab}
@@ -104,7 +101,7 @@ const VolunteerThings = () => {
                     rightSection={
                         <>
                             <div className="">
-                                <Button
+                                <RccButton
                                     bgClass={"success"}
                                     type={"button"}
                                     loading={false}
@@ -114,7 +111,7 @@ const VolunteerThings = () => {
                                     }}
                                 >
                                     Add new
-                                </Button>
+                                </RccButton>
                             </div>
                         </>
                     }
@@ -123,7 +120,7 @@ const VolunteerThings = () => {
                         headItems={headersVolunteerThings({ addToThisMonth, removeItem, showModalEdit })}
                         bodyItems={(volunteerThings?.result)?.filter((item: any) => getFilterByStatus?.(tab)?.includes(item?.status)) || []}
                     />
-                </Box>
+                </RccBox>
             </div>
 
             {

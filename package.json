@@ -21,7 +21,7 @@
     "json-server": "^0.17.0",
     "jspdf": "^2.5.1",
     "next": "^15.0.2",
-    "rcc-react-lib": "^0.0.5",
+    "rcc-react-lib": "^0.0.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^8.0.5",

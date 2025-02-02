@@ -1,7 +1,6 @@
-import { faPlusCircle, faSpinner, faTrashAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { gxUUID } from '../../../helpers/uuid-generator.helper';
 export interface ButtonGroupPropsI {
     buttonsGroupsData: ButtonGroupI[];

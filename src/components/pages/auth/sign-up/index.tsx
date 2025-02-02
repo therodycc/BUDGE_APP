@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../../common/button'
+import { RccButton } from 'rcc-react-lib'
 import HeadImages from '../../../common/head-images'
 
 const SignUp = () => {
@@ -19,14 +19,14 @@ const SignUp = () => {
                             <form onSubmit={handleSubmit}>
 
                                 <div>
-                                    <Button
+                                    <RccButton
                                         bgClass={"primary"}
                                         type={"submit"}
                                         customClass="mt-3 w-100"
                                         loading={false}
                                     >
                                         Sign up
-                                    </Button>
+                                    </RccButton>
                                 </div>
                             </form>
                         </div>

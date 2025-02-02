@@ -2,7 +2,7 @@ import { faChevronDown, faGear, faHandHoldingUsd, faPencilAlt, faTrashAlt } from
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { CardWidgetI } from '../../../interfaces/common/card/card.interface';
-import Button from '../button';
+import { RccButton } from 'rcc-react-lib'
 
 const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, handleUpdate }: CardWidgetI) => {
   return <div className='mb-2'>
@@ -40,16 +40,16 @@ const CardWidget = ({ title, description, toggleEnabled, item, handleDelete, han
     </div>
     {item?.showOptions &&
       <div className="px-3 bg-light d-flex py-3 ">
-        <Button
+        <RccButton
           action={() => { handleDelete(item) }}
           bgClass={'danger'} type={'button'} loading={false}>
           <FontAwesomeIcon icon={faTrashAlt} />
-        </Button>
-        <Button
+        </RccButton>
+        <RccButton
           action={() => { handleUpdate() }}
           bgClass={'warning'} type={'button'} loading={false}>
           <FontAwesomeIcon icon={faPencilAlt} />
-        </Button>
+        </RccButton>
       </div>
     }
   </div>;

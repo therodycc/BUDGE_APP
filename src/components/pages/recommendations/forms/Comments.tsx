@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../../common/button'
+import { RccButton } from 'rcc-react-lib'
 
 const CommentsForm = () => {
     return (
@@ -16,7 +16,7 @@ const CommentsForm = () => {
                     </div>
                 </div>
 
-                <Button
+                <RccButton
                     type="submit"
                     bgClass="info"
                     size="sm"
@@ -24,7 +24,7 @@ const CommentsForm = () => {
                     loading={false}
                 >
                     Send
-                </Button>
+                </RccButton>
             </form>
         </>
     )

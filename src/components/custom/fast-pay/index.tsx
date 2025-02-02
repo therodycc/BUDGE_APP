@@ -4,7 +4,7 @@ import React, { FC, useCallback } from 'react'
 import { TypeTable } from '../../../interfaces/utility/utilily.type'
 import { payAction } from '../../../redux-toolkit/slices/manage/manage.actions'
 import { useDispatch } from '../../../redux-toolkit/store'
-import Button from '../../common/button'
+import { RccButton } from 'rcc-react-lib'
 
 interface FastPayButtonProps {
     paidOut: number
@@ -21,9 +21,9 @@ const FastPayButton: FC<FastPayButtonProps> = ({ paidOut, type, uuid }) => {
 
     return (
         <React.Fragment>
-            <Button bgClass={"info"} type={"button"} loading={false} action={handlePay} >
+            <RccButton bgClass={"info"} type={"button"} loading={false} action={handlePay} >
                 <FontAwesomeIcon className="cursor-pointer" icon={faFireFlameCurved} />
-            </Button>
+            </RccButton>
         </React.Fragment>
     )
 }

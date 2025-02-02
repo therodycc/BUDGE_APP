@@ -1,6 +1,6 @@
+import { RccToggle } from "rcc-react-lib";
 import React from "react";
 import DTProfileTable from "../../components/common/dt-profile-table";
-import Toggle from "../../components/common/input/toggle";
 import TrafficLights from "../../components/common/traffic-lights";
 import CustomBtnGroups from "../../components/custom/btn-actions-groups";
 import ManageDays from "../../components/pages/fixed-costs/manage-days";
@@ -9,32 +9,46 @@ import { headItemsFixedCostsI } from "../../interfaces/fixed-costs/fixed-costs.i
 import { StatusType } from "../../interfaces/utility/utilily.type";
 
 export const headItemsFixedCosts = ({
-    addToThisMonth,
-    showModalEdit,
-    removeItem,
-    disabledItem,
-    changeDateToPay
+  addToThisMonth,
+  showModalEdit,
+  removeItem,
+  disabledItem,
+  changeDateToPay,
 }: headItemsFixedCostsI) => [
-        {
-            title: "Title",
-            render: ({ item }: any) => { return (<DTProfileTable inMonth={item?.inMonth} name={item?.name} image={item?.img} expense={item?.expense} paidOut={item?.paidOut} category={item?.category} />); },
-
-        },
-        {
-            title: "Expense",
-            render: ({ item }: any) => { return (<span>{currencyFormat(item.expense)}</span>); },
-        },
-        {
-            title: "Status",
-            render: ({ item }: any) => { return (<TrafficLights status={item.status as StatusType} />); },
-        },
-        {
-            title: "Day to pay",
-            render: ({ item }: any) => {
-                return (
-                    <React.Fragment>
-                        <ManageDays />
-                        {/* <Dropdown
+  {
+    title: "Title",
+    render: ({ item }: any) => {
+      return (
+        <DTProfileTable
+          inMonth={item?.inMonth}
+          name={item?.name}
+          image={item?.img}
+          expense={item?.expense}
+          paidOut={item?.paidOut}
+          category={item?.category}
+        />
+      );
+    },
+  },
+  {
+    title: "Expense",
+    render: ({ item }: any) => {
+      return <span>{currencyFormat(item.expense)}</span>;
+    },
+  },
+  {
+    title: "Status",
+    render: ({ item }: any) => {
+      return <TrafficLights status={item.status as StatusType} />;
+    },
+  },
+  {
+    title: "Day to pay",
+    render: ({ item }: any) => {
+      return (
+        <React.Fragment>
+          <ManageDays />
+          {/* <Dropdown
                             defaultValue={item.dateToPay}
                             name="dateToPay"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -50,23 +64,39 @@ export const headItemsFixedCosts = ({
                                     value: 30
                                 },
                             ]} /> */}
-                    </React.Fragment>
-                );
-            },
-        },
-        {
-            title: "Actions",
-            render: ({ item }: any) => {
-                return (<CustomBtnGroups
-                    action1={() => { addToThisMonth(item); }}
-                    action2={() => { showModalEdit(item) }}
-                    action3={() => { removeItem(item); }} />);
-            },
-        },
-        {
-            title: "Active",
-            render: ({ item }: any) => {
-                return (<Toggle checked={item.active} onChange={() => { disabledItem(item); }} />);
-            },
-        },
-    ];
+        </React.Fragment>
+      );
+    },
+  },
+  {
+    title: "Actions",
+    render: ({ item }: any) => {
+      return (
+        <CustomBtnGroups
+          action1={() => {
+            addToThisMonth(item);
+          }}
+          action2={() => {
+            showModalEdit(item);
+          }}
+          action3={() => {
+            removeItem(item);
+          }}
+        />
+      );
+    },
+  },
+  {
+    title: "Active",
+    render: ({ item }: any) => {
+      return (
+        <RccToggle
+          checked={item.active}
+          onChange={() => {
+            disabledItem(item);
+          }}
+        />
+      );
+    },
+  },
+];

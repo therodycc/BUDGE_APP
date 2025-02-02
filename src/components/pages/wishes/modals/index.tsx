@@ -1,12 +1,10 @@
 import { useDispatch } from "react-redux";
-import sweetAlert from "../../../../helpers/alerts/sweetAlert.helper";
+
+import { RccButton, RccForm, RccModal, RccNotifications } from 'rcc-react-lib';
 import { ModalWishesPropsI } from "../../../../interfaces/wishes/wishes.interface";
 import wishesProvider from "../../../../providers/wishes/wishes.provider";
 import { addNewWish, updateWish } from "../../../../redux-toolkit/slices/wishes.slice";
 import { inputsModalWishes } from "../../../../settings/wishes/inputs-data-modal";
-import Button from "../../../common/button";
-import Form from "../../../common/form";
-import Modal from "../../../common/modal";
 
 const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => {
     const dispatch = useDispatch();
@@ -20,8 +18,8 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
 
     const addNewWishData = async (form: any) => {
         const res = await wishesProvider.create(form)
-        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
-        sweetAlert.alert("Success", "Done!", "success");
+        if (res.error) return RccNotifications.alert("Error", res?.error?.message, "error");
+        RccNotifications.alert("Success", "Done!", "success");
         dispatch(addNewWish({
             wishes: {
                 ...res?.data?.response,
@@ -32,8 +30,8 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
 
     const updateWishData = async (uuid: string, form: any) => {
         const res = await wishesProvider.update(uuid, form)
-        if (res.error) return sweetAlert.alert("Error", res?.error?.message, "error");
-        sweetAlert.alert("Success", "Updated!", "success");
+        if (res.error) return RccNotifications.alert("Error", res?.error?.message, "error");
+        RccNotifications.alert("Success", "Updated!", "success");
         dispatch(updateWish({
             wishes: {
                 ...form,
@@ -44,8 +42,8 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
 
     return (
         <>
-            <Modal title="Wishes" active={active} setToggle={toggle}>
-                <Form
+            <RccModal title="Wishes" active={active} setToggle={toggle}>
+                <RccForm
                     keyForm="wishes"
                     inputsData={inputsModalWishes}
                     handleSubmit={handleSubmit}
@@ -61,7 +59,7 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
                     footerSection={<>
 
                         <div className="col-lg-6">
-                            <Button
+                            <RccButton
                                 action={() => {
                                     toggle();
                                 }}
@@ -71,10 +69,10 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
                                 size="sm"
                             >
                                 Cancel
-                            </Button>
+                            </RccButton>
                         </div>
                         <div className="col-lg-6">
-                            <Button
+                            <RccButton
                                 action={() => { }}
                                 bgClass={"success"}
                                 type={"submit"}
@@ -82,11 +80,11 @@ const ModalWishes = ({ active, setToggle: toggle, data }: ModalWishesPropsI) => 
                                 size="sm"
                             >
                                 Add
-                            </Button>
+                            </RccButton>
                         </div>
                     </>}
                 />
-            </Modal>
+            </RccModal>
         </>
     );
 };

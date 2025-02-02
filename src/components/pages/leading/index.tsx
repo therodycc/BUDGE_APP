@@ -1,77 +1,80 @@
-import React, { useEffect, useState } from 'react'
-import sweetAlert from '../../../helpers/alerts/sweetAlert.helper'
-import { currencyFormat } from '../../../helpers/currency.helper'
-import useCalcCategory from '../../../hooks/useCalcCategory'
-import { UtilityI } from '../../../interfaces/utility/utility.interface'
-import { headersLeading } from '../../../settings/leading/headers-leading'
-import Box from '../../common/box'
-import CardMini from '../../common/card/CardMini'
-import Table from '../../common/table'
+import React, { useEffect, useState } from "react";
+import { currencyFormat } from "../../../helpers/currency.helper";
+import useCalcCategory from "../../../hooks/useCalcCategory";
+import { UtilityI } from "../../../interfaces/utility/utility.interface";
+import { headersLeading } from "../../../settings/leading/headers-leading";
+import CardMini from "../../common/card/CardMini";
+import { RccBox, RccTable } from "rcc-react-lib";
 
 const Leading = () => {
-    const [leading, setLeading] = useState<Array<any> | null>(null)
-    const [showModal, setShowModal] = useState(false)
-    const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(null);
+  const [leading, setLeading] = useState<Array<any> | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [dataModalUtility, setDataModalUtility] = useState<UtilityI | null>(
+    null
+  );
 
-    const { total: totalLeading, totalCompleted, totalMissing } = useCalcCategory({
-        valueToCalc: leading
-    })
+  const {
+    total: totalLeading,
+    totalCompleted,
+    totalMissing,
+  } = useCalcCategory({
+    valueToCalc: leading,
+  });
 
-    useEffect(() => {
-        getLeading()
-    }, [])
+  useEffect(() => {
+    getLeading();
+  }, []);
 
+  const getLeading = () => {
+    // leadingProvider.getAll()
+    //     .then(res => {
+    //         setLeading(res?.data);
+    //     })
+    //     .catch(error => error)
+  };
 
+  const removeItem = async (item: UtilityI) => {
+    if (!confirm) return;
+    // leadingProvider.remove(item.id)
+    //     .then(data => {
+    //         getLeading()
+    //     })
+    //     .catch(error => error)
+  };
 
-    const getLeading = () => {
-        // leadingProvider.getAll()
-        //     .then(res => {
-        //         setLeading(res?.data);
-        //     })
-        //     .catch(error => error)
-    }
+  const showModalEdit = (item: UtilityI) => {
+    setDataModalUtility(item);
+    setShowModal(!showModal);
+  };
+  return (
+    <>
+      <div className="container">
+        <div className="row mb-5">
+          <div className="col-sm-4">
+            <CardMini amount={currencyFormat(totalLeading)} title="Leading" />
+          </div>
+          <div className="col-sm-4 mt-sm-0 mt-4">
+            <CardMini
+              amount={currencyFormat(totalMissing)}
+              title="Total missing"
+            />
+          </div>
+          <div className="col-sm-4 mt-sm-0 mt-4">
+            <CardMini
+              amount={currencyFormat(totalCompleted)}
+              title="Total completed"
+            />
+          </div>
+        </div>
+        <RccBox leftSection="Leading">
+          <RccTable
+            headItems={headersLeading({ removeItem, showModalEdit })}
+            bodyItems={leading}
+          />
+        </RccBox>
+      </div>
+    </>
+  );
+};
 
-    const removeItem = async (item: UtilityI) => {
-        const confirm = await sweetAlert.question('Are you sure?', 'warning');
-        if (!confirm) return
-        // leadingProvider.remove(item.id)
-        //     .then(data => {
-        //         getLeading()
-        //         sweetAlert.alert("Done!", "Deleted", "success")
-        //     })
-        //     .catch(error => error)
-    }
-
-
-    const showModalEdit = (item: UtilityI) => {
-        setDataModalUtility(item)
-        setShowModal(!showModal)
-    }
-    return (
-        <>
-            <div className="container">
-                <div className="row mb-5">
-                    <div className="col-sm-4">
-                        <CardMini
-                            amount={currencyFormat(totalLeading)}
-                            title="Leading"
-                        />
-                    </div>
-                    <div className="col-sm-4 mt-sm-0 mt-4">
-                        <CardMini amount={currencyFormat(totalMissing)} title="Total missing" />
-                    </div>
-                    <div className="col-sm-4 mt-sm-0 mt-4">
-                        <CardMini amount={currencyFormat(totalCompleted)} title="Total completed" />
-                    </div >
-                </div >
-                <Box leftSection="Leading">
-                    <RccTable
-                        headItems={headersLeading({ removeItem, showModalEdit })}
-                        bodyItems={leading} />
-                </Box>
-            </div>
-        </>
-    )
-}
-
-export default Leading
+export default Leading;

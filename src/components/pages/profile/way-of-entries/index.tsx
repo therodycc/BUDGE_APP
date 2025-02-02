@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import RadioButton from '../../../common/input/radio'
+import RadioButton from '../../../common/form/input/radio'
 import NotWorkingSection from '../../../common/not-working';
 
 const WaysOfEntries = () => {

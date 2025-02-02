@@ -1,43 +1,46 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { setFormForChangePassword } from "../../../../redux-toolkit/slices/change-password.slice";
-import { changePasswordInputs, changePasswordRules } from "../../../../settings/profile/change-password-inputs.settings";
-import Button from "../../../common/button";
-import Form from "../../../common/form";
+import {
+  changePasswordInputs,
+  changePasswordRules,
+} from "../../../../settings/profile/change-password-inputs.settings";
+import { RccButton, RccForm } from "rcc-react-lib";
 
 interface FormChangePasswordPropsI {
-    setStep: (step: number) => void;
+  setStep: (step: number) => void;
 }
 const FormChangePassword: FC<FormChangePasswordPropsI> = ({ setStep }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const handleSubmit = (form: any) => {
-        dispatch(setFormForChangePassword({ form }));
-        setStep(2);
-    };
+  const handleSubmit = (form: any) => {
+    dispatch(setFormForChangePassword({ form }));
+    setStep(2);
+  };
 
-    return (
-        <>
-            <Form
-                keyForm="changePassword"
-                dataRules={changePasswordRules}
-                inputsData={changePasswordInputs}
-                handleSubmit={handleSubmit}
-                footerSection={<>
-                    <Button
-                        type="submit"
-                        bgClass="info"
-                        customClass="w-100"
-                        action={() => { }}
-                        loading={false}
-                    >
-                        Send
-                    </Button>
-                </>}
-            />
-
-        </>
-    );
+  return (
+    <>
+      <RccForm
+        keyForm="changePassword"
+        dataRules={changePasswordRules}
+        inputsData={changePasswordInputs}
+        handleSubmit={handleSubmit}
+        footerSection={
+          <>
+            <RccButton
+              type="submit"
+              bgClass="info"
+              customClass="w-100"
+              action={() => {}}
+              loading={false}
+            >
+              Send
+            </RccButton>
+          </>
+        }
+      />
+    </>
+  );
 };
 
 export default FormChangePassword;

@@ -1,1 +1,0 @@
-export type SweetAlertIconType = 'error' | 'success' | 'warning'
