@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currencyFormat } from "../../../helpers/currency.helper";
 import { getFilterByStatus } from "../../../helpers/status.helper";
@@ -30,14 +30,15 @@ const Necessary = () => {
   );
   const [tab, setTab] = useState(0);
 
-  useEffect(() => {
-    getAllNecessaryData();
-  }, []);
-
-  const getAllNecessaryData = async () => {
+  const getAllNecessaryData = useCallback(async () => {
     const res = await necessaryProvider.getAll();
     dispatch(addNecessaries({ result: res?.data }));
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    getAllNecessaryData();
+  }, [getAllNecessaryData]);
+
   const {
     totalCompleted,
     totalMissing,

@@ -1,37 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import { useMemo } from "react";
 
 const useCalcCategory = ({ fixedCosts }: any) => {
-    const [total, setTotal] = useState(0);
-    const [totalActive, setTotalActive] = useState(0);
-    const [totalDisabled, setTotalDisabled] = useState(0);
+  const total = useMemo(() => {
+    return fixedCosts?.reduce((acc: any, item: any) => {
+      acc += item.expense;
+      return acc;
+    }, 0);
+  }, [fixedCosts]);
 
-    useEffect(() => {
-        setTotal(getTotalFixedCosts());
-        setTotalActive(getTotalActive());
-        setTotalDisabled(getTotalDisabled());
-    }, [fixedCosts]);
+  const totalActive = useMemo(() => {
+    return fixedCosts?.reduce((acc: any, item: any) => {
+      if (item.active) acc += item.expense;
+      return acc;
+    }, 0);
+  }, [fixedCosts]);
 
-    const getTotalFixedCosts = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            acc += item.expense;
-            return acc;
-        }, 0);
-    };
+  const totalDisabled = useMemo(() => {
+    return fixedCosts?.reduce((acc: any, item: any) => {
+      if (!item.active) acc += item.expense;
+      return acc;
+    }, 0);
+  }, [fixedCosts]);
 
-    const getTotalActive = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            if (item.active) acc += item.expense;
-            return acc;
-        }, 0);
-    };
+  return { total, totalActive, totalDisabled };
+};
 
-    const getTotalDisabled = () => {
-        return fixedCosts?.reduce((acc: any, item: any) => {
-            if (!item.active) acc += item.expense;
-            return acc;
-        }, 0);
-    };
-    return { total, totalActive, totalDisabled }
-}
-
-export default useCalcCategory
+export default useCalcCategory;

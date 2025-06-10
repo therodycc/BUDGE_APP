@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import RadioButton from '../../../common/form/input/radio'
+import { RccRadioButton } from "rcc-react-lib";
+import React, { useState } from 'react';
 import NotWorkingSection from '../../../common/not-working';
 
 const WaysOfEntries = () => {
@@ -35,7 +35,7 @@ const WaysOfEntries = () => {
                 <div className='card-body row'>
                     {
                         waysOf.map(item => (
-                            <RadioButton
+                            <RccRadioButton
                                 onClick={() => { handleWaySelected(item.id) }}
                                 key={item.id}
                                 {...item}

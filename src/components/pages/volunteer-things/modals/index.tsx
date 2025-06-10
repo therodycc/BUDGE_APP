@@ -8,7 +8,6 @@ import {
   updateVolunteerThing,
 } from "../../../../redux-toolkit/slices/volunteer-things.slice";
 import { inputsModalVolunteerThings } from "../../../../settings/volunteer-things/inputs-modal";
-import Form from "../../profile/change-password/form";
 
 const ModalVolunteerThings = ({
   active,

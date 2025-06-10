@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import Layout from '../../components/layout'
+import Layout from '../../components/layout/base'
 import ConfigPage from '../../components/pages/config';
 
 const Config = () => {

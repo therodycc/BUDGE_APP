@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currencyFormat } from "../../../helpers/currency.helper";
 import { getFilterByStatus } from "../../../helpers/status.helper";
@@ -38,14 +38,14 @@ const Wishes = () => {
     valueToCalc: wishes.result,
   });
 
-  useEffect(() => {
-    getAllWishes();
-  }, []);
-
-  const getAllWishes = async () => {
+  const getAllWishes = useCallback(async () => {
     const res = await wishesProvider.getAll();
     dispatch(addWishes({ result: res?.data }));
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    getAllWishes();
+  }, [getAllWishes]);
 
   const addToThisMonth = (item: WishesI) => {
     wishesProvider

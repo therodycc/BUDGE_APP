@@ -1,16 +1,13 @@
 import router from "next/router";
+import { RccButton, RccForm, RccNotifications } from "rcc-react-lib";
 import { useState } from "react";
 import authProvider from "../../../../providers/auth/auth.provider";
 import inputsAuthRenderSettings, {
   inputsAuthRenderRules,
 } from "../../../../settings/auth/inputs-auth-render.settings";
 import HeadImages from "../../../common/head-images";
-import { RccButton, RccForm, RccNotifications } from "rcc-react-lib";
-import { useDispatch } from "react-redux";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
-
   const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
 
   const handleSubmit = async (form: any) => {
@@ -22,7 +19,6 @@ const SignIn = () => {
         setLoadingAuth(false),
       ];
     router.push("/");
-    // dispatch(login({ auth: true }));
     setLoadingAuth(false);
   };
 

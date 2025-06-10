@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import Layout from "../../components/layout";
+import Layout from "../../components/layout/base";
 import Necessary from "../../components/pages/necessary";
 
 const NecessaryPage = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux-toolkit/store';
-import BgLayoutPage from '../../layout/bg-layout-page';
+import BgLayoutPage from '../../layout/auth/bg-layout-page';
 import Profits from '../profits';
 import Wallet from './wallet';
 import WaysOfEntries from './way-of-entries';

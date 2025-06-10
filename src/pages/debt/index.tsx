@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import Layout from "../../components/layout";
+import Layout from "../../components/layout/base";
 import Debts from "../../components/pages/debts";
 
 const DebtPage = () => {

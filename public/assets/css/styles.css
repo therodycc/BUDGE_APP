@@ -1,7 +1,7 @@
-@import url('../css/sidebar.css');
-@import url('../css/card.css');
-@import url('../css/material-dashboard.min.css');
-@import url('../css/header.css');
+@import url('./sidebar.css');
+@import url('./card.css');
+@import url('./material-dashboard.min.css');
+@import url('./header.css');
 
 .sign-in-bg {
   background: #4b6cb7;

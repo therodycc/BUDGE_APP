@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { currencyFormat } from "../../../helpers/currency.helper";
@@ -41,29 +41,32 @@ const FixedCosts = () => {
     fixedCosts: fixedCosts.result,
   });
 
-  useEffect(() => {
-    getAllFixedCostsData();
-  }, []);
-
-  const getAllFixedCostsData = async () => {
+  const getAllFixedCostsData = useCallback(async () => {
     const res = await fixedCostsProvider.getAll();
     dispatch(addFixedCosts({ result: res?.data }));
-  };
+  }, [dispatch]);
 
-  const addToThisMonth = (item: UtilityI) => {
-    fixedCostsProvider
-      .update(item?.uuid, { inMonth: !item.inMonth })
-      .then((res) => {
-        if (res?.error)
-          return RccNotifications.toast("Error", res.error.message, "error");
-        dispatch(
-          updateFixedCost({
-            fixedCost: { uuid: item.uuid, inMonth: !item.inMonth },
-          })
-        );
-      })
-      .catch((error) => error);
-  };
+  useEffect(() => {
+    getAllFixedCostsData();
+  }, [getAllFixedCostsData]);
+
+  const addToThisMonth = useCallback(
+    (item: UtilityI) => {
+      fixedCostsProvider
+        .update(item?.uuid, { inMonth: !item.inMonth })
+        .then((res) => {
+          if (res?.error)
+            return RccNotifications.toast("Error", res.error.message, "error");
+          dispatch(
+            updateFixedCost({
+              fixedCost: { uuid: item.uuid, inMonth: !item.inMonth },
+            })
+          );
+        })
+        .catch((error) => error);
+    },
+    [dispatch]
+  );
 
   const addToMonth = () => {
     Promise.all(
@@ -103,29 +106,38 @@ const FixedCosts = () => {
     });
   };
 
-  const changeDateToPay = async (uuid: string, day: number) => {
+  const changeDateToPay = useCallback(async (uuid: string, day: number) => {
     const result = await fixedCostsProvider.update(uuid, { dateToPay: day });
     if (result?.error)
       return RccNotifications.toast("Error", result.error.message, "error");
-  };
+  }, []);
 
-  const removeItem = async (item: UtilityI) => {
-    const confirm = await RccNotifications.question("Are you sure?", "warning");
-    if (!confirm) return;
-    const res = await fixedCostsProvider.remove(item.uuid);
-    if (res.error)
-      return RccNotifications.alert("Error", res?.error?.message, "error");
-    RccNotifications.alert("Success", "Deleted!", "success");
-    dispatch(removeFixedCost({ uuid: item.uuid }));
-  };
+  const removeItem = useCallback(
+    async (item: UtilityI) => {
+      const confirm = await RccNotifications.question(
+        "Are you sure?",
+        "warning"
+      );
+      if (!confirm) return;
+      const res = await fixedCostsProvider.remove(item.uuid);
+      if (res.error)
+        return RccNotifications.alert("Error", res?.error?.message, "error");
+      RccNotifications.alert("Success", "Deleted!", "success");
+      dispatch(removeFixedCost({ uuid: item.uuid }));
+    },
+    [dispatch]
+  );
 
-  const disabledItem = async (item: UtilityI) => {
-    const res = await fixedCostsProvider.update(item?.uuid || "", {
-      active: !item?.active,
-    });
-    if (res.error) return;
-    dispatch(disableFixedCost({ item }));
-  };
+  const disabledItem = useCallback(
+    async (item: UtilityI) => {
+      const res = await fixedCostsProvider.update(item?.uuid || "", {
+        active: !item?.active,
+      });
+      if (res.error) return;
+      dispatch(disableFixedCost({ item }));
+    },
+    [dispatch]
+  );
 
   const showModalEdit = (item: UtilityI) => {
     setDataModalUtility(item);

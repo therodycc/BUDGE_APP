@@ -1,6 +1,6 @@
 
 import { ReactElement } from "react";
-import Layout from "../../components/layout";
+import Layout from "../../components/layout/base";
 import { FinancialExpenses } from "../../components/pages/financial-expenses";
 
 const FinancialExpensesPage = () => {

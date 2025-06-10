@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import AuthLayout from "../../../components/layout/auth-layout";
+import AuthLayout from "../../../components/layout/auth/auth-layout";
 import SignUp from "../../../components/pages/auth/sign-up";
 
 const SignUpPage = () => {

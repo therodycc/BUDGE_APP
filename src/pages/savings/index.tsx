@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import Layout from '../../components/layout'
+import Layout from '../../components/layout/base'
 import Savings from '../../components/pages/savings'
 
 const SavingsPage = () => {

@@ -1,7 +1,7 @@
 import { faExplosion, faHandHoldingUsd, faHandshakeAngle, faHome, faHouseFire, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ReactNode, useState } from 'react';
-import Layout from '../../components/layout';
+import Layout from '../../components/layout/base';
 import Debts from '../../components/pages/debts';
 import Necessary from '../../components/pages/necessary';
 import VolunteerThings from '../../components/pages/volunteer-things';

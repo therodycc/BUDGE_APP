@@ -8,7 +8,7 @@ const ButtonCircleIcon: FC<ButtonCircleIconPropsI> = ({ icon, action }) => {
             <div className="col-sm-auto col-4" >
                 <div
                     className="bg-dark rounded-circle shadow-sm border border-light text-center  cursor-pointer"
-                    style={{ width: "50px", height: "50px", lineHeight: "50px", }}
+                    style={{ width: "40px", height: "40px", lineHeight: "40px", }}
                     onClick={() => action?.()}
                 >
                     <FontAwesomeIcon begin="fa-solid" icon={icon} />

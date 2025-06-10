@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import CardAmountText from "../../components/common/card/card-amount-text";
 import ListTableCard from "../../components/common/list/list-table-card";
-import Layout from "../../components/layout";
+import Layout from "../../components/layout/base";
 import { currencyFormat } from "../../helpers/currency.helper";
 import reportsProvider from "../../providers/reports/reports.provider";
 import { useRccFetch } from "rcc-react-lib";

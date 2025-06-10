@@ -1,7 +1,7 @@
 import { faPaintbrush } from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react'
 import ButtonCard from '../../common/button/button-card'
-import BgLayoutPage from '../../layout/bg-layout-page'
+import BgLayoutPage from '../../layout/auth/bg-layout-page'
 import ChangePassword from '../profile/change-password'
 
 const ConfigPage = () => {
