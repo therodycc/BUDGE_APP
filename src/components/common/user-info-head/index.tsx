@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 
-
 interface UserInfoHeadPropsI {
     firstName: string
     lastName: string
@@ -11,12 +10,12 @@ interface UserInfoHeadPropsI {
 const UserInfoHead: FC<UserInfoHeadPropsI> = ({ firstName, lastName, email, imageAction }) => {
     return (
         <>
-            <div className="ml-0 col-sm-auto col-8 p-3 text-end" >
+            <div className="ml-0 col-sm-auto col-8 text-end" >
                 <div className="">
-                    <h6 className="mb-0 font-weight-bolder text-secondary">
+                    <p className="my-0 pb-0 font-weight-bolder text-secondary">
                         {firstName} {lastName}
-                    </h6>
-                    <p className="m-0 font-weight-normal text-sm text-secondary">
+                    </p>
+                    <p className="my-0 font-weight-normal text-sm text-secondary">
                         {email}
                     </p>
                 </div>
@@ -26,7 +25,7 @@ const UserInfoHead: FC<UserInfoHeadPropsI> = ({ firstName, lastName, email, imag
                     <img
                         src="/assets/images/man-profile.png"
                         alt="bruce"
-                        className="w-70 rounded-circle shadow-sm border border-light border-1 avatar avatar-lg user-profile-head-image"
+                        className="w-40 rounded-circle shadow-sm border border-light border-1 avatar avatar-sm user-profile-head-image"
                     />
                 </div>
             </div>

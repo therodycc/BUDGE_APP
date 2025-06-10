@@ -17,7 +17,6 @@ const SignUp = () => {
                         <div className="card-body ">
                             <p className="mb-4 text-center">Do you want to be part of us?</p>
                             <form onSubmit={handleSubmit}>
-
                                 <div>
                                     <RccButton
                                         bgClass={"primary"}

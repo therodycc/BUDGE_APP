@@ -16,6 +16,7 @@ import React from "react";
 import { RootState } from "../../../redux-toolkit/store";
 import { settings } from "../../../settings";
 import ButtonCircleIcon from "../../common/button/button-circle.icon";
+import UserInfoHead from "../../common/user-info-head";
 
 export interface AsideOptionItem {
   icon: IconDefinition;
@@ -82,24 +83,30 @@ const Layout: FC<any> = ({ children }) => {
     router.push("/manage");
   };
 
-  const updateActiveOptions = useCallback((path: string, optionsData: AsideOptionsI) => {
-    const updatedOptions: AsideOptionsI = {};
-    
-    Object.keys(optionsData).forEach(category => {
-      updatedOptions[category] = optionsData[category].map(item => ({
-        ...item,
-        active: path === item.link
-      }));
-    });
-    
-    return updatedOptions;
-  }, []);
+  const updateActiveOptions = useCallback(
+    (path: string, optionsData: AsideOptionsI) => {
+      const updatedOptions: AsideOptionsI = {};
 
-  const handleSelected = useCallback((path: string) => {
-    const updated = updateActiveOptions(path, asideOptions);
-    setOptions(updated);
-    router.push(path);
-  }, [router, updateActiveOptions]);
+      Object.keys(optionsData).forEach((category) => {
+        updatedOptions[category] = optionsData[category].map((item) => ({
+          ...item,
+          active: path === item.link,
+        }));
+      });
+
+      return updatedOptions;
+    },
+    []
+  );
+
+  const handleSelected = useCallback(
+    (path: string) => {
+      const updated = updateActiveOptions(path, asideOptions);
+      setOptions(updated);
+      router.push(path);
+    },
+    [router, updateActiveOptions]
+  );
 
   useEffect(() => {
     if (pathname) {
@@ -108,7 +115,7 @@ const Layout: FC<any> = ({ children }) => {
     }
   }, [pathname, updateActiveOptions]);
 
-    if (Object.keys(options).length === 0) return null;
+  if (Object.keys(options).length === 0) return null;
 
   return (
     <RccLayout
@@ -140,6 +147,12 @@ const Layout: FC<any> = ({ children }) => {
                   )}
                 </React.Fragment>
               ))}
+            <UserInfoHead
+              imageAction={() => {}}
+              firstName={me?.firstName}
+              lastName={me?.lastName}
+              email={me?.email}
+            />
           </div>
         </div>
       }

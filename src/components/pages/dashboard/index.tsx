@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { currencyFormat } from '../../../helpers/currency.helper';
-import { ProfitsI } from '../../../interfaces/profits/profits.interface';
 import { UtilityI } from '../../../interfaces/utility/utility.interface';
 import debtProvider from '../../../providers/debt/debt.provider';
 import fixedCostsProvider from '../../../providers/fixed-costs/fixed-costs.provider';
 import necessaryProvider from '../../../providers/necessary/necessary.provider';
-import profitsProvider from '../../../providers/profits/profits.provider';
 import voluntaryProvider from '../../../providers/volunteer-things/volunteer-things.provider';
 import wishesProvider from '../../../providers/wishes/wishes.provider';
-import { disableProfit } from '../../../redux-toolkit/slices/profits.slice';
 import { RootState } from '../../../redux-toolkit/store';
-import CardAmountText from '../../common/card/card-amount-text';
 import CardHome from '../../common/card/CardHome';
+import CardAmountText from '../../common/card/card-amount-text';
 
 const Dashboard = () => {
     const [utilities, setUtilities] = useState<Array<UtilityI>>([])
@@ -39,13 +36,6 @@ const Dashboard = () => {
 
 
     const { profits } = useSelector((state: RootState) => state)
-    const dispatch = useDispatch()
-
-
-    const disableProfitItem = async (item: ProfitsI) => {
-        const res = await profitsProvider.update(item?.uuid as string, { active: !item?.active, })
-        dispatch(disableProfit({ item }));
-    }
 
     useEffect(() => {
         getDebt()

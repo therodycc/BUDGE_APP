@@ -25,27 +25,15 @@ const Leading = () => {
     getLeading();
   }, []);
 
-  const getLeading = () => {
-    // leadingProvider.getAll()
-    //     .then(res => {
-    //         setLeading(res?.data);
-    //     })
-    //     .catch(error => error)
-  };
+  const getLeading = () => {};
 
-  const removeItem = async (item: UtilityI) => {
-    if (!confirm) return;
-    // leadingProvider.remove(item.id)
-    //     .then(data => {
-    //         getLeading()
-    //     })
-    //     .catch(error => error)
-  };
+  const removeItem = async (item: UtilityI) => {};
 
   const showModalEdit = (item: UtilityI) => {
     setDataModalUtility(item);
     setShowModal(!showModal);
   };
+
   return (
     <>
       <div className="container">

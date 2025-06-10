@@ -28,6 +28,20 @@ export const asideOptions: any = {
       link: "/reports",
     },
   ],
+  Perfil: [
+    {
+      icon: faFileAlt,
+      title: "Configuraciones",
+      active: false,
+      link: "/config",
+    },
+    {
+      icon: faFileAlt,
+      title: "Perfil",
+      active: false,
+      link: "/profile",
+    },
+  ],
   "En espera": [
     {
       icon: faPiggyBank,
