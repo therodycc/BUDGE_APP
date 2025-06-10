@@ -17,23 +17,24 @@ import { RootState } from "../../../redux-toolkit/store";
 import { settings } from "../../../settings";
 import ButtonCircleIcon from "../../common/button/button-circle.icon";
 
-export interface AsideOptionsI {
+export interface AsideOptionItem {
   icon: IconDefinition;
   title: string;
   active: boolean;
   link: string;
 }
 
+export interface AsideOptionsI {
+  [category: string]: AsideOptionItem[];
+}
+
 const Layout: FC<any> = ({ children }) => {
   const router: NextRouter = useRouter();
   const pathname = usePathname();
-  const [options, setOptions] = useState<AsideOptionsI[]>([]);
-  // const { handleShowAsideBar } = useContext(UIContext);
+  const [options, setOptions] = useState<AsideOptionsI>({});
   const {
     me: { result: me },
   } = useSelector((state: RootState) => state);
-  // const { isMenuSquareOpen, handleIsMenuSquare } = useContext(UIContext);
-
   const dispatch = useDispatch();
 
   const getMe = useCallback(async () => {
@@ -81,22 +82,33 @@ const Layout: FC<any> = ({ children }) => {
     router.push("/manage");
   };
 
-  useEffect(() => {
-    handleSelected(pathname);
-  }, [pathname]);
+  const updateActiveOptions = useCallback((path: string, optionsData: AsideOptionsI) => {
+    const updatedOptions: AsideOptionsI = {};
+    
+    Object.keys(optionsData).forEach(category => {
+      updatedOptions[category] = optionsData[category].map(item => ({
+        ...item,
+        active: path === item.link
+      }));
+    });
+    
+    return updatedOptions;
+  }, []);
 
-  const handleSelected = useCallback(
-    (path: string) => {
-      setOptions(
-        asideOptions.map((opt) => ({
-          ...opt,
-          active: path === opt.link,
-        }))
-      );
-      path && router.push(path);
-    },
-    [asideOptions, setOptions]
-  );
+  const handleSelected = useCallback((path: string) => {
+    const updated = updateActiveOptions(path, asideOptions);
+    setOptions(updated);
+    router.push(path);
+  }, [router, updateActiveOptions]);
+
+  useEffect(() => {
+    if (pathname) {
+      const updated = updateActiveOptions(pathname, asideOptions);
+      setOptions(updated);
+    }
+  }, [pathname, updateActiveOptions]);
+
+    if (Object.keys(options).length === 0) return null;
 
   return (
     <RccLayout
@@ -128,12 +140,6 @@ const Layout: FC<any> = ({ children }) => {
                   )}
                 </React.Fragment>
               ))}
-            {/* <UserInfoHead
-              imageAction={handleIsMenuSquare}
-              firstName={me?.firstName}
-              lastName={me?.lastName}
-              email={me?.email}
-            /> */}
           </div>
         </div>
       }

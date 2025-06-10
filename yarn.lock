@@ -2515,10 +2515,10 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-rcc-react-lib@^0.0.27:
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/rcc-react-lib/-/rcc-react-lib-0.0.27.tgz#964b9cfa3dbc909f38624c64fac4e69c8b8ca88b"
-  integrity sha512-3NWZbwWUYCs0g2TfLhb14C6rXOOLDV4QWDtiM22QaCzIrvcc6lKtI6PzyRkWwHqsNeMaL+BQLeIESLEs0SwMeQ==
+rcc-react-lib@^0.0.31:
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/rcc-react-lib/-/rcc-react-lib-0.0.31.tgz#53b6e7260a980dea53adf6eaf4e06c465f2abc5f"
+  integrity sha512-SodWGI0TA9JM+SdO3bIxbQrBaI5adNfvZnuCJ6mR8FOWcJ+n8pYJF8Xf75Tnybc/XQgVH0O+yzxJGD0y6js1oQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.1.1"
     "@fortawesome/free-solid-svg-icons" "^6.1.1"
